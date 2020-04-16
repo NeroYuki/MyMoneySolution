@@ -1,9 +1,8 @@
-package Scenes;
+package scenes;
 
-import javafx.application.Application;
+import controller.loginSceneController;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
-import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 
 public class loginScene {

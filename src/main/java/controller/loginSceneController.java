@@ -1,4 +1,4 @@
-package Scenes;
+package controller;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
