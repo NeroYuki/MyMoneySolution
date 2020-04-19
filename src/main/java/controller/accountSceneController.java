@@ -2,6 +2,7 @@ package controller;
 
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import scenes.*;
 
@@ -48,5 +49,20 @@ public class accountSceneController {
 
     public void logOutBtnClick(ActionEvent e){
         System.exit(0);
+    }
+
+    // position to move screen around easily
+    private double xOffset = 0;
+    private double yOffset = 0;
+    // move scene around
+    public void drag(MouseEvent event) {
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.setX(event.getScreenX() - xOffset);
+        stage.setY(event.getScreenY() - yOffset);
+    }
+
+    public void press(MouseEvent event) {
+        xOffset = event.getSceneX();
+        yOffset = event.getSceneY();
     }
 }

@@ -5,7 +5,6 @@
 .buttonMenu{
     -fx-background-color: grey;
     -fx-text-fill: yellow;
-    -fx-font-weight: light;
 }
 
 .buttonMenu:hover{

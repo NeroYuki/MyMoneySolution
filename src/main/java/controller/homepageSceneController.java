@@ -1,11 +1,26 @@
 package controller;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import scenes.*;
 
-public class homepageSceneController {
+import javax.swing.*;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class homepageSceneController  implements Initializable {
+    @FXML
+    BorderPane homeBorderPane;
     public void transactionBtnClick(ActionEvent e) throws Exception {
         System.out.println("Transaction clicked");
         Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage
@@ -44,5 +59,25 @@ public class homepageSceneController {
 
         settingsScene settings_scene = new settingsScene();
         stage.setScene(settings_scene.getScene());
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+    }
+
+    // position to move screen around easily
+    private double xOffset = 0;
+    private double yOffset = 0;
+    // move scene around
+    public void drag(MouseEvent event) {
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.setX(event.getScreenX() - xOffset);
+        stage.setY(event.getScreenY() - yOffset);
+    }
+
+    public void press(MouseEvent event) {
+        xOffset = event.getSceneX();
+        yOffset = event.getSceneY();
     }
 }
