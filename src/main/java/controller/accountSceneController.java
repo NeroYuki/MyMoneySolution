@@ -45,4 +45,8 @@ public class accountSceneController {
         settingsScene settings_scene = new settingsScene();
         stage.setScene(settings_scene.getScene());
     }
+
+    public void logOutBtnClick(ActionEvent e){
+        System.exit(0);
+    }
 }

@@ -20,4 +20,12 @@ public class homepageScene {
     public Scene getScene() {
         return scene;
     }
+
+    public double getWidth() {
+        return scene.getWidth();
+    }
+
+    public double getHeight() {
+        return scene.getHeight();
+    }
 }

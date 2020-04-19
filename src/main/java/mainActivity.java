@@ -1,10 +1,9 @@
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.Parent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import scenes.*;
 import database.*;
-import controller.*;
 
 public class mainActivity extends Application {
 
@@ -18,6 +17,8 @@ public class mainActivity extends Application {
     public void start(Stage primaryStage) throws Exception{
         primaryStage.setTitle("Test App");
         loginScene login_scene = new loginScene();
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
+        primaryStage.centerOnScreen();
         primaryStage.setScene(login_scene.getScene());
         primaryStage.show();
     }
