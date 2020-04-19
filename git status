@@ -1,0 +1,1251 @@
+warning: LF will be replaced by CRLF in src/main/resources/fxml/frmAccount.fxml.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in src/main/resources/fxml/frmCategories.fxml.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in src/main/resources/fxml/frmHomepage.fxml.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in src/main/resources/fxml/frmLogin.fxml.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in src/main/resources/fxml/frmLoginNew.fxml.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in src/main/resources/fxml/frmSettings.fxml.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in src/main/resources/fxml/frmStatistics.fxml.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in src/main/resources/fxml/frmTransaction.fxml.
+The file will have its original line endings in your working directory
+[1mdiff --git a/src/main/java/controller/accountSceneController.java b/src/main/java/controller/accountSceneController.java[m
+[1mindex efbf35d..33e7ced 100644[m
+[1m--- a/src/main/java/controller/accountSceneController.java[m
+[1m+++ b/src/main/java/controller/accountSceneController.java[m
+[36m@@ -1,4 +1,48 @@[m
+ package controller;[m
+ [m
+[31m-public class homepageSceneController {[m
+[32m+[m[32mimport javafx.event.ActionEvent;[m
+[32m+[m[32mimport javafx.scene.Node;[m
+[32m+[m[32mimport javafx.stage.Stage;[m
+[32m+[m[32mimport scenes.*;[m
+[32m+[m
+[32m+[m[32mpublic class accountSceneController {[m
+[32m+[m[32m    public void transactionBtnClick(ActionEvent e) throws Exception {[m
+[32m+[m[32m        System.out.println("Transaction clicked");[m
+[32m+[m[32m        Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage[m
+[32m+[m
+[32m+[m[32m        transactionScene transaction_scene = new transactionScene();[m
+[32m+[m[32m        stage.setScene(transaction_scene.getScene());[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void statisticsBtnClick(ActionEvent e) throws Exception {[m
+[32m+[m[32m        System.out.println("Statistics clicked");[m
+[32m+[m[32m        Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage[m
+[32m+[m
+[32m+[m[32m        statisticsScene statistics_scene = new statisticsScene();[m
+[32m+[m[32m        stage.setScene(statistics_scene.getScene());[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void categoriesBtnClick(ActionEvent e) throws Exception {[m
+[32m+[m[32m        System.out.println("Categories clicked");[m
+[32m+[m[32m        Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage[m
+[32m+[m
+[32m+[m[32m        categoriesScene categories_scene = new categoriesScene();[m
+[32m+[m[32m        stage.setScene(categories_scene.getScene());[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void homeBtnClick(ActionEvent e) throws Exception {[m
+[32m+[m[32m        System.out.println("Home clicked");[m
+[32m+[m[32m        Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage[m
+[32m+[m
+[32m+[m[32m        homepageScene homepage_scene = new homepageScene();[m
+[32m+[m[32m        stage.setScene(homepage_scene.getScene());[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void settingBtnClick(ActionEvent e) throws Exception {[m
+[32m+[m[32m        System.out.println("Setting clicked");[m
+[32m+[m[32m        Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage[m
+[32m+[m
+[32m+[m[32m        settingsScene settings_scene = new settingsScene();[m
+[32m+[m[32m        stage.setScene(settings_scene.getScene());[m
+[32m+[m[32m    }[m
+ }[m
+[1mdiff --git a/src/main/java/controller/categoriesSceneController.java b/src/main/java/controller/categoriesSceneController.java[m
+[1mindex efbf35d..ba3c850 100644[m
+[1m--- a/src/main/java/controller/categoriesSceneController.java[m
+[1m+++ b/src/main/java/controller/categoriesSceneController.java[m
+[36m@@ -1,4 +1,48 @@[m
+ package controller;[m
+ [m
+[31m-public class homepageSceneController {[m
+[32m+[m[32mimport javafx.event.ActionEvent;[m
+[32m+[m[32mimport javafx.scene.Node;[m
+[32m+[m[32mimport javafx.stage.Stage;[m
+[32m+[m[32mimport scenes.*;[m
+[32m+[m
+[32m+[m[32mpublic class categoriesSceneController {[m
+[32m+[m[32m    public void transactionBtnClick(ActionEvent e) throws Exception {[m
+[32m+[m[32m        System.out.println("Transaction clicked");[m
+[32m+[m[32m        Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage[m
+[32m+[m
+[32m+[m[32m        transactionScene transaction_scene = new transactionScene();[m
+[32m+[m[32m        stage.setScene(transaction_scene.getScene());[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void statisticsBtnClick(ActionEvent e) throws Exception {[m
+[32m+[m[32m        System.out.println("Statistics clicked");[m
+[32m+[m[32m        Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage[m
+[32m+[m
+[32m+[m[32m        statisticsScene statistics_scene = new statisticsScene();[m
+[32m+[m[32m        stage.setScene(statistics_scene.getScene());[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void homeBtnClick(ActionEvent e) throws Exception {[m
+[32m+[m[32m        System.out.println("Account clicked");[m
+[32m+[m[32m        Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage[m
+[32m+[m
+[32m+[m[32m        homepageScene homepage_scene = new homepageScene();[m
+[32m+[m[32m        stage.setScene(homepage_scene.getScene());[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void accountBtnClick(ActionEvent e) throws Exception {[m
+[32m+[m[32m        System.out.println("Account clicked");[m
+[32m+[m[32m        Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage[m
+[32m+[m
+[32m+[m[32m        accountScene account_scene = new accountScene();[m
+[32m+[m[32m        stage.setScene(account_scene.getScene());[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void settingBtnClick(ActionEvent e) throws Exception {[m
+[32m+[m[32m        System.out.println("Setting clicked");[m
+[32m+[m[32m        Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage[m
+[32m+[m
+[32m+[m[32m        settingsScene settings_scene = new settingsScene();[m
+[32m+[m[32m        stage.setScene(settings_scene.getScene());[m
+[32m+[m[32m    }[m
+ }[m
+[1mdiff --git a/src/main/java/controller/homepageSceneController.java b/src/main/java/controller/homepageSceneController.java[m
+[1mindex 73ae0d8..2d58d4a 100644[m
+[1m--- a/src/main/java/controller/homepageSceneController.java[m
+[1m+++ b/src/main/java/controller/homepageSceneController.java[m
+[36m@@ -1,4 +1,48 @@[m
+ package controller;[m
+ [m
+[31m-public class homepageController {[m
+[32m+[m[32mimport javafx.event.ActionEvent;[m
+[32m+[m[32mimport javafx.scene.Node;[m
+[32m+[m[32mimport javafx.stage.Stage;[m
+[32m+[m[32mimport scenes.*;[m
+[32m+[m
+[32m+[m[32mpublic class homepageSceneController {[m
+[32m+[m[32m    public void transactionBtnClick(ActionEvent e) throws Exception {[m
+[32m+[m[32m        System.out.println("Transaction clicked");[m
+[32m+[m[32m        Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage[m
+[32m+[m
+[32m+[m[32m        transactionScene transaction_scene = new transactionScene();[m
+[32m+[m[32m        stage.setScene(transaction_scene.getScene());[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void statisticsBtnClick(ActionEvent e) throws Exception {[m
+[32m+[m[32m        System.out.println("Statistics clicked");[m
+[32m+[m[32m        Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage[m
+[32m+[m
+[32m+[m[32m        statisticsScene statistics_scene = new statisticsScene();[m
+[32m+[m[32m        stage.setScene(statistics_scene.getScene());[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void categoriesBtnClick(ActionEvent e) throws Exception {[m
+[32m+[m[32m        System.out.println("Categories clicked");[m
+[32m+[m[32m        Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage[m
+[32m+[m
+[32m+[m[32m        categoriesScene categories_scene = new categoriesScene();[m
+[32m+[m[32m        stage.setScene(categories_scene.getScene());[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void accountBtnClick(ActionEvent e) throws Exception {[m
+[32m+[m[32m        System.out.println("Account clicked");[m
+[32m+[m[32m        Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage[m
+[32m+[m
+[32m+[m[32m        accountScene account_scene = new accountScene();[m
+[32m+[m[32m        stage.setScene(account_scene.getScene());[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void settingBtnClick(ActionEvent e) throws Exception {[m
+[32m+[m[32m        System.out.println("Setting clicked");[m
+[32m+[m[32m        Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage[m
+[32m+[m
+[32m+[m[32m        settingsScene settings_scene = new settingsScene();[m
+[32m+[m[32m        stage.setScene(settings_scene.getScene());[m
+[32m+[m[32m    }[m
+ }[m
+[1mdiff --git a/src/main/java/controller/loginSceneController.java b/src/main/java/controller/loginSceneController.java[m
+[1mindex b8f303e..bde2323 100644[m
+[1m--- a/src/main/java/controller/loginSceneController.java[m
+[1m+++ b/src/main/java/controller/loginSceneController.java[m
+[36m@@ -1,12 +1,35 @@[m
+ package controller;[m
+ [m
+[32m+[m[32mimport javafx.event.ActionEvent;[m
+ import javafx.event.Event;[m
+ import javafx.fxml.FXML;[m
+[32m+[m[32mimport javafx.fxml.FXMLLoader;[m
+[32m+[m[32mimport javafx.scene.Node;[m
+[32m+[m[32mimport javafx.scene.Parent;[m
+[32m+[m[32mimport javafx.scene.Scene;[m
+ import javafx.scene.control.*;[m
+[32m+[m[32mimport javafx.stage.Stage;[m
+[32m+[m[32mimport scenes.homepageScene;[m
+[32m+[m[32mimport scenes.loginScene;[m
+[32m+[m
+[32m+[m[32mimport java.io.IOException;[m
+ [m
+ public class loginSceneController {[m
+     @FXML[m
+[31m-    public void loginBtnClicked(Event e){[m
+[31m-        System.out.println("Button clicked");[m
+[32m+[m[32m    public void loginBtnClick(ActionEvent e) throws Exception {[m
+[32m+[m[32m        System.out.println("Login clicked");[m
+[32m+[m[32m        Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage[m
+[32m+[m
+[32m+[m[32m        homepageScene homepage_scene = new homepageScene();[m
+[32m+[m[32m        stage.setScene(homepage_scene.getScene());[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void registerBtnClick(ActionEvent e) throws IOException {[m
+[32m+[m[32m        System.out.println("Register clicked");[m
+[32m+[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void closeBtnClick(ActionEvent e){[m
+[32m+[m[32m        System.exit(0);[m
+     }[m
+ }[m
+[1mdiff --git a/src/main/java/controller/settingSceneController.java b/src/main/java/controller/settingSceneController.java[m
+[1mindex efbf35d..fabfd89 100644[m
+[1m--- a/src/main/java/controller/settingSceneController.java[m
+[1m+++ b/src/main/java/controller/settingSceneController.java[m
+[36m@@ -1,4 +1,48 @@[m
+ package controller;[m
+ [m
+[31m-public class homepageSceneController {[m
+[32m+[m[32mimport javafx.event.ActionEvent;[m
+[32m+[m[32mimport javafx.scene.Node;[m
+[32m+[m[32mimport javafx.stage.Stage;[m
+[32m+[m[32mimport scenes.*;[m
+[32m+[m
+[32m+[m[32mpublic class settingSceneController {[m
+[32m+[m[32m    public void transactionBtnClick(ActionEvent e) throws Exception {[m
+[32m+[m[32m        System.out.println("Transaction clicked");[m
+[32m+[m[32m        Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage[m
+[32m+[m
+[32m+[m[32m        transactionScene transaction_scene = new transactionScene();[m
+[32m+[m[32m        stage.setScene(transaction_scene.getScene());[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void statisticsBtnClick(ActionEvent e) throws Exception {[m
+[32m+[m[32m        System.out.println("Statistics clicked");[m
+[32m+[m[32m        Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage[m
+[32m+[m
+[32m+[m[32m        statisticsScene statistics_scene = new statisticsScene();[m
+[32m+[m[32m        stage.setScene(statistics_scene.getScene());[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void categoriesBtnClick(ActionEvent e) throws Exception {[m
+[32m+[m[32m        System.out.println("Categories clicked");[m
+[32m+[m[32m        Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage[m
+[32m+[m
+[32m+[m[32m        categoriesScene categories_scene = new categoriesScene();[m
+[32m+[m[32m        stage.setScene(categories_scene.getScene());[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void accountBtnClick(ActionEvent e) throws Exception {[m
+[32m+[m[32m        System.out.println("Account clicked");[m
+[32m+[m[32m        Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage[m
+[32m+[m
+[32m+[m[32m        accountScene account_scene = new accountScene();[m
+[32m+[m[32m        stage.setScene(account_scene.getScene());[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void homeBtnClick(ActionEvent e) throws Exception {[m
+[32m+[m[32m        System.out.println("Account clicked");[m
+[32m+[m[32m        Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage[m
+[32m+[m
+[32m+[m[32m        homepageScene homepage_scene = new homepageScene();[m
+[32m+[m[32m        stage.setScene(homepage_scene.getScene());[m
+[32m+[m[32m    }[m
+ }[m
+[1mdiff --git a/src/main/java/controller/statisticsSceneController.java b/src/main/java/controller/statisticsSceneController.java[m
+[1mindex efbf35d..0818153 100644[m
+[1m--- a/src/main/java/controller/statisticsSceneController.java[m
+[1m+++ b/src/main/java/controller/statisticsSceneController.java[m
+[36m@@ -1,4 +1,49 @@[m
+ package controller;[m
+ [m
+[31m-public class homepageSceneController {[m
+[32m+[m[32mimport javafx.event.ActionEvent;[m
+[32m+[m[32mimport javafx.scene.Node;[m
+[32m+[m[32mimport javafx.stage.Stage;[m
+[32m+[m[32mimport scenes.*;[m
+[32m+[m
+[32m+[m[32mpublic class statisticsSceneController {[m
+[32m+[m[32m    public void transactionBtnClick(ActionEvent e) throws Exception {[m
+[32m+[m[32m        System.out.println("Transaction clicked");[m
+[32m+[m[32m        Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage[m
+[32m+[m
+[32m+[m[32m        transactionScene transaction_scene = new transactionScene();[m
+[32m+[m[32m        stage.setScene(transaction_scene.getScene());[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void homeBtnClick(ActionEvent e) throws Exception {[m
+[32m+[m[32m        System.out.println("Account clicked");[m
+[32m+[m[32m        Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage[m
+[32m+[m
+[32m+[m[32m        homepageScene homepage_scene = new homepageScene();[m
+[32m+[m[32m        stage.setScene(homepage_scene.getScene());[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void categoriesBtnClick(ActionEvent e) throws Exception {[m
+[32m+[m[32m        System.out.println("Categories clicked");[m
+[32m+[m[32m        Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage[m
+[32m+[m
+[32m+[m[32m        categoriesScene categories_scene = new categoriesScene();[m
+[32m+[m[32m        stage.setScene(categories_scene.getScene());[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void accountBtnClick(ActionEvent e) throws Exception {[m
+[32m+[m[32m        System.out.println("Account clicked");[m
+[32m+[m[32m        Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage[m
+[32m+[m
+[32m+[m[32m        accountScene account_scene = new accountScene();[m
+[32m+[m[32m        stage.setScene(account_scene.getScene());[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void settingBtnClick(ActionEvent e) throws Exception {[m
+[32m+[m[32m        System.out.println("Setting clicked");[m
+[32m+[m[32m        Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage[m
+[32m+[m
+[32m+[m[32m        settingsScene settings_scene = new settingsScene();[m
+[32m+[m[32m        stage.setScene(settings_scene.getScene());[m
+[32m+[m[32m    }[m
+[32m+[m
+ }[m
+[1mdiff --git a/src/main/java/controller/transactionSceneController.java b/src/main/java/controller/transactionSceneController.java[m
+[1mindex efbf35d..127db8b 100644[m
+[1m--- a/src/main/java/controller/transactionSceneController.java[m
+[1m+++ b/src/main/java/controller/transactionSceneController.java[m
+[36m@@ -1,4 +1,48 @@[m
+ package controller;[m
+ [m
+[31m-public class homepageSceneController {[m
+[32m+[m[32mimport javafx.event.ActionEvent;[m
+[32m+[m[32mimport javafx.scene.Node;[m
+[32m+[m[32mimport javafx.stage.Stage;[m
+[32m+[m[32mimport scenes.*;[m
+[32m+[m
+[32m+[m[32mpublic class transactionSceneController {[m
+[32m+[m[32m    public void homeBtnClick(ActionEvent e) throws Exception {[m
+[32m+[m[32m        System.out.println("Account clicked");[m
+[32m+[m[32m        Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage[m
+[32m+[m
+[32m+[m[32m        homepageScene homepage_scene = new homepageScene();[m
+[32m+[m[32m        stage.setScene(homepage_scene.getScene());[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void statisticsBtnClick(ActionEvent e) throws Exception {[m
+[32m+[m[32m        System.out.println("Statistics clicked");[m
+[32m+[m[32m        Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage[m
+[32m+[m
+[32m+[m[32m        statisticsScene statistics_scene = new statisticsScene();[m
+[32m+[m[32m        stage.setScene(statistics_scene.getScene());[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void categoriesBtnClick(ActionEvent e) throws Exception {[m
+[32m+[m[32m        System.out.println("Categories clicked");[m
+[32m+[m[32m        Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage[m
+[32m+[m
+[32m+[m[32m        categoriesScene categories_scene = new categoriesScene();[m
+[32m+[m[32m        stage.setScene(categories_scene.getScene());[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void accountBtnClick(ActionEvent e) throws Exception {[m
+[32m+[m[32m        System.out.println("Account clicked");[m
+[32m+[m[32m        Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage[m
+[32m+[m
+[32m+[m[32m        accountScene account_scene = new accountScene();[m
+[32m+[m[32m        stage.setScene(account_scene.getScene());[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void settingBtnClick(ActionEvent e) throws Exception {[m
+[32m+[m[32m        System.out.println("Setting clicked");[m
+[32m+[m[32m        Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage[m
+[32m+[m
+[32m+[m[32m        settingsScene settings_scene = new settingsScene();[m
+[32m+[m[32m        stage.setScene(settings_scene.getScene());[m
+[32m+[m[32m    }[m
+ }[m
+[1mdiff --git a/src/main/java/mainActivity.java b/src/main/java/mainActivity.java[m
+[1mindex bdf72f7..ff1568d 100644[m
+[1m--- a/src/main/java/mainActivity.java[m
+[1m+++ b/src/main/java/mainActivity.java[m
+[36m@@ -12,7 +12,7 @@[m [mpublic class mainActivity extends Application {[m
+ [m
+     private static final String DB_URL = "jdbc:mysql://localhost:3306/testdb";[m
+     private static final String USER_NAME = "root";[m
+[31m-    private static final String PASSWORD = "SE330.K21";[m
+[32m+[m[32m    private static final String PASSWORD = "leesown123";[m
+ [m
+     @Override[m
+     public void start(Stage primaryStage) throws Exception{[m
+[1mdiff --git a/src/main/java/scenes/accountScene.java b/src/main/java/scenes/accountScene.java[m
+[1mindex 5d4e138..79a3ef8 100644[m
+[1m--- a/src/main/java/scenes/accountScene.java[m
+[1m+++ b/src/main/java/scenes/accountScene.java[m
+[36m@@ -1,20 +1,20 @@[m
+ package scenes;[m
+ [m
+[32m+[m[32mimport controller.accountSceneController;[m
+ import controller.homepageSceneController;[m
+[31m-import controller.loginSceneController;[m
+ import javafx.fxml.FXMLLoader;[m
+ import javafx.scene.Parent;[m
+ import javafx.scene.Scene;[m
+ [m
+[31m-public class homepageScene {[m
+[32m+[m[32mpublic class accountScene {[m
+     private Scene scene;[m
+[31m-    private homepageSceneController controller;[m
+[31m-    public homepageScene() throws Exception {[m
+[31m-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/frmHomepage.fxml"));[m
+[32m+[m[32m    private accountSceneController controller;[m
+[32m+[m[32m    public accountScene() throws Exception {[m
+[32m+[m[32m        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/frmAccount.fxml"));[m
+         scene = new Scene(root);[m
+ [m
+ [m
+[31m-        controller = new homepageSceneController();[m
+[32m+[m[32m        controller = new accountSceneController();[m
+     }[m
+ [m
+     public Scene getScene() {[m
+[1mdiff --git a/src/main/java/scenes/categoriesScene.java b/src/main/java/scenes/categoriesScene.java[m
+[1mindex 5d4e138..2fafaa5 100644[m
+[1m--- a/src/main/java/scenes/categoriesScene.java[m
+[1m+++ b/src/main/java/scenes/categoriesScene.java[m
+[36m@@ -1,20 +1,20 @@[m
+ package scenes;[m
+ [m
+[32m+[m[32mimport controller.categoriesSceneController;[m
+ import controller.homepageSceneController;[m
+[31m-import controller.loginSceneController;[m
+ import javafx.fxml.FXMLLoader;[m
+ import javafx.scene.Parent;[m
+ import javafx.scene.Scene;[m
+ [m
+[31m-public class homepageScene {[m
+[32m+[m[32mpublic class categoriesScene {[m
+     private Scene scene;[m
+[31m-    private homepageSceneController controller;[m
+[31m-    public homepageScene() throws Exception {[m
+[31m-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/frmHomepage.fxml"));[m
+[32m+[m[32m    private categoriesSceneController controller;[m
+[32m+[m[32m    public categoriesScene() throws Exception {[m
+[32m+[m[32m        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/frmCategories.fxml"));[m
+         scene = new Scene(root);[m
+ [m
+ [m
+[31m-        controller = new homepageSceneController();[m
+[32m+[m[32m        controller = new categoriesSceneController();[m
+     }[m
+ [m
+     public Scene getScene() {[m
+[1mdiff --git a/src/main/java/scenes/homepageScene.java b/src/main/java/scenes/homepageScene.java[m
+[1mindex 7a45cc8..5d4e138 100644[m
+[1m--- a/src/main/java/scenes/homepageScene.java[m
+[1m+++ b/src/main/java/scenes/homepageScene.java[m
+[36m@@ -1,4 +1,23 @@[m
+ package scenes;[m
+ [m
+[32m+[m[32mimport controller.homepageSceneController;[m
+[32m+[m[32mimport controller.loginSceneController;[m
+[32m+[m[32mimport javafx.fxml.FXMLLoader;[m
+[32m+[m[32mimport javafx.scene.Parent;[m
+[32m+[m[32mimport javafx.scene.Scene;[m
+[32m+[m
+ public class homepageScene {[m
+[32m+[m[32m    private Scene scene;[m
+[32m+[m[32m    private homepageSceneController controller;[m
+[32m+[m[32m    public homepageScene() throws Exception {[m
+[32m+[m[32m        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/frmHomepage.fxml"));[m
+[32m+[m[32m        scene = new Scene(root);[m
+[32m+[m
+[32m+[m
+[32m+[m[32m        controller = new homepageSceneController();[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public Scene getScene() {[m
+[32m+[m[32m        return scene;[m
+[32m+[m[32m    }[m
+ }[m
+[1mdiff --git a/src/main/java/scenes/loginScene.java b/src/main/java/scenes/loginScene.java[m
+[1mindex 91f586a..2cf91ed 100644[m
+[1m--- a/src/main/java/scenes/loginScene.java[m
+[1m+++ b/src/main/java/scenes/loginScene.java[m
+[36m@@ -6,11 +6,15 @@[m [mimport javafx.scene.Parent;[m
+ import javafx.fxml.FXMLLoader;[m
+ [m
+ public class loginScene {[m
+[32m+[m[32m//    private double xOffset = 0;[m
+[32m+[m[32m//    private double yOffset = 0;[m
+     private Scene scene;[m
+     private loginSceneController controller;[m
+     public loginScene() throws Exception {[m
+[31m-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/main.fxml"));[m
+[31m-        scene = new Scene(root, 300, 180);[m
+[32m+[m[32m        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/frmLoginNew.fxml"));[m
+[32m+[m[32m        scene = new Scene(root);[m
+[32m+[m
+[32m+[m
+         controller = new loginSceneController();[m
+     }[m
+ [m
+[1mdiff --git a/src/main/java/scenes/settingsScene.java b/src/main/java/scenes/settingsScene.java[m
+[1mindex 5d4e138..92270e7 100644[m
+[1m--- a/src/main/java/scenes/settingsScene.java[m
+[1m+++ b/src/main/java/scenes/settingsScene.java[m
+[36m@@ -1,20 +1,20 @@[m
+ package scenes;[m
+ [m
+ import controller.homepageSceneController;[m
+[31m-import controller.loginSceneController;[m
+[32m+[m[32mimport controller.settingSceneController;[m
+ import javafx.fxml.FXMLLoader;[m
+ import javafx.scene.Parent;[m
+ import javafx.scene.Scene;[m
+ [m
+[31m-public class homepageScene {[m
+[32m+[m[32mpublic class settingsScene {[m
+     private Scene scene;[m
+[31m-    private homepageSceneController controller;[m
+[31m-    public homepageScene() throws Exception {[m
+[31m-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/frmHomepage.fxml"));[m
+[32m+[m[32m    private settingSceneController controller;[m
+[32m+[m[32m    public settingsScene() throws Exception {[m
+[32m+[m[32m        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/frmSettings.fxml"));[m
+         scene = new Scene(root);[m
+ [m
+ [m
+[31m-        controller = new homepageSceneController();[m
+[32m+[m[32m        controller = new settingSceneController();[m
+     }[m
+ [m
+     public Scene getScene() {[m
+[1mdiff --git a/src/main/java/scenes/statisticsScene.java b/src/main/java/scenes/statisticsScene.java[m
+[1mindex 5d4e138..737ebd7 100644[m
+[1m--- a/src/main/java/scenes/statisticsScene.java[m
+[1m+++ b/src/main/java/scenes/statisticsScene.java[m
+[36m@@ -1,20 +1,20 @@[m
+ package scenes;[m
+ [m
+ import controller.homepageSceneController;[m
+[31m-import controller.loginSceneController;[m
+[32m+[m[32mimport controller.statisticsSceneController;[m
+ import javafx.fxml.FXMLLoader;[m
+ import javafx.scene.Parent;[m
+ import javafx.scene.Scene;[m
+ [m
+[31m-public class homepageScene {[m
+[32m+[m[32mpublic class statisticsScene {[m
+     private Scene scene;[m
+[31m-    private homepageSceneController controller;[m
+[31m-    public homepageScene() throws Exception {[m
+[31m-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/frmHomepage.fxml"));[m
+[32m+[m[32m    private statisticsSceneController controller;[m
+[32m+[m[32m    public statisticsScene() throws Exception {[m
+[32m+[m[32m        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/frmStatistics.fxml"));[m
+         scene = new Scene(root);[m
+ [m
+ [m
+[31m-        controller = new homepageSceneController();[m
+[32m+[m[32m        controller = new statisticsSceneController();[m
+     }[m
+ [m
+     public Scene getScene() {[m
+[1mdiff --git a/src/main/java/scenes/transactionScene.java b/src/main/java/scenes/transactionScene.java[m
+[1mindex 5d4e138..cabcac7 100644[m
+[1m--- a/src/main/java/scenes/transactionScene.java[m
+[1m+++ b/src/main/java/scenes/transactionScene.java[m
+[36m@@ -1,20 +1,20 @@[m
+ package scenes;[m
+ [m
+ import controller.homepageSceneController;[m
+[31m-import controller.loginSceneController;[m
+[32m+[m[32mimport controller.transactionSceneController;[m
+ import javafx.fxml.FXMLLoader;[m
+ import javafx.scene.Parent;[m
+ import javafx.scene.Scene;[m
+ [m
+[31m-public class homepageScene {[m
+[32m+[m[32mpublic class transactionScene {[m
+     private Scene scene;[m
+[31m-    private homepageSceneController controller;[m
+[31m-    public homepageScene() throws Exception {[m
+[31m-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/frmHomepage.fxml"));[m
+[32m+[m[32m    private transactionSceneController controller;[m
+[32m+[m[32m    public transactionScene() throws Exception {[m
+[32m+[m[32m        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/frmTransaction.fxml"));[m
+         scene = new Scene(root);[m
+ [m
+ [m
+[31m-        controller = new homepageSceneController();[m
+[32m+[m[32m        controller = new transactionSceneController();[m
+     }[m
+ [m
+     public Scene getScene() {[m
+[1mdiff --git a/src/main/resources/css/main.css b/src/main/resources/css/main.css[m
+[1mindex e69de29..acc9015 100644[m
+[1m--- a/src/main/resources/css/main.css[m
+[1m+++ b/src/main/resources/css/main.css[m
+[36m@@ -0,0 +1,15 @@[m
+[32m+[m[32m.root {[m
+[32m+[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.buttonMenu{[m
+[32m+[m[32m    -fx-background-color: grey;[m
+[32m+[m[32m    -fx-text-fill: yellow;[m
+[32m+[m[32m    -fx-font-weight: light;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.buttonMenu:hover{[m
+[32m+[m[32m    -fx-background-color: lightgrey;[m
+[32m+[m[32m    -fx-text-fill: red;[m
+[32m+[m[32m    -fx-font-weight: bold;[m
+[32m+[m[32m}[m
+[1mdiff --git a/src/main/resources/fxml/frmAccount.fxml b/src/main/resources/fxml/frmAccount.fxml[m
+[1mindex 4cf6a0e..e371c00 100644[m
+[1m--- a/src/main/resources/fxml/frmAccount.fxml[m
+[1m+++ b/src/main/resources/fxml/frmAccount.fxml[m
+[36m@@ -2,12 +2,13 @@[m
+ [m
+ <?import javafx.scene.control.Button?>[m
+ <?import javafx.scene.image.ImageView?>[m
+[32m+[m[32m<?import javafx.scene.layout.AnchorPane?>[m
+ <?import javafx.scene.layout.BorderPane?>[m
+ <?import javafx.scene.layout.HBox?>[m
+ <?import javafx.scene.layout.Pane?>[m
+ <?import javafx.scene.layout.VBox?>[m
+ [m
+[31m-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.homepageSceneController">[m
+[32m+[m[32m<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1050.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.accountSceneController">[m
+    <left>[m
+       <VBox fx:id="menuVbox" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #253546;" BorderPane.alignment="CENTER">[m
+          <children>[m
+[36m@@ -15,7 +16,7 @@[m
+             <HBox prefHeight="56.0" prefWidth="200.0">[m
+                <children>[m
+                   <Pane prefHeight="100.0" prefWidth="28.0" />[m
+[31m-                  <Button contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="60.0" prefWidth="173.0" text="Home">[m
+[32m+[m[32m                  <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#homeBtnClick" prefHeight="60.0" prefWidth="173.0" styleClass="buttonMenu" stylesheets="@../css/main.css" text="Home">[m
+                      <graphic>[m
+                         <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" />[m
+                      </graphic>[m
+[36m@@ -25,7 +26,7 @@[m
+             <HBox prefHeight="56.0" prefWidth="200.0">[m
+                <children>[m
+                   <Pane prefHeight="100.0" prefWidth="28.0" />[m
+[31m-                  <Button contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="60.0" prefWidth="173.0" text="Transaction">[m
+[32m+[m[32m                  <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#transactionBtnClick" prefHeight="60.0" prefWidth="173.0" styleClass="buttonMenu" stylesheets="@../css/main.css" text="Transaction">[m
+                      <graphic>[m
+                         <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" />[m
+                      </graphic>[m
+[36m@@ -35,7 +36,7 @@[m
+             <HBox prefHeight="56.0" prefWidth="200.0">[m
+                <children>[m
+                   <Pane prefHeight="100.0" prefWidth="28.0" />[m
+[31m-                  <Button contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="60.0" prefWidth="173.0" text="Statistics">[m
+[32m+[m[32m                  <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#statisticsBtnClick" prefHeight="60.0" prefWidth="173.0" styleClass="buttonMenu" stylesheets="@../css/main.css" text="Statistics">[m
+                      <graphic>[m
+                         <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" />[m
+                      </graphic>[m
+[36m@@ -45,7 +46,7 @@[m
+             <HBox prefHeight="56.0" prefWidth="200.0">[m
+                <children>[m
+                   <Pane prefHeight="100.0" prefWidth="28.0" />[m
+[31m-                  <Button contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="60.0" prefWidth="173.0" text="Categories">[m
+[32m+[m[32m                  <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#categoriesBtnClick" prefHeight="60.0" prefWidth="173.0" styleClass="buttonMenu" stylesheets="@../css/main.css" text="Categories">[m
+                      <graphic>[m
+                         <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" />[m
+                      </graphic>[m
+[36m@@ -55,7 +56,7 @@[m
+             <HBox prefHeight="56.0" prefWidth="200.0">[m
+                <children>[m
+                   <Pane prefHeight="100.0" prefWidth="28.0" />[m
+[31m-                  <Button contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="60.0" prefWidth="173.0" text="Settings">[m
+[32m+[m[32m                  <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#settingBtnClick" prefHeight="60.0" prefWidth="173.0" styleClass="buttonMenu" stylesheets="@../css/main.css" text="Settings">[m
+                      <graphic>[m
+                         <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" />[m
+                      </graphic>[m
+[36m@@ -65,7 +66,7 @@[m
+             <HBox prefHeight="56.0" prefWidth="200.0">[m
+                <children>[m
+                   <Pane prefHeight="100.0" prefWidth="28.0" />[m
+[31m-                  <Button contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="60.0" prefWidth="173.0" text="Account">[m
+[32m+[m[32m                  <Button contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="60.0" prefWidth="173.0" styleClass="buttonMenu" stylesheets="@../css/main.css" text="Account">[m
+                      <graphic>[m
+                         <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" />[m
+                      </graphic>[m
+[36m@@ -75,4 +76,10 @@[m
+          </children>[m
+       </VBox>[m
+    </left>[m
+[32m+[m[32m   <center>[m
+[32m+[m[32m      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">[m
+[32m+[m[32m         <children>[m
+[32m+[m[32m            <Button layoutX="160.0" layoutY="185.0" mnemonicParsing="false" text="Account" />[m
+[32m+[m[32m         </children></AnchorPane>[m
+[32m+[m[32m   </center>[m
+ </BorderPane>[m
+[1mdiff --git a/src/main/resources/fxml/frmCategories.fxml b/src/main/resources/fxml/frmCategories.fxml[m
+[1mindex 4cf6a0e..8653151 100644[m
+[1m--- a/src/main/resources/fxml/frmCategories.fxml[m
+[1m+++ b/src/main/resources/fxml/frmCategories.fxml[m
+[36m@@ -2,12 +2,13 @@[m
+ [m
+ <?import javafx.scene.control.Button?>[m
+ <?import javafx.scene.image.ImageView?>[m
+[32m+[m[32m<?import javafx.scene.layout.AnchorPane?>[m
+ <?import javafx.scene.layout.BorderPane?>[m
+ <?import javafx.scene.layout.HBox?>[m
+ <?import javafx.scene.layout.Pane?>[m
+ <?import javafx.scene.layout.VBox?>[m
+ [m
+[31m-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.homepageSceneController">[m
+[32m+[m[32m<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.categoriesSceneController">[m
+    <left>[m
+       <VBox fx:id="menuVbox" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #253546;" BorderPane.alignment="CENTER">[m
+          <children>[m
+[36m@@ -15,7 +16,7 @@[m
+             <HBox prefHeight="56.0" prefWidth="200.0">[m
+                <children>[m
+                   <Pane prefHeight="100.0" prefWidth="28.0" />[m
+[31m-                  <Button contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="60.0" prefWidth="173.0" text="Home">[m
+[32m+[m[32m                  <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#homeBtnClick" prefHeight="60.0" prefWidth="173.0" styleClass="buttonMenu" stylesheets="@../css/main.css" text="Home">[m
+                      <graphic>[m
+                         <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" />[m
+                      </graphic>[m
+[36m@@ -25,7 +26,7 @@[m
+             <HBox prefHeight="56.0" prefWidth="200.0">[m
+                <children>[m
+                   <Pane prefHeight="100.0" prefWidth="28.0" />[m
+[31m-                  <Button contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="60.0" prefWidth="173.0" text="Transaction">[m
+[32m+[m[32m                  <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#transactionBtnClick" prefHeight="60.0" prefWidth="173.0" styleClass="buttonMenu" stylesheets="@../css/main.css" text="Transaction">[m
+                      <graphic>[m
+                         <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" />[m
+                      </graphic>[m
+[36m@@ -35,7 +36,7 @@[m
+             <HBox prefHeight="56.0" prefWidth="200.0">[m
+                <children>[m
+                   <Pane prefHeight="100.0" prefWidth="28.0" />[m
+[31m-                  <Button contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="60.0" prefWidth="173.0" text="Statistics">[m
+[32m+[m[32m                  <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#statisticsBtnClick" prefHeight="60.0" prefWidth="173.0" styleClass="buttonMenu" stylesheets="@../css/main.css" text="Statistics">[m
+                      <graphic>[m
+                         <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" />[m
+                      </graphic>[m
+[36m@@ -45,7 +46,7 @@[m
+             <HBox prefHeight="56.0" prefWidth="200.0">[m
+                <children>[m
+                   <Pane prefHeight="100.0" prefWidth="28.0" />[m
+[31m-                  <Button contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="60.0" prefWidth="173.0" text="Categories">[m
+[32m+[m[32m                  <Button contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="60.0" prefWidth="173.0" styleClass="buttonMenu" stylesheets="@../css/main.css" text="Categories">[m
+                      <graphic>[m
+                         <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" />[m
+                      </graphic>[m
+[36m@@ -55,7 +56,7 @@[m
+             <HBox prefHeight="56.0" prefWidth="200.0">[m
+                <children>[m
+                   <Pane prefHeight="100.0" prefWidth="28.0" />[m
+[31m-                  <Button contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="60.0" prefWidth="173.0" text="Settings">[m
+[32m+[m[32m                  <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#settingBtnClick" prefHeight="60.0" prefWidth="173.0" styleClass="buttonMenu" stylesheets="@../css/main.css" text="Settings">[m
+                      <graphic>[m
+                         <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" />[m
+                      </graphic>[m
+[36m@@ -65,7 +66,7 @@[m
+             <HBox prefHeight="56.0" prefWidth="200.0">[m
+                <children>[m
+                   <Pane prefHeight="100.0" prefWidth="28.0" />[m
+[31m-                  <Button contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="60.0" prefWidth="173.0" text="Account">[m
+[32m+[m[32m                  <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#accountBtnClick" prefHeight="60.0" prefWidth="173.0" styleClass="buttonMenu" stylesheets="@../css/main.css" text="Account">[m
+                      <graphic>[m
+                         <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" />[m
+                      </graphic>[m
+[36m@@ -75,4 +76,11 @@[m
+          </children>[m
+       </VBox>[m
+    </left>[m
+[32m+[m[32m   <center>[m
+[32m+[m[32m      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">[m
+[32m+[m[32m         <children>[m
+[32m+[m[32m            <Button layoutX="139.0" layoutY="158.0" mnemonicParsing="false" text="Categories" />[m
+[32m+[m[32m         </children>[m
+[32m+[m[32m      </AnchorPane>[m
+[32m+[m[32m   </center>[m
+ </BorderPane>[m
+[1mdiff --git a/src/main/resources/fxml/frmHomepage.fxml b/src/main/resources/fxml/frmHomepage.fxml[m
+[1mindex 76e6024..4416822 100644[m
+[1m--- a/src/main/resources/fxml/frmHomepage.fxml[m
+[1m+++ b/src/main/resources/fxml/frmHomepage.fxml[m
+[36m@@ -1,14 +1,82 @@[m
+ <?xml version="1.0" encoding="UTF-8"?>[m
+ [m
+[31m-<?import java.lang.*?>[m
+[31m-<?import java.util.*?>[m
+[31m-<?import javafx.scene.*?>[m
+[31m-<?import javafx.scene.control.*?>[m
+[31m-<?import javafx.scene.layout.*?>[m
+[32m+[m[32m<?import javafx.scene.control.Button?>[m
+[32m+[m[32m<?import javafx.scene.image.ImageView?>[m
+[32m+[m[32m<?import javafx.scene.layout.AnchorPane?>[m
+[32m+[m[32m<?import javafx.scene.layout.BorderPane?>[m
+[32m+[m[32m<?import javafx.scene.layout.HBox?>[m
+[32m+[m[32m<?import javafx.scene.layout.Pane?>[m
+[32m+[m[32m<?import javafx.scene.layout.VBox?>[m
+ [m
+[31m-<AnchorPane xmlns="http://javafx.com/javafx"[m
+[31m-            xmlns:fx="http://javafx.com/fxml"[m
+[31m-            fx:controller="$CONTROLLER_NAME$"[m
+[31m-            prefHeight="400.0" prefWidth="600.0">[m
+[31m-[m
+[31m-</AnchorPane>[m
+[32m+[m[32m<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.homepageSceneController">[m
+[32m+[m[32m   <left>[m
+[32m+[m[32m      <VBox fx:id="menuVbox" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #253546;" BorderPane.alignment="CENTER">[m
+[32m+[m[32m         <children>[m
+[32m+[m[32m            <Pane prefHeight="120.0" prefWidth="200.0" />[m
+[32m+[m[32m            <HBox prefHeight="56.0" prefWidth="200.0">[m
+[32m+[m[32m               <children>[m
+[32m+[m[32m                  <Pane prefHeight="100.0" prefWidth="28.0" />[m
+[32m+[m[32m                  <Button contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="60.0" prefWidth="173.0" styleClass="buttonMenu" stylesheets="@../css/main.css" text="Home">[m
+[32m+[m[32m                     <graphic>[m
+[32m+[m[32m                        <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" />[m
+[32m+[m[32m                     </graphic>[m
+[32m+[m[32m                  </Button>[m
+[32m+[m[32m               </children>[m
+[32m+[m[32m            </HBox>[m
+[32m+[m[32m            <HBox prefHeight="56.0" prefWidth="200.0">[m
+[32m+[m[32m               <children>[m
+[32m+[m[32m                  <Pane prefHeight="100.0" prefWidth="28.0" />[m
+[32m+[m[32m                  <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#transactionBtnClick" prefHeight="60.0" prefWidth="173.0" styleClass="buttonMenu" stylesheets="@../css/main.css" text="Transaction">[m
+[32m+[m[32m                     <graphic>[m
+[32m+[m[32m                        <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" />[m
+[32m+[m[32m                     </graphic>[m
+[32m+[m[32m                  </Button>[m
+[32m+[m[32m               </children>[m
+[32m+[m[32m            </HBox>[m
+[32m+[m[32m            <HBox prefHeight="56.0" prefWidth="200.0">[m
+[32m+[m[32m               <children>[m
+[32m+[m[32m                  <Pane prefHeight="100.0" prefWidth="28.0" />[m
+[32m+[m[32m                  <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#statisticsBtnClick" prefHeight="60.0" prefWidth="173.0" styleClass="buttonMenu" stylesheets="@../css/main.css" text="Statistics">[m
+[32m+[m[32m                     <graphic>[m
+[32m+[m[32m                        <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" />[m
+[32m+[m[32m                     </graphic>[m
+[32m+[m[32m                  </Button>[m
+[32m+[m[32m               </children>[m
+[32m+[m[32m            </HBox>[m
+[32m+[m[32m            <HBox prefHeight="56.0" prefWidth="200.0">[m
+[32m+[m[32m               <children>[m
+[32m+[m[32m                  <Pane prefHeight="100.0" prefWidth="28.0" />[m
+[32m+[m[32m                  <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#categoriesBtnClick" prefHeight="60.0" prefWidth="173.0" styleClass="buttonMenu" stylesheets="@../css/main.css" text="Categories">[m
+[32m+[m[32m                     <graphic>[m
+[32m+[m[32m                        <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" />[m
+[32m+[m[32m                     </graphic>[m
+[32m+[m[32m                  </Button>[m
+[32m+[m[32m               </children>[m
+[32m+[m[32m            </HBox>[m
+[32m+[m[32m            <HBox prefHeight="56.0" prefWidth="200.0">[m
+[32m+[m[32m               <children>[m
+[32m+[m[32m                  <Pane prefHeight="100.0" prefWidth="28.0" />[m
+[32m+[m[32m                  <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#settingBtnClick" prefHeight="60.0" prefWidth="173.0" styleClass="buttonMenu" stylesheets="@../css/main.css" text="Settings">[m
+[32m+[m[32m                     <graphic>[m
+[32m+[m[32m                        <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" />[m
+[32m+[m[32m                     </graphic>[m
+[32m+[m[32m                  </Button>[m
+[32m+[m[32m               </children>[m
+[32m+[m[32m            </HBox>[m
+[32m+[m[32m            <HBox prefHeight="56.0" prefWidth="200.0">[m
+[32m+[m[32m               <children>[m
+[32m+[m[32m                  <Pane prefHeight="100.0" prefWidth="28.0" />[m
+[32m+[m[32m                  <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#accountBtnClick" prefHeight="60.0" prefWidth="173.0" styleClass="buttonMenu" stylesheets="@../css/main.css" text="Account">[m
+[32m+[m[32m                     <graphic>[m
+[32m+[m[32m                        <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" />[m
+[32m+[m[32m                     </graphic>[m
+[32m+[m[32m                  </Button>[m
+[32m+[m[32m               </children>[m
+[32m+[m[32m            </HBox>[m
+[32m+[m[32m         </children>[m
+[32m+[m[32m      </VBox>[m
+[32m+[m[32m   </left>[m
+[32m+[m[32m   <center>[m
+[32m+[m[32m      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />[m
+[32m+[m[32m   </center>[m
+[32m+[m[32m</BorderPane>[m
+[1mdiff --git a/src/main/resources/fxml/frmLogin.fxml b/src/main/resources/fxml/frmLogin.fxml[m
+[1mindex 4019316..953a7d9 100644[m
+[1m--- a/src/main/resources/fxml/frmLogin.fxml[m
+[1m+++ b/src/main/resources/fxml/frmLogin.fxml[m
+[36m@@ -21,7 +21,7 @@[m
+         <RowConstraints maxHeight="64.0" minHeight="10.0" percentHeight="25.0" prefHeight="37.0" vgrow="SOMETIMES" />[m
+     </rowConstraints>[m
+     <children>[m
+[31m-        <Button fx:id="loginBtn" mnemonicParsing="false" onAction="#loginBtnClicked" text="Log In" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3">[m
+[32m+[m[32m        <Button mnemonicParsing="false" text="Login" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3">[m
+             <GridPane.margin>[m
+                 <Insets right="10.0" />[m
+             </GridPane.margin>[m
+[36m@@ -46,5 +46,6 @@[m
+                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />[m
+             </GridPane.margin>[m
+         </TextField>[m
+[32m+[m[32m      <Button layoutX="218.0" layoutY="137.0" mnemonicParsing="false" text="Register" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />[m
+     </children>[m
+ </GridPane>[m
+[1mdiff --git a/src/main/resources/fxml/frmLoginNew.fxml b/src/main/resources/fxml/frmLoginNew.fxml[m
+[1mindex 76e6024..2fb4884 100644[m
+[1m--- a/src/main/resources/fxml/frmLoginNew.fxml[m
+[1m+++ b/src/main/resources/fxml/frmLoginNew.fxml[m
+[36m@@ -1,14 +1,75 @@[m
+ <?xml version="1.0" encoding="UTF-8"?>[m
+ [m
+[31m-<?import java.lang.*?>[m
+[31m-<?import java.util.*?>[m
+[32m+[m[32m<?import javafx.geometry.*?>[m
+ <?import javafx.scene.*?>[m
+ <?import javafx.scene.control.*?>[m
+ <?import javafx.scene.layout.*?>[m
+[32m+[m[32m<?import javafx.scene.text.*?>[m
+ [m
+[31m-<AnchorPane xmlns="http://javafx.com/javafx"[m
+[31m-            xmlns:fx="http://javafx.com/fxml"[m
+[31m-            fx:controller="$CONTROLLER_NAME$"[m
+[31m-            prefHeight="400.0" prefWidth="600.0">[m
+[31m-[m
+[31m-</AnchorPane>[m
+[32m+[m[32m<BorderPane fx:id="loginBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.loginSceneController">[m
+[32m+[m[32m   <right>[m
+[32m+[m[32m      <AnchorPane prefHeight="200.0" prefWidth="360.0" style="-fx-background-color: #253546;" BorderPane.alignment="CENTER">[m
+[32m+[m[32m         <children>[m
+[32m+[m[32m            <Button layoutX="284.0" layoutY="20.0" mnemonicParsing="false" onAction="#closeBtnClick" prefHeight="51.0" prefWidth="54.0" text="X">[m
+[32m+[m[32m               <cursor>[m
+[32m+[m[32m                  <Cursor fx:constant="HAND" />[m
+[32m+[m[32m               </cursor>[m
+[32m+[m[32m               <font>[m
+[32m+[m[32m                  <Font name="System Bold" size="24.0" />[m
+[32m+[m[32m               </font>[m
+[32m+[m[32m            </Button>[m
+[32m+[m[32m         </children></AnchorPane>[m
+[32m+[m[32m   </right>[m
+[32m+[m[32m   <center>[m
+[32m+[m[32m      <AnchorPane prefHeight="200.0" prefWidth="360.0" BorderPane.alignment="CENTER">[m
+[32m+[m[32m         <children>[m
+[32m+[m[32m            <Label layoutX="41.0" layoutY="96.0" prefHeight="30.0" prefWidth="103.0" text="User Login">[m
+[32m+[m[32m               <font>[m
+[32m+[m[32m                  <Font size="20.0" />[m
+[32m+[m[32m               </font>[m
+[32m+[m[32m            </Label>[m
+[32m+[m[32m            <HBox alignment="CENTER_LEFT" layoutX="41.0" layoutY="143.0" prefHeight="37.0" prefWidth="250.0" style="-fx-border-color: #bebfe1; -fx-border-radius: 5px; -fx-background-radius: 5px;">[m
+[32m+[m[32m               <children>[m
+[32m+[m[32m                  <TextField promptText="Username" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">[m
+[32m+[m[32m                     <font>[m
+[32m+[m[32m                        <Font size="14.0" />[m
+[32m+[m[32m                     </font>[m
+[32m+[m[32m                  </TextField>[m
+[32m+[m[32m               </children>[m
+[32m+[m[32m               <padding>[m
+[32m+[m[32m                  <Insets left="10.0" />[m
+[32m+[m[32m               </padding></HBox>[m
+[32m+[m[32m            <HBox alignment="CENTER_LEFT" layoutX="41.0" layoutY="194.0" prefHeight="37.0" prefWidth="250.0" style="-fx-border-color: #bebfe1; -fx-border-radius: 5px; -fx-background-radius: 5px;">[m
+[32m+[m[32m               <children>[m
+[32m+[m[32m                  <PasswordField promptText="Password" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">[m
+[32m+[m[32m                     <font>[m
+[32m+[m[32m                        <Font size="14.0" />[m
+[32m+[m[32m                     </font>[m
+[32m+[m[32m                  </PasswordField>[m
+[32m+[m[32m               </children>[m
+[32m+[m[32m               <padding>[m
+[32m+[m[32m                  <Insets left="10.0" />[m
+[32m+[m[32m               </padding>[m
+[32m+[m[32m            </HBox>[m
+[32m+[m[32m            <Button fx:id="loginBtn" layoutX="41.0" layoutY="270.0" mnemonicParsing="false" onAction="#loginBtnClick" prefHeight="37.0" prefWidth="80.0" style="-fx-background-color: #253546; -fx-background-radius: 5pt;" text="LOG IN" textFill="WHITE">[m
+[32m+[m[32m               <cursor>[m
+[32m+[m[32m                  <Cursor fx:constant="HAND" />[m
+[32m+[m[32m               </cursor></Button>[m
+[32m+[m[32m            <Pane layoutY="398.0" prefHeight="102.0" prefWidth="360.0" style="-fx-background-color: #787878;">[m
+[32m+[m[32m               <children>[m
+[32m+[m[32m                  <Button fx:id="registerBtn" layoutX="25.0" layoutY="33.0" mnemonicParsing="false" onAction="#registerBtnClick" prefHeight="37.0" prefWidth="91.0" text="REGISTER" underline="true">[m
+[32m+[m[32m                     <cursor>[m
+[32m+[m[32m                        <Cursor fx:constant="HAND" />[m
+[32m+[m[32m                     </cursor></Button>[m
+[32m+[m[32m                  <Button layoutX="180.0" layoutY="33.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="150.0" text="FORGET PASSWORD" underline="true">[m
+[32m+[m[32m                     <cursor>[m
+[32m+[m[32m                        <Cursor fx:constant="HAND" />[m
+[32m+[m[32m                     </cursor></Button>[m
+[32m+[m[32m               </children>[m
+[32m+[m[32m            </Pane>[m
+[32m+[m[32m            <CheckBox layoutX="192.0" layoutY="280.0" mnemonicParsing="false" text="Remember me" />[m
+[32m+[m[32m            <Label layoutX="27.0" layoutY="16.0" text="Team JAV A © 2020" />[m
+[32m+[m[32m         </children>[m
+[32m+[m[32m      </AnchorPane>[m
+[32m+[m[32m   </center>[m
+[32m+[m[32m</BorderPane>[m
+[1mdiff --git a/src/main/resources/fxml/frmSettings.fxml b/src/main/resources/fxml/frmSettings.fxml[m
+[1mindex 4cf6a0e..bcd3c7e 100644[m
+[1m--- a/src/main/resources/fxml/frmSettings.fxml[m
+[1m+++ b/src/main/resources/fxml/frmSettings.fxml[m
+[36m@@ -2,12 +2,13 @@[m
+ [m
+ <?import javafx.scene.control.Button?>[m
+ <?import javafx.scene.image.ImageView?>[m
+[32m+[m[32m<?import javafx.scene.layout.AnchorPane?>[m
+ <?import javafx.scene.layout.BorderPane?>[m
+ <?import javafx.scene.layout.HBox?>[m
+ <?import javafx.scene.layout.Pane?>[m
+ <?import javafx.scene.layout.VBox?>[m
+ [m
+[31m-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.homepageSceneController">[m
+[32m+[m[32m<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.settingSceneController">[m
+    <left>[m
+       <VBox fx:id="menuVbox" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #253546;" BorderPane.alignment="CENTER">[m
+          <children>[m
+[36m@@ -15,7 +16,7 @@[m
+             <HBox prefHeight="56.0" prefWidth="200.0">[m
+                <children>[m
+                   <Pane prefHeight="100.0" prefWidth="28.0" />[m
+[31m-                  <Button contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="60.0" prefWidth="173.0" text="Home">[m
+[32m+[m[32m                  <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#homeBtnClick" prefHeight="60.0" prefWidth="173.0" styleClass="buttonMenu" stylesheets="@../css/main.css" text="Home">[m
+                      <graphic>[m
+                         <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" />[m
+                      </graphic>[m
+[36m@@ -25,7 +26,7 @@[m
+             <HBox prefHeight="56.0" prefWidth="200.0">[m
+                <children>[m
+                   <Pane prefHeight="100.0" prefWidth="28.0" />[m
+[31m-                  <Button contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="60.0" prefWidth="173.0" text="Transaction">[m
+[32m+[m[32m                  <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#transactionBtnClick" prefHeight="60.0" prefWidth="173.0" styleClass="buttonMenu" stylesheets="@../css/main.css" text="Transaction">[m
+                      <graphic>[m
+                         <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" />[m
+                      </graphic>[m
+[36m@@ -35,7 +36,7 @@[m
+             <HBox prefHeight="56.0" prefWidth="200.0">[m
+                <children>[m
+                   <Pane prefHeight="100.0" prefWidth="28.0" />[m
+[31m-                  <Button contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="60.0" prefWidth="173.0" text="Statistics">[m
+[32m+[m[32m                  <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#statisticsBtnClick" prefHeight="60.0" prefWidth="173.0" styleClass="buttonMenu" stylesheets="@../css/main.css" text="Statistics">[m
+                      <graphic>[m
+                         <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" />[m
+                      </graphic>[m
+[36m@@ -45,7 +46,7 @@[m
+             <HBox prefHeight="56.0" prefWidth="200.0">[m
+                <children>[m
+                   <Pane prefHeight="100.0" prefWidth="28.0" />[m
+[31m-                  <Button contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="60.0" prefWidth="173.0" text="Categories">[m
+[32m+[m[32m                  <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#categoriesBtnClick" prefHeight="60.0" prefWidth="173.0" styleClass="buttonMenu" stylesheets="@../css/main.css" text="Categories">[m
+                      <graphic>[m
+                         <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" />[m
+                      </graphic>[m
+[36m@@ -55,7 +56,7 @@[m
+             <HBox prefHeight="56.0" prefWidth="200.0">[m
+                <children>[m
+                   <Pane prefHeight="100.0" prefWidth="28.0" />[m
+[31m-                  <Button contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="60.0" prefWidth="173.0" text="Settings">[m
+[32m+[m[32m                  <Button contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="60.0" prefWidth="173.0" styleClass="buttonMenu" stylesheets="@../css/main.css" text="Settings">[m
+                      <graphic>[m
+                         <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" />[m
+                      </graphic>[m
+[36m@@ -65,7 +66,7 @@[m
+             <HBox prefHeight="56.0" prefWidth="200.0">[m
+                <children>[m
+                   <Pane prefHeight="100.0" prefWidth="28.0" />[m
+[31m-                  <Button contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="60.0" prefWidth="173.0" text="Account">[m
+[32m+[m[32m                  <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#accountBtnClick" prefHeight="60.0" prefWidth="173.0" styleClass="buttonMenu" stylesheets="@../css/main.css" text="Account">[m
+                      <graphic>[m
+                         <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" />[m
+                      </graphic>[m
+[36m@@ -75,4 +76,11 @@[m
+          </children>[m
+       </VBox>[m
+    </left>[m
+[32m+[m[32m   <center>[m
+[32m+[m[32m      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">[m
+[32m+[m[32m         <children>[m
+[32m+[m[32m            <Button layoutX="226.0" layoutY="161.0" mnemonicParsing="false" text="Setting" />[m
+[32m+[m[32m         </children>[m
+[32m+[m[32m      </AnchorPane>[m
+[32m+[m[32m   </center>[m
+ </BorderPane>[m
+[1mdiff --git a/src/main/resources/fxml/frmStatistics.fxml b/src/main/resources/fxml/frmStatistics.fxml[m
+[1mindex 4cf6a0e..a3471a4 100644[m
+[1m--- a/src/main/resources/fxml/frmStatistics.fxml[m
+[1m+++ b/src/main/resources/fxml/frmStatistics.fxml[m
+[36m@@ -2,12 +2,13 @@[m
+ [m
+ <?import javafx.scene.control.Button?>[m
+ <?import javafx.scene.image.ImageView?>[m
+[32m+[m[32m<?import javafx.scene.layout.AnchorPane?>[m
+ <?import javafx.scene.layout.BorderPane?>[m
+ <?import javafx.scene.layout.HBox?>[m
+ <?import javafx.scene.layout.Pane?>[m
+ <?import javafx.scene.layout.VBox?>[m
+ [m
+[31m-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.homepageSceneController">[m
+[32m+[m[32m<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.statisticsSceneController">[m
+    <left>[m
+       <VBox fx:id="menuVbox" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #253546;" BorderPane.alignment="CENTER">[m
+          <children>[m
+[36m@@ -15,7 +16,7 @@[m
+             <HBox prefHeight="56.0" prefWidth="200.0">[m
+                <children>[m
+                   <Pane prefHeight="100.0" prefWidth="28.0" />[m
+[31m-                  <Button contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="60.0" prefWidth="173.0" text="Home">[m
+[32m+[m[32m                  <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#homeBtnClick" prefHeight="60.0" prefWidth="173.0" styleClass="buttonMenu" stylesheets="@../css/main.css" text="Home">[m
+                      <graphic>[m
+                         <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" />[m
+                      </graphic>[m
+[36m@@ -25,7 +26,7 @@[m
+             <HBox prefHeight="56.0" prefWidth="200.0">[m
+                <children>[m
+                   <Pane prefHeight="100.0" prefWidth="28.0" />[m
+[31m-                  <Button contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="60.0" prefWidth="173.0" text="Transaction">[m
+[32m+[m[32m                  <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#transactionBtnClick" prefHeight="60.0" prefWidth="173.0" styleClass="buttonMenu" stylesheets="@../css/main.css" text="Transaction">[m
+                      <graphic>[m
+                         <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" />[m
+                      </graphic>[m
+[36m@@ -35,7 +36,7 @@[m
+             <HBox prefHeight="56.0" prefWidth="200.0">[m
+                <children>[m
+                   <Pane prefHeight="100.0" prefWidth="28.0" />[m
+[31m-                  <Button contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="60.0" prefWidth="173.0" text="Statistics">[m
+[32m+[m[32m                  <Button contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="60.0" prefWidth="173.0" styleClass="buttonMenu" stylesheets="@../css/main.css" text="Statistics">[m
+                      <graphic>[m
+                         <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" />[m
+                      </graphic>[m
+[36m@@ -45,7 +46,7 @@[m
+             <HBox prefHeight="56.0" prefWidth="200.0">[m
+                <children>[m
+                   <Pane prefHeight="100.0" prefWidth="28.0" />[m
+[31m-                  <Button contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="60.0" prefWidth="173.0" text="Categories">[m
+[32m+[m[32m                  <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#categoriesBtnClick" prefHeight="60.0" prefWidth="173.0" styleClass="buttonMenu" stylesheets="@../css/main.css" text="Categories">[m
+                      <graphic>[m
+                         <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" />[m
+                      </graphic>[m
+[36m@@ -55,7 +56,7 @@[m
+             <HBox prefHeight="56.0" prefWidth="200.0">[m
+                <children>[m
+                   <Pane prefHeight="100.0" prefWidth="28.0" />[m
+[31m-                  <Button contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="60.0" prefWidth="173.0" text="Settings">[m
+[32m+[m[32m                  <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#settingBtnClick" prefHeight="60.0" prefWidth="173.0" styleClass="buttonMenu" stylesheets="@../css/main.css" text="Settings">[m
+                      <graphic>[m
+                         <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" />[m
+                      </graphic>[m
+[36m@@ -65,7 +66,7 @@[m
+             <HBox prefHeight="56.0" prefWidth="200.0">[m
+                <children>[m
+                   <Pane prefHeight="100.0" prefWidth="28.0" />[m
+[31m-                  <Button contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="60.0" prefWidth="173.0" text="Account">[m
+[32m+[m[32m                  <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#accountBtnClick" prefHeight="60.0" prefWidth="173.0" styleClass="buttonMenu" stylesheets="@../css/main.css" text="Account">[m
+                      <graphic>[m
+                         <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" />[m
+                      </graphic>[m
+[36m@@ -75,4 +76,11 @@[m
+          </children>[m
+       </VBox>[m
+    </left>[m
+[32m+[m[32m   <center>[m
+[32m+[m[32m      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">[m
+[32m+[m[32m         <children>[m
+[32m+[m[32m            <Button layoutX="123.0" layoutY="180.0" mnemonicParsing="false" text="Statistics" />[m
+[32m+[m[32m         </children>[m
+[32m+[m[32m      </AnchorPane>[m
+[32m+[m[32m   </center>[m
+ </BorderPane>[m
+[1mdiff --git a/src/main/resources/fxml/frmTransaction.fxml b/src/main/resources/fxml/frmTransaction.fxml[m
+[1mindex 4cf6a0e..c200581 100644[m
+[1m--- a/src/main/resources/fxml/frmTransaction.fxml[m
+[1m+++ b/src/main/resources/fxml/frmTransaction.fxml[m
+[36m@@ -2,12 +2,13 @@[m
+ [m
+ <?import javafx.scene.control.Button?>[m
+ <?import javafx.scene.image.ImageView?>[m
+[32m+[m[32m<?import javafx.scene.layout.AnchorPane?>[m
+ <?import javafx.scene.layout.BorderPane?>[m
+ <?import javafx.scene.layout.HBox?>[m
+ <?import javafx.scene.layout.Pane?>[m
+ <?import javafx.scene.layout.VBox?>[m
+ [m
+[31m-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.homepageSceneController">[m
+[32m+[m[32m<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.transactionSceneController">[m
+    <left>[m
+       <VBox fx:id="menuVbox" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #253546;" BorderPane.alignment="CENTER">[m
+          <children>[m
+[36m@@ -15,7 +16,7 @@[m
+             <HBox prefHeight="56.0" prefWidth="200.0">[m
+                <children>[m
+                   <Pane prefHeight="100.0" prefWidth="28.0" />[m
+[31m-                  <Button contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="60.0" prefWidth="173.0" text="Home">[m
+[32m+[m[32m                  <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#homeBtnClick" prefHeight="60.0" prefWidth="173.0" styleClass="buttonMenu" stylesheets="@../css/main.css" text="Home">[m
+                      <graphic>[m
+                         <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" />[m
+                      </graphic>[m
+[36m@@ -25,7 +26,7 @@[m
+             <HBox prefHeight="56.0" prefWidth="200.0">[m
+                <children>[m
+                   <Pane prefHeight="100.0" prefWidth="28.0" />[m
+[31m-                  <Button contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="60.0" prefWidth="173.0" text="Transaction">[m
+[32m+[m[32m                  <Button contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="60.0" prefWidth="173.0" styleClass="buttonMenu" stylesheets="@../css/main.css" text="Transaction">[m
+                      <graphic>[m
+                         <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" />[m
+                      </graphic>[m
+[36m@@ -35,7 +36,7 @@[m
+             <HBox prefHeight="56.0" prefWidth="200.0">[m
+                <children>[m
+                   <Pane prefHeight="100.0" prefWidth="28.0" />[m
+[31m-                  <Button contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="60.0" prefWidth="173.0" text="Statistics">[m
+[32m+[m[32m                  <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#statisticsBtnClick" prefHeight="60.0" prefWidth="173.0" styleClass="buttonMenu" stylesheets="@../css/main.css" text="Statistics">[m
+                      <graphic>[m
+                         <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" />[m
+                      </graphic>[m
+[36m@@ -45,7 +46,7 @@[m
+             <HBox prefHeight="56.0" prefWidth="200.0">[m
+                <children>[m
+                   <Pane prefHeight="100.0" prefWidth="28.0" />[m
+[31m-                  <Button contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="60.0" prefWidth="173.0" text="Categories">[m
+[32m+[m[32m                  <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#categoriesBtnClick" prefHeight="60.0" prefWidth="173.0" styleClass="buttonMenu" stylesheets="@../css/main.css" text="Categories">[m
+                      <graphic>[m
+                         <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" />[m
+                      </graphic>[m
+[36m@@ -55,7 +56,7 @@[m
+             <HBox prefHeight="56.0" prefWidth="200.0">[m
+                <children>[m
+                   <Pane prefHeight="100.0" prefWidth="28.0" />[m
+[31m-                  <Button contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="60.0" prefWidth="173.0" text="Settings">[m
+[32m+[m[32m                  <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#settingBtnClick" prefHeight="60.0" prefWidth="173.0" styleClass="buttonMenu" stylesheets="@../css/main.css" text="Settings">[m
+                      <graphic>[m
+                         <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" />[m
+                      </graphic>[m
+[36m@@ -65,7 +66,7 @@[m
+             <HBox prefHeight="56.0" prefWidth="200.0">[m
+                <children>[m
+                   <Pane prefHeight="100.0" prefWidth="28.0" />[m
+[31m-                  <Button contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="60.0" prefWidth="173.0" text="Account">[m
+[32m+[m[32m                  <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#accountBtnClick" prefHeight="60.0" prefWidth="173.0" styleClass="buttonMenu" stylesheets="@../css/main.css" text="Account">[m
+                      <graphic>[m
+                         <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" />[m
+                      </graphic>[m
+[36m@@ -75,4 +76,11 @@[m
+          </children>[m
+       </VBox>[m
+    </left>[m
+[32m+[m[32m   <center>[m
+[32m+[m[32m      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">[m
+[32m+[m[32m         <children>[m
+[32m+[m[32m            <Button layoutX="141.0" layoutY="125.0" mnemonicParsing="false" text="Transaction" />[m
+[32m+[m[32m         </children>[m
+[32m+[m[32m      </AnchorPane>[m
+[32m+[m[32m   </center>[m
+ </BorderPane>[m

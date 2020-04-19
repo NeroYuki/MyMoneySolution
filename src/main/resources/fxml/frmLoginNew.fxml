@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane fx:id="loginBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.loginSceneController">
+   <right>
+      <AnchorPane prefHeight="200.0" prefWidth="360.0" style="-fx-background-color: #253546;" BorderPane.alignment="CENTER">
+         <children>
+            <Button layoutX="284.0" layoutY="20.0" mnemonicParsing="false" onAction="#closeBtnClick" prefHeight="51.0" prefWidth="54.0" text="X">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Button>
+         </children></AnchorPane>
+   </right>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="360.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="41.0" layoutY="96.0" prefHeight="30.0" prefWidth="103.0" text="User Login">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER_LEFT" layoutX="41.0" layoutY="143.0" prefHeight="37.0" prefWidth="250.0" style="-fx-border-color: #bebfe1; -fx-border-radius: 5px; -fx-background-radius: 5px;">
+               <children>
+                  <TextField promptText="Username" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+               </children>
+               <padding>
+                  <Insets left="10.0" />
+               </padding></HBox>
+            <HBox alignment="CENTER_LEFT" layoutX="41.0" layoutY="194.0" prefHeight="37.0" prefWidth="250.0" style="-fx-border-color: #bebfe1; -fx-border-radius: 5px; -fx-background-radius: 5px;">
+               <children>
+                  <PasswordField promptText="Password" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </PasswordField>
+               </children>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </HBox>
+            <Button fx:id="loginBtn" layoutX="41.0" layoutY="270.0" mnemonicParsing="false" onAction="#loginBtnClick" prefHeight="37.0" prefWidth="80.0" style="-fx-background-color: #253546; -fx-background-radius: 5pt;" text="LOG IN" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Pane layoutY="398.0" prefHeight="102.0" prefWidth="360.0" style="-fx-background-color: #787878;">
+               <children>
+                  <Button fx:id="registerBtn" layoutX="25.0" layoutY="33.0" mnemonicParsing="false" onAction="#registerBtnClick" prefHeight="37.0" prefWidth="91.0" text="REGISTER" underline="true">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+                  <Button layoutX="180.0" layoutY="33.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="150.0" text="FORGET PASSWORD" underline="true">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+               </children>
+            </Pane>
+            <CheckBox layoutX="192.0" layoutY="280.0" mnemonicParsing="false" text="Remember me" />
+            <Label layoutX="27.0" layoutY="16.0" text="Team JAV A © 2020" />
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

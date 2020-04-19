@@ -6,11 +6,15 @@ import javafx.scene.Parent;
 import javafx.fxml.FXMLLoader;
 
 public class loginScene {
+//    private double xOffset = 0;
+//    private double yOffset = 0;
     private Scene scene;
     private loginSceneController controller;
     public loginScene() throws Exception {
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/main.fxml"));
-        scene = new Scene(root, 300, 180);
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/frmLoginNew.fxml"));
+        scene = new Scene(root);
+
+
         controller = new loginSceneController();
     }
 

@@ -21,7 +21,7 @@
         <RowConstraints maxHeight="64.0" minHeight="10.0" percentHeight="25.0" prefHeight="37.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <Button fx:id="loginBtn" mnemonicParsing="false" onAction="#loginBtnClicked" text="Log In" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+        <Button mnemonicParsing="false" text="Login" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
             <GridPane.margin>
                 <Insets right="10.0" />
             </GridPane.margin>
@@ -46,5 +46,6 @@
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </GridPane.margin>
         </TextField>
+      <Button layoutX="218.0" layoutY="137.0" mnemonicParsing="false" text="Register" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
     </children>
 </GridPane>

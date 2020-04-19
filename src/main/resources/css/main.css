@@ -1,0 +1,15 @@
+.root {
+
+}
+
+.buttonMenu{
+    -fx-background-color: grey;
+    -fx-text-fill: yellow;
+    -fx-font-weight: light;
+}
+
+.buttonMenu:hover{
+    -fx-background-color: lightgrey;
+    -fx-text-fill: red;
+    -fx-font-weight: bold;
+}
