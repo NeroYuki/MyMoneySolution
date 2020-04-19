@@ -4,6 +4,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.text.Font?>
 <BorderPane onMouseDragged="#drag" onMousePressed="#press" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1050.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.accountSceneController">
    <left>
       <VBox fx:id="menuVbox" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #253546;" BorderPane.alignment="CENTER">

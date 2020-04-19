@@ -8,7 +8,7 @@ import scenes.*;
 
 public class transactionSceneController {
     public void homeBtnClick(ActionEvent e) throws Exception {
-        System.out.println("Account clicked");
+        System.out.println("Home clicked");
         Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage
 
         homepageScene homepage_scene = new homepageScene();
