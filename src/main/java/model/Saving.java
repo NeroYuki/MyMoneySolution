@@ -4,7 +4,8 @@ public class Saving {
     private String name;
     private String description;
     private double interest;
-    private double term;
+    private int activeTimeSpan; //in days
     //Should be enum { DAILY, WEEKLY, MONTHLY, QUARTERLY, YEARLY }
-    private Object paymentInterval;
+    private Object interestInterval;
+    private double currentValue;
 }

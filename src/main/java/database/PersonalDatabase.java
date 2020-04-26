@@ -1,5 +1,7 @@
 package database;
 
+import model.*;
+
 import java.nio.charset.Charset;
 import java.sql.*;
 import java.util.ArrayList;
@@ -7,7 +9,7 @@ import java.util.ArrayList;
 public class PersonalDatabase {
     private static Connection conn = null;
 
-    //Use this to re-encode UTF-8 string (Result of database output
+    //Use this to re-encode UTF-8 string (Result of database output)
     public static String utf8toNativeEncoding(String input) throws Exception {
         Charset defaultCharset = Charset.defaultCharset();
         byte[] sourceBytes = input.getBytes("UTF-8");
@@ -35,11 +37,11 @@ public class PersonalDatabase {
     public static boolean checkDatabase(String table) {
         boolean result = false;
         if (!checkConnection()) {
-            //TODO: throw exception here
+            System.out.println("Connection have yet been establish!");
             return false;
         }
         try {
-            //Show table have the name "UserInfo"
+            //Show table have the given name
             PreparedStatement dbCheckStatement = conn.prepareStatement(
                     "SHOW TABLES LIKE ?"
             );
@@ -47,7 +49,7 @@ public class PersonalDatabase {
             ResultSet dbCheckResult = dbCheckStatement.executeQuery();
 
             if (dbCheckResult.first()) result = true;
-            System.out.println(result);
+            //System.out.println(result);
             return result;
         }
         catch (Exception e) {
@@ -59,32 +61,51 @@ public class PersonalDatabase {
     //Initialize required table in the database (UserInfo)
     public static void initDatabase() {
         if (!checkConnection()) {
-            //TODO: throw exception here
+            System.out.println("Connection have yet been establish!");
             return;
         }
         try {
             Statement dbCreateStatement = conn.createStatement();
-            String userInfoCreateSql =
-                    "CREATE TABLE UserInfo (" +
-                        "id VARCHAR(20) NOT NULL, " +
-                        "username VARCHAR(255) DEFAULT NULL, " +
-                        "birthday DATE DEFAULT NULL," +
-                        "PRIMARY KEY (id)" +
-                    ") DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;";
-
-            String expenseCreateSql =
-                    "CREATE TABLE Expense (" +
-                        "user_id VARCHAR(20) NOT NULL, " +
-                        "expense_id VARCHAR(20) NOT NULL, " +
-                        "name VARCHAR(255) DEFAULT NULL, " +
-                        "description VARCHAR(1024) DEFAULT NULL, " +
-                        "PRIMARY KEY (expense_id)" +
-                    ") DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci";
-
-            dbCreateStatement.execute(userInfoCreateSql);
-            dbCreateStatement.execute(expenseCreateSql);
+            //TODO: Create all required database
         }
         catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    //Get all balance
+    public static ArrayList<Balance> getBalances(String budgetId) {
+        ArrayList<Balance> result = new ArrayList<>();
+        return result;
+    }
+
+    //Get all active loan
+    public static ArrayList<Loan> getActiveLoan(String budgetId) {
+        ArrayList<Loan> result = new ArrayList<>();
+        return result;
+    }
+
+    //Get all active saving
+    public static ArrayList<Saving> getActiveSaving(String budgetId) {
+        ArrayList<Saving> result = new ArrayList<>();
+        return result;
+    }
+
+    //Get user info
+    public static User getUserInfo(String username) {
+        User result = new User();
+        return result;
+    }
+
+    //Terminate current connection to database, only call when program is shut down
+    public static void terminateConnection() {
+        if (!checkConnection()) {
+            System.out.println("Connection have yet been establish!");
+            return;
+        }
+        try {
+            conn.close();
+        } catch (Exception e) {
             System.out.println(e);
         }
     }

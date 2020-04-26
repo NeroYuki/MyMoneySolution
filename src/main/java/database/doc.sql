@@ -57,7 +57,7 @@ CREATE TABLE loanHistory (
     baseValue FLOAT NOT NULL, --initially loaned amount
     currentValue FLOAT NOT NULL, --amount of money need to pay to instantly resolve the loan (the loan become inactive if this value is 0?)
     interestRate FLOAT DEFAULT 0.0,
-    interestInterval ENUM('DAILY', 'WEEKLY', 'MONTHLY', 'QUARTERLY', 'YEARLY') DEFAULT 'MONTHLY',
+    interestInterval ENUM('DAILY', 'WEEKLY', 'MONTHLY', 'QUARTERLY', 'YEARLY', 'ONE-TIME') DEFAULT 'MONTHLY',
     paymentInterval ENUM('DAILY', 'WEEKLY', 'MONTHLY', 'QUARTERLY', 'YEARLY') DEFAULT 'MONTHLY',
     PRIMARY KEY (loanId),
     FOREIGN KEY (ownBudget) REFERENCES userBudget(budgetId),
