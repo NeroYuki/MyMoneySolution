@@ -1,11 +1,11 @@
 package model;
 
-import java.util.GregorianCalendar;
+import java.time.*;
 
 public class User {
     private String username;
-    private GregorianCalendar birthday;
-    private Expense[] userExpenses;
-    private Income[] userIncomes;
-    private Saving[] userSavings;
+    private String email;
+    private LocalDate birthday;
+    //TODO: Define budget
+    private Budget budget;
 }

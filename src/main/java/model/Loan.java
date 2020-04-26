@@ -1,6 +1,6 @@
 package model;
 
-public class Saving {
+public class Loan {
     private String name;
     private String description;
     private double interest;

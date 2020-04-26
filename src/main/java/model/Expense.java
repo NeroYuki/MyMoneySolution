@@ -1,8 +1,5 @@
 package model;
 
-public class Expense {
-    private String name;
-    private String category;
-    private String description;
-    private DailyValue[] values;
+public class Expense extends Transaction {
+    private String categoryName;
 }

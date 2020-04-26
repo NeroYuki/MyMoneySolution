@@ -1,5 +1,6 @@
 package controller;
 
+import database.PersonalDatabase;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -39,7 +40,7 @@ public class loginSceneController {
 
     public void registerBtnClick(ActionEvent e) throws IOException {
         System.out.println("Register clicked");
-
+        PersonalDatabase.testLoad("expense", 3);
     }
 
     public void closeBtnClick(ActionEvent e){
