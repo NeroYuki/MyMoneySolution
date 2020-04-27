@@ -184,14 +184,26 @@
                                  <children>
                                     <Pane prefHeight="105.0" prefWidth="425.0" style="-fx-background-color: #69EBB8;">
                                        <children>
-                                          <Button fx:id="incomeLoadBtn" layoutX="111.0" layoutY="23.0" mnemonicParsing="false" onAction="#incomeLoad" text="Income" />
-                                          <Label fx:id="incomeLabel" layoutX="242.0" layoutY="27.0" text="560.000 d" />
+                                          <Button fx:id="incomeLoadBtn" layoutX="108.0" layoutY="14.0" mnemonicParsing="false" onAction="#incomeLoad" text="Income">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font></Button>
+                                          <Label fx:id="incomeTotalLabel" layoutX="221.0" layoutY="20.0" text="560.000 d">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font></Label>
                                        </children>
                                     </Pane>
                                     <Pane fx:id="expensesLabel" prefHeight="200.0" prefWidth="425.0" style="-fx-background-color: F88F79;">
                                        <children>
-                                          <Button fx:id="expensesLoadBtn" layoutX="139.0" layoutY="23.0" mnemonicParsing="false" onAction="#expensesLoad" text="Expense" />
-                                          <Label layoutX="242.0" layoutY="27.0" text="350.000d" />
+                                          <Button fx:id="expenseLoadBtn" layoutX="112.0" layoutY="14.0" mnemonicParsing="false" onAction="#expensesLoad" text="Expense">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font></Button>
+                                          <Label fx:id="expenseTotalLabel" layoutX="232.0" layoutY="20.0" text="350.000d">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font></Label>
                                        </children>
                                     </Pane>
                                  </children>

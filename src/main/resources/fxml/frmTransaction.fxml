@@ -3,11 +3,13 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -130,10 +132,37 @@
                         <Font size="18.0" />
                      </font>
                   </MenuButton>
-                  <Pane prefHeight="200.0" prefWidth="200.0" />
+                  <Pane prefHeight="79.0" prefWidth="360.0" style="-fx-background-color: #69EBB8;">
+                     <children>
+                        <Button fx:id="incomeTotalDisplay" layoutX="180.0" layoutY="6.0" mnemonicParsing="false" text="350000">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
+                        <Label fx:id="incomeLabel" layoutX="85.0" layoutY="12.0" text="INCOME">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="expensesLabel" prefHeight="81.0" prefWidth="363.0" style="-fx-background-color: F88F79;">
+                     <children>
+                        <Button fx:id="expenseTotalDisplay" layoutX="195.0" layoutY="6.0" mnemonicParsing="false" text="230000">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
+                        <Label fx:id="expenseLabel" layoutX="99.0" layoutY="12.0" text="EXPENSE">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
                </children>
             </HBox>
-            <TableView fx:id="transactionTable" layoutY="52.0" prefHeight="480.0" prefWidth="851.0" style="-fx-background-color: #E6E6FA(230,230,250);">
+            <TableView fx:id="transactionTable" layoutY="52.0" prefHeight="480.0" prefWidth="851.0" style="-fx-background-color: #E6E6FA;">
                <columns>
                   <TableColumn fx:id="dateColumn" editable="false" prefWidth="151.0" resizable="false" text="Date" />
                   <TableColumn fx:id="descriptionColumn" editable="false" prefWidth="214.0" resizable="false" sortable="false" text="Description" />
@@ -145,6 +174,26 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
+            <Pane layoutY="532.0" prefHeight="70.0" prefWidth="851.0" style="-fx-background-color: #787878;">
+               <children>
+                  <Button fx:id="editBtn" layoutX="592.0" layoutY="17.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="91.0" text="EDIT" underline="true">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="deleteBtn" layoutX="719.0" layoutY="17.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="91.0" text="DELETE" underline="true">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="viewBtn" layoutX="464.0" layoutY="17.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="91.0" text="VIEW" underline="true">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <TextField fx:id="filterText" layoutX="41.0" layoutY="23.0" prefHeight="25.0" prefWidth="194.0" promptText="Search for description or value" />
+               </children>
+            </Pane>
          </children></AnchorPane>
    </center>
 </BorderPane>
