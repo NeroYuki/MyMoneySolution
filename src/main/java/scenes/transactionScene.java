@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 
 public class transactionScene {
+
     private Scene scene;
     private transactionSceneController controller;
     public transactionScene() throws Exception {
@@ -20,4 +21,5 @@ public class transactionScene {
     public Scene getScene() {
         return scene;
     }
+
 }

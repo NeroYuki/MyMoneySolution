@@ -2,23 +2,29 @@
 
 }
 
-.menu-item .label {
-    -fx-text-fill: white;
+/*tab menu*/
+.tab-pane *.tab-header-area *.tab-header-background {
+    -fx-background-color:transparent;
 }
 
-.menu-item:focused {
-    -fx-background-color: darkgray;
+.tab-pane {
+    -fx-tab-min-width:120px;
+    -fx-tab-max-width:120px;
+    -fx-tab-min-height:50px;
+    -fx-tab-max-height:50px;
 }
 
-.menu-item:focused .label {
-    -fx-text-fill: blue;
+.tab {
+    -fx-font-family: Arial;
+    -fx-font-size: 18;
+    -fx-background-color:royalblue;
 }
 
-.context-menu {
-    -fx-skin: "com.sun.javafx.scene.control.skin.ContextMenuSkin";
-    -fx-background-color: black;
-    -fx-background-insets: 0, 1, 2;
-    -fx-background-radius: 0 6 6 6, 0 5 5 5, 0 4 4 4;
-    /*    -fx-padding: 0.666667em 0.083333em 0.666667em 0.083333em;  8 1 8 1 */
-    -fx-padding: 0.333333em 0.083333em 0.666667em 0.083333em; /* 4 1 8 1 */
+.tab:selected {
+    -fx-background-color:#77aaff;
 }
+
+.tab .tab-label {
+    -fx-text-fill: yellow;
+}
+

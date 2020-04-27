@@ -6,6 +6,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
+import javafx.scene.control.SplitPane;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import scenes.*;
@@ -14,6 +16,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class statisticsSceneController implements Initializable {
+    @FXML
+    public Label expensesNote;
+    public Label incomeNote;
+
     public void transactionBtnClick(ActionEvent e) throws Exception {
         System.out.println("Transaction clicked");
         Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage
@@ -98,6 +104,8 @@ public class statisticsSceneController implements Initializable {
                     alert.showAndWait();
                 });
             }
+
+            incomeNote.setVisible(false);
         }
         catch(Exception ex){
 
@@ -124,6 +132,8 @@ public class statisticsSceneController implements Initializable {
                     alert.showAndWait();
                 });
             }
+
+            expensesNote.setVisible(false);
         }
         catch(Exception ex){
 

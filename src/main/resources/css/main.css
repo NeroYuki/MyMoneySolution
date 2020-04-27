@@ -3,12 +3,14 @@
 }
 
 .buttonMenu{
-    -fx-background-color: grey;
-    -fx-text-fill: yellow;
+    -fx-background-color: #31B48F;
+    -fx-text-fill: #D7F3FF;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
 }
 
 .buttonMenu:hover{
-    -fx-background-color: lightgrey;
-    -fx-text-fill: red;
+    -fx-background-color: #90DA7F;
+    -fx-text-fill: #F9F871;
     -fx-font-weight: bold;
 }
