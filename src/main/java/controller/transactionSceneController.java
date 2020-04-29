@@ -1,5 +1,6 @@
 package controller;
 
+import helper.DateUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -8,15 +9,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
 import javafx.stage.PopupWindow;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import model.Expense;
 import model.Income;
 import model.Transaction;
@@ -33,11 +33,13 @@ public class transactionSceneController implements Initializable {
     public TableView<Transaction> transactionTable;
     public TableColumn<Transaction, LocalDate> dateColumn;
     public TableColumn<Transaction, String> descriptionColumn;
-    public TableColumn<Transaction, String> typeColumn;
+    public TableColumn<Transaction, String> accountColumn; // yet to be used because not in constructor of income or saving??
     public TableColumn<Transaction, String> categoryColumn;
     public TableColumn<Transaction, Double> valueColumn;
 
     public TextField filterText;
+    @FXML
+    public Button viewBtn;
 
     private ObservableList<Transaction> transactionList = FXCollections.observableArrayList(); // list of transaction (default by date)
 
@@ -102,6 +104,7 @@ public class transactionSceneController implements Initializable {
         Tooltip.install(addTransBtn, new Tooltip("Add new item"));
         Tooltip.install(memoBtn, new Tooltip("Memo record"));
 
+
         // table view handle
         // data initialization, we will use own database later
         transactionList.add(
@@ -143,6 +146,7 @@ public class transactionSceneController implements Initializable {
         transactionTable.setItems(transactionList);
 
 
+        // filter data when search table
         // 1. Wrap the ObservableList in a FilteredList (initially display all data).
         FilteredList<Transaction> filteredData = new FilteredList<>(transactionList, p -> true);
 
@@ -174,5 +178,65 @@ public class transactionSceneController implements Initializable {
 
         // 5. Add sorted (and filtered) data to the table.
         transactionTable.setItems(sortedData);
+
+
+    }
+
+    /**
+     * Called when the user clicks on the delete button.
+     */
+    @FXML
+    public void deleteBtnClick(ActionEvent e) {
+        Transaction select = transactionTable.getSelectionModel().getSelectedItem(); // select an item
+        if (select != null) {
+            // confirmation to delete
+            Alert alertConfirm = new Alert(Alert.AlertType.CONFIRMATION,
+                    "Delete " + select.getTransDescription() +" on " + DateUtil.format(select.getTransDate()) + " ?",ButtonType.YES, ButtonType.NO);
+            alertConfirm.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+            alertConfirm.showAndWait();
+            if (alertConfirm.getResult() == ButtonType.YES) {
+                transactionList.remove(select); // delete call
+            }
+        } else {
+            // Nothing select
+            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+            alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+            alertWarning.setTitle("No Selection");
+            alertWarning.setHeaderText("No data selected");
+            alertWarning.setContentText("Please select a row in the table to delete");
+            alertWarning.showAndWait();
+        }
+
+    }
+
+    @FXML
+    public void editBtnClick(ActionEvent e) throws Exception {
+        Transaction select = transactionTable.getSelectionModel().getSelectedItem(); // select an item
+        if (select != null) {
+            // get edit transaction scene
+            System.out.println("Edit clicked");
+            Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage
+
+            editTransactionBox editTransaction_box = new editTransactionBox();
+
+            // dialog show
+            Stage dialogEditStage = new Stage(StageStyle.TRANSPARENT);
+            dialogEditStage.setTitle("Edit Transaction");
+            dialogEditStage.initModality(Modality.WINDOW_MODAL);
+            dialogEditStage.initOwner(stage); // close this dialog to return to owner window
+            dialogEditStage.setScene(editTransaction_box.getScene());
+            dialogEditStage.showAndWait();
+
+            //stage.setScene(editTransaction_box.getScene());
+        } else {
+            // Nothing select
+            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+            alertWarning.setTitle("No Selection");
+            alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+            alertWarning.setHeaderText("No data selected");
+            alertWarning.setContentText("Please select a row in the table to edit");
+            alertWarning.showAndWait();
+        }
+
     }
 }

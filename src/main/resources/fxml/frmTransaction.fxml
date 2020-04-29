@@ -7,9 +7,11 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioMenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -113,11 +115,25 @@
             <HBox prefHeight="59.0" prefWidth="851.0" />
             <HBox prefHeight="51.0" prefWidth="850.0" stylesheets="@../css/statistics.css">
                <children>
-                  <MenuButton fx:id="timeMenuBtn" mnemonicParsing="false" prefHeight="51.0" prefWidth="128.0" text="Daily">
+                  <MenuButton fx:id="timeMenuBtn" mnemonicParsing="false" prefHeight="51.0" prefWidth="128.0" text="All time">
                      <items>
-                        <MenuItem fx:id="dailyItem" mnemonicParsing="false" style="-fx-font-size: 19px;" text="Daily" />
-                        <MenuItem fx:id="monthlyItem" mnemonicParsing="false" style="-fx-font-size: 19px;" text="Monthly" />
-                        <MenuItem fx:id="yearlyItem" mnemonicParsing="false" style="-fx-font-size: 19px;" text="Yearly" />
+                        <RadioMenuItem mnemonicParsing="false" selected="true" text="All time">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="month" />
+                           </toggleGroup>
+                        </RadioMenuItem>
+                        <RadioMenuItem mnemonicParsing="false" text="January" toggleGroup="$month" />
+                        <RadioMenuItem mnemonicParsing="false" text="February" toggleGroup="$month" />
+                        <RadioMenuItem mnemonicParsing="false" text="March" toggleGroup="$month" />
+                        <RadioMenuItem mnemonicParsing="false" text="April" toggleGroup="$month" />
+                        <RadioMenuItem mnemonicParsing="false" text="May" toggleGroup="$month" />
+                        <RadioMenuItem mnemonicParsing="false" text="June" toggleGroup="$month" />
+                        <RadioMenuItem mnemonicParsing="false" text="July" toggleGroup="$month" />
+                        <RadioMenuItem mnemonicParsing="false" text="August" toggleGroup="$month" />
+                        <RadioMenuItem mnemonicParsing="false" text="September" toggleGroup="$month" />
+                        <RadioMenuItem mnemonicParsing="false" text="October" toggleGroup="$month" />
+                        <RadioMenuItem mnemonicParsing="false" text="November" toggleGroup="$month" />
+                        <RadioMenuItem mnemonicParsing="false" text="December" toggleGroup="$month" />
                         <Menu fx:id="specificTimeMenu" mnemonicParsing="false" style="-fx-font-size: 19px;" text="Specific Time">
                            <items>
                               <MenuItem mnemonicParsing="false">
@@ -164,10 +180,10 @@
             </HBox>
             <TableView fx:id="transactionTable" layoutY="52.0" prefHeight="480.0" prefWidth="851.0" style="-fx-background-color: #E6E6FA;">
                <columns>
-                  <TableColumn fx:id="dateColumn" editable="false" prefWidth="151.0" resizable="false" text="Date" />
+                  <TableColumn fx:id="dateColumn" editable="false" prefWidth="151.0" resizable="false" style="-fx-alignment: CENTER;" text="Date" />
                   <TableColumn fx:id="descriptionColumn" editable="false" prefWidth="214.0" resizable="false" sortable="false" text="Description" />
-                  <TableColumn fx:id="typeColumn" editable="false" prefWidth="137.0" resizable="false" text="Type" />
-                  <TableColumn fx:id="categoryColumn" editable="false" minWidth="2.0" prefWidth="183.0" resizable="false" text="Category" />
+                  <TableColumn fx:id="accountColumn" editable="false" prefWidth="137.0" resizable="false" style="-fx-alignment: CENTER;" text="Account" />
+                  <TableColumn fx:id="categoryColumn" editable="false" minWidth="2.0" prefWidth="183.0" resizable="false" style="-fx-alignment: CENTER;" text="Category" />
                   <TableColumn fx:id="valueColumn" editable="false" prefWidth="165.0" resizable="false" text="Value" />
                </columns>
                <columnResizePolicy>
@@ -176,12 +192,12 @@
             </TableView>
             <Pane layoutY="532.0" prefHeight="70.0" prefWidth="851.0" style="-fx-background-color: #787878;">
                <children>
-                  <Button fx:id="editBtn" layoutX="592.0" layoutY="17.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="91.0" text="EDIT" underline="true">
+                  <Button fx:id="editBtn" layoutX="592.0" layoutY="17.0" mnemonicParsing="false" onAction="#editBtnClick" prefHeight="37.0" prefWidth="91.0" text="EDIT" underline="true">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="deleteBtn" layoutX="719.0" layoutY="17.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="91.0" text="DELETE" underline="true">
+                  <Button fx:id="deleteBtn" layoutX="719.0" layoutY="17.0" mnemonicParsing="false" onAction="#deleteBtnClick" prefHeight="37.0" prefWidth="91.0" text="DELETE" underline="true">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

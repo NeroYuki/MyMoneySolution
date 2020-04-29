@@ -1,5 +1,7 @@
 package model;
 
+import javafx.beans.property.StringProperty;
+
 import java.time.LocalDate;
 
 public abstract class Transaction {
@@ -37,4 +39,5 @@ public abstract class Transaction {
     public void setTransDescription(String transDescription) {
         this.transDescription = transDescription;
     }
+
 }

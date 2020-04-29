@@ -5,6 +5,7 @@
 /* menu item */
 .menu-item .label {
     -fx-text-fill: white;
+    -fx-font-size: 19px;
 }
 
 .menu-item:focused {
@@ -49,6 +50,7 @@
 
 .table-view .table-cell{
     -fx-text-fill: white;
+    -fx-font-size: 14px;
 }
 
 .table-row-cell{
