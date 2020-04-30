@@ -10,6 +10,8 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import model.Expense;
+import model.Income;
 import model.Transaction;
 import scenes.homepageScene;
 
@@ -66,7 +68,12 @@ public class editTransactionBoxController implements Initializable {
 //        System.out.println("get date");
 //        accountCombo.setValue(transaction.getTransValue());
 //        System.out.println("get account");
-//        categoryCombo.setValue(transaction.get); cannot get category because it is in subclass
+//        if(transaction.getClass().getName().equals("model.Income")) {
+//            categoryCombo.setValue(((Income)transaction).getCategoryName());
+//        }
+//        else if(transaction.getClass().getName().equals("model.Expense")) {
+//            categoryCombo.setValue(((Expense)transaction).getCategoryName());
+//        }
 //        valueText.setText(Double.toString(transaction.getTransValue()));
 //        System.out.println("get value");
         //descriptionTextArea.setText(transaction.getTransDescription());

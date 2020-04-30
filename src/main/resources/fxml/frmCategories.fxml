@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.RadioMenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#drag" onMousePressed="#press" prefHeight="600.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.categoriesSceneController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#drag" onMousePressed="#press" prefHeight="600.0" prefWidth="1050.0" stylesheets="@../css/categories.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.categoriesSceneController">
    <left>
       <VBox fx:id="menuVbox" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #253546;" BorderPane.alignment="CENTER">
          <children>
@@ -75,7 +89,158 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button layoutX="139.0" layoutY="158.0" mnemonicParsing="false" text="Categories" />
+            <TabPane prefHeight="600.0" prefWidth="850.0" tabClosingPolicy="UNAVAILABLE">
+               <tabs>
+                  <Tab text="General">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="746.0" style="-fx-background-color: #dadae3;">
+                           <children>
+                              <AnchorPane layoutX="426.0" minHeight="0.0" minWidth="0.0" prefHeight="541.0" prefWidth="424.0" style="-fx-background-color: #B8C9DF;">
+                                 <children>
+                                    <Label layoutX="82.0" layoutY="461.0" text="Compared to last">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="expensesNote" layoutX="82.0" layoutY="240.0" text="Click Expenses above to load or refresh data">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="83.0" layoutY="493.0" prefHeight="25.0" prefWidth="188.0" text="Compared to all time">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="540.0" prefWidth="424.0" style="-fx-background-color: #B8C9DF;">
+                                 <children>
+                                    <Label layoutX="78.0" layoutY="457.0" text="Compared to last">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="incomeNote" layoutX="81.0" layoutY="240.0" text="Click Income above to load or refresh data">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="79.0" layoutY="492.0" prefHeight="25.0" prefWidth="188.0" text="Compared to all time">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                              <HBox prefHeight="67.0" prefWidth="851.0">
+                                 <children>
+                                    <Pane prefHeight="105.0" prefWidth="425.0" style="-fx-background-color: #69EBB8;">
+                                       <children>
+                                          <Button fx:id="incomeLoadBtn" layoutX="108.0" layoutY="14.0" mnemonicParsing="false" text="Income">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Button>
+                                          <Label fx:id="incomeTotalLabel" layoutX="221.0" layoutY="20.0" text="[n categories]">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </Pane>
+                                    <Pane fx:id="expensesLabel" prefHeight="200.0" prefWidth="425.0" style="-fx-background-color: F88F79;">
+                                       <children>
+                                          <Button fx:id="expenseLoadBtn" layoutX="112.0" layoutY="14.0" mnemonicParsing="false" text="Expense">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Button>
+                                          <Label fx:id="expenseTotalLabel" layoutX="228.0" layoutY="20.0" text="[m categories]">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </Pane>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab closable="false" text="Income">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #dadae3;">
+                           <children>
+                              <MenuButton fx:id="balanceIncomeMenu" layoutX="722.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="128.0" text="Balance">
+                                 <items>
+                                    <RadioMenuItem mnemonicParsing="false" selected="true" text="Total">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="balance1" />
+                                       </toggleGroup>
+                                    </RadioMenuItem>
+                                    <RadioMenuItem mnemonicParsing="false" text="Cash" toggleGroup="$balance1" />
+                                    <RadioMenuItem mnemonicParsing="false" text="Bank Account" toggleGroup="$balance1" />
+                                    <RadioMenuItem mnemonicParsing="false" text="Credit" toggleGroup="$balance1" />
+                                    <RadioMenuItem mnemonicParsing="false" text="Backup" toggleGroup="$balance1" />
+                                 </items>
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </MenuButton>
+                              <AnchorPane layoutX="1.0" layoutY="51.0" prefHeight="490.0" prefWidth="851.0">
+                                 <children>
+                                    <BarChart fx:id="incomeCategoriesBarChart" layoutX="168.0" layoutY="63.0" prefHeight="490.0" prefWidth="851.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <xAxis>
+                                        <CategoryAxis fx:id="incomeCategoriesAxis" side="BOTTOM" />
+                                      </xAxis>
+                                      <yAxis>
+                                        <NumberAxis side="LEFT" />
+                                      </yAxis>
+                                    </BarChart>
+                                 </children>
+                              </AnchorPane>
+                           </children></AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab closable="false" text="Expense">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #dadae3;">
+                           <children>
+                              <MenuButton fx:id="balanceExpenseMenuBtn" layoutX="722.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="128.0" text="Balance">
+                                 <items>
+                                    <RadioMenuItem mnemonicParsing="false" selected="true" text="Total">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="balance2" />
+                                       </toggleGroup>
+                                    </RadioMenuItem>
+                                    <RadioMenuItem mnemonicParsing="false" text="Cash" toggleGroup="$balance2" />
+                                    <RadioMenuItem mnemonicParsing="false" text="Bank Account" toggleGroup="$balance2" />
+                                    <RadioMenuItem mnemonicParsing="false" text="Credit" toggleGroup="$balance2" />
+                                    <RadioMenuItem mnemonicParsing="false" text="Backup" toggleGroup="$balance2" />
+                                 </items>
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </MenuButton>
+                              <AnchorPane layoutY="51.0" prefHeight="490.0" prefWidth="851.0">
+                                 <children>
+                                    <BarChart fx:id="expenseCategoriesBarChart" layoutX="168.0" layoutY="63.0" prefHeight="490.0" prefWidth="851.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <xAxis>
+                                          <CategoryAxis fx:id="expenseCategoriesAxis" side="BOTTOM" />
+                                       </xAxis>
+                                       <yAxis>
+                                          <NumberAxis side="LEFT" />
+                                       </yAxis>
+                                    </BarChart>
+                                 </children>
+                              </AnchorPane>
+                           </children></AnchorPane>
+                     </content>
+                  </Tab>
+               </tabs>
+            </TabPane>
          </children>
       </AnchorPane>
    </center>
