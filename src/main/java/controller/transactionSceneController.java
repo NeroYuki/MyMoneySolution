@@ -7,12 +7,17 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.PopupWindow;
 import javafx.stage.Stage;
@@ -22,8 +27,13 @@ import model.Income;
 import model.Transaction;
 import scenes.*;
 
+import javax.swing.border.Border;
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class transactionSceneController implements Initializable {
@@ -109,40 +119,66 @@ public class transactionSceneController implements Initializable {
         // data initialization, we will use own database later
         transactionList.add(
                 new Income(LocalDate.of(2004,1,5),50000, "School giving scholarship", "Bonus"));
-        transactionList.add(new Expense(LocalDate.of(2004,4,15),20000, "Buy a phone in FPT", "Shopping"));
+        transactionList.add(new Expense(LocalDate.of(2004,4,15),-20000, "Buy a phone in FPT", "Shopping"));
         transactionList.add(new Income(LocalDate.of(2004,5,6),120000, "Salary May", "Salary"));
-        transactionList.add(new Expense(LocalDate.of(2004,11,23),35000, "Restaurant district 5", "Food and Beverage"));
+        transactionList.add(new Expense(LocalDate.of(2004,11,23),-35000, "Restaurant district 5", "Food and Beverage"));
 
         transactionList.add(
                 new Income(LocalDate.of(2004,1,5),50000, "School giving scholarship", "Bonus"));
-        transactionList.add(new Expense(LocalDate.of(2004,4,15),20000, "Buy a phone in FPT", "Shopping"));
+        transactionList.add(new Expense(LocalDate.of(2004,4,15),-20000, "Buy a phone in FPT", "Shopping"));
         transactionList.add(new Income(LocalDate.of(2004,5,6),120000, "Salary May", "Salary"));
-        transactionList.add(new Expense(LocalDate.of(2004,11,23),35000, "Restaurant district 5", "Food and Beverage"));
+        transactionList.add(new Expense(LocalDate.of(2004,11,23),-35000, "Restaurant district 5", "Food and Beverage"));
 
         transactionList.add(
                 new Income(LocalDate.of(2004,1,5),50000, "School giving scholarship", "Bonus"));
-        transactionList.add(new Expense(LocalDate.of(2004,4,15),20000, "Buy a phone in FPT", "Shopping"));
+        transactionList.add(new Expense(LocalDate.of(2004,4,15),-20000, "Buy a phone in FPT", "Shopping"));
         transactionList.add(new Income(LocalDate.of(2004,5,6),120000, "Salary May", "Salary"));
-        transactionList.add(new Expense(LocalDate.of(2004,11,23),35000, "Restaurant district 5", "Food and Beverage"));
+        transactionList.add(new Expense(LocalDate.of(2004,11,23),-35000, "Restaurant district 5", "Food and Beverage"));
 
         transactionList.add(
                 new Income(LocalDate.of(2004,1,5),50000, "School giving scholarship", "Bonus"));
-        transactionList.add(new Expense(LocalDate.of(2004,4,15),20000, "Buy a phone in FPT", "Shopping"));
+        transactionList.add(new Expense(LocalDate.of(2004,4,15),-20000, "Buy a phone in FPT", "Shopping"));
         transactionList.add(new Income(LocalDate.of(2004,5,6),120000, "Salary May", "Salary"));
-        transactionList.add(new Expense(LocalDate.of(2004,11,23),35000, "Restaurant district 5", "Food and Beverage"));
+        transactionList.add(new Expense(LocalDate.of(2004,11,23),-35000, "Restaurant district 5", "Food and Beverage"));
 
         transactionList.add(
                 new Income(LocalDate.of(2004,1,5),50000, "School giving scholarship", "Bonus"));
-        transactionList.add(new Expense(LocalDate.of(2004,4,15),20000, "Buy a phone in FPT", "Shopping"));
+        transactionList.add(new Expense(LocalDate.of(2004,4,15),-20000, "Buy a phone in FPT", "Shopping"));
         transactionList.add(new Income(LocalDate.of(2004,5,6),120000, "Salary May", "Salary"));
-        transactionList.add(new Expense(LocalDate.of(2004,11,23),35000, "Restaurant district 5", "Food and Beverage"));
+        transactionList.add(new Expense(LocalDate.of(2004,11,23),-35000, "Restaurant district 5", "Food and Beverage"));
 
         // add data to suitable columns
         dateColumn.setCellValueFactory(new PropertyValueFactory<Transaction,LocalDate>("transDate"));
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<Transaction,String>("transDescription"));
         categoryColumn.setCellValueFactory(new PropertyValueFactory<Transaction,String>("categoryName"));
         //typeColumn not set because there is no property in transaction
+        // should add the account column here but no property now to use
         valueColumn.setCellValueFactory(new PropertyValueFactory<Transaction,Double>("transValue"));
+
+        // fill color to differentiate income and expense value
+        valueColumn.setCellFactory(column -> {
+            return new TableCell<Transaction, Double>() {
+                @Override
+                protected void updateItem(Double item, boolean empty) {
+                    super.updateItem(item, empty);
+
+                    if (item == null || empty) {
+                        setText("abc");
+                    } else {
+                        // Format number
+                        setText(String.valueOf(item).replace("-",""));
+                        if (item.doubleValue() < 0) {
+                            //setTextFill(Color.DARKRED);
+                            setStyle("-fx-background-color: red");
+                        } else {
+                            setStyle("-fx-background-color: green");
+                        }
+                    }
+                }
+            };
+        });
+
+        // bring data to the table
         transactionTable.setItems(transactionList);
 
 
@@ -212,6 +248,9 @@ public class transactionSceneController implements Initializable {
     @FXML
     public void editBtnClick(ActionEvent e) throws Exception {
         Transaction select = transactionTable.getSelectionModel().getSelectedItem(); // select an item
+        // really need a check type condition here to determine the select is income or expense by using instanceof
+        // or getClass() to return the runtime of transaction object
+        // ex: if(select instanceof Income) { ... } else we know type income or expense to serve purpose in edit form
         if (select != null) {
             // get edit transaction scene
             System.out.println("Edit clicked");
@@ -225,9 +264,13 @@ public class transactionSceneController implements Initializable {
             dialogEditStage.initModality(Modality.WINDOW_MODAL);
             dialogEditStage.initOwner(stage); // close this dialog to return to owner window
             dialogEditStage.setScene(editTransaction_box.getScene());
-            dialogEditStage.showAndWait();
 
-            //stage.setScene(editTransaction_box.getScene());
+            // set default value of fields in edit form the same selected transaction
+            editTransactionBoxController controller = editTransaction_box.getController();
+            controller.setDialogStage(dialogEditStage);
+            controller.setDefaultValue(select); //error not know how to fix
+
+            dialogEditStage.showAndWait();
         } else {
             // Nothing select
             Alert alertWarning = new Alert(Alert.AlertType.WARNING);
@@ -238,5 +281,46 @@ public class transactionSceneController implements Initializable {
             alertWarning.showAndWait();
         }
 
+    }
+
+    public void addTransClick(MouseEvent e) throws Exception {
+        // first appear a dialog to choose the type of transaction for clear handle
+        List<String> choices = new ArrayList<>();
+        choices.add("Income");
+        choices.add("Expenses");
+        choices.add("Transfer");
+
+        ChoiceDialog<String> dialog = new ChoiceDialog<>("Expenses", choices);
+        dialog.initStyle(StageStyle.TRANSPARENT);
+        dialog.setTitle("Type of transaction dialog");
+        dialog.setHeaderText("Pick one type to continue the transaction");
+        dialog.setContentText("Type");
+
+        // Traditional way to get the response value
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+            System.out.println("Option " + result.get());
+
+            // income select event
+            if(result.get() == "Income"){
+                // get add income scene
+                Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage
+
+                addIncomeBox addIncome_box = new addIncomeBox();
+
+                // dialog show
+                Stage dialogAddStage = new Stage(StageStyle.TRANSPARENT);
+                dialogAddStage.setTitle("Add Transaction");
+                dialogAddStage.initModality(Modality.WINDOW_MODAL);
+                dialogAddStage.initOwner(stage); // close this dialog to return to owner window
+                dialogAddStage.setScene(addIncome_box.getScene());
+
+                dialogAddStage.showAndWait();
+            }
+        }
+
+    }
+
+    public void memoClick(MouseEvent event) {
     }
 }

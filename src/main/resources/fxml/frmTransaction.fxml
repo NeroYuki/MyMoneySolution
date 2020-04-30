@@ -88,7 +88,7 @@
             </HBox>
             <Pane prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <ImageView fx:id="addTransBtn" fitHeight="51.0" fitWidth="52.0" layoutX="32.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="addTransBtn" fitHeight="51.0" fitWidth="52.0" layoutX="32.0" layoutY="28.0" onMouseClicked="#addTransClick" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../img/plus1.png" />
                      </image>
@@ -96,7 +96,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-                  <ImageView fx:id="memoBtn" fitHeight="51.0" fitWidth="52.0" layoutX="104.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="memoBtn" fitHeight="51.0" fitWidth="52.0" layoutX="104.0" layoutY="28.0" onMouseClicked="#memoClick" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../img/memo.png" />
                      </image>

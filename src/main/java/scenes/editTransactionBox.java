@@ -23,4 +23,8 @@ public class editTransactionBox {
     public Scene getScene() {
         return scene;
     }
+
+    public editTransactionBoxController getController() {
+        return controller;
+    }
 }

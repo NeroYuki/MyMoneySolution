@@ -9,6 +9,11 @@ public abstract class Transaction {
     protected Double transValue;
     protected String transDescription;
 
+    // add constructor
+    public Transaction() {
+
+    }
+
     // add parameter constructor
     public Transaction(LocalDate transDate, double transValue, String transDescription) {
         this.transDate = transDate;

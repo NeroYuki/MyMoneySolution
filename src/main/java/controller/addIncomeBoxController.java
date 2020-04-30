@@ -1,23 +1,18 @@
 package controller;
 
-import database.PersonalDatabase;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import model.Transaction;
-import scenes.homepageScene;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class editTransactionBoxController implements Initializable {
+public class addIncomeBoxController implements Initializable {
     @FXML
     public TextField valueText;
     public ComboBox unitCombo;
@@ -34,7 +29,7 @@ public class editTransactionBoxController implements Initializable {
 
     public void setDialogStage(Stage dialogStage) { // not use this set method but maybe used later
         this.dialogEditStage = dialogStage;
-    } // maybe need to use
+    }
 
     public void closeBtnClick(ActionEvent e){
         Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage
@@ -59,20 +54,7 @@ public class editTransactionBoxController implements Initializable {
 
     private Transaction transaction; // not used but maybe later
 
-    public void setDefaultValue(Transaction transaction) { // used to set field the same in the selected row, but not successful
-        System.out.println("alo");
-        //this.transaction = transaction;
-//        datepicker.setValue(transaction.getTransDate());
-//        System.out.println("get date");
-//        accountCombo.setValue(transaction.getTransValue());
-//        System.out.println("get account");
-//        categoryCombo.setValue(transaction.get); cannot get category because it is in subclass
-//        valueText.setText(Double.toString(transaction.getTransValue()));
-//        System.out.println("get value");
-        //descriptionTextArea.setText(transaction.getTransDescription());
-        //valueText.setText(transaction.getTransDescription());
-        System.out.println("get description" + transaction.getTransDescription());
-    }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

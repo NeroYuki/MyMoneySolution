@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="editTransactionBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#drag" onMousePressed="#press" prefHeight="500.0" prefWidth="720.0" stylesheets="@../css/login.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.editTransactionBoxController">
+<BorderPane fx:id="addIncomeBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#drag" onMousePressed="#press" prefHeight="500.0" prefWidth="720.0" stylesheets="@../css/login.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.addIncomeBoxController">
    <top>
       <AnchorPane prefHeight="500.0" prefWidth="720.0" style="-fx-background-color: #404F81;" stylesheets="@../css/dialogStage.css" BorderPane.alignment="CENTER">
          <children>
@@ -41,7 +41,7 @@
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
-                  <Button fx:id="resetBtn" layoutX="375.0" layoutY="33.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="150.0" text="RESET TO PREVIOUS" underline="true">
+                  <Button fx:id="resetBtn" layoutX="375.0" layoutY="33.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="150.0" text="RESET TO DEFAULT" underline="true">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
@@ -105,28 +105,21 @@
                   <ComboBox fx:id="categoryCombo" prefHeight="30.0" prefWidth="256.0" style="-fx-background-color: transparent;" />
                </children>
             </HBox>
-            <Label layoutX="427.0" layoutY="110.0" prefHeight="30.0" prefWidth="116.0" text="Type" textFill="WHITE">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-            <HBox alignment="CENTER_LEFT" layoutX="485.0" layoutY="106.0" prefHeight="37.0" prefWidth="164.0" style="-fx-border-color: #bebfe1; -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-background-color: F1F1E6;">
-               <children>
-                  <TextField fx:id="typeText" editable="false" prefHeight="30.0" prefWidth="286.0" promptText="Income or Expense" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
-               </children>
-               <padding>
-                  <Insets left="10.0" />
-               </padding>
-            </HBox>
-            <Label layoutX="239.0" layoutY="42.0" prefHeight="35.0" prefWidth="242.0" text="Edit Transaction Form" textFill="WHITE">
+            <Label layoutX="259.0" layoutY="42.0" prefHeight="35.0" prefWidth="202.0" text="Add-Income Form" textFill="WHITE">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
+            <Label layoutX="427.0" layoutY="110.0" prefHeight="30.0" prefWidth="114.0" text="Saving plan" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Button fx:id="savingPlanBtn" layoutX="549.0" layoutY="110.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="92.0" text="Click to open" underline="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
          </children>
       </AnchorPane>
    </top>
