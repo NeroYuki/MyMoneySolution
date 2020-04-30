@@ -310,10 +310,25 @@ public class transactionSceneController implements Initializable {
 
                 // dialog show
                 Stage dialogAddStage = new Stage(StageStyle.TRANSPARENT);
-                dialogAddStage.setTitle("Add Transaction");
+                dialogAddStage.setTitle("Add income");
                 dialogAddStage.initModality(Modality.WINDOW_MODAL);
                 dialogAddStage.initOwner(stage); // close this dialog to return to owner window
                 dialogAddStage.setScene(addIncome_box.getScene());
+
+                dialogAddStage.showAndWait();
+            }
+            else if(result.get() == "Expenses"){ // expense select option
+                // get add income scene
+                Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage
+
+                addExpenseBox addExpense_box = new addExpenseBox();
+
+                // dialog show
+                Stage dialogAddStage = new Stage(StageStyle.TRANSPARENT);
+                dialogAddStage.setTitle("Add expense");
+                dialogAddStage.initModality(Modality.WINDOW_MODAL);
+                dialogAddStage.initOwner(stage); // close this dialog to return to owner window
+                dialogAddStage.setScene(addExpense_box.getScene());
 
                 dialogAddStage.showAndWait();
             }

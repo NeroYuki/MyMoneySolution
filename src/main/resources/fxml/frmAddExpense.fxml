@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="addIncomeBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#drag" onMousePressed="#press" prefHeight="500.0" prefWidth="720.0" stylesheets="@../css/login.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.addIncomeBoxController">
+<BorderPane fx:id="addIncomeBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#drag" onMousePressed="#press" prefHeight="500.0" prefWidth="720.0" stylesheets="@../css/login.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.addExpenseBoxController">
    <top>
       <AnchorPane prefHeight="500.0" prefWidth="720.0" style="-fx-background-color: #404F81;" stylesheets="@../css/dialogStage.css" BorderPane.alignment="CENTER">
          <children>
@@ -25,7 +25,7 @@
             </Label>
             <HBox alignment="CENTER_LEFT" layoutX="136.0" layoutY="268.0" prefHeight="37.0" prefWidth="250.0" style="-fx-border-color: #bebfe1; -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-background-color: F1F1E6;">
                <children>
-                  <TextField fx:id="valueText" prefHeight="30.0" prefWidth="121.0" promptText="Enter amount of money" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
+                  <TextField fx:id="valueText" promptText="Enter amount of money" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -105,7 +105,7 @@
                   <ComboBox fx:id="categoryCombo" prefHeight="30.0" prefWidth="256.0" style="-fx-background-color: transparent;" />
                </children>
             </HBox>
-            <Label layoutX="259.0" layoutY="42.0" prefHeight="35.0" prefWidth="202.0" text="Add-Income Form" textFill="WHITE">
+            <Label layoutX="259.0" layoutY="42.0" prefHeight="35.0" prefWidth="212.0" text="Add-Expense Form" textFill="WHITE">
                <font>
                   <Font size="24.0" />
                </font>
