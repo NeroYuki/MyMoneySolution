@@ -5,17 +5,24 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Expense;
 import model.Income;
 import model.Transaction;
 import scenes.*;
 
+import java.io.File;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -81,6 +88,19 @@ public class categoriesSceneController implements Initializable {
         yOffset = event.getSceneY();
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        // display bar chart in tab income and expense
+        displayBarChart();
+
+        // load income categories
+        incomeCategoriesLoad();
+
+        // load xpense categories
+        expenseCategoriesLoad();
+
+    }
+
     @FXML
     public BarChart<String,Double> incomeCategoriesBarChart;
     public BarChart<String,Double> expenseCategoriesBarChart;
@@ -90,11 +110,13 @@ public class categoriesSceneController implements Initializable {
     private ObservableList<String> incomeCategoryNames = FXCollections.observableArrayList();
     private ObservableList<String> expenseCategoryNames = FXCollections.observableArrayList();
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void displayBarChart() {
         // Get an array with the categories income
-        String[] incomeCategories = {"Salary","Bonus","Award"}; // get right list from own database
+        String[] incomeCategories = {"Salary","Bonus","Award"};
+        //TODO: get right list from own database
         String[] expenseCategories = {"Shopping","Food and Beverage","Movie and show"};
+        //TODO: get right list from own database
+
         // Convert it to a list and add it to our ObservableList of categories
         incomeCategoryNames.addAll(Arrays.asList(incomeCategories));
         expenseCategoryNames.addAll(Arrays.asList(expenseCategories));
@@ -103,7 +125,7 @@ public class categoriesSceneController implements Initializable {
         incomeCategoriesAxis.setCategories(incomeCategoryNames);
         expenseCategoriesAxis.setCategories(expenseCategoryNames);
 
-        // get right data from database
+        //TODO: get right list from own database
         transactionList.add(
                 new Income(LocalDate.of(2004,1,5),50000, "School giving scholarship", "Bonus"));
         transactionList.add(new Expense(LocalDate.of(2004,4,15),-20000, "Buy a phone in FPT", "Shopping"));
@@ -117,8 +139,9 @@ public class categoriesSceneController implements Initializable {
         transactionList.add(new Expense(LocalDate.of(2004,11,23),-35000, "Restaurant district 5", "Food and Beverage"));
 
         // Count the total value of a categories in an account
-        Double[] incomeValueTotal = new Double[3]; // apply the number of categories from database
-        Double[] expenseValueTotal = new Double[3]; // apply the number of categories from database
+        Double[] incomeValueTotal = new Double[3];
+        Double[] expenseValueTotal = new Double[3];
+        //TODO: apply the number of categories from database
 
         // set initial value of 0 to calculate total then
         for(int i=0;i<incomeValueTotal.length;i++){
@@ -167,5 +190,120 @@ public class categoriesSceneController implements Initializable {
         incomeCategoriesBarChart.getData().add(incomeCategorySeries);
         expenseCategoriesBarChart.getData().add(expenseCategorySeries);
     }
+
+    // load categories for income and expense list view
+    @FXML
+    VBox listIncomeCategoryBox;
+    @FXML
+    VBox listExpenseCategoryBox;
+
+    public void incomeCategoriesLoad() {
+        //TODO: get right list from database
+        File folder = new File("src/main/resources/img/icon/income");
+        System.out.println("path income: "+folder.getAbsolutePath());
+        File[] files = folder.listFiles();
+        System.out.println(files.length);
+        Image[] listOfImages = new Image[files.length];
+        String[] fileName = new String[files.length];
+        for(int i=0;i<files.length;i++){
+            File file = files[i];
+            //TODO: get right list from database
+            listOfImages[i] = new Image("/img/icon/income/"+file.getName());
+            fileName[i] = file.getName();
+        }
+
+
+        ListView<String> listView = new ListView<>();
+        ObservableList<String> items = FXCollections.observableArrayList (
+                fileName);
+        listView.setItems(items);
+
+        listView.setCellFactory(param -> new ListCell<String>() {
+            private ImageView imageView = new ImageView();
+            @Override
+            public void updateItem(String name, boolean empty) {
+                super.updateItem(name, empty);
+                if (empty) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    for(int i=0;i<listOfImages.length;i++){
+                        if(name.equals(fileName[i])){
+                            imageView.setImage(listOfImages[i]);
+                            imageView.setFitWidth(50);
+                            imageView.setFitHeight(50);
+                        }
+                    }
+                    setText(name);
+                    setGraphic(imageView);
+                }
+            }
+        });
+        listIncomeCategoryBox.getChildren().add(listView);
+        //listIncomeCategoryBox.setAlignment(Pos.CENTER);
+    }
+
+    public void expenseCategoriesLoad() {
+        File folder = new File("src/main/resources/img/icon/expense");
+        System.out.println("path expense: "+folder.getAbsolutePath());
+        File[] files = folder.listFiles();
+        System.out.println(files.length);
+        Image[] listOfImages = new Image[files.length];
+        String[] fileName = new String[files.length];
+        for(int i=0;i<files.length;i++){
+            File file = files[i];
+            //TODO: get right list from database
+            listOfImages[i] = new Image("/img/icon/expense/"+file.getName());
+            fileName[i] = file.getName();
+        }
+
+
+        ListView<String> listView = new ListView<>();
+        ObservableList<String> items = FXCollections.observableArrayList (
+                fileName);
+        listView.setItems(items);
+
+        listView.setCellFactory(param -> new ListCell<String>() {
+            private ImageView imageView = new ImageView();
+            @Override
+            public void updateItem(String name, boolean empty) {
+                super.updateItem(name, empty);
+                if (empty) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    for(int i=0;i<listOfImages.length;i++){
+                        if(name.equals(fileName[i])){
+                            imageView.setImage(listOfImages[i]);
+                            imageView.setFitWidth(50);
+                            imageView.setFitHeight(50);
+                        }
+                    }
+                    setText(name);
+                    setGraphic(imageView);
+                }
+            }
+        });
+        listExpenseCategoryBox.getChildren().add(listView);
+    }
+
+    public void editExpenseCategoriesBtnClick(ActionEvent actionEvent) {
+    }
+
+    public void deleteExpenseCategoriesBtnClick(ActionEvent actionEvent) {
+    }
+
+    public void addExpenseCategoriesBtnClick(ActionEvent actionEvent) {
+    }
+
+    public void editIncomeCategoriesBtnClick(ActionEvent actionEvent) {
+    }
+
+    public void deleteIncomeCategoriesBtnClick(ActionEvent actionEvent) {
+    }
+
+    public void addIncomeCategoriesBtnClick(ActionEvent actionEvent) {
+    }
+
 
 }

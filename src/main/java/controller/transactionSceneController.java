@@ -114,9 +114,17 @@ public class transactionSceneController implements Initializable {
         Tooltip.install(addTransBtn, new Tooltip("Add new item"));
         Tooltip.install(memoBtn, new Tooltip("Memo record"));
 
+        // load data to table
+        displayTableView();
 
+        // filter data when search table
+        filterData();
+
+    }
+
+    public void displayTableView() {
         // table view handle
-        // data initialization, we will use own database later
+        //TODO: get right list from own database
         transactionList.add(
                 new Income(LocalDate.of(2004,1,5),50000, "School giving scholarship", "Bonus"));
         transactionList.add(new Expense(LocalDate.of(2004,4,15),-20000, "Buy a phone in FPT", "Shopping"));
@@ -152,7 +160,7 @@ public class transactionSceneController implements Initializable {
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<Transaction,String>("transDescription"));
         categoryColumn.setCellValueFactory(new PropertyValueFactory<Transaction,String>("categoryName"));
         //typeColumn not set because there is no property in transaction
-        // should add the account column here but no property now to use
+        //TODO: should add the account column here but no property now to use
         valueColumn.setCellValueFactory(new PropertyValueFactory<Transaction,Double>("transValue"));
 
         // fill color to differentiate income and expense value
@@ -163,7 +171,8 @@ public class transactionSceneController implements Initializable {
                     super.updateItem(item, empty);
 
                     if (item == null || empty) {
-                        setText("abc");
+                        setText("");
+                        setStyle("");
                     } else {
                         // Format number
                         setText(String.valueOf(item).replace("-",""));
@@ -180,9 +189,10 @@ public class transactionSceneController implements Initializable {
 
         // bring data to the table
         transactionTable.setItems(transactionList);
+    }
 
-
-        // filter data when search table
+    public void filterData() {
+        // use to filter data based on text
         // 1. Wrap the ObservableList in a FilteredList (initially display all data).
         FilteredList<Transaction> filteredData = new FilteredList<>(transactionList, p -> true);
 
@@ -214,8 +224,6 @@ public class transactionSceneController implements Initializable {
 
         // 5. Add sorted (and filtered) data to the table.
         transactionTable.setItems(sortedData);
-
-
     }
 
     /**

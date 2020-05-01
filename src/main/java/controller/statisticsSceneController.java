@@ -87,6 +87,7 @@ public class statisticsSceneController implements Initializable {
     public void incomeLoad(ActionEvent actionEvent) {
         try{
             // data to be imported
+            //TODO: get suitable values from own database
             int salaryValue = 200;
             int savingValue = 300;
             int businessValue = 600;

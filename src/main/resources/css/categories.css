@@ -28,6 +28,12 @@
     -fx-text-fill: yellow;
 }
 
+/* button */
+.button:hover{
+    -fx-background-color: #253546;
+    -fx-text-fill: white;
+}
+
 /* menu item */
 .menu-item .label {
     -fx-text-fill: white;

@@ -113,7 +113,7 @@
       <AnchorPane prefHeight="600.0" prefWidth="850.0" stylesheets="@../css/transaction.css" BorderPane.alignment="CENTER">
          <children>
             <HBox prefHeight="59.0" prefWidth="851.0" />
-            <HBox prefHeight="51.0" prefWidth="850.0" stylesheets="@../css/statistics.css">
+            <HBox prefHeight="51.0" prefWidth="850.0">
                <children>
                   <MenuButton fx:id="timeMenuBtn" mnemonicParsing="false" prefHeight="51.0" prefWidth="128.0" text="All time">
                      <items>

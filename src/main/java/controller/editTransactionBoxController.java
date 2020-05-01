@@ -61,8 +61,9 @@ public class editTransactionBoxController implements Initializable {
 
     private Transaction transaction; // not used but maybe later
 
-    public void setDefaultValue(Transaction transaction) { // used to set field the same in the selected row, but not successful
+    public void setDefaultValue(Transaction transaction) {
         System.out.println("alo");
+        //TODO: set field the same in the selected row
         //this.transaction = transaction;
 //        datepicker.setValue(transaction.getTransDate());
 //        System.out.println("get date");

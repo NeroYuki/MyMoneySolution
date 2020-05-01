@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -9,6 +10,7 @@
 <?import javafx.scene.control.RadioMenuItem?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -87,7 +89,7 @@
       </VBox>
    </left>
    <center>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" stylesheets="@../css/categories.css" BorderPane.alignment="CENTER">
          <children>
             <TabPane prefHeight="600.0" prefWidth="850.0" tabClosingPolicy="UNAVAILABLE">
                <tabs>
@@ -95,42 +97,64 @@
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="746.0" style="-fx-background-color: #dadae3;">
                            <children>
-                              <AnchorPane layoutX="426.0" minHeight="0.0" minWidth="0.0" prefHeight="541.0" prefWidth="424.0" style="-fx-background-color: #B8C9DF;">
+                              <AnchorPane layoutX="425.0" minHeight="0.0" minWidth="0.0" prefHeight="541.0" prefWidth="424.0" style="-fx-background-color: #B8C9DF;">
                                  <children>
-                                    <Label layoutX="82.0" layoutY="461.0" text="Compared to last">
-                                       <font>
-                                          <Font size="16.0" />
-                                       </font>
-                                    </Label>
                                     <Label fx:id="expensesNote" layoutX="82.0" layoutY="240.0" text="Click Expenses above to load or refresh data">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="83.0" layoutY="493.0" prefHeight="25.0" prefWidth="188.0" text="Compared to all time">
-                                       <font>
-                                          <Font size="16.0" />
-                                       </font>
-                                    </Label>
+                                    <Pane layoutY="470.0" prefHeight="70.0" prefWidth="425.0" style="-fx-background-color: #787878;">
+                                       <children>
+                                          <Button fx:id="editExpenseCategoriesBtn" layoutX="226.0" layoutY="17.0" mnemonicParsing="false" onAction="#editExpenseCategoriesBtnClick" prefHeight="37.0" prefWidth="91.0" text="EDIT" underline="true">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </Button>
+                                          <Button fx:id="deleteExpenseCategoriesBtn" layoutX="323.0" layoutY="17.0" mnemonicParsing="false" onAction="#deleteExpenseCategoriesBtnClick" prefHeight="37.0" prefWidth="91.0" text="DELETE" underline="true">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </Button>
+                                          <TextField fx:id="filterExpenseText" layoutX="14.0" layoutY="23.0" prefHeight="25.0" prefWidth="103.0" promptText="Search for name" />
+                                          <Button fx:id="addExpenseCategoriesBtn" layoutX="129.0" layoutY="17.0" mnemonicParsing="false" onAction="#addExpenseCategoriesBtnClick" prefHeight="37.0" prefWidth="91.0" text="ADD" underline="true">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </Button>
+                                       </children>
+                                    </Pane>
+                                    <VBox fx:id="listExpenseCategoryBox" layoutY="67.0" prefHeight="403.0" prefWidth="424.0" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="540.0" prefWidth="424.0" style="-fx-background-color: #B8C9DF;">
                                  <children>
-                                    <Label layoutX="78.0" layoutY="457.0" text="Compared to last">
-                                       <font>
-                                          <Font size="16.0" />
-                                       </font>
-                                    </Label>
                                     <Label fx:id="incomeNote" layoutX="81.0" layoutY="240.0" text="Click Income above to load or refresh data">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="79.0" layoutY="492.0" prefHeight="25.0" prefWidth="188.0" text="Compared to all time">
-                                       <font>
-                                          <Font size="16.0" />
-                                       </font>
-                                    </Label>
+                                    <Pane layoutX="-1.0" layoutY="470.0" prefHeight="70.0" prefWidth="425.0" style="-fx-background-color: #787878;">
+                                       <children>
+                                          <Button fx:id="editIncomeCategoriesBtn" layoutX="226.0" layoutY="17.0" mnemonicParsing="false" onAction="#editIncomeCategoriesBtnClick" prefHeight="37.0" prefWidth="91.0" text="EDIT" underline="true">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </Button>
+                                          <Button fx:id="deleteIncomeCategoriesBtn" layoutX="323.0" layoutY="17.0" mnemonicParsing="false" onAction="#deleteIncomeCategoriesBtnClick" prefHeight="37.0" prefWidth="91.0" text="DELETE" underline="true">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </Button>
+                                          <TextField fx:id="filterIncomeText" layoutX="14.0" layoutY="23.0" prefHeight="25.0" prefWidth="103.0" promptText="Search for name" />
+                                          <Button fx:id="addIncomeCategoriesBtn" layoutX="129.0" layoutY="17.0" mnemonicParsing="false" onAction="#addIncomeCategoriesBtnClick" prefHeight="37.0" prefWidth="91.0" text="ADD" underline="true">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </Button>
+                                       </children>
+                                    </Pane>
+                                    <VBox fx:id="listIncomeCategoryBox" layoutY="67.0" prefHeight="403.0" prefWidth="424.0" />
                                  </children>
                               </AnchorPane>
                               <HBox prefHeight="67.0" prefWidth="851.0">

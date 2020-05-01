@@ -2,6 +2,12 @@
 
 }
 
+/* button */
+.button:hover{
+    -fx-background-color: #253546;
+    -fx-text-fill: white;
+}
+
 /*tab menu*/
 .tab-pane *.tab-header-area *.tab-header-background {
     -fx-background-color:transparent;
