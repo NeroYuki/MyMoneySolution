@@ -66,6 +66,9 @@ public class addCategoriesBoxController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        File file = new File("src/main/resources/img/self-icon.png");
+        Image image = new Image(file.toURI().toString(),50,50,false,true);
+        iconImage.setImage(image);
         // setup combo box
         typeComboSet();
     }

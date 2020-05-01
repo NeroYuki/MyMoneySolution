@@ -1,20 +1,26 @@
 package controller;
 
+import helper.DateUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -30,6 +36,9 @@ import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class categoriesSceneController implements Initializable {
+    ListView<String> incomeListView = new ListView<>();
+    ListView<String> expenseListView = new ListView<>();
+
     // init a list of transaction to get from database input
     private ObservableList<Transaction> transactionList = FXCollections.observableArrayList(); // list of transaction
 
@@ -212,14 +221,46 @@ public class categoriesSceneController implements Initializable {
             fileName[i] = file.getName();
         }
 
+        ObservableList<String> items = FXCollections.observableArrayList (fileName);
+        incomeListView.setItems(items);
 
-        ListView<String> listView = new ListView<>();
-        ObservableList<String> items = FXCollections.observableArrayList (
-                fileName);
-        listView.setItems(items);
+        incomeListView.setCellFactory(param -> new ListCell<String>() {
+            //test
+            HBox rowBox = new HBox();
+            Label nameLabel = new Label("");
+            Pane pane = new Pane();
+            Button deleteBtn = new Button("Del");
 
-        listView.setCellFactory(param -> new ListCell<String>() {
             private ImageView imageView = new ImageView();
+
+            // initialize block in anonymous class implementation playing role constructor
+            {
+                // add elements of hbox
+                rowBox.getChildren().addAll(imageView, nameLabel, pane, deleteBtn);
+                HBox.setHgrow(pane, Priority.ALWAYS);
+                // style for label
+                nameLabel.setTextAlignment(TextAlignment.CENTER);
+                nameLabel.setStyle("-fx-font-size: 18");
+                nameLabel.setPadding(new Insets(10,0,0,10));
+                // button delete categories place in every item
+                deleteBtn.setOnAction(event -> {
+                    String itemRemove = getListView().getItems().get(getIndex()).replace(".png","");
+                    //confirmation to delete
+                    Alert alertConfirm = new Alert(Alert.AlertType.CONFIRMATION,
+                            "Delete " + itemRemove + " ?", ButtonType.YES, ButtonType.NO);
+                    alertConfirm.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+                    alertConfirm.showAndWait();
+                    if (alertConfirm.getResult() == ButtonType.YES) {
+                        System.out.println("selectIdx: " + getIndex());
+                        System.out.println("item: " + itemRemove);
+                        //TODO: delete categories in database there
+                        getListView().getItems().remove(getItem());
+                    }
+
+                });
+            }
+
+
             @Override
             public void updateItem(String name, boolean empty) {
                 super.updateItem(name, empty);
@@ -234,13 +275,15 @@ public class categoriesSceneController implements Initializable {
                             imageView.setFitHeight(50);
                         }
                     }
+
                     //TODO: get right name from database
-                    setText(name.toUpperCase().replace(".PNG","")); // set name display of item
-                    setGraphic(imageView);
+                    nameLabel.setText(name.toUpperCase().replace(".PNG","")); // set name display of item
+                    setGraphic(rowBox);
+                    //setGraphic(imageView);
                 }
             }
         });
-        listIncomeCategoryBox.getChildren().add(listView);
+        listIncomeCategoryBox.getChildren().add(incomeListView);
         //listIncomeCategoryBox.setAlignment(Pos.CENTER);
     }
 
@@ -258,14 +301,45 @@ public class categoriesSceneController implements Initializable {
             fileName[i] = file.getName();
         }
 
+        ObservableList<String> items = FXCollections.observableArrayList (fileName);
+        expenseListView.setItems(items);
 
-        ListView<String> listView = new ListView<>();
-        ObservableList<String> items = FXCollections.observableArrayList (
-                fileName);
-        listView.setItems(items);
 
-        listView.setCellFactory(param -> new ListCell<String>() {
+        expenseListView.setCellFactory(param -> new ListCell<String>() {
+            //test
+            HBox rowBox = new HBox();
+            Label nameLabel = new Label("");
+            Pane pane = new Pane();
+            Button deleteBtn = new Button("Del");
+
             private ImageView imageView = new ImageView();
+
+            // initialize block in anonymous class implementation playing role constructor
+            {
+                // add elements of hbox
+                rowBox.getChildren().addAll(imageView, nameLabel, pane, deleteBtn);
+                HBox.setHgrow(pane, Priority.ALWAYS);
+                // style for label
+                nameLabel.setTextAlignment(TextAlignment.CENTER);
+                nameLabel.setStyle("-fx-font-size: 18");
+                nameLabel.setPadding(new Insets(10,0,0,10));
+                // button delete categories place in every item
+                deleteBtn.setOnAction(event -> {
+                    String itemRemove = getListView().getItems().get(getIndex()).replace(".png","");
+                    //confirmation to delete
+                    Alert alertConfirm = new Alert(Alert.AlertType.CONFIRMATION,
+                            "Delete " + itemRemove + " ?", ButtonType.YES, ButtonType.NO);
+                    alertConfirm.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+                    alertConfirm.showAndWait();
+                    if (alertConfirm.getResult() == ButtonType.YES) {
+                        System.out.println("selectIdx: " + getIndex());
+                        System.out.println("item: " + itemRemove);
+                        //TODO: delete categories in database there
+                        getListView().getItems().remove(getItem());
+                    }
+
+                });
+            }
             @Override
             public void updateItem(String name, boolean empty) {
                 super.updateItem(name, empty);
@@ -281,21 +355,15 @@ public class categoriesSceneController implements Initializable {
                         }
                     }
                     //TODO: get right name from database
-                    setText(name.toUpperCase().replace(".PNG","")); // set name display of item
-                    setGraphic(imageView);
+                    nameLabel.setText(name.toUpperCase().replace(".PNG","")); // set name display of item
+                    setGraphic(rowBox);
                 }
             }
         });
-        listExpenseCategoryBox.getChildren().add(listView);
+        listExpenseCategoryBox.getChildren().add(expenseListView);
     }
 
-    public void editExpenseCategoriesBtnClick(ActionEvent actionEvent) {
-    }
-
-    public void deleteExpenseCategoriesBtnClick(ActionEvent actionEvent) {
-    }
-
-    public void addExpenseCategoriesBtnClick(ActionEvent e) throws Exception {
+    public void addCategoriesBtnClick(ActionEvent e) throws Exception {
         // get add income scene
         Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage
 
@@ -312,14 +380,30 @@ public class categoriesSceneController implements Initializable {
         dialogAddStage.showAndWait();
     }
 
-    public void editIncomeCategoriesBtnClick(ActionEvent actionEvent) {
+    public void editCategoriesBtnClick(ActionEvent actionEvent) {
     }
 
-    public void deleteIncomeCategoriesBtnClick(ActionEvent actionEvent) {
+    public void deleteCategoriesBtnClick(ActionEvent actionEvent) {
+//        final int selectedIncome = incomeListView.getSelectionModel().getSelectedIndex();
+//        String itemIncomeRemove = incomeListView.getSelectionModel().getSelectedItem();
+//        if (selectedIncome != -1) {
+//
+//            expenseListView.getSelectionModel().select(-1); // deselect expense item
+//            itemIncomeRemove = itemIncomeRemove.replace(".png","");
+//            // confirmation to delete
+//            Alert alertConfirm = new Alert(Alert.AlertType.CONFIRMATION,
+//                    "Delete " + itemIncomeRemove + " ?", ButtonType.YES, ButtonType.NO);
+//            alertConfirm.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+//            alertConfirm.showAndWait();
+//            if (alertConfirm.getResult() == ButtonType.YES) {
+//                incomeListView.getItems().remove(selectedIncome);
+//                System.out.println("selectIdx: " + selectedIncome);
+//                System.out.println("item: " + itemIncomeRemove);
+//            }
+//            // deselect all item
+//            incomeListView.getSelectionModel().select(-1);
+//
+//        }
     }
-
-    public void addIncomeCategoriesBtnClick(ActionEvent actionEvent) {
-    }
-
 
 }
