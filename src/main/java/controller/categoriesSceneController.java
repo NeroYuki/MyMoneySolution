@@ -5,7 +5,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
@@ -16,7 +15,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import model.Expense;
 import model.Income;
 import model.Transaction;
@@ -26,7 +27,6 @@ import java.io.File;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class categoriesSceneController implements Initializable {
@@ -234,7 +234,8 @@ public class categoriesSceneController implements Initializable {
                             imageView.setFitHeight(50);
                         }
                     }
-                    setText(name);
+                    //TODO: get right name from database
+                    setText(name.toUpperCase().replace(".PNG","")); // set name display of item
                     setGraphic(imageView);
                 }
             }
@@ -279,7 +280,8 @@ public class categoriesSceneController implements Initializable {
                             imageView.setFitHeight(50);
                         }
                     }
-                    setText(name);
+                    //TODO: get right name from database
+                    setText(name.toUpperCase().replace(".PNG","")); // set name display of item
                     setGraphic(imageView);
                 }
             }
@@ -293,7 +295,21 @@ public class categoriesSceneController implements Initializable {
     public void deleteExpenseCategoriesBtnClick(ActionEvent actionEvent) {
     }
 
-    public void addExpenseCategoriesBtnClick(ActionEvent actionEvent) {
+    public void addExpenseCategoriesBtnClick(ActionEvent e) throws Exception {
+        // get add income scene
+        Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage
+
+        addCategoriesBox addExpenseCategories_box = new addCategoriesBox();
+        System.out.println("Add expense categories click");
+
+        // dialog show
+        Stage dialogAddStage = new Stage(StageStyle.TRANSPARENT);
+        dialogAddStage.setTitle("Add expense categories");
+        dialogAddStage.initModality(Modality.WINDOW_MODAL);
+        dialogAddStage.initOwner(stage); // close this dialog to return to owner window
+        dialogAddStage.setScene(addExpenseCategories_box.getScene());
+
+        dialogAddStage.showAndWait();
     }
 
     public void editIncomeCategoriesBtnClick(ActionEvent actionEvent) {

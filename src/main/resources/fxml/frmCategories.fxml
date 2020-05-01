@@ -97,63 +97,43 @@
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="746.0" style="-fx-background-color: #dadae3;">
                            <children>
-                              <AnchorPane layoutX="425.0" minHeight="0.0" minWidth="0.0" prefHeight="541.0" prefWidth="424.0" style="-fx-background-color: #B8C9DF;">
+                              <AnchorPane layoutX="425.0" minHeight="0.0" minWidth="0.0" prefHeight="470.0" prefWidth="424.0" style="-fx-background-color: #B8C9DF;">
                                  <children>
                                     <Label fx:id="expensesNote" layoutX="82.0" layoutY="240.0" text="Click Expenses above to load or refresh data">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <Pane layoutY="470.0" prefHeight="70.0" prefWidth="425.0" style="-fx-background-color: #787878;">
+                                    <Pane layoutX="-426.0" layoutY="470.0" prefHeight="70.0" prefWidth="851.0" style="-fx-background-color: #787878;">
                                        <children>
-                                          <Button fx:id="editExpenseCategoriesBtn" layoutX="226.0" layoutY="17.0" mnemonicParsing="false" onAction="#editExpenseCategoriesBtnClick" prefHeight="37.0" prefWidth="91.0" text="EDIT" underline="true">
+                                          <Button fx:id="editExpenseCategoriesBtn" layoutX="592.0" layoutY="17.0" mnemonicParsing="false" onAction="#editExpenseCategoriesBtnClick" prefHeight="37.0" prefWidth="91.0" text="EDIT" underline="true">
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                           </Button>
-                                          <Button fx:id="deleteExpenseCategoriesBtn" layoutX="323.0" layoutY="17.0" mnemonicParsing="false" onAction="#deleteExpenseCategoriesBtnClick" prefHeight="37.0" prefWidth="91.0" text="DELETE" underline="true">
+                                          <Button fx:id="deleteExpenseCategoriesBtn" layoutX="720.0" layoutY="17.0" mnemonicParsing="false" onAction="#deleteExpenseCategoriesBtnClick" prefHeight="37.0" prefWidth="91.0" text="DELETE" underline="true">
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                           </Button>
-                                          <TextField fx:id="filterExpenseText" layoutX="14.0" layoutY="23.0" prefHeight="25.0" prefWidth="103.0" promptText="Search for name" />
-                                          <Button fx:id="addExpenseCategoriesBtn" layoutX="129.0" layoutY="17.0" mnemonicParsing="false" onAction="#addExpenseCategoriesBtnClick" prefHeight="37.0" prefWidth="91.0" text="ADD" underline="true">
+                                          <Button fx:id="addExpenseCategoriesBtn" layoutX="465.0" layoutY="17.0" mnemonicParsing="false" onAction="#addExpenseCategoriesBtnClick" prefHeight="37.0" prefWidth="91.0" text="ADD" underline="true">
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                           </Button>
+                                          <TextField fx:id="filterText" layoutX="45.0" layoutY="23.0" prefHeight="25.0" prefWidth="194.0" promptText="Search for name" />
                                        </children>
                                     </Pane>
                                     <VBox fx:id="listExpenseCategoryBox" layoutY="67.0" prefHeight="403.0" prefWidth="424.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="540.0" prefWidth="424.0" style="-fx-background-color: #B8C9DF;">
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="470.0" prefWidth="424.0" style="-fx-background-color: #B8C9DF;">
                                  <children>
                                     <Label fx:id="incomeNote" layoutX="81.0" layoutY="240.0" text="Click Income above to load or refresh data">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <Pane layoutX="-1.0" layoutY="470.0" prefHeight="70.0" prefWidth="425.0" style="-fx-background-color: #787878;">
-                                       <children>
-                                          <Button fx:id="editIncomeCategoriesBtn" layoutX="226.0" layoutY="17.0" mnemonicParsing="false" onAction="#editIncomeCategoriesBtnClick" prefHeight="37.0" prefWidth="91.0" text="EDIT" underline="true">
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                          </Button>
-                                          <Button fx:id="deleteIncomeCategoriesBtn" layoutX="323.0" layoutY="17.0" mnemonicParsing="false" onAction="#deleteIncomeCategoriesBtnClick" prefHeight="37.0" prefWidth="91.0" text="DELETE" underline="true">
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                          </Button>
-                                          <TextField fx:id="filterIncomeText" layoutX="14.0" layoutY="23.0" prefHeight="25.0" prefWidth="103.0" promptText="Search for name" />
-                                          <Button fx:id="addIncomeCategoriesBtn" layoutX="129.0" layoutY="17.0" mnemonicParsing="false" onAction="#addIncomeCategoriesBtnClick" prefHeight="37.0" prefWidth="91.0" text="ADD" underline="true">
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                          </Button>
-                                       </children>
-                                    </Pane>
                                     <VBox fx:id="listIncomeCategoryBox" layoutY="67.0" prefHeight="403.0" prefWidth="424.0" />
                                  </children>
                               </AnchorPane>

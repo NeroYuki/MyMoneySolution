@@ -37,6 +37,9 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class transactionSceneController implements Initializable {
+
+    @FXML
+    BorderPane borderPane;
     @FXML
     public ImageView addTransBtn;
     public ImageView memoBtn;
