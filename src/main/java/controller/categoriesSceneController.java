@@ -13,6 +13,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -224,24 +225,34 @@ public class categoriesSceneController implements Initializable {
         ObservableList<String> items = FXCollections.observableArrayList (fileName);
         incomeListView.setItems(items);
 
+        //test
+//        incomeListView.setEditable(true);
+//        incomeListView.setCellFactory(TextFieldListCell.forListView());
+
         incomeListView.setCellFactory(param -> new ListCell<String>() {
             //test
             HBox rowBox = new HBox();
             Label nameLabel = new Label("");
             Pane pane = new Pane();
-            Button deleteBtn = new Button("Del");
+            Button deleteBtn = new Button("Delete");
+            Button editBtn = new Button("Edit");
 
             private ImageView imageView = new ImageView();
 
             // initialize block in anonymous class implementation playing role constructor
             {
                 // add elements of hbox
-                rowBox.getChildren().addAll(imageView, nameLabel, pane, deleteBtn);
+                rowBox.getChildren().addAll(imageView, nameLabel, pane, editBtn, deleteBtn);
                 HBox.setHgrow(pane, Priority.ALWAYS);
                 // style for label
                 nameLabel.setTextAlignment(TextAlignment.CENTER);
                 nameLabel.setStyle("-fx-font-size: 18");
                 nameLabel.setPadding(new Insets(10,0,0,10));
+                // style button
+                deleteBtn.setStyle("-fx-font-size: 18;\n" +
+                        "-fx-padding: 10px;\n" + "-fx-background-insets: 10px;");
+                editBtn.setStyle("-fx-font-size: 18;\n" +
+                        "-fx-padding: 10px;\n" + "-fx-background-insets: 10px;");
                 // button delete categories place in every item
                 deleteBtn.setOnAction(event -> {
                     String itemRemove = getListView().getItems().get(getIndex()).replace(".png","");
@@ -257,6 +268,27 @@ public class categoriesSceneController implements Initializable {
                         getListView().getItems().remove(getItem());
                     }
 
+                });
+                // edit button
+                editBtn.setOnAction(event -> {
+                    try {
+                        //editCategories(event);
+                        Stage stage = (Stage) editBtn.getScene().getWindow(); // get stage of program, primary stage
+
+                        editCategoriesBox editCategories_box = new editCategoriesBox();
+                        System.out.println("Edit categories click");
+
+                        // dialog show
+                        Stage dialogAddStage = new Stage(StageStyle.TRANSPARENT);
+                        dialogAddStage.setTitle("Edit categories");
+                        dialogAddStage.initModality(Modality.WINDOW_MODAL);
+                        dialogAddStage.initOwner(stage); // close this dialog to return to owner window
+                        dialogAddStage.setScene(editCategories_box.getScene());
+
+                        dialogAddStage.showAndWait();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 });
             }
 
@@ -310,19 +342,25 @@ public class categoriesSceneController implements Initializable {
             HBox rowBox = new HBox();
             Label nameLabel = new Label("");
             Pane pane = new Pane();
-            Button deleteBtn = new Button("Del");
+            Button deleteBtn = new Button("Delete");
+            Button editBtn = new Button("Edit");
 
             private ImageView imageView = new ImageView();
 
             // initialize block in anonymous class implementation playing role constructor
             {
                 // add elements of hbox
-                rowBox.getChildren().addAll(imageView, nameLabel, pane, deleteBtn);
+                rowBox.getChildren().addAll(imageView, nameLabel, pane, editBtn,deleteBtn);
                 HBox.setHgrow(pane, Priority.ALWAYS);
                 // style for label
                 nameLabel.setTextAlignment(TextAlignment.CENTER);
                 nameLabel.setStyle("-fx-font-size: 18");
                 nameLabel.setPadding(new Insets(10,0,0,10));
+                // style button
+                deleteBtn.setStyle("-fx-font-size: 18;\n" +
+                        "-fx-padding: 10px;\n" + "-fx-background-insets: 10px;");
+                editBtn.setStyle("-fx-font-size: 18;\n" +
+                        "-fx-padding: 10px;\n" + "-fx-background-insets: 10px;");
                 // button delete categories place in every item
                 deleteBtn.setOnAction(event -> {
                     String itemRemove = getListView().getItems().get(getIndex()).replace(".png","");
@@ -338,6 +376,14 @@ public class categoriesSceneController implements Initializable {
                         getListView().getItems().remove(getItem());
                     }
 
+                });
+                // edit button
+                editBtn.setOnAction(event -> {
+                    try {
+                        editCategories(event);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 });
             }
             @Override
@@ -368,14 +414,31 @@ public class categoriesSceneController implements Initializable {
         Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage
 
         addCategoriesBox addExpenseCategories_box = new addCategoriesBox();
-        System.out.println("Add expense categories click");
+        System.out.println("Add categories click");
 
         // dialog show
         Stage dialogAddStage = new Stage(StageStyle.TRANSPARENT);
-        dialogAddStage.setTitle("Add expense categories");
+        dialogAddStage.setTitle("Add categories");
         dialogAddStage.initModality(Modality.WINDOW_MODAL);
         dialogAddStage.initOwner(stage); // close this dialog to return to owner window
         dialogAddStage.setScene(addExpenseCategories_box.getScene());
+
+        dialogAddStage.showAndWait();
+    }
+
+    public void editCategories(ActionEvent e) throws Exception {
+        // get add income scene
+        Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage
+
+        editCategoriesBox editCategories_box = new editCategoriesBox();
+        System.out.println("Edit categories click");
+
+        // dialog show
+        Stage dialogAddStage = new Stage(StageStyle.TRANSPARENT);
+        dialogAddStage.setTitle("Edit categories");
+        dialogAddStage.initModality(Modality.WINDOW_MODAL);
+        dialogAddStage.initOwner(stage); // close this dialog to return to owner window
+        dialogAddStage.setScene(editCategories_box.getScene());
 
         dialogAddStage.showAndWait();
     }

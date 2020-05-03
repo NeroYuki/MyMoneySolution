@@ -106,7 +106,7 @@
                                     </Label>
                                     <Pane layoutX="-426.0" layoutY="470.0" prefHeight="70.0" prefWidth="851.0" style="-fx-background-color: #787878;">
                                        <children>
-                                          <Button fx:id="editCategoriesBtn" layoutX="708.0" layoutY="17.0" mnemonicParsing="false" onAction="#editCategoriesBtnClick" prefHeight="37.0" prefWidth="91.0" text="EDIT" underline="true">
+                                          <Button fx:id="editCategoriesBtn" layoutX="596.0" layoutY="17.0" mnemonicParsing="false" onAction="#editCategoriesBtnClick" prefHeight="37.0" prefWidth="91.0" text="EDIT" underline="true" visible="false">
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
@@ -116,7 +116,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                           </Button>
-                                          <Button fx:id="addCategoriesBtn" layoutX="581.0" layoutY="17.0" mnemonicParsing="false" onAction="#addCategoriesBtnClick" prefHeight="37.0" prefWidth="91.0" text="ADD" underline="true">
+                                          <Button fx:id="addCategoriesBtn" layoutX="722.0" layoutY="17.0" mnemonicParsing="false" onAction="#addCategoriesBtnClick" prefHeight="37.0" prefWidth="91.0" text="ADD" underline="true">
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
