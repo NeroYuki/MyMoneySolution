@@ -27,6 +27,14 @@ public class PersonalDatabase {
         }
     }
 
+    static Connection getConnection() {
+        if (!checkConnection()) {
+            System.out.println("Connection have yet been establish!");
+            return null;
+        }
+        return conn;
+    }
+
     //Check if a connection is established
     public static boolean checkConnection() {
         if (conn == null) return false;
