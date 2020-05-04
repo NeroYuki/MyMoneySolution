@@ -42,7 +42,7 @@ public class PersonalDatabase {
     }
 
     //Check if a certain table exists in the database
-    public static boolean checkDatabase(String table) {
+    public static boolean checkTableDatabase(String table) {
         boolean result = false;
         if (!checkConnection()) {
             System.out.println("Connection have yet been establish!");
@@ -74,29 +74,106 @@ public class PersonalDatabase {
         }
         try {
             Statement dbCreateStatement = conn.createStatement();
-            //TODO: Create all required database
+            String loggedUserCreate =
+                    "CREATE TABLE loggedUser (\n" +
+                    "    userId CHAR(255) NOT NULL,\n" +
+                    "    username VARCHAR(255) NOT NULL,\n" +
+                    "    email VARCHAR(255) DEFAULT NULL,\n" +
+                    "    birthday DATE DEFAULT NULL,\n" +
+                    "    PRIMARY KEY (userId)\n" +
+                    ");";
+
+            String userBudgetCreate =
+                    "CREATE TABLE userBudget (\n" +
+                    "\tbudgetId CHAR(255) NOT NULL,\n" +
+                    "    ownUser CHAR(255) NOT NULL,\n" +
+                    "    PRIMARY KEY (budgetId),\n" +
+                    "    FOREIGN KEY (ownUser) REFERENCES loggedUser(userId)\n" +
+                    ");;";
+
+            String balanceListCreate =
+                    "CREATE TABLE balanceList (\n" +
+                    "    balanceId CHAR(255) NOT NULL,\n" +
+                    "    ownBudget CHAR(255) NOT NULL,\n" +
+                    "    name VARCHAR(255) NOT NULL,\n" +
+                    "    description VARCHAR(1024) DEFAULT NULL,\n" +
+                    "    currentValue FLOAT NOT NULL,\n" +
+                    "    creationDate DATE NOT NULL,\n" +
+                    "    PRIMARY KEY (balanceId),\n" +
+                    "    FOREIGN KEY (ownBudget) REFERENCES userBudget(budgetId)\n" +
+                    ");";
+
+            String savingHistoryCreate =
+                    "CREATE TABLE savingHistory (\n" +
+                    "    savingId CHAR(255) NOT NULL,\n" +
+                    "    ownBudget CHAR(255) NOT NULL,\n" +
+                    "    name VARCHAR(255) NOT NULL,\n" +
+                    "    description VARCHAR(1024) DEFAULT NULL,\n" +
+                    "    isActive INT DEFAULT 1, \n" +
+                    "    creationDate DATE NOT NULL,\n" +
+                    "    activeTimeSpan INT DEFAULT 0, \n" +
+                    "    baseValue FLOAT NOT NULL,\n" +
+                    "    currentValue FLOAT NOT NULL, \n" +
+                    "    interestRate FLOAT DEFAULT 0.0,\n" +
+                    "    interestInterval ENUM('DAILY', 'WEEKLY', 'MONTHLY', 'QUARTERLY', 'YEARLY') DEFAULT 'MONTHLY',\n" +
+                    "    PRIMARY KEY (savingId),\n" +
+                    "    FOREIGN KEY (ownBudget) REFERENCES userBudget(budgetId)\n" +
+                    ");";
+
+            String loanHistoryCreate =
+                    "CREATE TABLE loanHistory (\n" +
+                    "    loanId CHAR(255) NOT NULL,\n" +
+                    "    ownBudget CHAR(255) NOT NULL,\n" +
+                    "    name VARCHAR(255) NOT NULL,\n" +
+                    "    description VARCHAR(1024) DEFAULT NULL,\n" +
+                    "    isActive INT DEFAULT 1, \n" +
+                    "    creationDate DATE NOT NULL,\n" +
+                    "    activeTimeSpan INT DEFAULT 0, \n" +
+                    "    baseValue FLOAT NOT NULL,\n" +
+                    "    currentValue FLOAT NOT NULL, \n" +
+                    "    interestRate FLOAT DEFAULT 0.0,\n" +
+                    "    interestInterval ENUM('DAILY', 'WEEKLY', 'MONTHLY', 'QUARTERLY', 'YEARLY') DEFAULT 'MONTHLY',\n" +
+                    "    paymentInterval ENUM('DAILY', 'WEEKLY', 'MONTHLY', 'QUARTERLY', 'YEARLY') DEFAULT 'MONTHLY',\n" +
+                    "    PRIMARY KEY (loanId),\n" +
+                    "    FOREIGN KEY (ownBudget) REFERENCES userBudget(budgetId)\n" +
+                    ");";
+
+            String transCategoryCreate =
+                    "CREATE TABLE transCategory (\n" +
+                    "    transCategoryId CHAR(255) NOT NULL,\n" +
+                    "    transType INT NOT NULL, \n" +
+                    "    name VARCHAR(255) NOT NULL,\n" +
+                    "    description VARCHAR(1023) DEFAULT NULL,\n" +
+                    "    iconPath VARCHAR(1023) DEFAULT NULL,\n" +
+                    "    PRIMARY KEY (transCategoryId)\n" +
+                    ");";
+
+            String transHistoryCreate =
+                    "CREATE TABLE transHistory (\n" +
+                    "    transId CHAR(255) NOT NULL,\n" +
+                    "    applyBalance CHAR(255) NOT NULL,\n" +
+                    "    name VARCHAR(255) NOT NULL,\n" +
+                    "    description VARCHAR(1023) DEFAULT NULL,\n" +
+                    "    value FLOAT NOT NULL,\n" +
+                    "    transType INT NOT NULL,\n" +
+                    "    transCategoryId CHAR(255) NOT NULL,\n" +
+                    "    occurDate DATE NOT NULL,\n" +
+                    "    PRIMARY KEY (transId),\n" +
+                    "    FOREIGN KEY (applyBalance) REFERENCES balanceList(balanceId),\n" +
+                    "    FOREIGN KEY (transCategoryId) REFERENCES transCategory(transCategoryId)\n" +
+                    ");\n";
+
+            dbCreateStatement.execute(loggedUserCreate);
+            dbCreateStatement.execute(userBudgetCreate);
+            dbCreateStatement.execute(balanceListCreate);
+            dbCreateStatement.execute(savingHistoryCreate);
+            dbCreateStatement.execute(loanHistoryCreate);
+            dbCreateStatement.execute(transCategoryCreate);
+            dbCreateStatement.execute(transHistoryCreate);
         }
         catch (Exception e) {
             System.out.println(e);
         }
-    }
-
-    //Get all balance
-    public static ArrayList<Balance> getBalances(String budgetId) {
-        ArrayList<Balance> result = new ArrayList<>();
-        return result;
-    }
-
-    //Get all active loan
-    public static ArrayList<Loan> getActiveLoan(String budgetId) {
-        ArrayList<Loan> result = new ArrayList<>();
-        return result;
-    }
-
-    //Get all active saving
-    public static ArrayList<Saving> getActiveSaving(String budgetId) {
-        ArrayList<Saving> result = new ArrayList<>();
-        return result;
     }
 
     //Get user info

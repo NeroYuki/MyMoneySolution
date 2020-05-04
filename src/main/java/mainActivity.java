@@ -24,7 +24,9 @@ public class mainActivity extends Application {
     }
     public static void main(String[] args) {
         PersonalDatabase.initConnection(DB_URL, USER_NAME, PASSWORD);
-        PersonalDatabase.checkDatabase("loggedUser");
+        if (!PersonalDatabase.checkTableDatabase("loggedUser")) {
+            PersonalDatabase.initDatabase();
+        };
         launch(args);
     }
 }

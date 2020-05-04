@@ -3,11 +3,12 @@ package model;
 import java.time.LocalDate;
 
 public class Income extends Transaction {
-    private String categoryName;
+    private Category category;
 
-    public Income(LocalDate date, int value, String desc, String category) {
+    //TODO: change to category instead of name
+    public Income(LocalDate date, int value, String desc, String categoryName) {
         super(date, value, desc);
-        this.categoryName = category;
+        this.category = new Category(categoryName, "", "", 1);
     }
 
     public void applyToBalance(Balance bal) {
@@ -16,6 +17,6 @@ public class Income extends Transaction {
     }
 
     public String getCategoryName() {
-        return categoryName;
+        return category.name;
     }
 }

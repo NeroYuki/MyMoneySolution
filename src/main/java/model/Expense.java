@@ -3,11 +3,12 @@ package model;
 import java.time.LocalDate;
 
 public class Expense extends Transaction {
-    private String categoryName;
+    private Category category;
 
-    public Expense(LocalDate date, double value, String desc, String category) {
+    //TODO: change to category instead of name
+    public Expense(LocalDate date, double value, String desc, String categoryName) {
         super(date, value, desc);
-        this.categoryName = category;
+        this.category = new Category(categoryName, "", "", 2);
     }
 
     public void applyToBalance(Balance bal) {
@@ -16,6 +17,6 @@ public class Expense extends Transaction {
     }
 
     public String getCategoryName() {
-        return categoryName;
+        return category.name;
     }
 }

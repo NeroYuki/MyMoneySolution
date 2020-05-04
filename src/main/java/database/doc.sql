@@ -69,6 +69,7 @@ CREATE TABLE transCategory (
     transType INT NOT NULL, --1 for income, 2 for expense
     name VARCHAR(255) NOT NULL,
     description VARCHAR(1023) DEFAULT NULL,
+    iconPath VARCHAR(1023) DEFAULT NULL,
     PRIMARY KEY (transCategoryId)
 )
 
