@@ -206,7 +206,6 @@ public class transactionSceneController implements Initializable {
                 if (newValue == null || newValue.isEmpty()) {
                     return true;
                 }
-
                 // Compare description and value of transaction data with filter text.
                 String lowerCaseFilter = newValue.toLowerCase();
 

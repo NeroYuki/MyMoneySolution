@@ -11,7 +11,7 @@ public class mainActivity extends Application {
 
     private static final String DB_URL = "jdbc:mysql://localhost:3306/jfinance?useUnicode=true&characterEncoding=UTF-8";
     private static final String USER_NAME = "root";
-    private static final String PASSWORD = "leesown123";
+    private static final String PASSWORD = "SE330.K21";
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -24,7 +24,7 @@ public class mainActivity extends Application {
     }
     public static void main(String[] args) {
         PersonalDatabase.initConnection(DB_URL, USER_NAME, PASSWORD);
-        PersonalDatabase.checkDatabase("UserInfo");
+        PersonalDatabase.checkDatabase("loggedUser");
         launch(args);
     }
 }
