@@ -1,8 +1,10 @@
 package database;
 
+import exception.DatabaseException;
 import model.*;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -12,7 +14,7 @@ public class PersonalDatabase {
     //Use this to re-encode UTF-8 string (Result of database output)
     public static String utf8toNativeEncoding(String input) throws Exception {
         Charset defaultCharset = Charset.defaultCharset();
-        byte[] sourceBytes = input.getBytes("UTF-8");
+        byte[] sourceBytes = input.getBytes(StandardCharsets.UTF_8);
         return new String(sourceBytes , defaultCharset.name());
     }
 
@@ -21,24 +23,24 @@ public class PersonalDatabase {
         try {
             conn = DriverManager.getConnection(dbURL, userName, password);
             System.out.println("connect successfully!");
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             System.out.println("connect failure!");
             ex.printStackTrace();
         }
     }
 
-    static Connection getConnection() {
+    static Connection getConnection() throws DatabaseException {
         if (!checkConnection()) {
             System.out.println("Connection have yet been establish!");
-            return null;
+            throw new DatabaseException(1);
         }
         return conn;
     }
 
     //Check if a connection is established
     public static boolean checkConnection() {
-        if (conn == null) return false;
-        return true;
+        return conn != null;
     }
 
     //Check if a certain table exists in the database
@@ -63,10 +65,12 @@ public class PersonalDatabase {
         catch (Exception e) {
             System.out.println(e);
         }
-        return result;
+        finally {
+            return result;
+        }
     }
 
-    //Initialize required table in the database (UserInfo)
+    //Initialize required table in the database (only if the correct database server is found)
     public static void initDatabase() {
         if (!checkConnection()) {
             System.out.println("Connection have yet been establish!");
@@ -76,7 +80,7 @@ public class PersonalDatabase {
             Statement dbCreateStatement = conn.createStatement();
             String loggedUserCreate =
                     "CREATE TABLE loggedUser (\n" +
-                    "    userId CHAR(255) NOT NULL,\n" +
+                    "    userId BIGINT NOT NULL,\n" +
                     "    username VARCHAR(255) NOT NULL,\n" +
                     "    email VARCHAR(255) DEFAULT NULL,\n" +
                     "    birthday DATE DEFAULT NULL,\n" +
@@ -85,16 +89,16 @@ public class PersonalDatabase {
 
             String userBudgetCreate =
                     "CREATE TABLE userBudget (\n" +
-                    "\tbudgetId CHAR(255) NOT NULL,\n" +
-                    "    ownUser CHAR(255) NOT NULL,\n" +
+                    "\tbudgetId BIGINT NOT NULL,\n" +
+                    "    ownUser BIGINT NOT NULL,\n" +
                     "    PRIMARY KEY (budgetId),\n" +
                     "    FOREIGN KEY (ownUser) REFERENCES loggedUser(userId)\n" +
                     ");;";
 
             String balanceListCreate =
                     "CREATE TABLE balanceList (\n" +
-                    "    balanceId CHAR(255) NOT NULL,\n" +
-                    "    ownBudget CHAR(255) NOT NULL,\n" +
+                    "    balanceId BIGINT NOT NULL,\n" +
+                    "    ownBudget BIGINT NOT NULL,\n" +
                     "    name VARCHAR(255) NOT NULL,\n" +
                     "    description VARCHAR(1024) DEFAULT NULL,\n" +
                     "    currentValue FLOAT NOT NULL,\n" +
@@ -105,8 +109,8 @@ public class PersonalDatabase {
 
             String savingHistoryCreate =
                     "CREATE TABLE savingHistory (\n" +
-                    "    savingId CHAR(255) NOT NULL,\n" +
-                    "    ownBudget CHAR(255) NOT NULL,\n" +
+                    "    savingId BIGINT NOT NULL,\n" +
+                    "    ownBudget BIGINT NOT NULL,\n" +
                     "    name VARCHAR(255) NOT NULL,\n" +
                     "    description VARCHAR(1024) DEFAULT NULL,\n" +
                     "    isActive INT DEFAULT 1, \n" +
@@ -122,8 +126,8 @@ public class PersonalDatabase {
 
             String loanHistoryCreate =
                     "CREATE TABLE loanHistory (\n" +
-                    "    loanId CHAR(255) NOT NULL,\n" +
-                    "    ownBudget CHAR(255) NOT NULL,\n" +
+                    "    loanId BIGINT NOT NULL,\n" +
+                    "    ownBudget BIGINT NOT NULL,\n" +
                     "    name VARCHAR(255) NOT NULL,\n" +
                     "    description VARCHAR(1024) DEFAULT NULL,\n" +
                     "    isActive INT DEFAULT 1, \n" +
@@ -140,7 +144,7 @@ public class PersonalDatabase {
 
             String transCategoryCreate =
                     "CREATE TABLE transCategory (\n" +
-                    "    transCategoryId CHAR(255) NOT NULL,\n" +
+                    "    transCategoryId BIGINT NOT NULL,\n" +
                     "    transType INT NOT NULL, \n" +
                     "    name VARCHAR(255) NOT NULL,\n" +
                     "    description VARCHAR(1023) DEFAULT NULL,\n" +
@@ -150,13 +154,12 @@ public class PersonalDatabase {
 
             String transHistoryCreate =
                     "CREATE TABLE transHistory (\n" +
-                    "    transId CHAR(255) NOT NULL,\n" +
-                    "    applyBalance CHAR(255) NOT NULL,\n" +
-                    "    name VARCHAR(255) NOT NULL,\n" +
+                    "    transId BIGINT NOT NULL,\n" +
+                    "    applyBalance BIGINT NOT NULL,\n" +
                     "    description VARCHAR(1023) DEFAULT NULL,\n" +
                     "    value FLOAT NOT NULL,\n" +
                     "    transType INT NOT NULL,\n" +
-                    "    transCategoryId CHAR(255) NOT NULL,\n" +
+                    "    transCategoryId BIGINT NOT NULL,\n" +
                     "    occurDate DATE NOT NULL,\n" +
                     "    PRIMARY KEY (transId),\n" +
                     "    FOREIGN KEY (applyBalance) REFERENCES balanceList(balanceId),\n" +
@@ -190,7 +193,8 @@ public class PersonalDatabase {
         }
         try {
             conn.close();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             System.out.println(e);
         }
     }
