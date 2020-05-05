@@ -11,7 +11,7 @@ public class DatabaseBudget {
     //return a budget object for a given userId
     public static Budget getBudget(long userId) throws DatabaseException {
         try {
-            Connection conn = PersonalDatabase.getConnection();
+            Connection conn = DatabaseManager.getConnection();
             PreparedStatement budgetQuery = conn.prepareCall("SELECT * FROM userBudget WHERE ownUser = ?");
             budgetQuery.setLong(1, userId);
             ResultSet budgetResult = budgetQuery.executeQuery();

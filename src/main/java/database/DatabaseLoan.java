@@ -1,6 +1,5 @@
 package database;
 
-import com.mysql.cj.x.protobuf.MysqlxPrepare;
 import exception.DatabaseException;
 import helper.IntervalEnum;
 import model.Loan;
@@ -17,7 +16,7 @@ public class DatabaseLoan {
         ArrayList<Loan> result = new ArrayList<>();
         try {
             //TODO: actually implement this
-            Connection conn = PersonalDatabase.getConnection();
+            Connection conn = DatabaseManager.getConnection();
             PreparedStatement loanQuery = conn.prepareCall("SELECT * FROM loanHistory WHERE isActive = 1 AND budgetId = ?");
             loanQuery.setLong(1, budgetId);
             ResultSet activeLoanResult = loanQuery.executeQuery();

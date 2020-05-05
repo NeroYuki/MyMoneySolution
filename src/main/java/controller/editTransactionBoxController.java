@@ -1,21 +1,14 @@
 package controller;
 
-import database.PersonalDatabase;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
-import model.Expense;
-import model.Income;
 import model.Transaction;
-import scenes.homepageScene;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 

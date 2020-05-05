@@ -1,5 +1,4 @@
 import javafx.application.Application;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import scenes.*;
@@ -23,9 +22,9 @@ public class mainActivity extends Application {
         primaryStage.show();
     }
     public static void main(String[] args) {
-        PersonalDatabase.initConnection(DB_URL, USER_NAME, PASSWORD);
-        if (!PersonalDatabase.checkTableDatabase("loggedUser")) {
-            PersonalDatabase.initDatabase();
+        DatabaseManager.initConnection(DB_URL, USER_NAME, PASSWORD);
+        if (!DatabaseManager.checkTableDatabase("loggedUser")) {
+            DatabaseManager.initDatabase();
         };
         launch(args);
     }

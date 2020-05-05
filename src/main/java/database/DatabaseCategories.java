@@ -10,7 +10,7 @@ public class DatabaseCategories {
     //return if operation is success
     public static boolean addCategories(Category cat) throws DatabaseException {
        try {
-           Connection conn = PersonalDatabase.getConnection();
+           Connection conn = DatabaseManager.getConnection();
            //TODO: actually implement this
            return true;
        }
@@ -27,7 +27,7 @@ public class DatabaseCategories {
     public static ArrayList<Category> getIncomeCategory() throws DatabaseException {
         ArrayList<Category> result = new ArrayList<>();
         try {
-            Connection conn = PersonalDatabase.getConnection();
+            Connection conn = DatabaseManager.getConnection();
             PreparedStatement categoryQuery = conn.prepareCall("SELECT * FROM transCategory WHERE transType = 1");
             ResultSet categoryResult = categoryQuery.executeQuery();
             while (categoryResult.next()) {
@@ -53,7 +53,7 @@ public class DatabaseCategories {
     public static ArrayList<Category> getExpenseCategory() throws DatabaseException {
         ArrayList<Category> result = new ArrayList<>();
         try {
-            Connection conn = PersonalDatabase.getConnection();
+            Connection conn = DatabaseManager.getConnection();
             PreparedStatement categoryQuery = conn.prepareCall("SELECT * FROM transCategory WHERE transType = 2");
             ResultSet categoryResult = categoryQuery.executeQuery();
             while (categoryResult.next()) {
@@ -78,7 +78,7 @@ public class DatabaseCategories {
 
     public static Category getCategoryById(long categoryId) throws DatabaseException {
         try {
-            Connection conn = PersonalDatabase.getConnection();
+            Connection conn = DatabaseManager.getConnection();
             PreparedStatement categoryQuery = conn.prepareCall("SELECT * FROM transCategory WHERE categoryId = ?");
             categoryQuery.setLong(1, categoryId);
             ResultSet categoryResult = categoryQuery.executeQuery();

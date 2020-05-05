@@ -14,7 +14,7 @@ public class DatabaseBalance {
         //TODO: error check
         ArrayList<Balance> result = new ArrayList<>();
         try {
-            Connection conn = PersonalDatabase.getConnection();
+            Connection conn = DatabaseManager.getConnection();
             PreparedStatement balanceQuery = conn.prepareCall("SELECT * FROM balanceList WHERE ownBudget = ?");
             balanceQuery.setLong(1, budgetId);
             ResultSet balanceResult = balanceQuery.executeQuery();

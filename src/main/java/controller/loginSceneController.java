@@ -1,21 +1,14 @@
 package controller;
 
-import database.PersonalDatabase;
+import database.DatabaseManager;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import scenes.homepageScene;
-import scenes.loginScene;
 
 import java.io.IOException;
 
@@ -40,7 +33,7 @@ public class loginSceneController {
 
     public void registerBtnClick(ActionEvent e) throws IOException {
         System.out.println("Register clicked");
-        PersonalDatabase.testLoad("expense", 3);
+        DatabaseManager.testLoad("expense", 3);
     }
 
     public void closeBtnClick(ActionEvent e){

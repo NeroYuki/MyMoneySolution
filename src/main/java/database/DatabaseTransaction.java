@@ -17,7 +17,7 @@ public class DatabaseTransaction {
         //TODO: error check
         ArrayList<Transaction> result = new ArrayList<>();
         try {
-            Connection conn = PersonalDatabase.getConnection();
+            Connection conn = DatabaseManager.getConnection();
             PreparedStatement transactionQuery = conn.prepareStatement("SELECT * FROM Transaction WHERE applyBalance = ?");
             transactionQuery.setLong(1, balanceId);
             ResultSet queryResult = transactionQuery.executeQuery();
@@ -57,7 +57,7 @@ public class DatabaseTransaction {
     public static ArrayList<Income> getIncome(long balanceId) throws DatabaseException {
         ArrayList<Income> result = new ArrayList<>();
         try {
-            Connection conn = PersonalDatabase.getConnection();
+            Connection conn = DatabaseManager.getConnection();
         }
         catch (DatabaseException de) {
             throw de;
@@ -73,7 +73,7 @@ public class DatabaseTransaction {
     public static ArrayList<Expense> getExpense(long balanceId) throws DatabaseException {
         ArrayList<Expense> result = new ArrayList<>();
         try {
-            Connection conn = PersonalDatabase.getConnection();
+            Connection conn = DatabaseManager.getConnection();
         }
         catch (DatabaseException de) {
             throw de;

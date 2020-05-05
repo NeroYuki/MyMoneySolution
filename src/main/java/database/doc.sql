@@ -5,6 +5,7 @@
 CREATE TABLE loggedUser (
     userId BIGINT NOT NULL,
     username VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
     email VARCHAR(255) DEFAULT NULL,
     birthday DATE DEFAULT NULL,
     PRIMARY KEY (userId)
@@ -46,7 +47,7 @@ CREATE TABLE savingHistory (
     interestRate DOUBLE DEFAULT 0.0,
     interestInterval ENUM('DAILY', 'WEEKLY', 'MONTHLY', 'QUARTERLY', 'YEARLY') DEFAULT 'MONTHLY',
     PRIMARY KEY (savingId),
-    FOREIGN KEY (ownBudget) REFERENCES userBudget(budgetId),
+    FOREIGN KEY (ownBudget) REFERENCES userBudget(budgetId)
 )
 
 --Loan table, store all Loan instances with their respective budgetId
@@ -68,7 +69,7 @@ CREATE TABLE loanHistory (
     interestInterval ENUM('DAILY', 'WEEKLY', 'MONTHLY', 'QUARTERLY', 'YEARLY', 'ONE_TIME') DEFAULT 'MONTHLY',
     paymentInterval ENUM('DAILY', 'WEEKLY', 'MONTHLY', 'QUARTERLY', 'YEARLY') DEFAULT 'MONTHLY',
     PRIMARY KEY (loanId),
-    FOREIGN KEY (ownBudget) REFERENCES userBudget(budgetId),
+    FOREIGN KEY (ownBudget) REFERENCES userBudget(budgetId)
 )
 
 --Transaction Category type table, store available transaction category
@@ -94,5 +95,5 @@ CREATE TABLE transHistory (
     occurDate DATE NOT NULL,
     PRIMARY KEY (transId),
     FOREIGN KEY (applyBalance) REFERENCES balanceList(balanceId),
-    FOREIGN KEY (transCategoryId) REFERENCES transCategory(transCategoryId),
+    FOREIGN KEY (transCategoryId) REFERENCES transCategory(transCategoryId)
 )

@@ -8,7 +8,7 @@ import java.nio.charset.StandardCharsets;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class PersonalDatabase {
+public class DatabaseManager {
     private static Connection conn = null;
 
     //Use this to re-encode UTF-8 string (Result of database output)
@@ -78,93 +78,87 @@ public class PersonalDatabase {
         }
         try {
             Statement dbCreateStatement = conn.createStatement();
-            String loggedUserCreate =
-                    "CREATE TABLE loggedUser (\n" +
+            String loggedUserCreate = "CREATE TABLE loggedUser (\n" +
                     "    userId BIGINT NOT NULL,\n" +
                     "    username VARCHAR(255) NOT NULL,\n" +
+                    "    password VARCHAR(255) NOT NULL,\n" +
                     "    email VARCHAR(255) DEFAULT NULL,\n" +
                     "    birthday DATE DEFAULT NULL,\n" +
                     "    PRIMARY KEY (userId)\n" +
                     ");";
 
-            String userBudgetCreate =
-                    "CREATE TABLE userBudget (\n" +
-                    "\tbudgetId BIGINT NOT NULL,\n" +
+            String userBudgetCreate = "CREATE TABLE userBudget (\n" +
+                    "    budgetId BIGINT NOT NULL,\n" +
                     "    ownUser BIGINT NOT NULL,\n" +
                     "    PRIMARY KEY (budgetId),\n" +
                     "    FOREIGN KEY (ownUser) REFERENCES loggedUser(userId)\n" +
-                    ");;";
+                    ");";
 
-            String balanceListCreate =
-                    "CREATE TABLE balanceList (\n" +
+            String balanceListCreate = "CREATE TABLE balanceList (\n" +
                     "    balanceId BIGINT NOT NULL,\n" +
                     "    ownBudget BIGINT NOT NULL,\n" +
                     "    name VARCHAR(255) NOT NULL,\n" +
                     "    description VARCHAR(1024) DEFAULT NULL,\n" +
-                    "    currentValue FLOAT NOT NULL,\n" +
+                    "    currentValue DOUBLE NOT NULL,\n" +
                     "    creationDate DATE NOT NULL,\n" +
                     "    PRIMARY KEY (balanceId),\n" +
                     "    FOREIGN KEY (ownBudget) REFERENCES userBudget(budgetId)\n" +
                     ");";
 
-            String savingHistoryCreate =
-                    "CREATE TABLE savingHistory (\n" +
+            String savingHistoryCreate = "CREATE TABLE savingHistory (\n" +
                     "    savingId BIGINT NOT NULL,\n" +
                     "    ownBudget BIGINT NOT NULL,\n" +
                     "    name VARCHAR(255) NOT NULL,\n" +
                     "    description VARCHAR(1024) DEFAULT NULL,\n" +
-                    "    isActive INT DEFAULT 1, \n" +
+                    "    isActive INT DEFAULT 1,\n" +
                     "    creationDate DATE NOT NULL,\n" +
-                    "    activeTimeSpan INT DEFAULT 0, \n" +
-                    "    baseValue FLOAT NOT NULL,\n" +
-                    "    currentValue FLOAT NOT NULL, \n" +
-                    "    interestRate FLOAT DEFAULT 0.0,\n" +
+                    "    activeTimeSpan INT DEFAULT 0,\n" +
+                    "    baseValue DOUBLE NOT NULL,\n" +
+                    "    currentValue DOUBLE NOT NULL,\n" +
+                    "    interestRate DOUBLE DEFAULT 0.0,\n" +
                     "    interestInterval ENUM('DAILY', 'WEEKLY', 'MONTHLY', 'QUARTERLY', 'YEARLY') DEFAULT 'MONTHLY',\n" +
                     "    PRIMARY KEY (savingId),\n" +
                     "    FOREIGN KEY (ownBudget) REFERENCES userBudget(budgetId)\n" +
                     ");";
 
-            String loanHistoryCreate =
-                    "CREATE TABLE loanHistory (\n" +
+            String loanHistoryCreate = "CREATE TABLE loanHistory (\n" +
                     "    loanId BIGINT NOT NULL,\n" +
                     "    ownBudget BIGINT NOT NULL,\n" +
                     "    name VARCHAR(255) NOT NULL,\n" +
                     "    description VARCHAR(1024) DEFAULT NULL,\n" +
-                    "    isActive INT DEFAULT 1, \n" +
+                    "    isActive INT DEFAULT 1,\n" +
                     "    creationDate DATE NOT NULL,\n" +
-                    "    activeTimeSpan INT DEFAULT 0, \n" +
-                    "    baseValue FLOAT NOT NULL,\n" +
-                    "    currentValue FLOAT NOT NULL, \n" +
-                    "    interestRate FLOAT DEFAULT 0.0,\n" +
-                    "    interestInterval ENUM('DAILY', 'WEEKLY', 'MONTHLY', 'QUARTERLY', 'YEARLY') DEFAULT 'MONTHLY',\n" +
+                    "    activeTimeSpan INT DEFAULT 0,\n" +
+                    "    baseValue DOUBLE NOT NULL,\n" +
+                    "    currentValue DOUBLE NOT NULL,\n" +
+                    "    interestRate DOUBLE DEFAULT 0.0,\n" +
+                    "    interestInterval ENUM('DAILY', 'WEEKLY', 'MONTHLY', 'QUARTERLY', 'YEARLY', 'ONE_TIME') DEFAULT 'MONTHLY',\n" +
                     "    paymentInterval ENUM('DAILY', 'WEEKLY', 'MONTHLY', 'QUARTERLY', 'YEARLY') DEFAULT 'MONTHLY',\n" +
                     "    PRIMARY KEY (loanId),\n" +
                     "    FOREIGN KEY (ownBudget) REFERENCES userBudget(budgetId)\n" +
                     ");";
 
-            String transCategoryCreate =
-                    "CREATE TABLE transCategory (\n" +
+            String transCategoryCreate = "CREATE TABLE transCategory (\n" +
                     "    transCategoryId BIGINT NOT NULL,\n" +
-                    "    transType INT NOT NULL, \n" +
+                    "    transType INT NOT NULL,\n" +
                     "    name VARCHAR(255) NOT NULL,\n" +
                     "    description VARCHAR(1023) DEFAULT NULL,\n" +
                     "    iconPath VARCHAR(1023) DEFAULT NULL,\n" +
                     "    PRIMARY KEY (transCategoryId)\n" +
                     ");";
 
-            String transHistoryCreate =
-                    "CREATE TABLE transHistory (\n" +
+            String transHistoryCreate = "CREATE TABLE transHistory (\n" +
                     "    transId BIGINT NOT NULL,\n" +
                     "    applyBalance BIGINT NOT NULL,\n" +
                     "    description VARCHAR(1023) DEFAULT NULL,\n" +
-                    "    value FLOAT NOT NULL,\n" +
+                    "    value DOUBLE NOT NULL,\n" +
                     "    transType INT NOT NULL,\n" +
                     "    transCategoryId BIGINT NOT NULL,\n" +
                     "    occurDate DATE NOT NULL,\n" +
                     "    PRIMARY KEY (transId),\n" +
                     "    FOREIGN KEY (applyBalance) REFERENCES balanceList(balanceId),\n" +
                     "    FOREIGN KEY (transCategoryId) REFERENCES transCategory(transCategoryId)\n" +
-                    ");\n";
+                    ");";
 
             dbCreateStatement.execute(loggedUserCreate);
             dbCreateStatement.execute(userBudgetCreate);
@@ -177,12 +171,6 @@ public class PersonalDatabase {
         catch (Exception e) {
             System.out.println(e);
         }
-    }
-
-    //Get user info
-    public static User getUserInfo(String username) {
-        User result = new User();
-        return result;
     }
 
     //Terminate current connection to database, only call when program is shut down

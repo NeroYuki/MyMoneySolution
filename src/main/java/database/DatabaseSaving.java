@@ -3,7 +3,6 @@ package database;
 import exception.DatabaseException;
 import helper.IntervalEnum;
 import model.Saving;
-import model.Transaction;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +16,7 @@ public class DatabaseSaving {
         ArrayList<Saving> result = new ArrayList<>();
         try {
             //TODO: actually implement this
-            Connection conn = PersonalDatabase.getConnection();
+            Connection conn = DatabaseManager.getConnection();
             PreparedStatement savingQuery = conn.prepareCall("SELECT * FROM savingHistory WHERE isActive = 1 AND budgetId = ?");
             savingQuery.setLong(1, budgetId);
             ResultSet activeSavingResult = savingQuery.executeQuery();
