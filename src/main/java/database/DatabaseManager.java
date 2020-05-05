@@ -3,20 +3,13 @@ package database;
 import exception.DatabaseException;
 import model.*;
 
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.sql.*;
 import java.util.ArrayList;
 
+import static helper.CharacterEncoding.utf8toNativeEncoding;
+
 public class DatabaseManager {
     private static Connection conn = null;
-
-    //Use this to re-encode UTF-8 string (Result of database output)
-    public static String utf8toNativeEncoding(String input) throws Exception {
-        Charset defaultCharset = Charset.defaultCharset();
-        byte[] sourceBytes = input.getBytes(StandardCharsets.UTF_8);
-        return new String(sourceBytes , defaultCharset.name());
-    }
 
     //Initialize a connection to a database with authentication provided in parameter
     public static void initConnection(String dbURL, String userName, String password) {

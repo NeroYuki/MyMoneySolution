@@ -6,7 +6,8 @@ public class ErrorCode {
     private static final String[] errorMessagePool = {
             "Unknown failure when performing action",
             "Failed to establish connection to database",
-            "Incorrect Username or Password"
+            "Incorrect Username or Password",
+            "Error happen when registering new user"
     };
 
     public ErrorCode(int code) {
