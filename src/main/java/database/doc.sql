@@ -23,7 +23,7 @@ CREATE TABLE balanceList (
     ownBudget BIGINT NOT NULL,
     name VARCHAR(255) NOT NULL,
     description VARCHAR(1024) DEFAULT NULL,
-    currentValue FLOAT NOT NULL,
+    currentValue DOUBLE NOT NULL,
     creationDate DATE NOT NULL,
     PRIMARY KEY (balanceId),
     FOREIGN KEY (ownBudget) REFERENCES userBudget(budgetId)
@@ -35,12 +35,15 @@ CREATE TABLE savingHistory (
     ownBudget BIGINT NOT NULL,
     name VARCHAR(255) NOT NULL,
     description VARCHAR(1024) DEFAULT NULL,
-    isActive INT DEFAULT 1, --0 for inactive, 1 for active
+    isActive INT DEFAULT 1,
+    --0 for inactive, 1 for active
     creationDate DATE NOT NULL,
-    activeTimeSpan INT DEFAULT 0, --count in days, 0 if this has no limit
-    baseValue FLOAT NOT NULL,
-    currentValue FLOAT NOT NULL, --amount of money that can be taken from this Saving instance (the saving become inactive if this value is 0?)
-    interestRate FLOAT DEFAULT 0.0,
+    activeTimeSpan INT DEFAULT 0,
+    --count in days, 0 if this has no limit
+    baseValue DOUBLE NOT NULL,
+    currentValue DOUBLE NOT NULL,
+    --amount of money that can be taken from this Saving instance (the saving become inactive if this value is 0?)
+    interestRate DOUBLE DEFAULT 0.0,
     interestInterval ENUM('DAILY', 'WEEKLY', 'MONTHLY', 'QUARTERLY', 'YEARLY') DEFAULT 'MONTHLY',
     PRIMARY KEY (savingId),
     FOREIGN KEY (ownBudget) REFERENCES userBudget(budgetId),
@@ -52,13 +55,17 @@ CREATE TABLE loanHistory (
     ownBudget BIGINT NOT NULL,
     name VARCHAR(255) NOT NULL,
     description VARCHAR(1024) DEFAULT NULL,
-    isActive INT DEFAULT 1, --0 for inactive, 1 for active
+    isActive INT DEFAULT 1,
+    --0 for inactive, 1 for active
     creationDate DATE NOT NULL,
-    activeTimeSpan INT DEFAULT 0, --count in days, 0 if this has no limit
-    baseValue FLOAT NOT NULL, --initially loaned amount
-    currentValue FLOAT NOT NULL, --amount of money need to pay to instantly resolve the loan (the loan become inactive if this value is 0?)
-    interestRate FLOAT DEFAULT 0.0,
-    interestInterval ENUM('DAILY', 'WEEKLY', 'MONTHLY', 'QUARTERLY', 'YEARLY', 'ONE-TIME') DEFAULT 'MONTHLY',
+    activeTimeSpan INT DEFAULT 0,
+    --count in days, 0 if this has no limit
+    baseValue DOUBLE NOT NULL,
+    --initially loaned amount
+    currentValue DOUBLE NOT NULL,
+    --amount of money need to pay to instantly resolve the loan (the loan become inactive if this value is 0?)
+    interestRate DOUBLE DEFAULT 0.0,
+    interestInterval ENUM('DAILY', 'WEEKLY', 'MONTHLY', 'QUARTERLY', 'YEARLY', 'ONE_TIME') DEFAULT 'MONTHLY',
     paymentInterval ENUM('DAILY', 'WEEKLY', 'MONTHLY', 'QUARTERLY', 'YEARLY') DEFAULT 'MONTHLY',
     PRIMARY KEY (loanId),
     FOREIGN KEY (ownBudget) REFERENCES userBudget(budgetId),
@@ -67,7 +74,8 @@ CREATE TABLE loanHistory (
 --Transaction Category type table, store available transaction category
 CREATE TABLE transCategory (
     transCategoryId BIGINT NOT NULL,
-    transType INT NOT NULL, --1 for income, 2 for expense
+    transType INT NOT NULL,
+    --1 for income, 2 for expense
     name VARCHAR(255) NOT NULL,
     description VARCHAR(1023) DEFAULT NULL,
     iconPath VARCHAR(1023) DEFAULT NULL,
@@ -79,8 +87,9 @@ CREATE TABLE transHistory (
     transId BIGINT NOT NULL,
     applyBalance BIGINT NOT NULL,
     description VARCHAR(1023) DEFAULT NULL,
-    value FLOAT NOT NULL,
-    transType INT NOT NULL, --1 for income, 2 for expense
+    value DOUBLE NOT NULL,
+    transType INT NOT NULL,
+    --1 for income, 2 for expense
     transCategoryId BIGINT NOT NULL,
     occurDate DATE NOT NULL,
     PRIMARY KEY (transId),

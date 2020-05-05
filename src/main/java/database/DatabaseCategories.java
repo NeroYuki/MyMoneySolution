@@ -32,10 +32,10 @@ public class DatabaseCategories {
             ResultSet categoryResult = categoryQuery.executeQuery();
             while (categoryResult.next()) {
                 Category categoryEntry = new Category(
-                        categoryResult.getString(3),
-                        categoryResult.getString(4),
-                        categoryResult.getString(5),
-                        categoryResult.getInt(2)
+                        categoryResult.getString("name"),
+                        categoryResult.getString("description"),
+                        categoryResult.getString("iconPath"),
+                        categoryResult.getInt("transType")
                 );
                 result.add(categoryEntry);
             }
@@ -58,10 +58,10 @@ public class DatabaseCategories {
             ResultSet categoryResult = categoryQuery.executeQuery();
             while (categoryResult.next()) {
                 Category categoryEntry = new Category(
-                        categoryResult.getString(3),
-                        categoryResult.getString(4),
-                        categoryResult.getString(5),
-                        categoryResult.getInt(2)
+                        categoryResult.getString("name"),
+                        categoryResult.getString("description"),
+                        categoryResult.getString("iconPath"),
+                        categoryResult.getInt("transType")
                 );
                 result.add(categoryEntry);
             }
@@ -84,10 +84,10 @@ public class DatabaseCategories {
             ResultSet categoryResult = categoryQuery.executeQuery();
             if (categoryResult.first()) {
                 Category result = new Category(
-                        categoryResult.getString(3),
-                        categoryResult.getString(4),
-                        categoryResult.getString(5),
-                        categoryResult.getInt(2)
+                        categoryResult.getString("name"),
+                        categoryResult.getString("description"),
+                        categoryResult.getString("iconPath"),
+                        categoryResult.getInt("transType")
                 );
                 return result;
             }

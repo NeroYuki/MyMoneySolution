@@ -23,21 +23,21 @@ public class DatabaseTransaction {
             ResultSet queryResult = transactionQuery.executeQuery();
             while (queryResult.next()) {
                 //check transaction type (1 = income, 2 = expense)
-                if (queryResult.getInt(5) == 1) {
+                if (queryResult.getInt("transType") == 1) {
                     Income incomeEntry = new Income(
-                            queryResult.getDate(7).toLocalDate(),
-                            queryResult.getFloat(4),
-                            queryResult.getString(2),
-                            DatabaseCategories.getCategoryById(queryResult.getLong(6))
+                            queryResult.getDate("occurDate").toLocalDate(),
+                            queryResult.getFloat("value"),
+                            queryResult.getString("description"),
+                            DatabaseCategories.getCategoryById(queryResult.getLong("transCategoryId"))
                     );
                     result.add(incomeEntry);
                 }
-                else if (queryResult.getInt(5) == 2) {
+                else if (queryResult.getInt("transType") == 2) {
                     Expense expenseEntry = new Expense(
-                            queryResult.getDate(7).toLocalDate(),
-                            queryResult.getFloat(4),
-                            queryResult.getString(2),
-                            DatabaseCategories.getCategoryById(queryResult.getLong(6))
+                            queryResult.getDate("occurDate").toLocalDate(),
+                            queryResult.getFloat("value"),
+                            queryResult.getString("description"),
+                            DatabaseCategories.getCategoryById(queryResult.getLong("transCategoryId"))
                     );
                     result.add(expenseEntry);
                 }

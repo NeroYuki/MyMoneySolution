@@ -1,10 +1,13 @@
 package database;
 
 import exception.DatabaseException;
+import helper.IntervalEnum;
 import model.Saving;
 import model.Transaction;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class DatabaseSaving {
@@ -15,6 +18,22 @@ public class DatabaseSaving {
         try {
             //TODO: actually implement this
             Connection conn = PersonalDatabase.getConnection();
+            PreparedStatement savingQuery = conn.prepareCall("SELECT * FROM savingHistory WHERE isActive = 1 AND budgetId = ?");
+            savingQuery.setLong(1, budgetId);
+            ResultSet activeSavingResult = savingQuery.executeQuery();
+            while (activeSavingResult.next()) {
+                Saving savingEntry = new Saving(
+                        activeSavingResult.getString("name"),
+                        activeSavingResult.getString("description"),
+                        activeSavingResult.getDouble("interestRate"),
+                        activeSavingResult.getDate("creationDate").toLocalDate(),
+                        activeSavingResult.getInt("activeTimeSpan"),
+                        IntervalEnum.INTERVAL.valueOf(activeSavingResult.getString("interestInterval")),
+                        activeSavingResult.getDouble("baseValue"),
+                        activeSavingResult.getDouble("currentValue")
+                );
+                result.add(savingEntry);
+            }
         } catch (DatabaseException de) {
             throw de;
         }

@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class DatabaseBalance {
-    //Get all balance from a budgetId
+    //Get all balance from a given budgetId
     public static ArrayList<Balance> getBalances(long budgetId) throws DatabaseException {
         //TODO: error check
         ArrayList<Balance> result = new ArrayList<>();
@@ -20,9 +20,9 @@ public class DatabaseBalance {
             ResultSet balanceResult = balanceQuery.executeQuery();
             while (balanceResult.next()) {
                 Balance balanceEntry = new Balance(
-                        balanceResult.getString(3),
-                        balanceResult.getString(4),
-                        balanceResult.getDouble(5)
+                        balanceResult.getString("name"),
+                        balanceResult.getString("description"),
+                        balanceResult.getDouble("currentValue")
                 );
                 result.add(balanceEntry);
             }

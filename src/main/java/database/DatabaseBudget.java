@@ -12,11 +12,12 @@ public class DatabaseBudget {
     public static Budget getBudget(long userId) throws DatabaseException {
         try {
             Connection conn = PersonalDatabase.getConnection();
-            PreparedStatement budgetQuery = conn.prepareCall("SELECT * FROM transCategory WHERE transType = 2");
+            PreparedStatement budgetQuery = conn.prepareCall("SELECT * FROM userBudget WHERE ownUser = ?");
+            budgetQuery.setLong(1, userId);
             ResultSet budgetResult = budgetQuery.executeQuery();
             long foundBudgetId = 0;
             if (budgetResult.first()) {
-                foundBudgetId = budgetResult.getLong(1);
+                foundBudgetId = budgetResult.getLong("budgetId");
             }
             Budget result = new Budget(
                     DatabaseBalance.getBalances(foundBudgetId),
