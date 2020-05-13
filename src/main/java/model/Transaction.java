@@ -7,6 +7,7 @@ public abstract class Transaction {
     protected LocalDate transDate;
     protected double transValue;
     protected String transDescription;
+    protected Balance applyingBalance;
 
     Transaction(LocalDate date, double value, String desc) {
         this.transDate = date;
@@ -25,6 +26,10 @@ public abstract class Transaction {
 
     public long getId() {
         return id;
+    }
+
+    public Balance getApplyingBalance() {
+        return applyingBalance;
     }
 
     //apply transaction value to specified balance (+ if income, - if expense)

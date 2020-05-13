@@ -70,10 +70,18 @@ public class Saving {
         this.currentValue = currentValue;
     }
 
-    void withdrawMoney(Balance bal, int amount) {
-        double newBalanceValue = bal.getValue() + amount;
+    Expense depositMoney(Balance bal, double amount, LocalDate date, String desc, Category category) {
+        Expense result = new Expense(date, amount, desc, category);
+        result.applyToBalance(bal);
+        this.currentValue += amount;
+        return result;
+    }
+
+    Income withdrawMoney(Balance bal, double amount, LocalDate date, String desc, Category category) {
+        Income result = new Income(date, amount, desc, category);
+        result.applyToBalance(bal);
         this.currentValue -= amount;
-        bal.setValue(newBalanceValue);
+        return result;
     }
 
     void applyInterest() {

@@ -6,6 +6,7 @@ import model.Income;
 import model.Transaction;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -83,5 +84,49 @@ public class DatabaseTransaction {
             throw new DatabaseException(0);
         }
         return result;
+    }
+
+    public static boolean addIncome(Income trans) throws DatabaseException {
+        try {
+            Connection conn = DatabaseManager.getConnection();
+            PreparedStatement createCall = conn.prepareCall("INSERT INTO transHistory VALUES (UUID_SHORT(), ?, ?, ?, 1, ?, ?)");
+            createCall.setLong(1, trans.getApplyingBalance().getId());
+            createCall.setString(2, trans.getTransDescription());
+            createCall.setDouble(3, trans.getTransValue());
+            createCall.setLong(4, trans.getCategory().getId());
+            createCall.setDate(5, Date.valueOf(trans.getTransDate()));
+            createCall.execute();
+            int result = createCall.getUpdateCount();
+            if (result == 0) throw new DatabaseException(0);
+        }
+        catch (DatabaseException de) {
+            throw de;
+        }
+        catch (Exception e) {
+            throw new DatabaseException(0);
+        }
+        return true;
+    }
+
+    public static boolean addExpense(Expense trans) throws DatabaseException {
+        try {
+            Connection conn = DatabaseManager.getConnection();
+            PreparedStatement createCall = conn.prepareCall("INSERT INTO transHistory VALUES (UUID_SHORT(), ?, ?, ?, 2, ?, ?)");
+            createCall.setLong(1, trans.getApplyingBalance().getId());
+            createCall.setString(2, trans.getTransDescription());
+            createCall.setDouble(3, trans.getTransValue());
+            createCall.setLong(4, trans.getCategory().getId());
+            createCall.setDate(5, Date.valueOf(trans.getTransDate()));
+            createCall.execute();
+            int result = createCall.getUpdateCount();
+            if (result == 0) throw new DatabaseException(0);
+        }
+        catch (DatabaseException de) {
+            throw de;
+        }
+        catch (Exception e) {
+            throw new DatabaseException(0);
+        }
+        return true;
     }
 }

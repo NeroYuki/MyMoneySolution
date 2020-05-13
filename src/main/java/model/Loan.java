@@ -77,15 +77,17 @@ public class Loan {
         this.currentValue = currentValue;
     }
 
-    void addToBalance(Balance bal) {
-        double newValue = bal.getValue() + this.baseValue;
-        bal.setValue(newValue);
+    Income addToBalance(Balance bal, LocalDate date, String desc, Category category) {
+        Income result = new Income(date, baseValue, desc , category);
+        result.applyToBalance(bal);
+        return result;
     }
 
-    void loanPayment(Balance bal, double amount) {
-        double newBalanceValue = bal.getValue() - amount;
+    Expense loanPayment(Balance bal, double amount, LocalDate date, String desc, Category category) {
+        Expense result = new Expense(date, amount, desc, category);
+        result.applyToBalance(bal);
         this.currentValue -= amount;
-        bal.setValue(newBalanceValue);
+        return result;
     }
 
     void applyInterest() {

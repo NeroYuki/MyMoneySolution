@@ -28,6 +28,7 @@ public class Expense extends Transaction {
 
     public void applyToBalance(Balance bal) {
         double newValue = bal.getValue() - this.transValue;
+        this.applyingBalance = bal;
         bal.setValue(newValue);
     }
 
@@ -35,7 +36,7 @@ public class Expense extends Transaction {
         return "Expense";
     }
 
-    public String getCategoryName() {
-        return category.name;
+    public Category getCategory() {
+        return category;
     }
 }
