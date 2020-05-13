@@ -5,6 +5,7 @@ import helper.IntervalEnum;
 import java.time.LocalDate;
 
 public class Loan {
+    private long id = 0;
     private String name;
     private String description;
     private double interestRate;
@@ -25,6 +26,19 @@ public class Loan {
         setPaymentInterval(new IntervalEnum(paymentInterval));
         setBaseValue(baseValue);
         setCurrentValue(currentValue);
+    }
+
+    public Loan(long id, String name, String desc, double interest, LocalDate creationDate, int activeTime, IntervalEnum.INTERVAL interestInterval, IntervalEnum.INTERVAL paymentInterval, double baseValue, double currentValue) {
+        this(name, desc, interest, creationDate, activeTime, interestInterval, paymentInterval, baseValue, currentValue);
+        setId(id);
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getId() {
+        return id;
     }
 
     public void setName(String name) {

@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 
 public class Budget {
+    private long id = 0;
     private ArrayList<Balance> balanceList;
     //should we only fetch active saving and loan instance?
     private ArrayList<Saving> activeSavingList;
@@ -12,6 +13,19 @@ public class Budget {
         setBalanceList(balanceList);
         setActiveSavingList(savingList);
         setActiveLoanList(loanList);
+    }
+
+    public Budget(long id, ArrayList<Balance> balanceList, ArrayList<Saving> savingList, ArrayList<Loan> loanList) {
+        this(balanceList, savingList, loanList);
+        setId(id);
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getId() {
+        return id;
     }
 
     void setActiveLoanList(ArrayList<Loan> activeLoanList) {

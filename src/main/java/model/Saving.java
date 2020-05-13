@@ -5,6 +5,7 @@ import helper.IntervalEnum;
 import java.time.LocalDate;
 
 public class Saving {
+    private long id = 0;
     private String name;
     private String description;
     private double interestRate;
@@ -23,6 +24,18 @@ public class Saving {
         setInterestInterval(new IntervalEnum(interestInterval));
         setBaseValue(baseValue);
         setCurrentValue(currentValue);
+    }
+    public Saving (long id, String name, String desc, double interest, LocalDate creationDate, int activeTime, IntervalEnum.INTERVAL interestInterval, double baseValue, double currentValue) {
+        this(name, desc, interest, creationDate, activeTime, interestInterval, baseValue, currentValue);
+        setId(id);
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getId() {
+        return id;
     }
 
     public void setName(String name) {

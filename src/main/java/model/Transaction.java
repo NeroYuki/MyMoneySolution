@@ -3,6 +3,7 @@ package model;
 import java.time.LocalDate;
 
 public abstract class Transaction {
+    protected long id = 0;
     protected LocalDate transDate;
     protected double transValue;
     protected String transDescription;
@@ -11,6 +12,19 @@ public abstract class Transaction {
         this.transDate = date;
         this.transValue = value;
         this.transDescription = desc;
+    }
+
+    Transaction(long id, LocalDate date, double value, String desc) {
+        this(date, value, desc);
+        setId(id);
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getId() {
+        return id;
     }
 
     //apply transaction value to specified balance (+ if income, - if expense)

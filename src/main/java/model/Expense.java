@@ -6,6 +6,16 @@ public class Expense extends Transaction {
     private Category category;
 
     //TODO: change to category instead of name
+    public Expense(long id, LocalDate date, double value, String desc, String categoryName) {
+        super(id, date, value, desc);
+        this.category = new Category(categoryName, "", "", 2);
+    }
+
+    public Expense(long id, LocalDate date, double value, String desc, Category category) {
+        super(id, date, value, desc);
+        this.category = category;
+    }
+
     public Expense(LocalDate date, double value, String desc, String categoryName) {
         super(date, value, desc);
         this.category = new Category(categoryName, "", "", 2);
