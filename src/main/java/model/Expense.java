@@ -39,4 +39,8 @@ public class Expense extends Transaction {
     public Category getCategory() {
         return category;
     }
+
+    public String getCategoryName() {
+        return category.name;
+    }
 }
