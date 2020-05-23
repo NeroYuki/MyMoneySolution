@@ -5,7 +5,7 @@ import database.DatabaseBudget;
 import java.time.*;
 
 public class User {
-    private long id = 0;
+    private String id = "";
     private String username;
     //TODO: encrypt the password?
     private String password;
@@ -22,16 +22,16 @@ public class User {
         setBudget(budget);
     }
 
-    public User(long id, String username, String password, String email, LocalDate birthday, Budget budget) {
+    public User(String id, String username, String password, String email, LocalDate birthday, Budget budget) {
         this(username, password, email, birthday, budget);
         setId(id);
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 

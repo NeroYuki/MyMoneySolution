@@ -16,6 +16,11 @@ public class IntervalEnum {
         this.intervalValue = input;
     }
 
+    @Override
+    public String toString() {
+        return intervalValue.toString();
+    }
+
     public int intervalToDays() {
         switch (intervalValue) {
             case DAILY: return 1;

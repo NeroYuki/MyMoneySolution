@@ -72,7 +72,7 @@ public class DatabaseManager {
         try {
             Statement dbCreateStatement = conn.createStatement();
             String loggedUserCreate = "CREATE TABLE loggedUser (\n" +
-                    "    userId BIGINT NOT NULL,\n" +
+                    "    userId CHAR(36) NOT NULL,\n" +
                     "    username VARCHAR(255) NOT NULL,\n" +
                     "    password VARCHAR(255) NOT NULL,\n" +
                     "    email VARCHAR(255) DEFAULT NULL,\n" +
@@ -81,15 +81,15 @@ public class DatabaseManager {
                     ");";
 
             String userBudgetCreate = "CREATE TABLE userBudget (\n" +
-                    "    budgetId BIGINT NOT NULL,\n" +
-                    "    ownUser BIGINT NOT NULL,\n" +
+                    "    budgetId CHAR(36) NOT NULL,\n" +
+                    "    ownUser CHAR(36) NOT NULL,\n" +
                     "    PRIMARY KEY (budgetId),\n" +
                     "    FOREIGN KEY (ownUser) REFERENCES loggedUser(userId)\n" +
                     ");";
 
             String balanceListCreate = "CREATE TABLE balanceList (\n" +
-                    "    balanceId BIGINT NOT NULL,\n" +
-                    "    ownBudget BIGINT NOT NULL,\n" +
+                    "    balanceId CHAR(36) NOT NULL,\n" +
+                    "    ownBudget CHAR(36) NOT NULL,\n" +
                     "    name VARCHAR(255) NOT NULL,\n" +
                     "    description VARCHAR(1024) DEFAULT NULL,\n" +
                     "    currentValue DOUBLE NOT NULL,\n" +
@@ -99,8 +99,8 @@ public class DatabaseManager {
                     ");";
 
             String savingHistoryCreate = "CREATE TABLE savingHistory (\n" +
-                    "    savingId BIGINT NOT NULL,\n" +
-                    "    ownBudget BIGINT NOT NULL,\n" +
+                    "    savingId CHAR(36) NOT NULL,\n" +
+                    "    ownBudget CHAR(36) NOT NULL,\n" +
                     "    name VARCHAR(255) NOT NULL,\n" +
                     "    description VARCHAR(1024) DEFAULT NULL,\n" +
                     "    isActive INT DEFAULT 1,\n" +
@@ -115,8 +115,8 @@ public class DatabaseManager {
                     ");";
 
             String loanHistoryCreate = "CREATE TABLE loanHistory (\n" +
-                    "    loanId BIGINT NOT NULL,\n" +
-                    "    ownBudget BIGINT NOT NULL,\n" +
+                    "    loanId CHAR(36) NOT NULL,\n" +
+                    "    ownBudget CHAR(36) NOT NULL,\n" +
                     "    name VARCHAR(255) NOT NULL,\n" +
                     "    description VARCHAR(1024) DEFAULT NULL,\n" +
                     "    isActive INT DEFAULT 1,\n" +
@@ -132,7 +132,7 @@ public class DatabaseManager {
                     ");";
 
             String transCategoryCreate = "CREATE TABLE transCategory (\n" +
-                    "    transCategoryId BIGINT NOT NULL,\n" +
+                    "    transCategoryId CHAR(36) NOT NULL,\n" +
                     "    transType INT NOT NULL,\n" +
                     "    name VARCHAR(255) NOT NULL,\n" +
                     "    description VARCHAR(1023) DEFAULT NULL,\n" +
@@ -141,12 +141,12 @@ public class DatabaseManager {
                     ");";
 
             String transHistoryCreate = "CREATE TABLE transHistory (\n" +
-                    "    transId BIGINT NOT NULL,\n" +
-                    "    applyBalance BIGINT NOT NULL,\n" +
+                    "    transId CHAR(36) NOT NULL,\n" +
+                    "    applyBalance CHAR(36) NOT NULL,\n" +
                     "    description VARCHAR(1023) DEFAULT NULL,\n" +
                     "    value DOUBLE NOT NULL,\n" +
                     "    transType INT NOT NULL,\n" +
-                    "    transCategoryId BIGINT NOT NULL,\n" +
+                    "    transCategoryId CHAR(36) NOT NULL,\n" +
                     "    occurDate DATE NOT NULL,\n" +
                     "    PRIMARY KEY (transId),\n" +
                     "    FOREIGN KEY (applyBalance) REFERENCES balanceList(balanceId),\n" +

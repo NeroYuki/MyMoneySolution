@@ -3,7 +3,7 @@
 
 --Personal User table, store logged in users in local environment
 CREATE TABLE loggedUser (
-    userId BIGINT NOT NULL,
+    userId CHAR(36) NOT NULL,
     username VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
     email VARCHAR(255) DEFAULT NULL,
@@ -12,16 +12,16 @@ CREATE TABLE loggedUser (
 )
 
 CREATE TABLE userBudget (
-	budgetId BIGINT NOT NULL,
-    ownUser BIGINT NOT NULL,
+	budgetId CHAR(36) NOT NULL,
+    ownUser CHAR(36) NOT NULL,
     PRIMARY KEY (budgetId),
     FOREIGN KEY (ownUser) REFERENCES loggedUser(userId)
 );
 
 --Balance table store all Balance instances with their respective budgetId
 CREATE TABLE balanceList (
-    balanceId BIGINT NOT NULL,
-    ownBudget BIGINT NOT NULL,
+    balanceId CHAR(36) NOT NULL,
+    ownBudget CHAR(36) NOT NULL,
     name VARCHAR(255) NOT NULL,
     description VARCHAR(1024) DEFAULT NULL,
     currentValue DOUBLE NOT NULL,
@@ -32,8 +32,8 @@ CREATE TABLE balanceList (
 
 --Saving table, store all Saving instances with their respective budgetId
 CREATE TABLE savingHistory (
-    savingId BIGINT NOT NULL,
-    ownBudget BIGINT NOT NULL,
+    savingId CHAR(36) NOT NULL,
+    ownBudget CHAR(36) NOT NULL,
     name VARCHAR(255) NOT NULL,
     description VARCHAR(1024) DEFAULT NULL,
     isActive INT DEFAULT 1,
@@ -52,8 +52,8 @@ CREATE TABLE savingHistory (
 
 --Loan table, store all Loan instances with their respective budgetId
 CREATE TABLE loanHistory (
-    loanId BIGINT NOT NULL,
-    ownBudget BIGINT NOT NULL,
+    loanId CHAR(36) NOT NULL,
+    ownBudget CHAR(36) NOT NULL,
     name VARCHAR(255) NOT NULL,
     description VARCHAR(1024) DEFAULT NULL,
     isActive INT DEFAULT 1,
@@ -74,7 +74,7 @@ CREATE TABLE loanHistory (
 
 --Transaction Category type table, store available transaction category
 CREATE TABLE transCategory (
-    transCategoryId BIGINT NOT NULL,
+    transCategoryId CHAR(36) NOT NULL,
     transType INT NOT NULL,
     --1 for income, 2 for expense
     name VARCHAR(255) NOT NULL,
@@ -85,13 +85,13 @@ CREATE TABLE transCategory (
 
 --Transaction history, store all transaction (including incomes as well as expenses)
 CREATE TABLE transHistory (
-    transId BIGINT NOT NULL,
-    applyBalance BIGINT NOT NULL,
+    transId CHAR(36) NOT NULL,
+    applyBalance CHAR(36) NOT NULL,
     description VARCHAR(1023) DEFAULT NULL,
     value DOUBLE NOT NULL,
     transType INT NOT NULL,
     --1 for income, 2 for expense
-    transCategoryId BIGINT NOT NULL,
+    transCategoryId CHAR(36) NOT NULL,
     occurDate DATE NOT NULL,
     PRIMARY KEY (transId),
     FOREIGN KEY (applyBalance) REFERENCES balanceList(balanceId),

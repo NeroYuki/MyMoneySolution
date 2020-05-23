@@ -1,6 +1,7 @@
 package database;
 
 import exception.DatabaseException;
+import helper.UUIDHelper;
 import model.Expense;
 import model.Income;
 import model.Transaction;
@@ -14,13 +15,13 @@ import java.util.ArrayList;
 public class DatabaseTransaction {
 
     //Get a list of all transaction based on transaction's applied balance id
-    public static ArrayList<Transaction> getTransaction(long balanceId) throws DatabaseException {
+    public static ArrayList<Transaction> getTransaction(String balanceId) throws DatabaseException {
         //TODO: error check
         ArrayList<Transaction> result = new ArrayList<>();
         try {
             Connection conn = DatabaseManager.getConnection();
             PreparedStatement transactionQuery = conn.prepareStatement("SELECT * FROM Transaction WHERE applyBalance = ?");
-            transactionQuery.setLong(1, balanceId);
+            transactionQuery.setString(1, balanceId);
             ResultSet queryResult = transactionQuery.executeQuery();
             while (queryResult.next()) {
                 //check transaction type (1 = income, 2 = expense)
@@ -29,7 +30,7 @@ public class DatabaseTransaction {
                             queryResult.getDate("occurDate").toLocalDate(),
                             queryResult.getFloat("value"),
                             queryResult.getString("description"),
-                            DatabaseCategories.getCategoryById(queryResult.getLong("transCategoryId"))
+                            DatabaseCategories.getCategoryById(queryResult.getString("transCategoryId"))
                     );
                     result.add(incomeEntry);
                 }
@@ -38,7 +39,7 @@ public class DatabaseTransaction {
                             queryResult.getDate("occurDate").toLocalDate(),
                             queryResult.getFloat("value"),
                             queryResult.getString("description"),
-                            DatabaseCategories.getCategoryById(queryResult.getLong("transCategoryId"))
+                            DatabaseCategories.getCategoryById(queryResult.getString("transCategoryId"))
                     );
                     result.add(expenseEntry);
                 }
@@ -89,15 +90,21 @@ public class DatabaseTransaction {
     public static boolean addIncome(Income trans) throws DatabaseException {
         try {
             Connection conn = DatabaseManager.getConnection();
-            PreparedStatement createCall = conn.prepareCall("INSERT INTO transHistory VALUES (UUID_SHORT(), ?, ?, ?, 1, ?, ?)");
-            createCall.setLong(1, trans.getApplyingBalance().getId());
-            createCall.setString(2, trans.getTransDescription());
-            createCall.setDouble(3, trans.getTransValue());
-            createCall.setLong(4, trans.getCategory().getId());
-            createCall.setDate(5, Date.valueOf(trans.getTransDate()));
+            PreparedStatement createCall = conn.prepareCall("INSERT INTO transHistory VALUES (?, ?, ?, ?, 1, ?, ?)");
+            if (trans.getId().equals("")) trans.setId(UUIDHelper.newUUIDString());
+            else throw new DatabaseException(8);
+
+            createCall.setString(1, trans.getId());
+            createCall.setString(2, trans.getApplyingBalance().getId());
+            createCall.setString(3, trans.getTransDescription());
+            createCall.setDouble(4, trans.getTransValue());
+            createCall.setString(5, trans.getCategory().getId());
+            createCall.setDate(6, Date.valueOf(trans.getTransDate()));
             createCall.execute();
+
             int result = createCall.getUpdateCount();
-            if (result == 0) throw new DatabaseException(0);
+            //TODO: new error code (8)
+            if (result == 0) throw new DatabaseException(8);
         }
         catch (DatabaseException de) {
             throw de;
@@ -111,15 +118,20 @@ public class DatabaseTransaction {
     public static boolean addExpense(Expense trans) throws DatabaseException {
         try {
             Connection conn = DatabaseManager.getConnection();
-            PreparedStatement createCall = conn.prepareCall("INSERT INTO transHistory VALUES (UUID_SHORT(), ?, ?, ?, 2, ?, ?)");
-            createCall.setLong(1, trans.getApplyingBalance().getId());
-            createCall.setString(2, trans.getTransDescription());
-            createCall.setDouble(3, trans.getTransValue());
-            createCall.setLong(4, trans.getCategory().getId());
-            createCall.setDate(5, Date.valueOf(trans.getTransDate()));
+            PreparedStatement createCall = conn.prepareCall("INSERT INTO transHistory VALUES (?, ?, ?, ?, 2, ?, ?)");
+            if (trans.getId().equals("")) trans.setId(UUIDHelper.newUUIDString());
+            else throw new DatabaseException(8);
+
+            createCall.setString(1, trans.getId());
+            createCall.setString(2, trans.getApplyingBalance().getId());
+            createCall.setString(3, trans.getTransDescription());
+            createCall.setDouble(4, trans.getTransValue());
+            createCall.setString(5, trans.getCategory().getId());
+            createCall.setDate(6, Date.valueOf(trans.getTransDate()));
             createCall.execute();
+
             int result = createCall.getUpdateCount();
-            if (result == 0) throw new DatabaseException(0);
+            if (result == 0) throw new DatabaseException(8);
         }
         catch (DatabaseException de) {
             throw de;

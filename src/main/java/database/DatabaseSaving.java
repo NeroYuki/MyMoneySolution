@@ -2,26 +2,28 @@ package database;
 
 import exception.DatabaseException;
 import helper.IntervalEnum;
+import helper.UUIDHelper;
+import model.Budget;
 import model.Saving;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.sql.Date;
 
 public class DatabaseSaving {
     //Get all active saving
-    public static ArrayList<Saving> getActiveSaving(long budgetId) throws DatabaseException {
-        //TODO: error check
+    public static ArrayList<Saving> getActiveSaving(String budgetId) throws DatabaseException {
         ArrayList<Saving> result = new ArrayList<>();
         try {
-            //TODO: actually implement this
             Connection conn = DatabaseManager.getConnection();
             PreparedStatement savingQuery = conn.prepareCall("SELECT * FROM savingHistory WHERE isActive = 1 AND budgetId = ?");
-            savingQuery.setLong(1, budgetId);
+            savingQuery.setString(1, budgetId);
             ResultSet activeSavingResult = savingQuery.executeQuery();
             while (activeSavingResult.next()) {
                 Saving savingEntry = new Saving(
+                        activeSavingResult.getString("savingId"),
                         activeSavingResult.getString("name"),
                         activeSavingResult.getString("description"),
                         activeSavingResult.getDouble("interestRate"),
@@ -41,5 +43,35 @@ public class DatabaseSaving {
             throw new DatabaseException(0);
         }
         return result;
+    }
+
+    public static boolean addSaving(Saving saving, Budget ownBudget) throws DatabaseException {
+        try {
+            Connection conn = DatabaseManager.getConnection();
+            PreparedStatement registerCall = conn.prepareCall("INSERT INTO savingHistory VALUES (?, ?, ?, ?, 1, ?, ?, ?, ?, ?, ?)");
+            if (saving.getId().equals("")) saving.setId(UUIDHelper.newUUIDString());
+            else throw new DatabaseException(7);
+
+            registerCall.setString(1, saving.getId());
+            registerCall.setString(2, ownBudget.getId());
+            registerCall.setString(3, saving.getName());
+            registerCall.setString(4, saving.getDescription());
+            registerCall.setDate(5, Date.valueOf(saving.getCreationDate()));
+            registerCall.setInt(6, saving.getActiveTimeSpan());
+            registerCall.setDouble(7, saving.getBaseValue());
+            registerCall.setDouble(8, saving.getCurrentValue());
+            registerCall.setDouble(9, saving.getInterestRate());
+            registerCall.setString(10, saving.getInterestInterval().toString());
+            registerCall.execute();
+            int result = registerCall.getUpdateCount();
+            if (result == 0) throw new DatabaseException(7);
+        }
+        catch (DatabaseException de) {
+            throw de;
+        }
+        catch (Exception e) {
+            throw new DatabaseException(0);
+        }
+        return true;
     }
 }

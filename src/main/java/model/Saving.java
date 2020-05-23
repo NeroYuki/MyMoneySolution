@@ -5,7 +5,7 @@ import helper.IntervalEnum;
 import java.time.LocalDate;
 
 public class Saving {
-    private long id = 0;
+    private String id = "";
     private String name;
     private String description;
     private double interestRate;
@@ -25,16 +25,16 @@ public class Saving {
         setBaseValue(baseValue);
         setCurrentValue(currentValue);
     }
-    public Saving (long id, String name, String desc, double interest, LocalDate creationDate, int activeTime, IntervalEnum.INTERVAL interestInterval, double baseValue, double currentValue) {
+    public Saving (String id, String name, String desc, double interest, LocalDate creationDate, int activeTime, IntervalEnum.INTERVAL interestInterval, double baseValue, double currentValue) {
         this(name, desc, interest, creationDate, activeTime, interestInterval, baseValue, currentValue);
         setId(id);
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
@@ -42,32 +42,64 @@ public class Saving {
         this.name = name;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public void setInterestRate(double interestRate) {
         this.interestRate = interestRate;
     }
 
+    public double getInterestRate() {
+        return interestRate;
+    }
+
     public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public LocalDate getCreationDate() {
+        return creationDate;
     }
 
     public void setActiveTimeSpan(int activeTimeSpan) {
         this.activeTimeSpan = activeTimeSpan;
     }
 
+    public int getActiveTimeSpan() {
+        return activeTimeSpan;
+    }
+
     public void setInterestInterval(IntervalEnum interestInterval) {
         this.interestInterval = interestInterval;
+    }
+
+    public IntervalEnum getInterestInterval() {
+        return interestInterval;
     }
 
     public void setBaseValue(double baseValue) {
         this.baseValue = baseValue;
     }
 
+    public double getBaseValue() {
+        return baseValue;
+    }
+
     public void setCurrentValue(double currentValue) {
         this.currentValue = currentValue;
+    }
+
+    public double getCurrentValue() {
+        return currentValue;
     }
 
     Expense depositMoney(Balance bal, double amount, LocalDate date, String desc, Category category) {
