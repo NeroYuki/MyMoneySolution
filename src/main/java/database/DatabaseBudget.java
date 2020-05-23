@@ -2,8 +2,7 @@ package database;
 
 import exception.DatabaseException;
 import helper.UUIDHelper;
-import model.Budget;
-import model.User;
+import model.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,17 +10,18 @@ import java.sql.ResultSet;
 
 public class DatabaseBudget {
     //return a budget object for a given userId
-    public static Budget getBudget(long userId) throws DatabaseException {
+    public static Budget getBudget(User user) throws DatabaseException {
         try {
             Connection conn = DatabaseManager.getConnection();
             PreparedStatement budgetQuery = conn.prepareCall("SELECT * FROM userBudget WHERE ownUser = ?");
-            budgetQuery.setLong(1, userId);
+            budgetQuery.setString(1, user.getId());
             ResultSet budgetResult = budgetQuery.executeQuery();
             String foundBudgetId = "";
             if (budgetResult.first()) {
                 foundBudgetId = budgetResult.getString("budgetId");
             }
             Budget result = new Budget(
+                    foundBudgetId,
                     DatabaseBalance.getBalances(foundBudgetId),
                     DatabaseSaving.getActiveSaving(foundBudgetId),
                     DatabaseLoan.getActiveLoan(foundBudgetId)
@@ -48,6 +48,38 @@ public class DatabaseBudget {
             registerCall.execute();
             int result = registerCall.getUpdateCount();
             if (result == 0) throw new DatabaseException(5);
+        }
+        catch (DatabaseException de) {
+            throw de;
+        }
+        catch (Exception e) {
+            throw new DatabaseException(0);
+        }
+        return true;
+    }
+
+    public static boolean removeBudget(Budget budget) throws DatabaseException {
+        try {
+            Connection conn = DatabaseManager.getConnection();
+            PreparedStatement removeCall = conn.prepareCall("DELETE FROM budgetList WHERE budgetId = ?");
+            if (budget.getId().equals("")) throw new DatabaseException(11);
+
+            for (Loan l : budget.getActiveLoanList()) {
+                DatabaseLoan.removeLoan(l);
+            }
+
+            for (Saving s : budget.getActiveSavingList()) {
+                DatabaseSaving.removeSaving(s);
+            }
+
+            for (Balance b : budget.getBalanceList()) {
+                DatabaseBalance.removeBalance(b);
+            }
+
+            removeCall.setString(1, budget.getId());
+            removeCall.execute();
+            int result = removeCall.getUpdateCount();
+            if (result == 0) throw new DatabaseException(11);
         }
         catch (DatabaseException de) {
             throw de;

@@ -4,6 +4,7 @@ import exception.DatabaseException;
 import helper.IntervalEnum;
 import helper.UUIDHelper;
 import model.Budget;
+import model.Loan;
 import model.Saving;
 
 import java.sql.Connection;
@@ -65,6 +66,26 @@ public class DatabaseSaving {
             registerCall.execute();
             int result = registerCall.getUpdateCount();
             if (result == 0) throw new DatabaseException(7);
+        }
+        catch (DatabaseException de) {
+            throw de;
+        }
+        catch (Exception e) {
+            throw new DatabaseException(0);
+        }
+        return true;
+    }
+
+    public static boolean removeSaving(Saving saving) throws DatabaseException {
+        try {
+            Connection conn = DatabaseManager.getConnection();
+            PreparedStatement removeCall = conn.prepareCall("DELETE FROM savingHistory WHERE savingId = ?");
+            if (saving.getId().equals("")) throw new DatabaseException(14);
+
+            removeCall.setString(1, saving.getId());
+            removeCall.execute();
+            int result = removeCall.getUpdateCount();
+            if (result == 0) throw new DatabaseException(14);
         }
         catch (DatabaseException de) {
             throw de;

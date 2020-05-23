@@ -2,7 +2,9 @@ package database;
 
 import exception.DatabaseException;
 import helper.UUIDHelper;
+import model.Budget;
 import model.Category;
+import model.Transaction;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -115,5 +117,29 @@ public class DatabaseCategories {
             //if this happen then oh god oh fuck
             throw new DatabaseException(0);
         }
+    }
+
+    public static boolean removeCategory(Category cat) throws DatabaseException {
+        try {
+            Connection conn = DatabaseManager.getConnection();
+            PreparedStatement removeCall = conn.prepareCall("DELETE FROM transCategory WHERE transCategoryId = ?");
+            if (cat.getId().equals("")) throw new DatabaseException(12);
+
+            for (Transaction trans : DatabaseTransaction.getTransactionByCategory(cat.getId())) {
+                DatabaseTransaction.removeTransaction(trans);
+            }
+
+            removeCall.setString(1, cat.getId());
+            removeCall.execute();
+            int result = removeCall.getUpdateCount();
+            if (result == 0) throw new DatabaseException(12);
+        }
+        catch (DatabaseException de) {
+            throw de;
+        }
+        catch (Exception e) {
+            throw new DatabaseException(0);
+        }
+        return true;
     }
 }

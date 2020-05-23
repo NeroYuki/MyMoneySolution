@@ -13,7 +13,14 @@ public class ErrorCode {
             "Error happen when registering new loan",       //6
             "Error happen when registering new saving",     //7
             "Error happen when registering new transaction",     //8
-            "Error happen when registering new category"    //9
+            "Error happen when registering new category",   //9
+            "Error happen when removing balance",           //10
+            "Error happen when removing budget",            //11
+            "Error happen when removing category",          //12
+            "Error happen when removing loan",              //13
+            "Error happen when removing saving",            //14
+            "Error happen when removing transaction",       //15
+            "Error happen when removing user",              //16
     };
 
     public ErrorCode(int code) {

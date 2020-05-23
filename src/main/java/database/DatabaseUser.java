@@ -2,6 +2,7 @@ package database;
 
 import exception.DatabaseException;
 import model.Expense;
+import model.Transaction;
 import model.User;
 
 import java.sql.Connection;
@@ -21,12 +22,15 @@ public class DatabaseUser {
             ResultSet userResult = userQuery.executeQuery();
             if (userResult.first()) {
                 result = new User(
+                        userResult.getString("userId"),
                         userResult.getString("username"),
                         userResult.getString("password"),
                         userResult.getString("email"),
                         userResult.getDate("birthday").toLocalDate(),
-                        DatabaseBudget.getBudget(userResult.getLong("userId"))
+                        null   //FIXME: should overloaded constructor or not?
                 );
+                //attach budget into user
+                result.setBudget(DatabaseBudget.getBudget(result));
             }
             else {
                 throw new DatabaseException(2);
@@ -52,6 +56,28 @@ public class DatabaseUser {
             registerCall.execute();
             int result = registerCall.getUpdateCount();
             if (result == 0) throw new DatabaseException(3);
+        }
+        catch (DatabaseException de) {
+            throw de;
+        }
+        catch (Exception e) {
+            throw new DatabaseException(0);
+        }
+        return true;
+    }
+
+    public static boolean removeUser(User user) throws DatabaseException {
+        try {
+            Connection conn = DatabaseManager.getConnection();
+            PreparedStatement removeCall = conn.prepareCall("DELETE FROM loggedUser WHERE userId = ?");
+            DatabaseBudget.removeBudget(user.getBudget());
+
+            if (user.getId().equals("")) throw new DatabaseException(16);
+
+            removeCall.setString(1, user.getId());
+            removeCall.execute();
+            int result = removeCall.getUpdateCount();
+            if (result == 0) throw new DatabaseException(16);
         }
         catch (DatabaseException de) {
             throw de;

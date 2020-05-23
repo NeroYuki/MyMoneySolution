@@ -32,11 +32,23 @@ public class Budget {
         this.activeLoanList = activeLoanList;
     }
 
+    public ArrayList<Loan> getActiveLoanList() {
+        return activeLoanList;
+    }
+
     void setActiveSavingList(ArrayList<Saving> activeSavingList) {
         this.activeSavingList = activeSavingList;
     }
 
+    public ArrayList<Saving> getActiveSavingList() {
+        return activeSavingList;
+    }
+
     void setBalanceList(ArrayList<Balance> balanceList) {
         this.balanceList = balanceList;
+    }
+
+    public ArrayList<Balance> getBalanceList() {
+        return balanceList;
     }
 }

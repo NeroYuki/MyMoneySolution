@@ -4,6 +4,7 @@ import exception.DatabaseException;
 import helper.IntervalEnum;
 import helper.UUIDHelper;
 import model.Budget;
+import model.Category;
 import model.Loan;
 import model.Saving;
 
@@ -71,6 +72,26 @@ public class DatabaseLoan {
             registerCall.execute();
             int result = registerCall.getUpdateCount();
             if (result == 0) throw new DatabaseException(6);
+        }
+        catch (DatabaseException de) {
+            throw de;
+        }
+        catch (Exception e) {
+            throw new DatabaseException(0);
+        }
+        return true;
+    }
+
+    public static boolean removeLoan(Loan loan) throws DatabaseException {
+        try {
+            Connection conn = DatabaseManager.getConnection();
+            PreparedStatement removeCall = conn.prepareCall("DELETE FROM loanHistory WHERE loanId = ?");
+            if (loan.getId().equals("")) throw new DatabaseException(13);
+
+            removeCall.setString(1, loan.getId());
+            removeCall.execute();
+            int result = removeCall.getUpdateCount();
+            if (result == 0) throw new DatabaseException(13);
         }
         catch (DatabaseException de) {
             throw de;

@@ -4,6 +4,7 @@ import exception.DatabaseException;
 import helper.UUIDHelper;
 import model.Balance;
 import model.Budget;
+import model.Transaction;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -24,6 +25,7 @@ public class DatabaseBalance {
             ResultSet balanceResult = balanceQuery.executeQuery();
             while (balanceResult.next()) {
                 Balance balanceEntry = new Balance(
+                        balanceResult.getString("balanceId"),
                         balanceResult.getString("name"),
                         balanceResult.getString("description"),
                         balanceResult.getDouble("currentValue")
@@ -57,6 +59,30 @@ public class DatabaseBalance {
             registerCall.execute();
             int result = registerCall.getUpdateCount();
             if (result == 0) throw new DatabaseException(4);
+        }
+        catch (DatabaseException de) {
+            throw de;
+        }
+        catch (Exception e) {
+            throw new DatabaseException(0);
+        }
+        return true;
+    }
+
+    public static boolean removeBalance(Balance bal) throws DatabaseException {
+        try {
+            Connection conn = DatabaseManager.getConnection();
+            PreparedStatement removeCall = conn.prepareCall("DELETE FROM balanceList WHERE balanceId = ?");
+            if (bal.getId().equals("")) throw new DatabaseException(10);
+
+            for (Transaction trans : DatabaseTransaction.getTransaction(bal.getId())) {
+                DatabaseTransaction.removeTransaction(trans);
+            }
+
+            removeCall.setString(1, bal.getId());
+            removeCall.execute();
+            int result = removeCall.getUpdateCount();
+            if (result == 0) throw new DatabaseException(10);
         }
         catch (DatabaseException de) {
             throw de;

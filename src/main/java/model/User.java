@@ -70,4 +70,8 @@ public class User {
     public LocalDate getBirthday() {
         return birthday;
     }
+
+    public Budget getBudget() {
+        return budget;
+    }
 }
