@@ -87,4 +87,35 @@ public class DatabaseUser {
         }
         return true;
     }
+
+    public static boolean updateUser(User user) throws DatabaseException {
+        try {
+            Connection conn = DatabaseManager.getConnection();
+            PreparedStatement updateCall = conn.prepareCall(
+                    "UPDATE loggedUser" +
+                            "username = ?" +
+                            "password = ?" +
+                            "email = ?" +
+                            "birthday = ?" +
+                            "WHERE loanId = ?"
+            );
+            if (user.getId().equals("")) throw new DatabaseException(22);
+            updateCall.setString(1, user.getUsername());
+            updateCall.setString(2, user.getPassword());
+            updateCall.setString(3, user.getEmail());
+            updateCall.setDate(4, Date.valueOf(user.getBirthday()));
+            updateCall.setString(5, user.getId());
+
+            updateCall.execute();
+            int result = updateCall.getUpdateCount();
+            if (result == 0) throw new DatabaseException(22);
+        }
+        catch (DatabaseException de) {
+            throw de;
+        }
+        catch (Exception e) {
+            throw new DatabaseException(0);
+        }
+        return true;
+    }
 }

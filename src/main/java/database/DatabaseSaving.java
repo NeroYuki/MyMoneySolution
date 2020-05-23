@@ -95,4 +95,37 @@ public class DatabaseSaving {
         }
         return true;
     }
+
+    public static boolean updateSaving(Saving saving) throws DatabaseException {
+        try {
+            Connection conn = DatabaseManager.getConnection();
+            PreparedStatement updateCall = conn.prepareCall(
+                    "UPDATE savingHistory" +
+                            "SET name = ?" +
+                            "description = ?" +
+                            "activeTimeSpan = ?" +
+                            "currentValue = ?" +
+                            "interestRate = ?" +
+                            "WHERE savingId = ?"
+            );
+            if (saving.getId().equals("")) throw new DatabaseException(20);
+            updateCall.setString(1, saving.getName());
+            updateCall.setString(2, saving.getDescription());
+            updateCall.setInt(3, saving.getActiveTimeSpan());
+            updateCall.setDouble(4, saving.getCurrentValue());
+            updateCall.setDouble(5, saving.getInterestRate());
+            updateCall.setString(6, saving.getId());
+
+            updateCall.execute();
+            int result = updateCall.getUpdateCount();
+            if (result == 0) throw new DatabaseException(20);
+        }
+        catch (DatabaseException de) {
+            throw de;
+        }
+        catch (Exception e) {
+            throw new DatabaseException(0);
+        }
+        return true;
+    }
 }

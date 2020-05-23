@@ -92,4 +92,33 @@ public class DatabaseBalance {
         }
         return true;
     }
+
+    public static boolean updateBalance(Balance bal) throws DatabaseException {
+        try {
+            Connection conn = DatabaseManager.getConnection();
+            PreparedStatement updateCall = conn.prepareCall(
+                    "UPDATE balanceList" +
+                            "SET name = ?" +
+                            "description = ?" +
+                            "currentValue = ?" +
+                            "WHERE balanceId = ?"
+            );
+            if (bal.getId().equals("")) throw new DatabaseException(17);
+            updateCall.setString(1, bal.getName());
+            updateCall.setString(2, bal.getDescription());
+            updateCall.setDouble(3, bal.getValue());
+            updateCall.setString(4, bal.getId());
+
+            updateCall.execute();
+            int result = updateCall.getUpdateCount();
+            if (result == 0) throw new DatabaseException(17);
+        }
+        catch (DatabaseException de) {
+            throw de;
+        }
+        catch (Exception e) {
+            throw new DatabaseException(0);
+        }
+        return true;
+    }
 }

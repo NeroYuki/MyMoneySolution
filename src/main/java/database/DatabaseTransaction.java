@@ -228,6 +228,36 @@ public class DatabaseTransaction {
             removeCall.execute();
             int result = removeCall.getUpdateCount();
             if (result == 0) throw new DatabaseException(15);
+            //TODO: update balance to revert removed Transaction's effect
+        }
+        catch (DatabaseException de) {
+            throw de;
+        }
+        catch (Exception e) {
+            throw new DatabaseException(0);
+        }
+        return true;
+    }
+
+    public static boolean updateTransaction(Transaction trans) throws DatabaseException {
+        try {
+            Connection conn = DatabaseManager.getConnection();
+            PreparedStatement updateCall = conn.prepareCall(
+                    "UPDATE transHistory" +
+                            "description = ?" +
+                            "value = ?" +
+                            "occurDate = ?" +
+                            "WHERE loanId = ?"
+            );
+            if (trans.getId().equals("")) throw new DatabaseException(21);
+            updateCall.setString(1, trans.getTransDescription());
+            updateCall.setDouble(2, trans.getTransValue());
+            updateCall.setDate(3, Date.valueOf(trans.getTransDate()));
+            updateCall.setString(4, trans.getId());
+
+            updateCall.execute();
+            int result = updateCall.getUpdateCount();
+            if (result == 0) throw new DatabaseException(21);
         }
         catch (DatabaseException de) {
             throw de;

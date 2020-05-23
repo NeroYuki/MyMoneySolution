@@ -8,6 +8,7 @@ import model.Category;
 import model.Loan;
 import model.Saving;
 
+import javax.xml.crypto.Data;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -92,6 +93,40 @@ public class DatabaseLoan {
             removeCall.execute();
             int result = removeCall.getUpdateCount();
             if (result == 0) throw new DatabaseException(13);
+            //TODO: delete all transactions involve the loan
+        }
+        catch (DatabaseException de) {
+            throw de;
+        }
+        catch (Exception e) {
+            throw new DatabaseException(0);
+        }
+        return true;
+    }
+
+    public static boolean updateLoan(Loan loan) throws DatabaseException {
+        try {
+            Connection conn = DatabaseManager.getConnection();
+            PreparedStatement updateCall = conn.prepareCall(
+                    "UPDATE loanHistory" +
+                            "SET name = ?" +
+                            "description = ?" +
+                            "activeTimeSpan = ?" +
+                            "currentValue = ?" +
+                            "interestRate = ?" +
+                            "WHERE loanId = ?"
+            );
+            if (loan.getId().equals("")) throw new DatabaseException(19);
+            updateCall.setString(1, loan.getName());
+            updateCall.setString(2, loan.getDescription());
+            updateCall.setInt(3, loan.getActiveTimeSpan());
+            updateCall.setDouble(4, loan.getCurrentValue());
+            updateCall.setDouble(5, loan.getInterestRate());
+            updateCall.setString(6, loan.getId());
+
+            updateCall.execute();
+            int result = updateCall.getUpdateCount();
+            if (result == 0) throw new DatabaseException(19);
         }
         catch (DatabaseException de) {
             throw de;

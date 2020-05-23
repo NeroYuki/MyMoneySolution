@@ -142,4 +142,33 @@ public class DatabaseCategories {
         }
         return true;
     }
+
+    public static boolean updateCategory(Category cat) throws DatabaseException {
+        try {
+            Connection conn = DatabaseManager.getConnection();
+            PreparedStatement updateCall = conn.prepareCall(
+                    "UPDATE transCategory" +
+                            "SET name = ?" +
+                            "description = ?" +
+                            "iconPath = ?" +
+                            "WHERE transCategoryId = ?"
+            );
+            if (cat.getId().equals("")) throw new DatabaseException(18);
+            updateCall.setString(1, cat.getName());
+            updateCall.setString(2, cat.getDescription());
+            updateCall.setString(3, cat.getIconPath());
+            updateCall.setString(4, cat.getId());
+
+            updateCall.execute();
+            int result = updateCall.getUpdateCount();
+            if (result == 0) throw new DatabaseException(18);
+        }
+        catch (DatabaseException de) {
+            throw de;
+        }
+        catch (Exception e) {
+            throw new DatabaseException(0);
+        }
+        return true;
+    }
 }
