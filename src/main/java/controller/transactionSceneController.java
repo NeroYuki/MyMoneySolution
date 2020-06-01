@@ -1,6 +1,7 @@
 package controller;
 
 import helper.DateUtil;
+import helper.UUIDHelper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -44,6 +45,7 @@ public class transactionSceneController implements Initializable {
     public ImageView addTransBtn;
     public ImageView memoBtn;
     public TableView<Transaction> transactionTable;
+    public TableColumn<Transaction, String> idColumn;
     public TableColumn<Transaction, LocalDate> dateColumn;
     public TableColumn<Transaction, String> descriptionColumn;
     public TableColumn<Transaction, String> accountColumn; // yet to be used because not in constructor of income or saving??
@@ -129,36 +131,37 @@ public class transactionSceneController implements Initializable {
         // table view handle
         //TODO: get right list from own database
         transactionList.add(
-                new Income(LocalDate.of(2004,1,5),50000, "School giving scholarship", "Bonus"));
-        transactionList.add(new Expense(LocalDate.of(2004,4,15),-20000, "Buy a phone in FPT", "Shopping"));
-        transactionList.add(new Income(LocalDate.of(2004,5,6),120000, "Salary May", "Salary"));
-        transactionList.add(new Expense(LocalDate.of(2004,11,23),-35000, "Restaurant district 5", "Food and Beverage"));
+                new Income(UUIDHelper.newUUIDString(),LocalDate.of(2004,1,5),50000, "School giving scholarship", "Bonus"));
+        transactionList.add(new Expense(UUIDHelper.newUUIDString(), LocalDate.of(2004,4,15),-20000, "Buy a phone in FPT", "Shopping"));
+        transactionList.add(new Income(UUIDHelper.newUUIDString(), LocalDate.of(2004,5,6),120000, "Salary May", "Salary"));
+        transactionList.add(new Expense(UUIDHelper.newUUIDString(), LocalDate.of(2004,11,23),-35000, "Restaurant district 5", "Food and Beverage"));
 
         transactionList.add(
-                new Income(LocalDate.of(2004,1,5),50000, "School giving scholarship", "Bonus"));
-        transactionList.add(new Expense(LocalDate.of(2004,4,15),-20000, "Buy a phone in FPT", "Shopping"));
-        transactionList.add(new Income(LocalDate.of(2004,5,6),120000, "Salary May", "Salary"));
-        transactionList.add(new Expense(LocalDate.of(2004,11,23),-35000, "Restaurant district 5", "Food and Beverage"));
+                new Income(UUIDHelper.newUUIDString(), LocalDate.of(2004,1,5),50000, "School giving scholarship", "Bonus"));
+        transactionList.add(new Expense(UUIDHelper.newUUIDString(), LocalDate.of(2004,4,15),-20000, "Buy a phone in FPT", "Shopping"));
+        transactionList.add(new Income(UUIDHelper.newUUIDString(), LocalDate.of(2004,5,6),120000, "Salary May", "Salary"));
+        transactionList.add(new Expense(UUIDHelper.newUUIDString(), LocalDate.of(2004,11,23),-35000, "Restaurant district 5", "Food and Beverage"));
 
         transactionList.add(
-                new Income(LocalDate.of(2004,1,5),50000, "School giving scholarship", "Bonus"));
-        transactionList.add(new Expense(LocalDate.of(2004,4,15),-20000, "Buy a phone in FPT", "Shopping"));
-        transactionList.add(new Income(LocalDate.of(2004,5,6),120000, "Salary May", "Salary"));
-        transactionList.add(new Expense(LocalDate.of(2004,11,23),-35000, "Restaurant district 5", "Food and Beverage"));
+                new Income(UUIDHelper.newUUIDString(), LocalDate.of(2004,1,5),50000, "School giving scholarship", "Bonus"));
+        transactionList.add(new Expense(UUIDHelper.newUUIDString(), LocalDate.of(2004,4,15),-20000, "Buy a phone in FPT", "Shopping"));
+        transactionList.add(new Income(UUIDHelper.newUUIDString(), LocalDate.of(2004,5,6),120000, "Salary May", "Salary"));
+        transactionList.add(new Expense(UUIDHelper.newUUIDString(), LocalDate.of(2004,11,23),-35000, "Restaurant district 5", "Food and Beverage"));
 
         transactionList.add(
-                new Income(LocalDate.of(2004,1,5),50000, "School giving scholarship", "Bonus"));
-        transactionList.add(new Expense(LocalDate.of(2004,4,15),-20000, "Buy a phone in FPT", "Shopping"));
-        transactionList.add(new Income(LocalDate.of(2004,5,6),120000, "Salary May", "Salary"));
-        transactionList.add(new Expense(LocalDate.of(2004,11,23),-35000, "Restaurant district 5", "Food and Beverage"));
+                new Income(UUIDHelper.newUUIDString(), LocalDate.of(2004,1,5),50000, "School giving scholarship", "Bonus"));
+        transactionList.add(new Expense(UUIDHelper.newUUIDString(), LocalDate.of(2004,4,15),-20000, "Buy a phone in FPT", "Shopping"));
+        transactionList.add(new Income(UUIDHelper.newUUIDString(), LocalDate.of(2004,5,6),120000, "Salary May", "Salary"));
+        transactionList.add(new Expense(UUIDHelper.newUUIDString(), LocalDate.of(2004,11,23),-35000, "Restaurant district 5", "Food and Beverage"));
 
         transactionList.add(
-                new Income(LocalDate.of(2004,1,5),50000, "School giving scholarship", "Bonus"));
-        transactionList.add(new Expense(LocalDate.of(2004,4,15),-20000, "Buy a phone in FPT", "Shopping"));
-        transactionList.add(new Income(LocalDate.of(2004,5,6),120000, "Salary May", "Salary"));
-        transactionList.add(new Expense(LocalDate.of(2004,11,23),-35000, "Restaurant district 5", "Food and Beverage"));
+                new Income(UUIDHelper.newUUIDString(), LocalDate.of(2004,1,5),50000, "School giving scholarship", "Bonus"));
+        transactionList.add(new Expense(UUIDHelper.newUUIDString(), LocalDate.of(2004,4,15),-20000, "Buy a phone in FPT", "Shopping"));
+        transactionList.add(new Income(UUIDHelper.newUUIDString(), LocalDate.of(2004,5,6),120000, "Salary May", "Salary"));
+        transactionList.add(new Expense(UUIDHelper.newUUIDString(), LocalDate.of(2004,11,23),-35000, "Restaurant district 5", "Food and Beverage"));
 
         // add data to suitable columns
+        idColumn.setCellValueFactory(new PropertyValueFactory<Transaction,String>("id"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<Transaction,LocalDate>("transDate"));
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<Transaction,String>("transDescription"));
         categoryColumn.setCellValueFactory(new PropertyValueFactory<Transaction,String>("categoryName"));
@@ -266,7 +269,11 @@ public class transactionSceneController implements Initializable {
             System.out.println("Edit clicked");
             Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage
 
+            //TODO: generate id from process (arraylist)
             editTransactionBox editTransaction_box = new editTransactionBox();
+
+            // set value of dialog
+            editTransaction_box.getController().setTransaction(select);
 
             // dialog show
             Stage dialogEditStage = new Stage(StageStyle.TRANSPARENT);
@@ -275,14 +282,12 @@ public class transactionSceneController implements Initializable {
             dialogEditStage.initOwner(stage); // close this dialog to return to owner window
             dialogEditStage.setScene(editTransaction_box.getScene());
 
-            // set default value of fields in edit form the same selected transaction
-            editTransactionBoxController controller = editTransaction_box.getController();
-            controller.setDialogStage(dialogEditStage);
-            controller.setDefaultValue(select); //error not know how to fix
-
             dialogEditStage.showAndWait();
+
+
         } else {
             // Nothing select
+            System.out.println("no selection");
             Alert alertWarning = new Alert(Alert.AlertType.WARNING);
             alertWarning.setTitle("No Selection");
             alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown

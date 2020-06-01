@@ -23,7 +23,7 @@ public class DatabaseLoan {
         try {
             //TODO: actually implement this
             Connection conn = DatabaseManager.getConnection();
-            PreparedStatement loanQuery = conn.prepareCall("SELECT * FROM loanHistory WHERE isActive = 1 AND budgetId = ?");
+            PreparedStatement loanQuery = conn.prepareCall("SELECT * FROM loanHistory WHERE isActive = 1 AND ownBudget = ?");
             loanQuery.setString(1, budgetId);
             ResultSet activeLoanResult = loanQuery.executeQuery();
             while (activeLoanResult.next()) {
@@ -108,12 +108,12 @@ public class DatabaseLoan {
         try {
             Connection conn = DatabaseManager.getConnection();
             PreparedStatement updateCall = conn.prepareCall(
-                    "UPDATE loanHistory" +
-                            "SET name = ?" +
-                            "description = ?" +
-                            "activeTimeSpan = ?" +
-                            "currentValue = ?" +
-                            "interestRate = ?" +
+                    "UPDATE loanHistory " +
+                            "SET name = ?, " +
+                            "description = ?, " +
+                            "activeTimeSpan = ?, " +
+                            "currentValue = ?, " +
+                            "interestRate = ? " +
                             "WHERE loanId = ?"
             );
             if (loan.getId().equals("")) throw new DatabaseException(19);
