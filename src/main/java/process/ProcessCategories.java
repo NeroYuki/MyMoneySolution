@@ -34,6 +34,8 @@ public class ProcessCategories {
         Category category=new Category(Name,FileName,Info,Typeint);
         try {
             throw new DatabaseException();
+        //   DatabaseCategories.updateCategory(category);
+        //  return true;
         // DatabaseCategories.saveDataCategories(category);
         // return true;
         }
