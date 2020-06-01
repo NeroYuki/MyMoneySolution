@@ -10,12 +10,12 @@ import java.util.ArrayList;
 
 
 public class ProcessTransactionScene {
-    public static boolean getTransactionsInfo() throws DatabaseException{
+    public static ArrayList<Transaction> getTransactionsInfo() throws DatabaseException{
         try {
             UsedModel usedModel = UsedModel.getInstance();
             Budget budget = usedModel.user.getBudget();
             ArrayList<Transaction> transaction = DatabaseTransaction.getTransaction(budget.getId());
-            return true;
+            return transaction;
         }
         catch(DatabaseException de){
             throw de;

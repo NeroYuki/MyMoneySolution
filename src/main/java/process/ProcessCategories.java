@@ -33,11 +33,12 @@ public class ProcessCategories {
         }
         Category category=new Category(Name,FileName,Info,Typeint);
         try {
-            throw new DatabaseException();
-        //   DatabaseCategories.updateCategory(category);
-        //  return true;
-        // DatabaseCategories.saveDataCategories(category);
-        // return true;
+            DatabaseCategories.addCategories(category);
+            return  true;
+            //   DatabaseCategories.updateCategory(category);
+            //  return true;
+            // DatabaseCategories.saveDataCategories(category);
+            // return true;
         }
         catch (DatabaseException De){
             System.out.println("chuong trinh loi khi dua data vao database");

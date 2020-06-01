@@ -123,9 +123,9 @@ public class categoriesSceneController implements Initializable {
     public void displayBarChart() {
         // Get an array with the categories income
         String[] incomeCategories = {"Salary","Bonus","Award"};
-        //TODO: get right list from own database
+        //TODO: get right list from own database - done
         String[] expenseCategories = {"Shopping","Food and Beverage","Movie and show"};
-        //TODO: get right list from own database
+        //TODO: get right list from own database - done
 
         // Convert it to a list and add it to our ObservableList of categories
         incomeCategoryNames.addAll(Arrays.asList(incomeCategories));
@@ -135,7 +135,7 @@ public class categoriesSceneController implements Initializable {
         incomeCategoriesAxis.setCategories(incomeCategoryNames);
         expenseCategoriesAxis.setCategories(expenseCategoryNames);
 
-        //TODO: get right list from own database
+        //TODO: get right list from own database - done
         transactionList.add(
                 new Income(LocalDate.of(2004,1,5),50000, "School giving scholarship", "Bonus"));
         transactionList.add(new Expense(LocalDate.of(2004,4,15),-20000, "Buy a phone in FPT", "Shopping"));
@@ -149,9 +149,9 @@ public class categoriesSceneController implements Initializable {
         transactionList.add(new Expense(LocalDate.of(2004,11,23),-35000, "Restaurant district 5", "Food and Beverage"));
 
         // Count the total value of a categories in an account
-        Double[] incomeValueTotal = new Double[3];
-        Double[] expenseValueTotal = new Double[3];
-        //TODO: apply the number of categories from database
+        Double[] incomeValueTotal = new Double[incomeCategories.length];
+        Double[] expenseValueTotal = new Double[expenseCategories.length];
+        //TODO: apply the number of categories from database - done
 
         // set initial value of 0 to calculate total then
         for(int i=0;i<incomeValueTotal.length;i++){
@@ -370,8 +370,8 @@ public class categoriesSceneController implements Initializable {
                     alertConfirm.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
                     alertConfirm.showAndWait();
                     if (alertConfirm.getResult() == ButtonType.YES) {
-                        System.out.println("selectIdx: " + getIndex());
-                        System.out.println("item: " + itemRemove);
+                            System.out.println("selectIdx: " + getIndex());
+                            System.out.println("item: " + itemRemove);
                         //TODO: delete categories in database there
                         getListView().getItems().remove(getItem());
                     }
