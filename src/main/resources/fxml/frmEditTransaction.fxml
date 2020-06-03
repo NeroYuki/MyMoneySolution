@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="editTransactionBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#drag" onMousePressed="#press" prefHeight="500.0" prefWidth="720.0" stylesheets="@../css/login.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.editTransactionBoxController">
+<BorderPane fx:id="editTransactionBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#drag" onMousePressed="#press" prefHeight="500.0" prefWidth="720.0" stylesheets="@../css/login.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.editTransactionBoxController">
    <top>
       <AnchorPane prefHeight="500.0" prefWidth="720.0" style="-fx-background-color: #404F81;" stylesheets="@../css/dialogStage.css" BorderPane.alignment="CENTER">
          <children>
@@ -33,7 +41,7 @@
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
-                  <Button fx:id="resetBtn" layoutX="375.0" layoutY="33.0" mnemonicParsing="false" onAction="#resetBtnClick" prefHeight="37.0" prefWidth="150.0" text="RESET TO PREVIOUS" underline="true">
+                  <Button fx:id="resetBtn" layoutX="375.0" layoutY="33.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="150.0" text="RESET TO PREVIOUS" underline="true">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>

@@ -19,7 +19,7 @@ public class DatabaseSaving {
         ArrayList<Saving> result = new ArrayList<>();
         try {
             Connection conn = DatabaseManager.getConnection();
-            PreparedStatement savingQuery = conn.prepareCall("SELECT * FROM savingHistory WHERE isActive = 1 AND ownBudget = ?");
+            PreparedStatement savingQuery = conn.prepareCall("SELECT * FROM savingHistory WHERE isActive = 1 AND budgetId = ?");
             savingQuery.setString(1, budgetId);
             ResultSet activeSavingResult = savingQuery.executeQuery();
             while (activeSavingResult.next()) {
@@ -100,12 +100,12 @@ public class DatabaseSaving {
         try {
             Connection conn = DatabaseManager.getConnection();
             PreparedStatement updateCall = conn.prepareCall(
-                    "UPDATE savingHistory " +
-                            "SET name = ?, " +
-                            "description = ?, " +
-                            "activeTimeSpan = ?, " +
-                            "currentValue = ?, " +
-                            "interestRate = ? " +
+                    "UPDATE savingHistory" +
+                            "SET name = ?" +
+                            "description = ?" +
+                            "activeTimeSpan = ?" +
+                            "currentValue = ?" +
+                            "interestRate = ?" +
                             "WHERE savingId = ?"
             );
             if (saving.getId().equals("")) throw new DatabaseException(20);
