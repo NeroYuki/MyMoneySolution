@@ -97,10 +97,10 @@ public class DatabaseBalance {
         try {
             Connection conn = DatabaseManager.getConnection();
             PreparedStatement updateCall = conn.prepareCall(
-                    "UPDATE balanceList " +
-                            "SET name = ?," +
-                            "description = ?," +
-                            "currentValue = ? " +
+                    "UPDATE balanceList" +
+                            "SET name = ?" +
+                            "description = ?" +
+                            "currentValue = ?" +
                             "WHERE balanceId = ?"
             );
             if (bal.getId().equals("")) throw new DatabaseException(17);

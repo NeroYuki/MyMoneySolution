@@ -269,7 +269,6 @@ public class categoriesSceneController implements Initializable {
                     }
 
                 });
-
                 // edit button
                 editBtn.setOnAction(event -> {
                     try {

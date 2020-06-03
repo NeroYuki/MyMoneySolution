@@ -243,11 +243,11 @@ public class DatabaseTransaction {
         try {
             Connection conn = DatabaseManager.getConnection();
             PreparedStatement updateCall = conn.prepareCall(
-                    "UPDATE transHistory " +
-                            "SET description = ?, " +
-                            "value = ?, " +
-                            "occurDate = ? " +
-                            "WHERE transId = ? "
+                    "UPDATE transHistory" +
+                            "description = ?" +
+                            "value = ?" +
+                            "occurDate = ?" +
+                            "WHERE loanId = ?"
             );
             if (trans.getId().equals("")) throw new DatabaseException(21);
             updateCall.setString(1, trans.getTransDescription());

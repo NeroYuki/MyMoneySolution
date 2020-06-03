@@ -92,12 +92,12 @@ public class DatabaseUser {
         try {
             Connection conn = DatabaseManager.getConnection();
             PreparedStatement updateCall = conn.prepareCall(
-                    "UPDATE loggedUser " +
-                            "SET username = ?, " +
-                            "password = ?, " +
-                            "email = ?, " +
-                            "birthday = ? " +
-                            "WHERE userId = ?"
+                    "UPDATE loggedUser" +
+                            "username = ?" +
+                            "password = ?" +
+                            "email = ?" +
+                            "birthday = ?" +
+                            "WHERE loanId = ?"
             );
             if (user.getId().equals("")) throw new DatabaseException(22);
             updateCall.setString(1, user.getUsername());
