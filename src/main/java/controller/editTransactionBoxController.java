@@ -1,31 +1,49 @@
 package controller;
 
+import helper.UUIDHelper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import model.Expense;
+import model.Income;
 import model.Transaction;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class editTransactionBoxController implements Initializable {
     @FXML
     public TextField valueText;
+    @FXML
     public ComboBox unitCombo;
+    @FXML
     public DatePicker datepicker;
+    @FXML
     public TextArea descriptionTextArea;
+    @FXML
     public Button saveBtn;
+    @FXML
     public Button resetBtn;
+    @FXML
     public ComboBox accountCombo;
+    @FXML
     public ComboBox categoryCombo;
+    @FXML
     public TextField typeText;
+
+    public editTransactionBoxController(){
+    }
 
     // test dialog stage, not used but maybe later
     public Stage dialogEditStage;
+
+    private Transaction transaction;
 
     public void setDialogStage(Stage dialogStage) { // not use this set method but maybe used later
         this.dialogEditStage = dialogStage;
@@ -52,31 +70,36 @@ public class editTransactionBoxController implements Initializable {
         yOffset = event.getSceneY();
     }
 
-    private Transaction transaction; // not used but maybe later
-
-    public void setDefaultValue(Transaction transaction) {
-        System.out.println("alo");
-        //TODO: set field the same in the selected row
-        //this.transaction = transaction;
-//        datepicker.setValue(transaction.getTransDate());
-//        System.out.println("get date");
-//        accountCombo.setValue(transaction.getTransValue());
-//        System.out.println("get account");
-//        if(transaction.getClass().getName().equals("model.Income")) {
-//            categoryCombo.setValue(((Income)transaction).getCategoryName());
-//        }
-//        else if(transaction.getClass().getName().equals("model.Expense")) {
-//            categoryCombo.setValue(((Expense)transaction).getCategoryName());
-//        }
-//        valueText.setText(Double.toString(transaction.getTransValue()));
-//        System.out.println("get value");
-        //descriptionTextArea.setText(transaction.getTransDescription());
-        //valueText.setText(transaction.getTransDescription());
-        System.out.println("get description" + transaction.getTransDescription());
-    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+    }
 
+    public void setTransaction(Transaction transaction){
+        this.transaction = transaction;
+        // set date
+        datepicker.setValue(transaction.getTransDate());
+        // set account, maybe not vital
+        accountCombo.setValue(transaction.getApplyingBalance());
+        // set category
+        if(transaction.getClass().getName().equals("model.Income")) {
+            categoryCombo.setValue(((Income)transaction).getCategoryName());
+        }
+        else if(transaction.getClass().getName().equals("model.Expense")) {
+            categoryCombo.setValue(((Expense)transaction).getCategoryName());
+        }
+        // set type
+        if(transaction.getClass().getName().equals("model.Income")){
+            typeText.setText("Income");
+        }
+        else if(transaction.getClass().getName().equals("model.Expense")){
+            typeText.setText("Expense");
+        }
+        valueText.setText(Double.toString(Math.abs(this.transaction.getTransValue())));
+        // set description
+        descriptionTextArea.setText(this.transaction.getTransDescription());
+    }
+
+    public void resetBtnClick(ActionEvent actionEvent) {
+        this.setTransaction(transaction);
     }
 }

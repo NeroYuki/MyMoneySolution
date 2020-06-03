@@ -147,10 +147,10 @@ public class DatabaseCategories {
         try {
             Connection conn = DatabaseManager.getConnection();
             PreparedStatement updateCall = conn.prepareCall(
-                    "UPDATE transCategory" +
-                            "SET name = ?" +
-                            "description = ?" +
-                            "iconPath = ?" +
+                    "UPDATE transCategory " +
+                            "SET name = ?, " +
+                            "description = ?, " +
+                            "iconPath = ? " +
                             "WHERE transCategoryId = ?"
             );
             if (cat.getId().equals("")) throw new DatabaseException(18);
