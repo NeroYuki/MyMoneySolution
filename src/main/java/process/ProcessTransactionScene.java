@@ -20,8 +20,5 @@ public class ProcessTransactionScene {
         catch(DatabaseException de){
             throw de;
         }
-        catch (Exception e){
-            throw  e;
-        }
     }
 }
