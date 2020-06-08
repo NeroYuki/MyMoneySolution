@@ -9,7 +9,9 @@ public class ErrorCode2 {
             "FileName String khong hop le",                 //2
             "Info String khong hop le",                     //3
             "Type String khong hop le",                     //4
-
+            "Gia tri nhap khong hop le",                    //5
+            "Loi khi dang nhap" ,                           //6
+            "Loi khi xu li ham tu data",                    //7
     };
 
     public ErrorCode2(int code) {

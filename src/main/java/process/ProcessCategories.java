@@ -9,29 +9,26 @@ import java.util.ArrayList;
 
 public class ProcessCategories {
     public static boolean saveCategories(String Name, String FileName, String Info, String Type) throws ProcessExeption {
+        int Typeint = 0;
+        if (Name.length() >= 255) {
+            throw new ProcessExeption(1);
+        }
+        if (Info.length() >= 1023) {
+            throw new ProcessExeption(3);
+        }
+        if (Type == "Income") {
+            Typeint = 1;
+        } else if (Type == "Expense") {
+            Typeint = 2;
+        } else {
+            throw new ProcessExeption(4);
+        }
+        if (FileName == null) {
+            throw new ProcessExeption(2);
+        }
         try {
-            int Typeint = 0;
-            if (Name.length() >= 255) {
-                throw new ProcessExeption(1);
-            }
-            if (Info.length() >= 1023) {
-                throw new ProcessExeption(3);
-            }
-            if (Type == "Income") {
-                Typeint = 1;
-            } else if (Type == "Expense") {
-                Typeint = 2;
-            } else {
-                throw new ProcessExeption(4);
-            }
-            if (FileName == null) {
-                throw new ProcessExeption(2);
-            }
             Category category = new Category(Name, FileName, Info, Typeint);
             DatabaseCategories.addCategories(category);
-        }
-        catch (ProcessExeption pe) {
-            throw pe;
         }
         catch (DatabaseException De) {
             System.out.println(De.getErrorCodeMessage());
@@ -43,33 +40,32 @@ public class ProcessCategories {
     }
 
     public static boolean updateCategories(String Name,String FileName,String Info,String Type) throws ProcessExeption{
-        try{
-            int Typeint=0;
-            if(Name.length()>=255) {
-                throw new ProcessExeption(1);
-            }
-            if(Info.length()>=1023){
-                throw new ProcessExeption(3);
-            }
-            if(Type=="Income"){
-                Typeint=1;
-            }
-            else if(Type=="Expense")
-            {
-                Typeint=2;
-            }
-            else{
-                throw new ProcessExeption(4);
-            }
-            if(FileName ==null){
-                throw new ProcessExeption(2);
-            }
-            Category category=new Category(Name,FileName,Info,Typeint);
+        int Typeint=0;
+        if(Name.length()>=255) {
+            throw new ProcessExeption(1);
+        }
+        if(Info.length()>=1023){
+            throw new ProcessExeption(3);
+        }
+        if(Type=="Income"){
+            Typeint=1;
+        }
+        else if(Type=="Expense")
+        {
+            Typeint=2;
+        }
+        else{
+            throw new ProcessExeption(4);
+        }
+        if(FileName ==null) {
+            throw new ProcessExeption(2);
+        }
+        try {
+
+            Category category = new Category(Name, FileName, Info, Typeint);
             DatabaseCategories.updateCategory(category);
         }
-        catch (ProcessExeption pe){
-            throw pe;
-        }
+
         catch (DatabaseException De){
             System.out.println(De.getErrorCodeMessage());
         }

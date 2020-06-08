@@ -4,12 +4,12 @@ public class ProcessExeption extends Exception{
     ErrorCode2 code;
 
     public ProcessExeption() {
-        super("Error when perform action to database");
+        super("Error when processing an action ");
         this.code = new ErrorCode2(0);
     }
 
     public ProcessExeption(int error_code) {
-        super("Error when perform action to database");
+        super("Error when processing an action ");
         this.code = new ErrorCode2(error_code);
     }
 
