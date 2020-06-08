@@ -276,9 +276,9 @@ public class transactionSceneController implements Initializable {
             dialogEditStage.setScene(editTransaction_box.getScene());
 
             // set default value of fields in edit form the same selected transaction
-            editTransactionBoxController controller = editTransaction_box.getController();
-            controller.setDialogStage(dialogEditStage);
-            controller.setDefaultValue(select); //error not know how to fix
+            editTransaction_box.getController().setTransaction(select);
+            //controller.setDialogStage(dialogEditStage);
+            //controller.setDefaultValue(select); //error not know how to fix
 
             dialogEditStage.showAndWait();
         } else {

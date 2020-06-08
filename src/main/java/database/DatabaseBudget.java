@@ -20,6 +20,7 @@ public class DatabaseBudget {
             if (budgetResult.first()) {
                 foundBudgetId = budgetResult.getString("budgetId");
             }
+            else throw new DatabaseException(17);
             Budget result = new Budget(
                     foundBudgetId,
                     DatabaseBalance.getBalances(foundBudgetId),
@@ -39,12 +40,13 @@ public class DatabaseBudget {
     public static boolean addBudget(Budget budget, User ownUser) throws DatabaseException {
         try {
             Connection conn = DatabaseManager.getConnection();
-            PreparedStatement registerCall = conn.prepareCall("INSERT INTO userbudget VALUES (?, ?)");
+            PreparedStatement registerCall = conn.prepareCall("INSERT INTO userbudget VALUES (?, ?, ?)");
             if (budget.getId().equals("")) budget.setId(UUIDHelper.newUUIDString());
             else throw new DatabaseException(5);
 
             registerCall.setString(1, budget.getId());
             registerCall.setString(2, ownUser.getId());
+            registerCall.setBoolean(3, true);
             registerCall.execute();
             int result = registerCall.getUpdateCount();
             if (result == 0) throw new DatabaseException(5);
@@ -75,6 +77,30 @@ public class DatabaseBudget {
             for (Balance b : budget.getBalanceList()) {
                 DatabaseBalance.removeBalance(b);
             }
+
+            removeCall.setString(1, budget.getId());
+            removeCall.execute();
+            int result = removeCall.getUpdateCount();
+            if (result == 0) throw new DatabaseException(11);
+        }
+        catch (DatabaseException de) {
+            throw de;
+        }
+        catch (Exception e) {
+            throw new DatabaseException(0);
+        }
+        return true;
+    }
+
+    public static boolean softRemoveBudget(Budget budget) throws DatabaseException {
+        try {
+            Connection conn = DatabaseManager.getConnection();
+            PreparedStatement removeCall = conn.prepareCall(
+                    "UPDATE userbudget " +
+                            "SET isAvailable = FALSE " +
+                            "WHERE budgetId = ?"
+            );
+            if (budget.getId().equals("")) throw new DatabaseException(11);
 
             removeCall.setString(1, budget.getId());
             removeCall.execute();

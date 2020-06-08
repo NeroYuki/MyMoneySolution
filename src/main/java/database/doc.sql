@@ -14,6 +14,7 @@ CREATE TABLE loggedUser (
 CREATE TABLE userBudget (
 	budgetId CHAR(36) NOT NULL,
     ownUser CHAR(36) NOT NULL,
+    isAvailable BIT DEFAULT TRUE,
     PRIMARY KEY (budgetId),
     FOREIGN KEY (ownUser) REFERENCES loggedUser(userId)
 );
@@ -26,6 +27,7 @@ CREATE TABLE balanceList (
     description VARCHAR(1024) DEFAULT NULL,
     currentValue DOUBLE NOT NULL,
     creationDate DATE NOT NULL,
+    isAvailable BIT DEFAULT TRUE
     PRIMARY KEY (balanceId),
     FOREIGN KEY (ownBudget) REFERENCES userBudget(budgetId)
 )
@@ -80,6 +82,7 @@ CREATE TABLE transCategory (
     name VARCHAR(255) NOT NULL,
     description VARCHAR(1023) DEFAULT NULL,
     iconPath VARCHAR(1023) DEFAULT NULL,
+    isAvailable BIT DEFAULT TRUE,
     PRIMARY KEY (transCategoryId)
 )
 

@@ -7,6 +7,8 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import model.Expense;
+import model.Income;
 import model.Transaction;
 
 import java.net.URL;
@@ -72,7 +74,20 @@ public class editTransactionBoxController implements Initializable {
 //        System.out.println("get value");
         //descriptionTextArea.setText(transaction.getTransDescription());
         //valueText.setText(transaction.getTransDescription());
-        System.out.println("get description" + transaction.getTransDescription());
+        //System.out.println("get description" + transaction.getTransDescription());
+    }
+
+    public void setTransaction(Transaction trans) {
+        this.transaction = trans;
+        valueText.setText(Double.toString(this.transaction.getTransValue()));
+        datepicker.setValue(transaction.getTransDate());
+        if(transaction.getClass().getName().equals("model.Income")) {
+            categoryCombo.setValue(((Income)transaction).getCategoryName());
+        }
+        else if(transaction.getClass().getName().equals("model.Expense")) {
+            categoryCombo.setValue(((Expense)transaction).getCategoryName());
+        }
+        descriptionTextArea.setText(transaction.getTransDescription());
     }
 
     @Override

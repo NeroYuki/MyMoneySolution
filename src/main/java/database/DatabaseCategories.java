@@ -14,7 +14,7 @@ public class DatabaseCategories {
     public static boolean addCategories(Category cat) throws DatabaseException {
         try {
             Connection conn = DatabaseManager.getConnection();
-            PreparedStatement createCall = conn.prepareCall("INSERT INTO transCategory VALUES (?, ?, ?, ?, ?)");
+            PreparedStatement createCall = conn.prepareCall("INSERT INTO transCategory VALUES (?, ?, ?, ?, ?, TRUE)");
             if (cat.getId().equals("")) cat.setId(UUIDHelper.newUUIDString());
             else throw new DatabaseException(9);
 
@@ -50,7 +50,8 @@ public class DatabaseCategories {
                         categoryResult.getString("name"),
                         categoryResult.getString("description"),
                         categoryResult.getString("iconPath"),
-                        categoryResult.getInt("transType")
+                        categoryResult.getInt("transType"),
+                        categoryResult.getBoolean("isUsed")
                 );
                 result.add(categoryEntry);
             }
@@ -77,7 +78,8 @@ public class DatabaseCategories {
                         categoryResult.getString("name"),
                         categoryResult.getString("description"),
                         categoryResult.getString("iconPath"),
-                        categoryResult.getInt("transType")
+                        categoryResult.getInt("transType"),
+                        categoryResult.getBoolean("isUsed")
                 );
                 result.add(categoryEntry);
             }
@@ -104,7 +106,8 @@ public class DatabaseCategories {
                         categoryResult.getString("name"),
                         categoryResult.getString("description"),
                         categoryResult.getString("iconPath"),
-                        categoryResult.getInt("transType")
+                        categoryResult.getInt("transType"),
+                        categoryResult.getBoolean("isUsed")
                 );
                 return result;
             }
@@ -162,6 +165,30 @@ public class DatabaseCategories {
             updateCall.execute();
             int result = updateCall.getUpdateCount();
             if (result == 0) throw new DatabaseException(18);
+        }
+        catch (DatabaseException de) {
+            throw de;
+        }
+        catch (Exception e) {
+            throw new DatabaseException(0);
+        }
+        return true;
+    }
+
+    public static boolean softRemoveCategory(Category cat) throws DatabaseException {
+        try {
+            Connection conn = DatabaseManager.getConnection();
+            PreparedStatement removeCall = conn.prepareCall(
+                    "UPDATE transCategory " +
+                            "SET isAvailable = FALSE " +
+                            "WHERE transCategoryId = ?"
+            );
+            if (cat.getId().equals("")) throw new DatabaseException(12);
+
+            removeCall.setString(1, cat.getId());
+            removeCall.execute();
+            int result = removeCall.getUpdateCount();
+            if (result == 0) throw new DatabaseException(12);
         }
         catch (DatabaseException de) {
             throw de;

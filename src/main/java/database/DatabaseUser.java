@@ -1,14 +1,12 @@
 package database;
 
 import exception.DatabaseException;
+import helper.UUIDHelper;
 import model.Expense;
 import model.Transaction;
 import model.User;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 
 public class DatabaseUser {
     //Get user info from a given username and password
@@ -48,14 +46,21 @@ public class DatabaseUser {
     public static boolean registerUser(User registeringUser) throws DatabaseException {
         try {
             Connection conn = DatabaseManager.getConnection();
-            PreparedStatement registerCall = conn.prepareCall("INSERT INTO loggedUser VALUES (UUID_SHORT(), ?, ?, ?, ?)");
-            registerCall.setString(1, registeringUser.getUsername());
-            registerCall.setString(2, registeringUser.getPassword());
-            registerCall.setString(3, registeringUser.getEmail());
-            registerCall.setDate(4, Date.valueOf(registeringUser.getBirthday()));
+            PreparedStatement registerCall = conn.prepareCall("INSERT INTO loggedUser VALUES (?, ?, ?, ?, ?)");
+
+            if (registeringUser.getId().equals("")) registeringUser.setId(UUIDHelper.newUUIDString());
+            else throw new DatabaseException(3);
+
+            registerCall.setString(1, registeringUser.getId());
+            registerCall.setString(2, registeringUser.getUsername());
+            registerCall.setString(3, registeringUser.getPassword());
+            registerCall.setString(4, registeringUser.getEmail());
+            registerCall.setDate(5, Date.valueOf(registeringUser.getBirthday()));
             registerCall.execute();
             int result = registerCall.getUpdateCount();
             if (result == 0) throw new DatabaseException(3);
+
+            //TODO: Attach new budget
         }
         catch (DatabaseException de) {
             throw de;

@@ -44,7 +44,7 @@
             </Label>
             <HBox alignment="CENTER_LEFT" layoutX="41.0" layoutY="143.0" prefHeight="37.0" prefWidth="250.0" style="-fx-border-color: #bebfe1; -fx-border-radius: 5px; -fx-background-radius: 5px;">
                <children>
-                  <TextField promptText="Username" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
+                  <TextField fx:id="txtUsername" promptText="Username" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -55,7 +55,7 @@
                </padding></HBox>
             <HBox alignment="CENTER_LEFT" layoutX="41.0" layoutY="194.0" prefHeight="37.0" prefWidth="250.0" style="-fx-border-color: #bebfe1; -fx-border-radius: 5px; -fx-background-radius: 5px;">
                <children>
-                  <PasswordField promptText="Password" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
+                  <PasswordField fx:id="txtPassword" promptText="Password" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
                      <font>
                         <Font size="14.0" />
                      </font>
