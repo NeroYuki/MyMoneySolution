@@ -149,8 +149,8 @@ public class categoriesSceneController implements Initializable {
         transactionList.add(new Expense(LocalDate.of(2004,11,23),-35000, "Restaurant district 5", "Food and Beverage"));
 
         // Count the total value of a categories in an account
-        Double[] incomeValueTotal = new Double[3];
-        Double[] expenseValueTotal = new Double[3];
+        Double[] incomeValueTotal = new Double[incomeCategories.length];
+        Double[] expenseValueTotal = new Double[expenseCategories.length];
         //TODO: apply the number of categories from database
 
         // set initial value of 0 to calculate total then
@@ -269,6 +269,7 @@ public class categoriesSceneController implements Initializable {
                     }
 
                 });
+
                 // edit button
                 editBtn.setOnAction(event -> {
                     try {

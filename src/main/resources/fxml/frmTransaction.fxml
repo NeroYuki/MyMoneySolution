@@ -165,6 +165,7 @@
             </HBox>
             <TableView fx:id="transactionTable" layoutY="52.0" prefHeight="480.0" prefWidth="851.0" style="-fx-background-color: #E6E6FA;">
                <columns>
+                  <TableColumn fx:id="idColumn" editable="false" prefWidth="100" resizable="false" sortable="false" text="ID" visible="false"/>
                   <TableColumn fx:id="dateColumn" editable="false" prefWidth="151.0" resizable="false" style="-fx-alignment: CENTER;" text="Date" />
                   <TableColumn fx:id="descriptionColumn" editable="false" prefWidth="214.0" resizable="false" sortable="false" text="Description" />
                   <TableColumn fx:id="accountColumn" editable="false" prefWidth="137.0" resizable="false" style="-fx-alignment: CENTER;" text="Account" />
