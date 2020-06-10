@@ -21,6 +21,7 @@ public class ErrorCode {
             "Error happen when removing saving",            //14
             "Error happen when removing transaction",       //15
             "Error happen when removing user",              //16
+            "Can't find the budget id binded to this user"  //17
     };
 
     public ErrorCode(int code) {

@@ -83,6 +83,7 @@ public class DatabaseManager {
             String userBudgetCreate = "CREATE TABLE userBudget (\n" +
                     "    budgetId CHAR(36) NOT NULL,\n" +
                     "    ownUser CHAR(36) NOT NULL,\n" +
+                    "    isAvailable BIT DEFAULT TRUE,\n" +
                     "    PRIMARY KEY (budgetId),\n" +
                     "    FOREIGN KEY (ownUser) REFERENCES loggedUser(userId)\n" +
                     ");";
@@ -94,6 +95,7 @@ public class DatabaseManager {
                     "    description VARCHAR(1024) DEFAULT NULL,\n" +
                     "    currentValue DOUBLE NOT NULL,\n" +
                     "    creationDate DATE NOT NULL,\n" +
+                    "    isAvailable BIT DEFAULT TRUE,\n" +
                     "    PRIMARY KEY (balanceId),\n" +
                     "    FOREIGN KEY (ownBudget) REFERENCES userBudget(budgetId)\n" +
                     ");";
@@ -137,6 +139,7 @@ public class DatabaseManager {
                     "    name VARCHAR(255) NOT NULL,\n" +
                     "    description VARCHAR(1023) DEFAULT NULL,\n" +
                     "    iconPath VARCHAR(1023) DEFAULT NULL,\n" +
+                    "    isAvailable BIT DEFAULT TRUE,\n" +
                     "    PRIMARY KEY (transCategoryId)\n" +
                     ");";
 
@@ -148,6 +151,7 @@ public class DatabaseManager {
                     "    transType INT NOT NULL,\n" +
                     "    transCategoryId CHAR(36) NOT NULL,\n" +
                     "    occurDate DATE NOT NULL,\n" +
+                    "    isAvailable BIT DEFAULT TRUE,\n" +
                     "    PRIMARY KEY (transId),\n" +
                     "    FOREIGN KEY (applyBalance) REFERENCES balanceList(balanceId),\n" +
                     "    FOREIGN KEY (transCategoryId) REFERENCES transCategory(transCategoryId)\n" +

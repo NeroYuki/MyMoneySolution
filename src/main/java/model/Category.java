@@ -5,6 +5,7 @@ public class Category {
     String name;
     String description;
     String iconPath;
+    boolean isUsed;
     int type;
 
     public Category(String name, String desc, String path, int type) {
@@ -12,12 +13,18 @@ public class Category {
         setDescription(desc);
         setIconPath(path);
         setType(type);
+        this.isUsed = true;
     }
 
-    public Category(String id, String name, String desc, String path, int type) {
+    public Category(String id, String name, String desc, String path, int type, boolean isUsed) {
         this(name, desc, path, type);
         setId(id);
+        setUsed(isUsed);
     }
+
+    public void setUsed(boolean isUsed) { this.isUsed = isUsed; }
+
+    public boolean getUsed() {return isUsed;}
 
     public void setId(String id) {
         this.id = id;

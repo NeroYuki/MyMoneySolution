@@ -1,19 +1,28 @@
 package controller;
 
 import database.DatabaseManager;
+import database.DatabaseUser;
+import helper.CharacterEncoding;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import model.User;
 import scenes.homepageScene;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 public class loginSceneController {
     @FXML
+    public TextField txtUsername;
+    @FXML
+    public TextField txtPassword;
+
     public void loginBtnClick(ActionEvent e) throws Exception {
         System.out.println("Login clicked");
         Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage
@@ -31,9 +40,9 @@ public class loginSceneController {
         stage.setScene(homepage_scene.getScene());
     }
 
-    public void registerBtnClick(ActionEvent e) throws IOException {
+    public void registerBtnClick(ActionEvent e) throws Exception {
         System.out.println("Register clicked");
-        DatabaseManager.testLoad("expense", 3);
+        DatabaseUser.registerUser(new User(this.txtUsername.getText(), this.txtPassword.getText(), "a@b.c", LocalDate.of(2004,11,23), null));
     }
 
     public void closeBtnClick(ActionEvent e){

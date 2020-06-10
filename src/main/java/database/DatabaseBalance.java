@@ -47,7 +47,7 @@ public class DatabaseBalance {
     public static boolean addBalance(Balance bal, Budget ownBudget) throws DatabaseException {
         try {
             Connection conn = DatabaseManager.getConnection();
-            PreparedStatement registerCall = conn.prepareCall("INSERT INTO balanceList VALUES (?, ?, ?, ?, ?, ?)");
+            PreparedStatement registerCall = conn.prepareCall("INSERT INTO balanceList VALUES (?, ?, ?, ?, ?, ?, ?)");
             if (bal.getId().equals("")) bal.setId(UUIDHelper.newUUIDString());
             else throw new DatabaseException(4);
             registerCall.setString(1, bal.getId());
@@ -56,6 +56,7 @@ public class DatabaseBalance {
             registerCall.setString(4, bal.getDescription());
             registerCall.setDouble(5, bal.getValue());
             registerCall.setDate(6, Date.valueOf(LocalDate.now()));
+            registerCall.setBoolean(7, true);
             registerCall.execute();
             int result = registerCall.getUpdateCount();
             if (result == 0) throw new DatabaseException(4);
@@ -112,6 +113,30 @@ public class DatabaseBalance {
             updateCall.execute();
             int result = updateCall.getUpdateCount();
             if (result == 0) throw new DatabaseException(17);
+        }
+        catch (DatabaseException de) {
+            throw de;
+        }
+        catch (Exception e) {
+            throw new DatabaseException(0);
+        }
+        return true;
+    }
+
+    public static boolean softRemoveBalance(Balance bal) throws DatabaseException {
+        try {
+            Connection conn = DatabaseManager.getConnection();
+            PreparedStatement removeCall = conn.prepareCall(
+                    "UPDATE balancelist " +
+                            "SET isAvailable = FALSE " +
+                            "WHERE balanceId = ?"
+            );
+            if (bal.getId().equals("")) throw new DatabaseException(10);
+
+            removeCall.setString(1, bal.getId());
+            removeCall.execute();
+            int result = removeCall.getUpdateCount();
+            if (result == 0) throw new DatabaseException(10);
         }
         catch (DatabaseException de) {
             throw de;

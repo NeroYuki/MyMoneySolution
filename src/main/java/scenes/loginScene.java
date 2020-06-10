@@ -1,5 +1,6 @@
 package scenes;
 
+import controller.editTransactionBoxController;
 import controller.loginSceneController;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -15,13 +16,25 @@ public class loginScene {
     private Scene scene;
     private loginSceneController controller;
     public loginScene() throws Exception {
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/frmLoginNew.fxml"));
+//        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/frmLoginNew.fxml"));
+//
+//        scene = new Scene(root);
+//        controller = new loginSceneController();
 
+        FXMLLoader loader = new FXMLLoader();
+
+        loader.setLocation(getClass().getClassLoader().getResource("fxml/frmLoginNew.fxml"));
+
+        Parent root = loader.load();
         scene = new Scene(root);
-        controller = new loginSceneController();
+        controller = loader.getController();
     }
 
     public Scene getScene() {
         return scene;
+    }
+
+    public loginSceneController getController() {
+        return controller;
     }
 }
