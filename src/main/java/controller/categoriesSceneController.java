@@ -33,8 +33,7 @@ import scenes.*;
 import java.io.File;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class categoriesSceneController implements Initializable {
     ListView<String> incomeListView = new ListView<>();
@@ -42,6 +41,11 @@ public class categoriesSceneController implements Initializable {
 
     // init a list of transaction to get from database input
     private ObservableList<Transaction> transactionList = FXCollections.observableArrayList(); // list of transaction
+
+    @FXML
+    public ImageView addTransBtn;
+    @FXML
+    public ImageView planBtn;
 
     public void transactionBtnClick(ActionEvent e) throws Exception {
         System.out.println("Transaction clicked");
@@ -102,6 +106,10 @@ public class categoriesSceneController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         // display bar chart in tab income and expense
         displayBarChart();
+
+        // tooltip handle for add item and plan buttons
+        Tooltip.install(addTransBtn, new Tooltip("Add new item"));
+        Tooltip.install(planBtn, new Tooltip("plan record"));
 
         // load income categories
         incomeCategoriesLoad();
@@ -468,6 +476,62 @@ public class categoriesSceneController implements Initializable {
 //            incomeListView.getSelectionModel().select(-1);
 //
 //        }
+    }
+
+    public void addTransClick(MouseEvent e) throws Exception {
+        // first appear a dialog to choose the type of transaction for clear handle
+        List<String> choices = new ArrayList<>();
+        choices.add("Income");
+        choices.add("Expenses");
+        choices.add("Transfer");
+
+        ChoiceDialog<String> dialog = new ChoiceDialog<>("Expenses", choices);
+        dialog.initStyle(StageStyle.TRANSPARENT);
+        dialog.setTitle("Type of transaction dialog");
+        dialog.setHeaderText("Pick one type to continue the transaction");
+        dialog.setContentText("Type");
+
+        // Traditional way to get the response value
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+            System.out.println("Option " + result.get());
+
+            // income select event
+            if(result.get() == "Income"){
+                // get add income scene
+                Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage
+
+                addIncomeBox addIncome_box = new addIncomeBox();
+
+                // dialog show
+                Stage dialogAddStage = new Stage(StageStyle.TRANSPARENT);
+                dialogAddStage.setTitle("Add income");
+                dialogAddStage.initModality(Modality.WINDOW_MODAL);
+                dialogAddStage.initOwner(stage); // close this dialog to return to owner window
+                dialogAddStage.setScene(addIncome_box.getScene());
+
+                dialogAddStage.showAndWait();
+            }
+            else if(result.get() == "Expenses"){ // expense select option
+                // get add income scene
+                Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage
+
+                addExpenseBox addExpense_box = new addExpenseBox();
+
+                // dialog show
+                Stage dialogAddStage = new Stage(StageStyle.TRANSPARENT);
+                dialogAddStage.setTitle("Add expense");
+                dialogAddStage.initModality(Modality.WINDOW_MODAL);
+                dialogAddStage.initOwner(stage); // close this dialog to return to owner window
+                dialogAddStage.setScene(addExpense_box.getScene());
+
+                dialogAddStage.showAndWait();
+            }
+        }
+
+    }
+
+    public void planClick(MouseEvent event) {
     }
 
 }

@@ -12,6 +12,7 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -30,7 +31,10 @@
                   <Pane prefHeight="100.0" prefWidth="28.0" />
                   <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#homeBtnClick" prefHeight="60.0" prefWidth="173.0" styleClass="buttonMenu" stylesheets="@../css/main.css" text="Home">
                      <graphic>
-                        <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" translateX="20.0">
+                           <image>
+                              <Image url="@../img/navigationbtn/home.png" />
+                           </image></ImageView>
                      </graphic>
                   </Button>
                </children>
@@ -40,7 +44,10 @@
                   <Pane prefHeight="100.0" prefWidth="28.0" />
                   <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#transactionBtnClick" prefHeight="60.0" prefWidth="173.0" styleClass="buttonMenu" stylesheets="@../css/main.css" text="Transaction">
                      <graphic>
-                        <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" translateX="5.0">
+                           <image>
+                              <Image url="@../img/navigationbtn/search.png" />
+                           </image></ImageView>
                      </graphic>
                   </Button>
                </children>
@@ -50,7 +57,10 @@
                   <Pane prefHeight="100.0" prefWidth="28.0" />
                   <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#statisticsBtnClick" prefHeight="60.0" prefWidth="173.0" styleClass="buttonMenu" stylesheets="@../css/main.css" text="Statistics">
                      <graphic>
-                        <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" translateX="15.0">
+                           <image>
+                              <Image url="@../img/navigationbtn/favorite.png" />
+                           </image></ImageView>
                      </graphic>
                   </Button>
                </children>
@@ -60,17 +70,10 @@
                   <Pane prefHeight="100.0" prefWidth="28.0" style="-fx-background-color: #586589;" />
                   <Button contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="60.0" prefWidth="173.0" styleClass="buttonMenu" stylesheets="@../css/main.css" text="Categories">
                      <graphic>
-                        <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" />
-                     </graphic>
-                  </Button>
-               </children>
-            </HBox>
-            <HBox prefHeight="56.0" prefWidth="200.0">
-               <children>
-                  <Pane prefHeight="100.0" prefWidth="28.0" />
-                  <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#settingBtnClick" prefHeight="60.0" prefWidth="173.0" styleClass="buttonMenu" stylesheets="@../css/main.css" text="Settings">
-                     <graphic>
-                        <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" translateX="10.0">
+                           <image>
+                              <Image url="@../img/navigationbtn/list.png" />
+                           </image></ImageView>
                      </graphic>
                   </Button>
                </children>
@@ -80,11 +83,47 @@
                   <Pane prefHeight="100.0" prefWidth="28.0" />
                   <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#accountBtnClick" prefHeight="60.0" prefWidth="173.0" styleClass="buttonMenu" stylesheets="@../css/main.css" text="Account">
                      <graphic>
-                        <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" translateX="15.0">
+                           <image>
+                              <Image url="@../img/navigationbtn/person.png" />
+                           </image></ImageView>
                      </graphic>
                   </Button>
                </children>
             </HBox>
+            <HBox prefHeight="56.0" prefWidth="200.0">
+               <children>
+                  <Pane prefHeight="100.0" prefWidth="28.0" />
+                  <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#settingBtnClick" prefHeight="60.0" prefWidth="173.0" styleClass="buttonMenu" stylesheets="@../css/main.css" text="Settings">
+                     <graphic>
+                        <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" translateX="16.0">
+                           <image>
+                              <Image url="@../img/navigationbtn/setting.png" />
+                           </image></ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </HBox>
+            <Pane prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <ImageView fx:id="addTransBtn" fitHeight="51.0" fitWidth="52.0" layoutX="32.0" layoutY="28.0" onMouseClicked="#addTransClick" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/plus1.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <ImageView fx:id="planBtn" fitHeight="51.0" fitWidth="52.0" layoutX="104.0" layoutY="28.0" onMouseClicked="#planClick" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/plan.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </children>
+            </Pane>
          </children>
       </VBox>
    </left>

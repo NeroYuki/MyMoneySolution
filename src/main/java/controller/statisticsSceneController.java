@@ -5,20 +5,29 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.chart.PieChart;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.SplitPane;
+import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import scenes.*;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class statisticsSceneController implements Initializable {
     @FXML
     public Label expensesNote;
+    @FXML
     public Label incomeNote;
+    @FXML
+    public ImageView addTransBtn;
+    @FXML
+    public ImageView planBtn;
 
     public void transactionBtnClick(ActionEvent e) throws Exception {
         System.out.println("Transaction clicked");
@@ -81,6 +90,9 @@ public class statisticsSceneController implements Initializable {
     PieChart expensesPie;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // tooltip handle for add item and plan buttons
+        Tooltip.install(addTransBtn, new Tooltip("Add new item"));
+        Tooltip.install(planBtn, new Tooltip("plan record"));
 
     }
 
@@ -139,5 +151,61 @@ public class statisticsSceneController implements Initializable {
         catch(Exception ex){
 
         }
+    }
+
+    public void addTransClick(MouseEvent e) throws Exception {
+        // first appear a dialog to choose the type of transaction for clear handle
+        List<String> choices = new ArrayList<>();
+        choices.add("Income");
+        choices.add("Expenses");
+        choices.add("Transfer");
+
+        ChoiceDialog<String> dialog = new ChoiceDialog<>("Expenses", choices);
+        dialog.initStyle(StageStyle.TRANSPARENT);
+        dialog.setTitle("Type of transaction dialog");
+        dialog.setHeaderText("Pick one type to continue the transaction");
+        dialog.setContentText("Type");
+
+        // Traditional way to get the response value
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+            System.out.println("Option " + result.get());
+
+            // income select event
+            if(result.get() == "Income"){
+                // get add income scene
+                Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage
+
+                addIncomeBox addIncome_box = new addIncomeBox();
+
+                // dialog show
+                Stage dialogAddStage = new Stage(StageStyle.TRANSPARENT);
+                dialogAddStage.setTitle("Add income");
+                dialogAddStage.initModality(Modality.WINDOW_MODAL);
+                dialogAddStage.initOwner(stage); // close this dialog to return to owner window
+                dialogAddStage.setScene(addIncome_box.getScene());
+
+                dialogAddStage.showAndWait();
+            }
+            else if(result.get() == "Expenses"){ // expense select option
+                // get add income scene
+                Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage
+
+                addExpenseBox addExpense_box = new addExpenseBox();
+
+                // dialog show
+                Stage dialogAddStage = new Stage(StageStyle.TRANSPARENT);
+                dialogAddStage.setTitle("Add expense");
+                dialogAddStage.initModality(Modality.WINDOW_MODAL);
+                dialogAddStage.initOwner(stage); // close this dialog to return to owner window
+                dialogAddStage.setScene(addExpense_box.getScene());
+
+                dialogAddStage.showAndWait();
+            }
+        }
+
+    }
+
+    public void planClick(MouseEvent event) {
     }
 }
