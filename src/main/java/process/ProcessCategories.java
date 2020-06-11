@@ -3,13 +3,17 @@ package process;
 import database.*;
 import exception.DatabaseException;
 import exception.ProcessExeption;
-import model.Category;
+import model.*;
 
+import javax.swing.table.TableRowSorter;
 import java.util.ArrayList;
 
 public class ProcessCategories {
-    public static boolean saveCategories(String Name, String FileName, String Info, String Type) throws ProcessExeption {
+    public static boolean saveCategories(String id,String Name, String FileName, String Info, String Type,boolean isUsed) throws ProcessExeption {
         int Typeint = 0;
+        if(id==null){
+            throw new ProcessExeption(8);
+        }
         if (Name.length() >= 255) {
             throw new ProcessExeption(1);
         }
@@ -27,7 +31,7 @@ public class ProcessCategories {
             throw new ProcessExeption(2);
         }
         try {
-            Category category = new Category(Name, FileName, Info, Typeint);
+            Category category = new Category(id ,Name, FileName, Info, Typeint,isUsed);
             DatabaseCategories.addCategories(category);
         }
         catch (DatabaseException De) {
@@ -73,6 +77,15 @@ public class ProcessCategories {
             throw new ProcessExeption(0);
         }
         return  true;
+    }
+    public static void deleleCategory(Category category)throws ProcessExeption{
+        if (category==null) throw new ProcessExeption(8);
+        try{
+            DatabaseCategories.removeCategory(category);
+        }
+        catch (DatabaseException De){
+                System.out.println(De.getErrorCodeMessage());
+        }
     }
     public static String[] getIncomeCategoriesName() throws DatabaseException{
         try {
@@ -122,5 +135,106 @@ public class ProcessCategories {
             throw e;
         }
     }
+    public static void deleteCategories(String index)throws ProcessExeption{
+        if(index==null){
+            throw new ProcessExeption(0);
+        }
+        try {
+            Category category =DatabaseCategories.getCategoryById(index);
+            DatabaseCategories.removeCategory(category);
+        }
+        catch (DatabaseException de){
+            throw new ProcessExeption(0);
+        }
+    }
 
+    public static ArrayList<Balance> getBalanceWithTotal() throws ProcessExeption{
+        Balance total;
+        ArrayList<Balance> result=new ArrayList<>(),temp;
+        double value=0;
+        try{
+            temp = DatabaseBalance.getBalances(DatabaseBudget.getBudget(singletonUser.getInstance().user).getId());
+            for(int i=0;i<temp.size();i++){
+                value=value +temp.get(i).getValue();
+            }
+            total=new Balance("Total","",value);
+            result.add(total);
+            result.addAll(temp);
+        }
+        catch (DatabaseException de){
+            System.out.println(de.getErrorCodeMessage());
+        }
+        return result;
+    }
+    public static ArrayList<Balance> getBalances() throws ProcessExeption{
+        ArrayList<Balance> re   = new ArrayList<>();
+        try{
+            re=DatabaseBalance.getBalances((DatabaseBudget.getBudget(singletonUser.getInstance().user).getId()));
+        }
+        catch (DatabaseException de){
+            System.out.println(de.getErrorCodeMessage());
+        }
+        return re;
+    }
+    public static ArrayList<Income> getIncome(Balance balance) throws ProcessExeption{
+        if (balance==null){
+            throw new ProcessExeption(8);
+        }
+        ArrayList<Income> incomes=new ArrayList<>();
+        try{
+            incomes=DatabaseTransaction.getIncome(balance.getId());
+        }
+        catch (DatabaseException De)
+        {
+            System.out.println(De.getErrorCodeMessage());
+
+        }
+        return  incomes;
+    }
+    public static ArrayList<Expense> getExpense(Balance balance) throws ProcessExeption{
+        if (balance==null){
+            throw new ProcessExeption(8);
+        }
+        ArrayList<Expense> Expense=new ArrayList<>();
+        try{
+            Expense=DatabaseTransaction.getExpense(balance.getId());
+        }
+        catch (DatabaseException De)
+        {
+            System.out.println(De.getErrorCodeMessage());
+        }
+        return  Expense;
+    }
+    public static ArrayList<Income> getAllIncome() throws ProcessExeption {
+        ArrayList<Income> incomes=new ArrayList<>();
+        try{
+            ArrayList<Balance> balances=ProcessCategories.getBalances();
+            for (Balance balance:balances) {
+                incomes.addAll(DatabaseTransaction.getIncome(balance.getId()));
+            }
+        }
+        catch (ProcessExeption pe){
+            throw pe;
+        }
+        catch (DatabaseException de){
+            System.out.println(de.getErrorCodeMessage());
+        }
+        return incomes;
+    }
+    public static ArrayList<Expense> getAllExpense() throws ProcessExeption {
+        ArrayList<Expense> Expenses=new ArrayList<>();
+        try{
+            ArrayList<Balance> balances=ProcessCategories.getBalances();
+            for (Balance balance:balances) {
+                Expenses.addAll(DatabaseTransaction.getExpense(balance.getId()));
+            }
+        }
+        catch (ProcessExeption pe){
+            throw pe;
+        }
+        catch (DatabaseException de){
+            System.out.println(de.getErrorCodeMessage());
+        }
+        return Expenses;
+    }
 }

@@ -47,6 +47,11 @@ public class ProcessUser {
             System.out.println(de.getErrorCodeMessage());
             throw new ProcessExeption(7);
         }
+        catch (Exception e)
+        {
+            System.out.println("1");
+            throw new ProcessExeption(0);
+        }
         return true;
     }
 }
