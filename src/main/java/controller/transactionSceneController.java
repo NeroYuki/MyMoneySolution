@@ -43,7 +43,8 @@ public class transactionSceneController implements Initializable {
     BorderPane borderPane;
     @FXML
     public ImageView addTransBtn;
-    public ImageView memoBtn;
+    @FXML
+    public ImageView planBtn;
     public TableView<Transaction> transactionTable;
     public TableColumn<Transaction, String> idColumn;
     public TableColumn<Transaction, LocalDate> dateColumn;
@@ -115,9 +116,9 @@ public class transactionSceneController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // tooltip handle for add item and memo buttons
+        // tooltip handle for add item and plan buttons
         Tooltip.install(addTransBtn, new Tooltip("Add new item"));
-        Tooltip.install(memoBtn, new Tooltip("Memo record"));
+        Tooltip.install(planBtn, new Tooltip("plan record"));
 
         // load data to table
         displayTableView();
@@ -351,6 +352,6 @@ public class transactionSceneController implements Initializable {
 
     }
 
-    public void memoClick(MouseEvent event) {
+    public void planClick(MouseEvent event) {
     }
 }
