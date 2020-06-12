@@ -2,6 +2,7 @@ package database;
 
 import exception.DatabaseException;
 import helper.UUIDHelper;
+import model.Budget;
 import model.Expense;
 import model.Transaction;
 import model.User;
@@ -60,7 +61,7 @@ public class DatabaseUser {
             int result = registerCall.getUpdateCount();
             if (result == 0) throw new DatabaseException(3);
 
-            //TODO: Attach new budget
+            DatabaseBudget.addBudget(new Budget(null, null, null, null), registeringUser);
         }
         catch (DatabaseException de) {
             throw de;

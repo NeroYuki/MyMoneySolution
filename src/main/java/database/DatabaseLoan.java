@@ -83,6 +83,8 @@ public class DatabaseLoan {
         return true;
     }
 
+    //not recommend, use deactivate instead
+
     public static boolean removeLoan(Loan loan) throws DatabaseException {
         try {
             Connection conn = DatabaseManager.getConnection();
@@ -93,7 +95,31 @@ public class DatabaseLoan {
             removeCall.execute();
             int result = removeCall.getUpdateCount();
             if (result == 0) throw new DatabaseException(13);
-            //TODO: delete all transactions involve the loan
+            //TODO: delete all transactions involve the loan (skip due to time constrain)
+        }
+        catch (DatabaseException de) {
+            throw de;
+        }
+        catch (Exception e) {
+            throw new DatabaseException(0);
+        }
+        return true;
+    }
+
+    public static boolean deactivateLoan(Loan loan) throws DatabaseException {
+        try {
+            Connection conn = DatabaseManager.getConnection();
+            PreparedStatement removeCall = conn.prepareCall(
+                    "UPDATE loanhistory " +
+                            "SET isActive = FALSE " +
+                            "WHERE loanId = ?"
+            );
+            if (loan.getId().equals("")) throw new DatabaseException(19);
+
+            removeCall.setString(1, loan.getId());
+            removeCall.execute();
+            int result = removeCall.getUpdateCount();
+            if (result == 0) throw new DatabaseException(19);
         }
         catch (DatabaseException de) {
             throw de;

@@ -9,14 +9,24 @@ public abstract class Transaction {
     protected String transDescription;
     protected Balance applyingBalance;
 
-    Transaction(LocalDate date, double value, String desc) {
+    public Transaction(LocalDate date, double value, String desc) {
         this.transDate = date;
         this.transValue = value;
         this.transDescription = desc;
     }
 
-    Transaction(String id, LocalDate date, double value, String desc) {
+    public Transaction(String id, LocalDate date, double value, String desc) {
         this(date, value, desc);
+        setId(id);
+    }
+
+    public Transaction(LocalDate date, double value, String desc, Balance applyBal) {
+        this(date, value, desc);
+        setApplyingBalance(applyBal);
+    }
+
+    public Transaction(String id, LocalDate date, double value, String desc, Balance applyBal) {
+        this(date, value, desc, applyBal);
         setId(id);
     }
 
@@ -26,6 +36,10 @@ public abstract class Transaction {
 
     public String getId() {
         return id;
+    }
+
+    public void setApplyingBalance(Balance applyingBalance) {
+        this.applyingBalance = applyingBalance;
     }
 
     public Balance getApplyingBalance() {

@@ -8,15 +8,17 @@ public class Budget {
     //should we only fetch active saving and loan instance?
     private ArrayList<Saving> activeSavingList;
     private ArrayList<Loan> activeLoanList;
+    private ArrayList<FinancialGoal> activeFinancialGoalList;
 
-    public Budget(ArrayList<Balance> balanceList, ArrayList<Saving> savingList, ArrayList<Loan> loanList) {
+    public Budget(ArrayList<Balance> balanceList, ArrayList<Saving> savingList, ArrayList<Loan> loanList, ArrayList<FinancialGoal> goalList) {
         setBalanceList(balanceList);
         setActiveSavingList(savingList);
         setActiveLoanList(loanList);
+        setActiveFinancialGoalList(goalList);
     }
 
-    public Budget(String id, ArrayList<Balance> balanceList, ArrayList<Saving> savingList, ArrayList<Loan> loanList) {
-        this(balanceList, savingList, loanList);
+    public Budget(String id, ArrayList<Balance> balanceList, ArrayList<Saving> savingList, ArrayList<Loan> loanList, ArrayList<FinancialGoal> goalList) {
+        this(balanceList, savingList, loanList, goalList);
         setId(id);
     }
 
@@ -50,5 +52,13 @@ public class Budget {
 
     public ArrayList<Balance> getBalanceList() {
         return balanceList;
+    }
+
+    public void setActiveFinancialGoalList(ArrayList<FinancialGoal> activeFinancialGoalList) {
+        this.activeFinancialGoalList = activeFinancialGoalList;
+    }
+
+    public ArrayList<FinancialGoal> getActiveFinancialGoalList() {
+        return activeFinancialGoalList;
     }
 }

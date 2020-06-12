@@ -146,4 +146,30 @@ public class DatabaseBalance {
         }
         return true;
     }
+
+    public static Balance getBalanceById(String id) throws DatabaseException{
+        Balance balanceEntry = null;
+        try {
+            Connection conn = DatabaseManager.getConnection();
+            PreparedStatement balanceQuery = conn.prepareCall("SELECT * FROM balanceList WHERE balanceId = ?");
+            balanceQuery.setString(1, id);
+            ResultSet balanceResult = balanceQuery.executeQuery();
+            if (balanceResult.first()) {
+                balanceEntry = new Balance(
+                        balanceResult.getString("balanceId"),
+                        balanceResult.getString("name"),
+                        balanceResult.getString("description"),
+                        balanceResult.getDouble("currentValue")
+                );
+            }
+        }
+        catch (DatabaseException de) {
+            throw de;
+        }
+        catch (Exception e) {
+            //if this happen then oh god oh fuck
+            throw new DatabaseException(0);
+        }
+        return balanceEntry;
+    }
 }

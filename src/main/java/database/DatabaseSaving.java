@@ -76,6 +76,8 @@ public class DatabaseSaving {
         return true;
     }
 
+    //not recommend, use deactivate instead
+
     public static boolean removeSaving(Saving saving) throws DatabaseException {
         try {
             Connection conn = DatabaseManager.getConnection();
@@ -86,6 +88,30 @@ public class DatabaseSaving {
             removeCall.execute();
             int result = removeCall.getUpdateCount();
             if (result == 0) throw new DatabaseException(14);
+        }
+        catch (DatabaseException de) {
+            throw de;
+        }
+        catch (Exception e) {
+            throw new DatabaseException(0);
+        }
+        return true;
+    }
+
+    public static boolean deactivateSaving(Saving saving) throws DatabaseException {
+        try {
+            Connection conn = DatabaseManager.getConnection();
+            PreparedStatement removeCall = conn.prepareCall(
+                    "UPDATE savinghistory " +
+                            "SET isActive = FALSE " +
+                            "WHERE savingId = ?"
+            );
+            if (saving.getId().equals("")) throw new DatabaseException(20);
+
+            removeCall.setString(1, saving.getId());
+            removeCall.execute();
+            int result = removeCall.getUpdateCount();
+            if (result == 0) throw new DatabaseException(20);
         }
         catch (DatabaseException de) {
             throw de;
