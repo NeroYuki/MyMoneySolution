@@ -20,12 +20,13 @@ public class DatabaseBudget {
             if (budgetResult.first()) {
                 foundBudgetId = budgetResult.getString("budgetId");
             }
-            else throw new DatabaseException(17);
+            else throw new DatabaseException(23);
             Budget result = new Budget(
                     foundBudgetId,
                     DatabaseBalance.getBalances(foundBudgetId),
                     DatabaseSaving.getActiveSaving(foundBudgetId),
-                    DatabaseLoan.getActiveLoan(foundBudgetId)
+                    DatabaseLoan.getActiveLoan(foundBudgetId),
+                    DatabaseFinancialGoal.getFinancialGoal(foundBudgetId)
             );
             return result;
         }
@@ -78,6 +79,10 @@ public class DatabaseBudget {
                 DatabaseBalance.removeBalance(b);
             }
 
+            for (FinancialGoal g : budget.getActiveFinancialGoalList()) {
+
+            }
+
             removeCall.setString(1, budget.getId());
             removeCall.execute();
             int result = removeCall.getUpdateCount();
@@ -116,5 +121,5 @@ public class DatabaseBudget {
         return true;
     }
 
-    //TODO: make update method after completing Budget model
+    //Update is no needed
 }

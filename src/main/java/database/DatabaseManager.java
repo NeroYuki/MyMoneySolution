@@ -157,6 +157,20 @@ public class DatabaseManager {
                     "    FOREIGN KEY (transCategoryId) REFERENCES transCategory(transCategoryId)\n" +
                     ");";
 
+            String financialGoalListCreate = "CREATE TABLE financialGoal (\n" +
+                    "    goalId CHAR(36) NOT NULL,\n" +
+                    "    ownBudget CHAR(36) NOT NULL,\n" +
+                    "    description VARCHAR(1023) DEFAULT NULL,\n" +
+                    "    type INT DEFAULT 1,\n" +
+                    "    checkBalanceId CHAR(36) DEFAULT NULL,\n" +
+                    "    threshold DOUBLE NOT NULL,\n" +
+                    "    startDate DATE NOT NULL,\n" +
+                    "    expireDate DATE NOT NULL,\n" +
+                    "    isActive BIT DEFAULT TRUE,\n" +
+                    "    PRIMARY KEY (goalId),\n" +
+                    "    FOREIGN KEY (ownBudget) REFERENCES userBudget(budgetId)\n" +
+                    ")";
+
             dbCreateStatement.execute(loggedUserCreate);
             dbCreateStatement.execute(userBudgetCreate);
             dbCreateStatement.execute(balanceListCreate);
@@ -164,6 +178,7 @@ public class DatabaseManager {
             dbCreateStatement.execute(loanHistoryCreate);
             dbCreateStatement.execute(transCategoryCreate);
             dbCreateStatement.execute(transHistoryCreate);
+            dbCreateStatement.execute(financialGoalListCreate);
         }
         catch (Exception e) {
             System.out.println(e);
