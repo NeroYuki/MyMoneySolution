@@ -100,3 +100,20 @@ CREATE TABLE transHistory (
     FOREIGN KEY (applyBalance) REFERENCES balanceList(balanceId),
     FOREIGN KEY (transCategoryId) REFERENCES transCategory(transCategoryId)
 )
+
+--Financial goal, store all financial binded to certain budget
+CREATE TABLE financialGoal (
+    goalId CHAR(36) NOT NULL,
+    ownBudget CHAR(36) NOT NULL,
+    description VARCHAR(1023) DEFAULT NULL,
+    --1 for expense, 2 for income, 3 for balance
+    type INT DEFAULT 1,
+    checkBalanceId CHAR(36) DEFAULT NULL,
+    threshold DOUBLE NOT NULL,
+    startDate DATE NOT NULL,
+    expireDate DATE NOT NULL,
+    isActive BIT DEFAULT TRUE,
+    PRIMARY KEY (goalId),
+    FOREIGN KEY (ownBudget) REFERENCES userBudget(budgetId),
+    FOREIGN KEY (checkBalanceId) REFERENCES balanceList(balanceId)
+)

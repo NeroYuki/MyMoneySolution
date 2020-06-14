@@ -21,7 +21,16 @@ public class ErrorCode {
             "Error happen when removing saving",            //14
             "Error happen when removing transaction",       //15
             "Error happen when removing user",              //16
-            "Can't find the budget id binded to this user"  //17
+            "Error happen when updating balance",           //17
+            "Error happen when updating categories",        //18
+            "Error happen when updating loan",              //19
+            "Error happen when updating saving",            //20
+            "Error happen when updating transaction",       //21
+            "Error happen when updating user",              //22
+            "Can't find the budget id binded to this user", //23
+            "Error happen when removing financial goal",    //24
+            "Error happen when updating financial goal",    //25
+            "Error happen when registering new financial goal"  //26
     };
 
     public ErrorCode(int code) {
