@@ -89,7 +89,7 @@ public class accountSceneController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // tooltip handle for add item and plan buttons
         Tooltip.install(addTransBtn, new Tooltip("Add new item"));
-        Tooltip.install(planBtn, new Tooltip("plan record"));
+        Tooltip.install(planBtn, new Tooltip("Add plan"));
 
     }
 

@@ -9,5 +9,6 @@
 
 .button:hover{
     -fx-background-color: #404F81;
+    -fx-cursor: hand;
     -fx-text-fill: white;
 }

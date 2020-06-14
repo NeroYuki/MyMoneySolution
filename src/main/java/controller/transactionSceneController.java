@@ -118,7 +118,7 @@ public class transactionSceneController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         // tooltip handle for add item and plan buttons
         Tooltip.install(addTransBtn, new Tooltip("Add new item"));
-        Tooltip.install(planBtn, new Tooltip("plan record"));
+        Tooltip.install(planBtn, new Tooltip("Add plan"));
 
         // load data to table
         displayTableView();
