@@ -92,9 +92,13 @@ public class homepageSceneController  implements Initializable {
         slider.setValue(90); // set value of progress using this
         main.setLayoutX(progressArea.getPrefWidth()/3.8);
         main.setLayoutY(progressArea.getPrefWidth()/3.5);
-        System.out.println(indicator.getPrefWidth());
 
         progressArea.getChildren().add(main);
+
+        // change progress goal show color base on type of goal
+        indicator.setColor("red");
+        indicator.setColor("green");
+
 
     }
 

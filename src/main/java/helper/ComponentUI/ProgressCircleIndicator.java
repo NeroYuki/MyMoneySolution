@@ -15,12 +15,12 @@
  */ 
 package helper.ComponentUI;
 
-import javafx.css.converter.SizeConverter;
 import javafx.beans.property.*;
 import javafx.css.CssMetaData;
 import javafx.css.Styleable;
 import javafx.css.StyleableDoubleProperty;
 import javafx.css.StyleableProperty;
+import javafx.css.converter.SizeConverter;
 import javafx.scene.control.Control;
 
 import java.util.ArrayList;
@@ -28,8 +28,8 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Base class for the progress indicator controls represented by circualr shapes
- * 
+ * Base class for the progress indicator controls represented by circular shapes
+ *
  * @author Andrea Vacondio
  *
  */
@@ -38,9 +38,13 @@ abstract class ProgressCircleIndicator extends Control {
 
     private ReadOnlyIntegerWrapper progress = new ReadOnlyIntegerWrapper(0);
     private ReadOnlyBooleanWrapper indeterminate = new ReadOnlyBooleanWrapper(false);
+    // add path of suitable css file to progress
+    String progress_red = ProgressCircleIndicator.class.getResource("/css/progressCircle/circleprogress_red.css").toExternalForm();
+    String progress_green = ProgressCircleIndicator.class.getResource("/css/progressCircle/circleprogress_green.css").toExternalForm();
 
     public ProgressCircleIndicator() {
-        this.getStylesheets().add(ProgressCircleIndicator.class.getResource("/css/progressCircle/circleprogress.css").toExternalForm());
+        // set color of progress base on type of goal (spend = red, save/income = green)
+            this.getStylesheets().add(ProgressCircleIndicator.class.getResource("/css/progressCircle/circleprogress_red.css").toExternalForm());
     }
 
     public int getProgress() {
@@ -146,5 +150,20 @@ abstract class ProgressCircleIndicator extends Control {
     @Override
     public List<CssMetaData<? extends Styleable, ?>> getControlCssMetaData() {
         return StyleableProperties.STYLEABLES;
+    }
+
+    public void setColor(String strColor){
+        if(strColor=="green"){
+            this.getStylesheets().remove(progress_red);
+            System.out.println("scene stylesheets on green progress: " + this.getStylesheets());
+            if(!this.getStylesheets().contains(progress_green)) this.getStylesheets().add(progress_green);
+            System.out.println("scene stylesheets after green progress " + this.getStylesheets());
+        }
+        else{
+            this.getStylesheets().remove(progress_green);
+            System.out.println("scene stylesheets on red progress: " + this.getStylesheets());
+            if(!this.getStylesheets().contains(progress_red)) this.getStylesheets().add(progress_red);
+            System.out.println("scene stylesheets after red progress " + this.getStylesheets());
+        }
     }
 }

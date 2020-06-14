@@ -30,7 +30,7 @@ import java.util.List;
 
 /**
  * Progress indicator showing a filling arc.
- * 
+ *
  * @author Andrea Vacondio
  *
  */

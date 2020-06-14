@@ -19,7 +19,7 @@ import javafx.scene.control.Skin;
 
 /**
  * Progress indicator showing a circle that fills
- * 
+ *
  * @author Andrea Vacondio
  *
  */
