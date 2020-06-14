@@ -36,7 +36,7 @@ public class ProcessUser {
         }
         return true;
     }
-    public static boolean login(String username, String password)throws ProcessExeption{
+    public static boolean login(String username, String password)throws Exception{
         if(username==null) throw new ProcessExeption(6);
         if(password==null) throw new ProcessExeption(6);
         try {
@@ -45,7 +45,7 @@ public class ProcessUser {
         catch (DatabaseException de)
         {
             System.out.println(de.getErrorCodeMessage());
-            throw new ProcessExeption(7);
+            throw de;
         }
         catch (Exception e)
         {
