@@ -11,7 +11,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import process.ProcessStaticstics;
 import scenes.*;
 
 import java.net.URL;
@@ -101,8 +100,6 @@ public class statisticsSceneController implements Initializable {
         try{
             // data to be imported
             //TODO: get suitable values from own database
-            ProcessStaticstics.getTimelyIncome(4);
-
             int salaryValue = 200;
             int savingValue = 300;
             int businessValue = 600;

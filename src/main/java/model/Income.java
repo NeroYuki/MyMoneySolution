@@ -26,28 +26,6 @@ public class Income extends Transaction {
         this.category = category;
     }
 
-
-    public Income(LocalDate date, double value, String desc, Category category,Balance balance){
-        super(date, value, desc,balance);
-        this.category = category;
-    }
-
-    public Income(LocalDate date, double value, String desc,String categoryName,Balance balance){
-        super(date, value, desc,balance);
-        this.category = new Category(categoryName, "", "", 1);
-    }
-
-    public Income(String id, LocalDate date, double value, String desc, String categoryName,Balance balance) {
-        super(id, date, value, desc,balance);
-        this.category = new Category(categoryName, "", "", 1);
-    }
-
-    public Income(String id, LocalDate date, double value, String desc, Category category,Balance balance) {
-        super(id, date, value, desc,balance);
-        this.category = category;
-    }
-
-
     public void applyToBalance(Balance bal) {
         double newValue = bal.getValue() + this.transValue;
         this.applyingBalance = bal;
