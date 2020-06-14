@@ -14,7 +14,15 @@
    <left>
       <VBox fx:id="menuVbox" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #253546;" BorderPane.alignment="CENTER">
          <children>
-            <Pane prefHeight="120.0" prefWidth="200.0" />
+            <Pane prefHeight="120.0" prefWidth="200.0">
+               <children>
+                  <ImageView fitHeight="96.0" fitWidth="169.0" layoutX="16.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/self-logo.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
             <HBox prefHeight="56.0" prefWidth="200.0">
                <children>
                   <Pane prefHeight="100.0" prefWidth="28.0" />
@@ -103,7 +111,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-                  <ImageView fx:id="planBtn" fitHeight="51.0" fitWidth="52.0" layoutX="104.0" layoutY="28.0" onMouseClicked="#planClick" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="planBtn" fitHeight="51.0" fitWidth="52.0" layoutX="104.0" layoutY="28.0" onMouseClicked="#addPlanClick" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../img/plan.png" />
                      </image>
@@ -119,7 +127,7 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button layoutX="687.0" layoutY="490.0" mnemonicParsing="false" onAction="#logOutBtnClick" text="Log out" />
+
          </children></AnchorPane>
    </center>
 </BorderPane>

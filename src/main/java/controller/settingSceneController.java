@@ -132,7 +132,7 @@ public class settingSceneController implements Initializable {
 
     }
 
-    public void planClick(MouseEvent event) {
+    public void addPlanClick(MouseEvent event) {
     }
 
     @Override
@@ -141,5 +141,9 @@ public class settingSceneController implements Initializable {
         Tooltip.install(addTransBtn, new Tooltip("Add new item"));
         Tooltip.install(planBtn, new Tooltip("Add plan"));
 
+    }
+
+    public void logOutBtnClick(ActionEvent actionEvent) {
+        System.exit(0);
     }
 }

@@ -206,6 +206,6 @@ public class statisticsSceneController implements Initializable {
 
     }
 
-    public void planClick(MouseEvent event) {
+    public void addPlanClick(MouseEvent event) {
     }
 }

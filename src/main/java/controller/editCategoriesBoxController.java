@@ -1,12 +1,12 @@
 package controller;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -20,20 +20,16 @@ import java.util.ResourceBundle;
 
 public class editCategoriesBoxController implements Initializable {
     @FXML
-    public TextField valueText;
-    public ComboBox unitCombo;
-    public DatePicker datepicker;
-    public TextArea descriptionTextArea;
+    public Button iconSelectBtn; // click to select icon button
     public Button saveBtn;
-    public Button resetBtn;
-    public ComboBox accountCombo;
-    public ComboBox categoryCombo;
+    @FXML
+    public TextField nameText; // name text field
+    public ImageView iconImage; // icon display image
+    public TextArea infoTextArea; // info text area
+    public TextField typeText; // type text
 
     // test dialog stage, not used but maybe later
     public Stage dialogEditStage;
-    @FXML
-    public ImageView iconImage;
-    public ComboBox typeCombo;
 
     public void setDialogStage(Stage dialogStage) { // not use this set method but maybe used later
         this.dialogEditStage = dialogStage;

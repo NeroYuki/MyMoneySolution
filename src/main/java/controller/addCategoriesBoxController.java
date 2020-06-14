@@ -20,20 +20,16 @@ import java.util.ResourceBundle;
 
 public class addCategoriesBoxController implements Initializable {
     @FXML
-    public TextField valueText;
-    public ComboBox unitCombo;
-    public DatePicker datepicker;
-    public TextArea descriptionTextArea;
+    public Button iconSelectBtn; // click to select icon button
     public Button saveBtn;
-    public Button resetBtn;
-    public ComboBox accountCombo;
-    public ComboBox categoryCombo;
+    @FXML
+    public TextField nameText; // name text field
+    public ImageView iconImage; // icon display image
+    public TextArea infoTextArea; // info text area
+    public ComboBox typeCombo; // pick type combo box
 
     // test dialog stage, not used but maybe later
     public Stage dialogEditStage;
-    @FXML
-    public ImageView iconImage;
-    public ComboBox typeCombo;
 
     public void setDialogStage(Stage dialogStage) { // not use this set method but maybe used later
         this.dialogEditStage = dialogStage;

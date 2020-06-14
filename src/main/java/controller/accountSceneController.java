@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
@@ -64,10 +63,6 @@ public class accountSceneController implements Initializable {
 
         settingsScene settings_scene = new settingsScene();
         stage.setScene(settings_scene.getScene());
-    }
-
-    public void logOutBtnClick(ActionEvent e){
-        System.exit(0);
     }
 
     // position to move screen around easily
@@ -146,6 +141,6 @@ public class accountSceneController implements Initializable {
 
     }
 
-    public void planClick(MouseEvent event) {
+    public void addPlanClick(MouseEvent event) {
     }
 }

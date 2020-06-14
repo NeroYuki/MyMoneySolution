@@ -14,15 +14,15 @@ import java.util.ResourceBundle;
 
 public class addIncomeBoxController implements Initializable {
     @FXML
-    public TextField valueText;
-    public ComboBox unitCombo;
     public DatePicker datepicker;
-    public TextArea descriptionTextArea;
-    public Button saveBtn;
-    public Button resetBtn;
     public ComboBox accountCombo;
     public ComboBox categoryCombo;
-    public TextField typeText;
+    public TextField valueText;
+    public ComboBox unitCombo;
+    public TextArea descriptionTextArea;
+    public Button savingLoanBtn;
+    public Button saveBtn;
+    public Button resetBtn;
 
     // test dialog stage, not used but maybe later
     public Stage dialogEditStage;
@@ -59,5 +59,14 @@ public class addIncomeBoxController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+    }
+
+    public void saveBtnClick(ActionEvent actionEvent) {
+    }
+
+    public void resetBtnClick(ActionEvent actionEvent) {
+    }
+
+    public void openSavingLoanBtnClick(ActionEvent actionEvent) {
     }
 }

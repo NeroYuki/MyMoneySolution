@@ -81,7 +81,7 @@
                   <Insets left="10.0" />
                </padding>
                <children>
-                  <TextField fx:id="nameText1" editable="false" prefHeight="30.0" prefWidth="237.0" style="-fx-background-color: transparent;">
+                  <TextField fx:id="typeText" editable="false" prefHeight="30.0" prefWidth="237.0" style="-fx-background-color: transparent;">
                      <font>
                         <Font size="14.0" />
                      </font>
