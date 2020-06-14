@@ -37,11 +37,11 @@
                </padding></HBox>
             <Pane layoutY="398.0" prefHeight="102.0" prefWidth="720.0" style="-fx-background-color: #A0ACBD;">
                <children>
-                  <Button fx:id="saveBtn" layoutX="196.0" layoutY="33.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="91.0" text="SAVE" underline="true">
+                  <Button fx:id="saveBtn" layoutX="196.0" layoutY="33.0" mnemonicParsing="false" onAction="#saveBtnClick" prefHeight="37.0" prefWidth="91.0" text="SAVE" underline="true">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
-                  <Button fx:id="resetBtn" layoutX="375.0" layoutY="33.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="150.0" text="RESET TO DEFAULT" underline="true">
+                  <Button fx:id="resetBtn" layoutX="375.0" layoutY="33.0" mnemonicParsing="false" onAction="#resetBtnClick" prefHeight="37.0" prefWidth="150.0" text="RESET TO DEFAULT" underline="true">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
@@ -115,7 +115,7 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <Button fx:id="savingLoanBtn" layoutX="549.0" layoutY="110.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="92.0" text="Click to open" underline="true">
+            <Button fx:id="savingLoanBtn" layoutX="549.0" layoutY="110.0" mnemonicParsing="false" onAction="#openSavingLoanBtnClick" prefHeight="30.0" prefWidth="92.0" text="Click to open" underline="true">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

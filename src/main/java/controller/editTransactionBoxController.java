@@ -1,9 +1,7 @@
 package controller;
 
-import helper.UUIDHelper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -14,28 +12,19 @@ import model.Income;
 import model.Transaction;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class editTransactionBoxController implements Initializable {
     @FXML
-    public TextField valueText;
-    @FXML
-    public ComboBox unitCombo;
-    @FXML
     public DatePicker datepicker;
-    @FXML
-    public TextArea descriptionTextArea;
-    @FXML
-    public Button saveBtn;
-    @FXML
-    public Button resetBtn;
-    @FXML
     public ComboBox accountCombo;
-    @FXML
     public ComboBox categoryCombo;
-    @FXML
+    public TextField valueText;
+    public ComboBox unitCombo;
+    public TextArea descriptionTextArea;
     public TextField typeText;
+    public Button saveBtn;
+    public Button resetBtn;
 
     public editTransactionBoxController(){
     }
@@ -99,7 +88,11 @@ public class editTransactionBoxController implements Initializable {
         descriptionTextArea.setText(this.transaction.getTransDescription());
     }
 
+    public void saveBtnClick(ActionEvent actionEvent) {
+    }
+
     public void resetBtnClick(ActionEvent actionEvent) {
         this.setTransaction(transaction);
     }
+
 }

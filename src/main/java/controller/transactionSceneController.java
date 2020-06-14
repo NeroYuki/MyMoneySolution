@@ -8,19 +8,14 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Modality;
-import javafx.stage.PopupWindow;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.Expense;
@@ -28,8 +23,6 @@ import model.Income;
 import model.Transaction;
 import scenes.*;
 
-import javax.swing.border.Border;
-import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -187,7 +180,7 @@ public class transactionSceneController implements Initializable {
                             //setTextFill(Color.DARKRED);
                             setStyle("-fx-background-color: red");
                         } else {
-                            setStyle("-fx-background-color: green");
+                            setStyle("-fx-background-color: #009383");
                         }
                     }
                 }
@@ -352,6 +345,6 @@ public class transactionSceneController implements Initializable {
 
     }
 
-    public void planClick(MouseEvent event) {
+    public void addPlanClick(MouseEvent event) {
     }
 }
