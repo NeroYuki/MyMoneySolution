@@ -136,7 +136,7 @@
                                  <children>
                                     <Pane prefHeight="105.0" prefWidth="425.0" style="-fx-background-color: #23B383;">
                                        <children>
-                                          <Button fx:id="incomeLoadBtn" layoutX="108.0" layoutY="14.0" mnemonicParsing="false" onAction="#incomeLoad" text="Income">
+                                          <Button fx:id="incomeLoadBtn" layoutX="108.0" layoutY="14.0" mnemonicParsing="false" text="Income">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
@@ -150,7 +150,7 @@
                                     </Pane>
                                     <Pane fx:id="expensesLabel1" prefHeight="200.0" prefWidth="425.0" style="-fx-background-color: F88F79;">
                                        <children>
-                                          <Button fx:id="expenseLoadBtn" layoutX="112.0" layoutY="14.0" mnemonicParsing="false" onAction="#expensesLoad" text="Expense">
+                                          <Button fx:id="expenseLoadBtn" layoutX="112.0" layoutY="14.0" mnemonicParsing="false" text="Expense">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
