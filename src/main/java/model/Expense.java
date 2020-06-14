@@ -26,6 +26,30 @@ public class Expense extends Transaction {
         this.category = category;
     }
 
+
+
+    public Expense(LocalDate date, double value, String desc, Category category,Balance balance){
+        super(date, value, desc,balance);
+        this.category = category;
+    }
+
+    public Expense(LocalDate date, double value, String desc,String categoryName,Balance balance){
+        super(date, value, desc,balance);
+        this.category = new Category(categoryName, "", "", 1);
+    }
+
+    public Expense(String id, LocalDate date, double value, String desc, String categoryName,Balance balance) {
+        super(id, date, value, desc,balance);
+        this.category = new Category(categoryName, "", "", 1);
+    }
+
+    public Expense(String id, LocalDate date, double value, String desc, Category category,Balance balance) {
+        super(id, date, value, desc,balance);
+        this.category = category;
+    }
+
+
+
     public void applyToBalance(Balance bal) {
         double newValue = bal.getValue() - this.transValue;
         this.applyingBalance = bal;

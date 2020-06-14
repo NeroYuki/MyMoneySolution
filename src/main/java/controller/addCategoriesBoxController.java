@@ -1,5 +1,6 @@
 package controller;
 
+import exception.ProcessExeption;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,6 +14,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.Transaction;
+import process.ProcessCategories;
 
 import java.io.File;
 import java.net.URL;
@@ -97,8 +99,9 @@ public class addCategoriesBoxController implements Initializable {
         }
     }
 
-    public void saveBtnClick(ActionEvent actionEvent) {
+    public void saveBtnClick(ActionEvent actionEvent) throws ProcessExeption {
         //TODO: save add categories to database and show list view
+        ProcessCategories.updateCategories(valueText.getText(),iconImage.getImage().getUrl(),descriptionTextArea.getText(),typeCombo.getSelectionModel().toString());
     }
 
     public void typeComboSet() {
