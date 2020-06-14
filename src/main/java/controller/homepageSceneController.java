@@ -1,27 +1,23 @@
 package controller;
 
-import com.sun.security.jgss.GSSUtil;
+import helper.ComponentUI.RingProgressIndicator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.Slider;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import scenes.*;
 
-import javax.swing.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +25,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class homepageSceneController  implements Initializable {
+    @FXML
+    public AnchorPane progressArea;
     @FXML
     BorderPane homeBorderPane;
     @FXML
@@ -80,7 +78,27 @@ public class homepageSceneController  implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         // tooltip handle for add item and plan buttons
         Tooltip.install(addTransBtn, new Tooltip("Add new item"));
-        Tooltip.install(planBtn, new Tooltip("plan record"));
+        Tooltip.install(planBtn, new Tooltip("Add plan"));
+
+        // add progress indicator
+        RingProgressIndicator indicator = new RingProgressIndicator();
+        Slider slider = new Slider(0, 100, 50);
+        indicator.setStyle("-fx-background:  #E6E6FA;");
+
+        slider.valueProperty().addListener((o, oldVal, newVal) -> indicator.setProgress(newVal.intValue()));
+        VBox main = new VBox(1, indicator);
+        indicator.setProgress(Double.valueOf(slider.getValue()).intValue());
+
+        slider.setValue(90); // set value of progress using this
+        main.setLayoutX(progressArea.getPrefWidth()/3.8);
+        main.setLayoutY(progressArea.getPrefWidth()/3.5);
+
+        progressArea.getChildren().add(main);
+
+        // change progress goal show color base on type of goal
+        indicator.setColor("red");
+        indicator.setColor("green");
+
 
     }
 

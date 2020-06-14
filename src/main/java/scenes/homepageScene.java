@@ -1,7 +1,6 @@
 package scenes;
 
 import controller.homepageSceneController;
-import controller.loginSceneController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;

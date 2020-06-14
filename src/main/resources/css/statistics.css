@@ -5,6 +5,7 @@
 /* button */
 .button:hover{
     -fx-background-color: #253546;
+    -fx-cursor: hand;
     -fx-text-fill: white;
 }
 
@@ -23,14 +24,16 @@
 .tab {
     -fx-font-family: Arial;
     -fx-font-size: 18;
-    -fx-background-color:royalblue;
+    -fx-background-color:#007D51;
 }
 
 .tab:selected {
-    -fx-background-color:#77aaff;
+    -fx-background-color:#00C6B6;
 }
 
 .tab .tab-label {
-    -fx-text-fill: yellow;
+    -fx-text-fill: white;
 }
+
+
 

@@ -1,0 +1,169 @@
+/* 
+ * Copyright (c) 2014, Andrea Vacondio
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */ 
+package helper.ComponentUI;
+
+import javafx.beans.property.*;
+import javafx.css.CssMetaData;
+import javafx.css.Styleable;
+import javafx.css.StyleableDoubleProperty;
+import javafx.css.StyleableProperty;
+import javafx.css.converter.SizeConverter;
+import javafx.scene.control.Control;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+/**
+ * Base class for the progress indicator controls represented by circular shapes
+ *
+ * @author Andrea Vacondio
+ *
+ */
+abstract class ProgressCircleIndicator extends Control {
+    private static final int INDETERMINATE_PROGRESS = -1;
+
+    private ReadOnlyIntegerWrapper progress = new ReadOnlyIntegerWrapper(0);
+    private ReadOnlyBooleanWrapper indeterminate = new ReadOnlyBooleanWrapper(false);
+    // add path of suitable css file to progress
+    String progress_red = ProgressCircleIndicator.class.getResource("/css/progressCircle/circleprogress_red.css").toExternalForm();
+    String progress_green = ProgressCircleIndicator.class.getResource("/css/progressCircle/circleprogress_green.css").toExternalForm();
+
+    public ProgressCircleIndicator() {
+        // set color of progress base on type of goal (spend = red, save/income = green)
+            this.getStylesheets().add(ProgressCircleIndicator.class.getResource("/css/progressCircle/circleprogress_red.css").toExternalForm());
+    }
+
+    public int getProgress() {
+        return progress.get();
+    }
+
+    /**
+     * Set the value for the progress, it cannot be more then 100 (meaning 100%). A negative value means indeterminate progress.
+     * 
+     * @param progressValue
+     * @see ProgressCircleIndicator#makeIndeterminate()
+     */
+    public void setProgress(int progressValue) {
+        progress.set(defaultToHundred(progressValue));
+        indeterminate.set(progressValue < 0);
+    }
+
+    public ReadOnlyIntegerProperty progressProperty() {
+        return progress.getReadOnlyProperty();
+    }
+
+    public boolean isIndeterminate() {
+        return indeterminate.get();
+    }
+
+    public void makeIndeterminate() {
+        setProgress(INDETERMINATE_PROGRESS);
+    }
+
+    public ReadOnlyBooleanProperty indeterminateProperty() {
+        return indeterminate.getReadOnlyProperty();
+    }
+
+    private int defaultToHundred(int value) {
+        if (value > 100) {
+            return 100;
+        }
+        return value;
+    }
+
+    public final void setInnerCircleRadius(int value) {
+        innerCircleRadiusProperty().set(value);
+    }
+
+    public final DoubleProperty innerCircleRadiusProperty() {
+        return innerCircleRadius;
+    }
+
+    public final double getInnerCircleRadius() {
+        return innerCircleRadiusProperty().get();
+    }
+
+    /**
+     * radius of the inner circle
+     */
+    private DoubleProperty innerCircleRadius = new StyleableDoubleProperty(60) {
+        @Override
+        public Object getBean() {
+            return ProgressCircleIndicator.this;
+        }
+
+        @Override
+        public String getName() {
+            return "innerCircleRadius";
+        }
+
+        @Override
+        public CssMetaData<ProgressCircleIndicator, Number> getCssMetaData() {
+            return StyleableProperties.INNER_CIRCLE_RADIUS;
+        }
+    };
+
+    private static class StyleableProperties {
+        private static final CssMetaData<ProgressCircleIndicator, Number> INNER_CIRCLE_RADIUS = new CssMetaData<ProgressCircleIndicator, Number>(
+                "-fx-inner-radius", SizeConverter.getInstance(), 60) {
+
+            @Override
+            public boolean isSettable(ProgressCircleIndicator n) {
+                return n.innerCircleRadiusProperty() == null || !n.innerCircleRadiusProperty().isBound();
+            }
+
+            @Override
+            public StyleableProperty<Number> getStyleableProperty(ProgressCircleIndicator n) {
+                return (StyleableProperty<Number>) n.innerCircleRadiusProperty();
+            }
+        };
+
+        public static final List<CssMetaData<? extends Styleable, ?>> STYLEABLES;
+        static {
+            final List<CssMetaData<? extends Styleable, ?>> styleables = new ArrayList<>(Control.getClassCssMetaData());
+            styleables.add(INNER_CIRCLE_RADIUS);
+            STYLEABLES = Collections.unmodifiableList(styleables);
+        }
+    }
+
+    /**
+     * @return The CssMetaData associated with this class, which may include the CssMetaData of its super classes.
+     */
+    public static List<CssMetaData<? extends Styleable, ?>> getClassCssMetaData() {
+        return StyleableProperties.STYLEABLES;
+    }
+    
+    @Override
+    public List<CssMetaData<? extends Styleable, ?>> getControlCssMetaData() {
+        return StyleableProperties.STYLEABLES;
+    }
+
+    public void setColor(String strColor){
+        if(strColor=="green"){
+            this.getStylesheets().remove(progress_red);
+            System.out.println("scene stylesheets on green progress: " + this.getStylesheets());
+            if(!this.getStylesheets().contains(progress_green)) this.getStylesheets().add(progress_green);
+            System.out.println("scene stylesheets after green progress " + this.getStylesheets());
+        }
+        else{
+            this.getStylesheets().remove(progress_green);
+            System.out.println("scene stylesheets on red progress: " + this.getStylesheets());
+            if(!this.getStylesheets().contains(progress_red)) this.getStylesheets().add(progress_red);
+            System.out.println("scene stylesheets after red progress " + this.getStylesheets());
+        }
+    }
+}
