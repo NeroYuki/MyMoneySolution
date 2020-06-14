@@ -5,13 +5,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.chart.PieChart;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import process.ProcessStaticstics;
 import scenes.*;
 
 import java.net.URL;
@@ -101,7 +103,6 @@ public class statisticsSceneController implements Initializable {
         try{
             // data to be imported
             //TODO: get suitable values from own database
-            ProcessStaticstics.getTimelyIncome(4);
 
             int salaryValue = 200;
             int savingValue = 300;

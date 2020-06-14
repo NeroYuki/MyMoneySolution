@@ -2,20 +2,17 @@ package controller;
 
 import exception.DatabaseException;
 import exception.ProcessExeption;
-import helper.DateUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -27,7 +24,6 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import model.Category;
 import model.Expense;
 import model.Income;
 import model.Transaction;
@@ -35,10 +31,8 @@ import process.ProcessCategories;
 import process.ProcessTransactionScene;
 import scenes.*;
 
-import javax.swing.*;
 import java.io.File;
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.*;
 
 public class categoriesSceneController implements Initializable {
@@ -233,164 +227,126 @@ public class categoriesSceneController implements Initializable {
 
     public void incomeCategoriesLoad() {
         //TODO: get right list from database
-        //File folder = new File("src/main/resources/img/icon/income");
-        //System.out.println("path income: "+folder.getAbsolutePath());
-        //File[] files = folder.listFiles();
-        //System.out.println(files.length);
-//        Image[] listOfImages = new Image[files.length];
-//        String[] fileName = new String[files.length];
-//        for(int i=0;i<files.length;i++){
-//            File file = files[i];
-//            //TODO: get right list from database
-//            listOfImages[i] = new Image("/img/icon/income/"+file.getName());
-//            fileName[i] = file.getName();
-//        }
-        try {
-            ArrayList<Category> categories = ProcessCategories.getIncomeCategories();
-            Image[] listOfImages = new Image[categories.size()];
-            String[] fileName = new String[categories.size()];
-            for (int i = 0; i < categories.size(); i++) {
-                listOfImages[i] = new Image(categories.get(i).getIconPath());
-                fileName[i] = categories.get(i).getName();
+        File folder = new File("src/main/resources/img/icon/income");
+        System.out.println("path income: "+folder.getAbsolutePath());
+        File[] files = folder.listFiles();
+        System.out.println(files.length);
+        Image[] listOfImages = new Image[files.length];
+        String[] fileName = new String[files.length];
+        for(int i=0;i<files.length;i++){
+            File file = files[i];
+            //TODO: get right list from database
+            listOfImages[i] = new Image("/img/icon/income/"+file.getName());
+            fileName[i] = file.getName();
+        }
+        ObservableList<String> items = FXCollections.observableArrayList(fileName);
+        incomeListView.setItems(items);
+        incomeListView.setCellFactory(param -> new ListCell<String>() {
+            //test
+            HBox rowBox = new HBox();
+            Label nameLabel = new Label("");
+            Pane pane = new Pane();
+            Button deleteBtn = new Button("Delete");
+            Button editBtn = new Button("Edit");
+
+            private ImageView imageView = new ImageView();
+
+            // initialize block in anonymous class implementation playing role constructor
+            {
+                // add elements of hbox
+                rowBox.getChildren().addAll(imageView, nameLabel, pane, editBtn, deleteBtn);
+                HBox.setHgrow(pane, Priority.ALWAYS);
+                // style for label
+                nameLabel.setTextAlignment(TextAlignment.CENTER);
+                nameLabel.setStyle("-fx-font-size: 18");
+                nameLabel.setPadding(new Insets(10, 0, 0, 10));
+                // style button
+                deleteBtn.setStyle("-fx-font-size: 18;\n" +
+                        "-fx-padding: 10px;\n" + "-fx-background-insets: 10px;");
+                editBtn.setStyle("-fx-font-size: 18;\n" +
+                        "-fx-padding: 10px;\n" + "-fx-background-insets: 10px;");
+                // button delete categories place in every item
+                deleteBtn.setOnAction(event -> {
+                    String itemRemove = getListView().getItems().get(getIndex()).replace(".png", "");
+                    //confirmation to delete
+                    Alert alertConfirm = new Alert(Alert.AlertType.CONFIRMATION,
+                            "Delete " + itemRemove + " ?", ButtonType.YES, ButtonType.NO);
+                    alertConfirm.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+                    alertConfirm.showAndWait();
+                    if (alertConfirm.getResult() == ButtonType.YES) {
+                        System.out.println("selectIdx: " + getIndex());
+                        System.out.println("item: " + itemRemove);
+                        //TODO: delete categories in database there
+                        getListView().getItems().remove(getItem());
+                    }
+
+                });
+
+                // edit button
+                editBtn.setOnAction(event -> {
+                    try {
+                        //editCategories(event);
+                        Stage stage = (Stage) editBtn.getScene().getWindow(); // get stage of program, primary stage
+
+                        editCategoriesBox editCategories_box = new editCategoriesBox();
+                        System.out.println("Edit categories click");
+
+                        // dialog show
+                        Stage dialogAddStage = new Stage(StageStyle.TRANSPARENT);
+                        dialogAddStage.setTitle("Edit categories");
+                        dialogAddStage.initModality(Modality.WINDOW_MODAL);
+                        dialogAddStage.initOwner(stage); // close this dialog to return to owner window
+                        dialogAddStage.setScene(editCategories_box.getScene());
+
+                        dialogAddStage.showAndWait();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
             }
 
 
-            ObservableList<String> items = FXCollections.observableArrayList(fileName);
-            incomeListView.setItems(items);
-
-            //test
-//        incomeListView.setEditable(true);
-//        incomeListView.setCellFactory(TextFieldListCell.forListView());
-
-            incomeListView.setCellFactory(param -> new ListCell<String>() {
-                //test
-                HBox rowBox = new HBox();
-                Label nameLabel = new Label("");
-                Pane pane = new Pane();
-                Button deleteBtn = new Button("Delete");
-                Button editBtn = new Button("Edit");
-
-                private ImageView imageView = new ImageView();
-
-                // initialize block in anonymous class implementation playing role constructor
-                {
-                    // add elements of hbox
-                    rowBox.getChildren().addAll(imageView, nameLabel, pane, editBtn, deleteBtn);
-                    HBox.setHgrow(pane, Priority.ALWAYS);
-                    // style for label
-                    nameLabel.setTextAlignment(TextAlignment.CENTER);
-                    nameLabel.setStyle("-fx-font-size: 18");
-                    nameLabel.setPadding(new Insets(10, 0, 0, 10));
-                    // style button
-                    deleteBtn.setStyle("-fx-font-size: 18;\n" +
-                            "-fx-padding: 10px;\n" + "-fx-background-insets: 10px;");
-                    editBtn.setStyle("-fx-font-size: 18;\n" +
-                            "-fx-padding: 10px;\n" + "-fx-background-insets: 10px;");
-                    // button delete categories place in every item
-                    deleteBtn.setOnAction(event -> {
-                        String itemRemove = getListView().getItems().get(getIndex()).replace(".png", "");
-                        //confirmation to delete
-                        Alert alertConfirm = new Alert(Alert.AlertType.CONFIRMATION,
-                                "Delete " + itemRemove + " ?", ButtonType.YES, ButtonType.NO);
-                        alertConfirm.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
-                        alertConfirm.showAndWait();
-                        if (alertConfirm.getResult() == ButtonType.YES) {
-                            System.out.println("selectIdx: " + getIndex());
-                            System.out.println("item: " + itemRemove);
-                            //TODO: delete categories in database there
-                            try {
-                                ProcessCategories.deleleCategory(categories.get(getIndex()));
-                            } catch (ProcessExeption processExeption) {
-                                processExeption.printStackTrace();
-                            }
-//                        getListView().getItems().remove(getItem());
+            @Override
+            public void updateItem(String name, boolean empty) {
+                super.updateItem(name, empty);
+                if (empty) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    for (int i = 0; i < listOfImages.length; i++) {
+                        if (name.equals(fileName[i])) {
+                            imageView.setImage(listOfImages[i]);
+                            imageView.setFitWidth(50);
+                            imageView.setFitHeight(50);
                         }
-
-                    });
-
-                    // edit button
-                    editBtn.setOnAction(event -> {
-                        try {
-                            //editCategories(event);
-                            Stage stage = (Stage) editBtn.getScene().getWindow(); // get stage of program, primary stage
-
-                            editCategoriesBox editCategories_box = new editCategoriesBox();
-                            System.out.println("Edit categories click");
-
-                            // dialog show
-                            Stage dialogAddStage = new Stage(StageStyle.TRANSPARENT);
-                            dialogAddStage.setTitle("Edit categories");
-                            dialogAddStage.initModality(Modality.WINDOW_MODAL);
-                            dialogAddStage.initOwner(stage); // close this dialog to return to owner window
-                            dialogAddStage.setScene(editCategories_box.getScene());
-
-                            dialogAddStage.showAndWait();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    });
-                }
-
-
-                @Override
-                public void updateItem(String name, boolean empty) {
-                    super.updateItem(name, empty);
-                    if (empty) {
-                        setText(null);
-                        setGraphic(null);
-                    } else {
-                        for (int i = 0; i < listOfImages.length; i++) {
-                            if (name.equals(fileName[i])) {
-                                imageView.setImage(listOfImages[i]);
-                                imageView.setFitWidth(50);
-                                imageView.setFitHeight(50);
-                            }
-                        }
-
-                        //TODO: get right name from database
-                        nameLabel.setText(name.toUpperCase().replace(".PNG", "")); // set name display of item
-                        setGraphic(rowBox);
-                        //setGraphic(imageView);
                     }
+
+                    //TODO: get right name from database
+                    nameLabel.setText(name.toUpperCase().replace(".PNG", "")); // set name display of item
+                    setGraphic(rowBox);
+                    //setGraphic(imageView);
                 }
-            });
-            listIncomeCategoryBox.getChildren().add(incomeListView);
-            //listIncomeCategoryBox.setAlignment(Pos.CENTER);
-        }
-
-        catch (DatabaseException de){
-            System.out.println(de.getErrorCodeMessage());
-        }
-
+            }
+        });
+        listIncomeCategoryBox.getChildren().add(incomeListView);
     }
 
     public void expenseCategoriesLoad() {
-//        File folder = new File("src/main/resources/img/icon/expense");
-//        System.out.println("path expense: "+folder.getAbsolutePath());
-//        File[] files = folder.listFiles();
-//        System.out.println(files.length);
-//        Image[] listOfImages = new Image[files.length];
-//        String[] fileName = new String[files.length];
-//        for(int i=0;i<files.length;i++){
-//            File file = files[i];
-//            //TODO: get right list from database
-//            listOfImages[i] = new Image("/img/icon/expense/"+file.getName());
-//            fileName[i] = file.getName();
-//        }
-
-        try {
-            ArrayList<Category> categories = ProcessCategories.getExpenseCategories();
-            Image[] listOfImages = new Image[categories.size()];
-            String[] fileName = new String[categories.size()];
-            for (int i = 0; i < categories.size(); i++) {
-                listOfImages[i] = new Image(categories.get(i).getIconPath());
-                fileName[i] = categories.get(i).getName();
-            }
-
+        File folder = new File("src/main/resources/img/icon/expense");
+        System.out.println("path expense: "+folder.getAbsolutePath());
+        File[] files = folder.listFiles();
+        System.out.println(files.length);
+        Image[] listOfImages = new Image[files.length];
+        String[] fileName = new String[files.length];
+        for(int i=0;i<files.length;i++){
+            File file = files[i];
+            //TODO: get right list from database
+            listOfImages[i] = new Image("/img/icon/expense/"+file.getName());
+            fileName[i] = file.getName();
+        }
 
         ObservableList<String> items = FXCollections.observableArrayList (fileName);
         expenseListView.setItems(items);
-
 
         expenseListView.setCellFactory(param -> new ListCell<String>() {
             //test
@@ -428,12 +384,7 @@ public class categoriesSceneController implements Initializable {
                         System.out.println("selectIdx: " + getIndex());
                         System.out.println("item: " + itemRemove);
                         //TODO: delete categories in database there
-//                        getListView().getItems().remove(getItem());
-                        try {
-                            ProcessCategories.deleleCategory(categories.get(getIndex()));
-                        } catch (ProcessExeption processExeption) {
-                            processExeption.printStackTrace();
-                        }
+                        getListView().getItems().remove(getItem());
                     }
 
                 });
@@ -467,11 +418,6 @@ public class categoriesSceneController implements Initializable {
             }
         });
         listExpenseCategoryBox.getChildren().add(expenseListView);
-        }
-        catch (DatabaseException de)
-        {
-            System.out.println(de.getErrorCodeMessage());
-        }
     }
 
     public void addCategoriesBtnClick(ActionEvent e) throws Exception {
