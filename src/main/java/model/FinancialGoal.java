@@ -84,11 +84,11 @@ public class FinancialGoal {
     }
 
     public boolean checkGoal(double value) {
-        if (type == 1) {
+        if (type == 2) {
             if (value > threshold) return false;
             return true;
         }
-        else if (type == 2 || type == 3) {
+        else if (type == 1 || type == 3) {
             if (value < threshold) return false;
             return true;
         }

@@ -132,7 +132,20 @@ public class settingSceneController implements Initializable {
 
     }
 
-    public void addPlanClick(MouseEvent event) {
+    public void addPlanClick(MouseEvent e) throws Exception {
+        Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage
+
+        addPlanBox addPlan_box = new addPlanBox();
+
+        // dialog show
+        Stage dialogAddStage = new Stage(StageStyle.TRANSPARENT);
+        dialogAddStage.setTitle("Add financial goal");
+        dialogAddStage.initModality(Modality.WINDOW_MODAL);
+        dialogAddStage.initOwner(stage); // close this dialog to return to owner window
+        dialogAddStage.setScene(addPlan_box.getScene());
+
+        dialogAddStage.showAndWait();
+
     }
 
     @Override

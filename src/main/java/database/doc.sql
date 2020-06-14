@@ -106,7 +106,7 @@ CREATE TABLE financialGoal (
     goalId CHAR(36) NOT NULL,
     ownBudget CHAR(36) NOT NULL,
     description VARCHAR(1023) DEFAULT NULL,
-    --1 for expense, 2 for income, 3 for balance
+    --1 for income, 2 for expense, 3 for balance
     type INT DEFAULT 1,
     checkBalanceId CHAR(36) DEFAULT NULL,
     threshold DOUBLE NOT NULL,

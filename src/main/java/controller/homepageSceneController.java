@@ -78,7 +78,7 @@ public class homepageSceneController  implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         // tooltip handle for add item and plan buttons
         Tooltip.install(addTransBtn, new Tooltip("Add new item"));
-        Tooltip.install(planBtn, new Tooltip("Add plan"));
+        Tooltip.install(planBtn, new Tooltip("Add financial goal"));
 
         // add progress indicator
         RingProgressIndicator indicator = new RingProgressIndicator();
@@ -171,7 +171,20 @@ public class homepageSceneController  implements Initializable {
 
     }
 
-    public void addPlanClick(MouseEvent event) {
+    public void addPlanClick(MouseEvent e) throws Exception {
+        Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage
+
+        addPlanBox addPlan_box = new addPlanBox();
+
+        // dialog show
+        Stage dialogAddStage = new Stage(StageStyle.TRANSPARENT);
+        dialogAddStage.setTitle("Add financial goal");
+        dialogAddStage.initModality(Modality.WINDOW_MODAL);
+        dialogAddStage.initOwner(stage); // close this dialog to return to owner window
+        dialogAddStage.setScene(addPlan_box.getScene());
+
+        dialogAddStage.showAndWait();
+
     }
 
 }

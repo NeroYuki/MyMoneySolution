@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="addIncomeBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#drag" onMousePressed="#press" prefHeight="500.0" prefWidth="720.0" stylesheets="@../css/login.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.addExpenseBoxController">
+<BorderPane fx:id="addExpenseBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#drag" onMousePressed="#press" prefHeight="500.0" prefWidth="720.0" stylesheets="@../css/login.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.addExpenseBoxController">
    <top>
       <AnchorPane prefHeight="500.0" prefWidth="720.0" style="-fx-background-color: #404F81;" stylesheets="@../css/dialogStage.css" BorderPane.alignment="CENTER">
          <children>
