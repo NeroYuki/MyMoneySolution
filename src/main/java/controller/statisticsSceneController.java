@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Tooltip;
@@ -92,6 +93,9 @@ public class statisticsSceneController implements Initializable {
         // tooltip handle for add item and plan buttons
         Tooltip.install(addTransBtn, new Tooltip("Add new item"));
         Tooltip.install(planBtn, new Tooltip("Add financial goal"));
+
+        // display line chart of balance all time
+        displayLineChart();
 
         // display bar chart in tab income and expense
         displayBarChart();
@@ -199,6 +203,26 @@ public class statisticsSceneController implements Initializable {
 //        catch (ProcessExeption pe){
 //            System.out.println(pe.getErrorCodeMessage());
 //        }
+    }
+
+    @FXML
+    LineChart<String,Number> balanceLineChart;
+    public void displayLineChart() {
+        // first data
+        XYChart.Series<String, Number> seriesA = new XYChart.Series<>();
+        XYChart.Data<String,Number> jan1 = new XYChart.Data<>("Jan",300);
+        XYChart.Data<String,Number> feb1 = new XYChart.Data<>("Feb",500);
+        XYChart.Data<String,Number> mar1 = new XYChart.Data<>("Mar",600);
+        seriesA.getData().addAll(jan1,feb1,mar1);
+        seriesA.setName("Balance item a");
+        // next data
+        XYChart.Series<String, Number> seriesB = new XYChart.Series<>();
+        XYChart.Data<String,Number> jan2 = new XYChart.Data<>("Jan",400);
+        XYChart.Data<String,Number> feb2 = new XYChart.Data<>("Feb",200);
+        XYChart.Data<String,Number> mar2 = new XYChart.Data<>("Mar",950);
+        seriesB.getData().addAll(jan2,feb2,mar2);
+        seriesB.setName("Balance item b");
+        balanceLineChart.getData().addAll(seriesA,seriesB);
     }
 
     public void addTransClick(MouseEvent e) throws Exception {
