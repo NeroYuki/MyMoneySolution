@@ -144,12 +144,12 @@
                                     <VBox fx:id="listExpenseCategoryBox" layoutY="67.0" prefHeight="403.0" prefWidth="424.0" />
                                     <Pane layoutX="-426.0" layoutY="471.0" prefHeight="70.0" prefWidth="851.0" style="-fx-background-color: #787878;">
                                        <children>
-                                          <Button fx:id="editCategoriesBtn" layoutX="596.0" layoutY="17.0" mnemonicParsing="false" onAction="#editCategoriesBtnClick" prefHeight="37.0" prefWidth="91.0" text="EDIT" underline="true" visible="false">
+                                          <Button fx:id="editCategoriesBtn" layoutX="596.0" layoutY="17.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="91.0" text="EDIT" underline="true" visible="false">
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                           </Button>
-                                          <Button fx:id="deleteCategoriesBtn" layoutX="457.0" layoutY="17.0" mnemonicParsing="false" onAction="#deleteCategoriesBtnClick" prefHeight="37.0" prefWidth="91.0" text="DELETE" underline="true" visible="false">
+                                          <Button fx:id="deleteCategoriesBtn" layoutX="457.0" layoutY="17.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="91.0" text="DELETE" underline="true" visible="false">
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>

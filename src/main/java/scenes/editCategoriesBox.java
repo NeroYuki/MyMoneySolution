@@ -1,6 +1,5 @@
 package scenes;
 
-import controller.addCategoriesBoxController;
 import controller.editCategoriesBoxController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,13 +11,19 @@ public class editCategoriesBox {
     private Scene scene;
     private editCategoriesBoxController controller;
     public editCategoriesBox() throws Exception {
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/frmEditCategories.fxml"));
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getClassLoader().getResource("fxml/frmEditCategories.fxml"));
 
+        Parent root = loader.load();
         scene = new Scene(root);
-        controller = new editCategoriesBoxController();
+        controller = loader.getController();
     }
 
     public Scene getScene() {
         return scene;
+    }
+
+    public editCategoriesBoxController getController() {
+        return controller;
     }
 }

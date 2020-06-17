@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import model.Category;
 import model.Transaction;
 
 import java.io.File;
@@ -30,6 +31,8 @@ public class editCategoriesBoxController implements Initializable {
 
     // test dialog stage, not used but maybe later
     public Stage dialogEditStage;
+
+    private Category category;
 
     public void setDialogStage(Stage dialogStage) { // not use this set method but maybe used later
         this.dialogEditStage = dialogStage;
@@ -90,6 +93,25 @@ public class editCategoriesBoxController implements Initializable {
         if(file!=null) {
             Image image = new Image(file.toURI().toString(),50,50,false,true);
             iconImage.setImage(image);
+        }
+    }
+
+    public void setCategory(Category category){
+        this.category = category;
+        // set name
+        nameText.setText(category.getName());
+        // set icon
+        File file = new File(category.getIconPath());
+        Image image = new Image(file.toURI().toString(),50,50,false,true);
+        iconImage.setImage(image);
+        // set info
+        infoTextArea.setText(category.getDescription());
+        // set type
+        if(category.getType()==1){
+            typeText.setText("Income");
+        }
+        else if(category.getType()==2){
+            typeText.setText("Expense");
         }
     }
 
