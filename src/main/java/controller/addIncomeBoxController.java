@@ -54,8 +54,6 @@ public class addIncomeBoxController implements Initializable {
 
     private Transaction transaction; // not used but maybe later
 
-
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 

@@ -24,8 +24,6 @@ public class addExpenseBoxController implements Initializable {
     public Button saveBtn;
     public Button resetBtn;
 
-
-
     // test dialog stage, not used but maybe later
     public Stage dialogEditStage;
 

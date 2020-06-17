@@ -59,7 +59,6 @@ public class editCategoriesBoxController implements Initializable {
     private Transaction transaction; // not used but maybe later
 
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         File file = new File("src/main/resources/img/self-icon.png");

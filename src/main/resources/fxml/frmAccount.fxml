@@ -2,6 +2,8 @@
 
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -127,7 +129,26 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-
-         </children></AnchorPane>
+            <TabPane prefHeight="600.0" prefWidth="850.0" stylesheets="@../css/account.css" tabClosingPolicy="UNAVAILABLE">
+               <tabs>
+                  <Tab text="Balance">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="746.0" style="-fx-background-color: #dadae3;" />
+                     </content>
+                  </Tab>
+                  <Tab closable="false" text="Saving">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #dadae3;" />
+                     </content>
+                  </Tab>
+                  <Tab closable="false" text="Loan">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #dadae3;" />
+                     </content>
+                  </Tab>
+               </tabs>
+            </TabPane>
+         </children>
+      </AnchorPane>
    </center>
 </BorderPane>

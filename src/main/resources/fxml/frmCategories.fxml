@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
-<?import javafx.scene.chart.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#drag" onMousePressed="#press" prefHeight="600.0" prefWidth="1050.0" stylesheets="@../css/categories.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.categoriesSceneController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#drag" onMousePressed="#press" prefHeight="600.0" prefWidth="1050.0" stylesheets="@../css/categories.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.categoriesSceneController">
    <left>
       <VBox fx:id="menuVbox" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #253546;" BorderPane.alignment="CENTER">
          <children>
@@ -132,11 +141,7 @@
                            <children>
                               <AnchorPane layoutX="425.0" minHeight="0.0" minWidth="0.0" prefHeight="470.0" prefWidth="424.0" style="-fx-background-color: #B8C9DF;">
                                  <children>
-                                    <Label fx:id="expensesNote" layoutX="82.0" layoutY="240.0" text="Click Expenses above to load or refresh data">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Label>
+                                    <VBox fx:id="listExpenseCategoryBox" layoutY="67.0" prefHeight="403.0" prefWidth="424.0" />
                                     <Pane layoutX="-426.0" layoutY="471.0" prefHeight="70.0" prefWidth="851.0" style="-fx-background-color: #787878;">
                                        <children>
                                           <Button fx:id="editCategoriesBtn" layoutX="596.0" layoutY="17.0" mnemonicParsing="false" onAction="#editCategoriesBtnClick" prefHeight="37.0" prefWidth="91.0" text="EDIT" underline="true" visible="false">
@@ -157,16 +162,10 @@
                                           <TextField fx:id="filterText" layoutX="45.0" layoutY="23.0" prefHeight="25.0" prefWidth="194.0" promptText="Search for name" />
                                        </children>
                                     </Pane>
-                                    <VBox fx:id="listExpenseCategoryBox" layoutY="67.0" prefHeight="403.0" prefWidth="424.0" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="470.0" prefWidth="424.0" style="-fx-background-color: #B8C9DF;">
                                  <children>
-                                    <Label fx:id="incomeNote" layoutX="81.0" layoutY="240.0" text="Click Income above to load or refresh data">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Label>
                                     <VBox fx:id="listIncomeCategoryBox" layoutY="67.0" prefHeight="403.0" prefWidth="424.0" />
                                  </children>
                               </AnchorPane>
@@ -174,12 +173,12 @@
                                  <children>
                                     <Pane prefHeight="105.0" prefWidth="425.0" style="-fx-background-color: #23B383;">
                                        <children>
-                                          <Button fx:id="incomeLoadBtn" layoutX="108.0" layoutY="14.0" mnemonicParsing="false" text="Income">
+                                          <Button fx:id="incomeGeneralLoadBtn" layoutX="108.0" layoutY="14.0" mnemonicParsing="false" text="Income">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
                                           </Button>
-                                          <Label fx:id="incomeTotalLabel" layoutX="221.0" layoutY="20.0" text="[n categories]">
+                                          <Label fx:id="incomeGeneralTotalLabel" layoutX="221.0" layoutY="20.0" text="[n categories]">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
@@ -188,12 +187,12 @@
                                     </Pane>
                                     <Pane fx:id="expensesLabel" prefHeight="200.0" prefWidth="425.0" style="-fx-background-color: F88F79;">
                                        <children>
-                                          <Button fx:id="expenseLoadBtn" layoutX="112.0" layoutY="14.0" mnemonicParsing="false" text="Expense">
+                                          <Button fx:id="expenseGeneralLoadBtn" layoutX="112.0" layoutY="14.0" mnemonicParsing="false" text="Expense">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
                                           </Button>
-                                          <Label fx:id="expenseTotalLabel" layoutX="228.0" layoutY="20.0" text="[m categories]">
+                                          <Label fx:id="expenseGeneralTotalLabel" layoutX="228.0" layoutY="20.0" text="[m categories]">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
@@ -206,74 +205,584 @@
                         </AnchorPane>
                      </content>
                   </Tab>
-                  <Tab closable="false" text="Income">
+                  <Tab closable="false" text="Weekly">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #dadae3;">
                            <children>
-                              <MenuButton fx:id="balanceIncomeMenu" layoutX="722.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="128.0" text="Balance">
-                                 <items>
-                                    <RadioMenuItem mnemonicParsing="false" selected="true" text="Total">
-                                       <toggleGroup>
-                                          <ToggleGroup fx:id="balance1" />
-                                       </toggleGroup>
-                                    </RadioMenuItem>
-                                    <RadioMenuItem mnemonicParsing="false" text="Cash" toggleGroup="$balance1" />
-                                    <RadioMenuItem mnemonicParsing="false" text="Bank Account" toggleGroup="$balance1" />
-                                    <RadioMenuItem mnemonicParsing="false" text="Credit" toggleGroup="$balance1" />
-                                    <RadioMenuItem mnemonicParsing="false" text="Backup" toggleGroup="$balance1" />
-                                 </items>
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </MenuButton>
-                              <AnchorPane layoutX="1.0" layoutY="51.0" prefHeight="490.0" prefWidth="851.0">
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="541.0" prefWidth="424.0" style="-fx-background-color: #B8C9DF;">
                                  <children>
-                                    <BarChart fx:id="incomeCategoriesBarChart" layoutX="168.0" layoutY="63.0" prefHeight="490.0" prefWidth="851.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                      <xAxis>
-                                        <CategoryAxis fx:id="incomeCategoriesAxis" side="BOTTOM" />
-                                      </xAxis>
-                                      <yAxis>
-                                        <NumberAxis side="LEFT" />
-                                      </yAxis>
-                                    </BarChart>
+                                    <PieChart fx:id="incomeWeekPie" layoutY="66.0" prefHeight="372.0" prefWidth="424.0" style="-fx-background-color: #E6E6FA" />
+                                    <Label layoutX="82.0" layoutY="461.0" text="Compared to last">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="216.0" layoutY="460.0" prefHeight="27.0" prefWidth="70.0" text="week">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="incomeWeekDifferentCompareLabel" layoutX="312.0" layoutY="460.0" text="270" textFill="#1417eb">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="83.0" layoutY="493.0" prefHeight="25.0" prefWidth="188.0" text="Compared to all time">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="incomeAllTimeDifferentCompareWeekLabel" layoutX="313.0" layoutY="492.0" text="270" textFill="#1417eb">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="incomeWeekNote" layoutX="83.0" layoutY="241.0" text="Click Income above to load or refresh data">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="incomeWeekSignCompareLabel" layoutX="280.0" layoutY="450.0" text="↑" textFill="#24cd11">
+                                       <font>
+                                          <Font size="29.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="incomeAllTimeSignCompareWeekLabel" layoutX="280.0" layoutY="484.0" text="↑" textFill="#24cd11">
+                                       <font>
+                                          <Font size="29.0" />
+                                       </font>
+                                    </Label>
                                  </children>
                               </AnchorPane>
-                           </children></AnchorPane>
+                              <AnchorPane layoutX="424.0" layoutY="1.0" minHeight="0.0" minWidth="0.0" prefHeight="540.0" prefWidth="424.0" style="-fx-background-color: #B8C9DF;">
+                                 <children>
+                                    <PieChart fx:id="expensesWeekPie" layoutX="1.0" layoutY="63.0" prefHeight="374.0" prefWidth="424.0" style="-fx-background-color: #E6E6FA;" />
+                                    <Label fx:id="expensesWeekNote" layoutX="78.0" layoutY="241.0" text="Click Expenses above to load or refresh data">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="78.0" layoutY="457.0" text="Compared to last">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="213.0" layoutY="456.0" prefHeight="27.0" prefWidth="69.0" text="week">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="expensesWeekDifferentCompareLabel" layoutX="314.0" layoutY="456.0" text="100" textFill="#1417eb">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="79.0" layoutY="492.0" prefHeight="25.0" prefWidth="188.0" text="Compared to all time">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="expensesAllTimeDifferentCompareWeekLabel" layoutX="314.0" layoutY="491.0" text="100" textFill="#1417eb">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="expensesWeekSignCompareLabel" layoutX="283.0" layoutY="448.0" text="↓" textFill="#f22d1b">
+                                       <font>
+                                          <Font size="29.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="expensesAllTimeSignCompareWeekLabel" layoutX="283.0" layoutY="483.0" text="↓" textFill="#f22d1b">
+                                       <font>
+                                          <Font size="29.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                              <HBox prefHeight="67.0" prefWidth="851.0">
+                                 <children>
+                                    <Pane prefHeight="105.0" prefWidth="425.0" style="-fx-background-color: #23B383;">
+                                       <children>
+                                          <Button fx:id="incomeWeekLoadBtn" layoutX="108.0" layoutY="14.0" mnemonicParsing="false" onAction="#incomeWeekLoadBtnClick" text="Income">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Button>
+                                          <Label fx:id="incomeWeekTotalLabel" layoutX="221.0" layoutY="20.0" text="560.000 d">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </Pane>
+                                    <Pane fx:id="expensesLabel1" prefHeight="200.0" prefWidth="425.0" style="-fx-background-color: F88F79;">
+                                       <children>
+                                          <Button fx:id="expenseWeekLoadBtn" layoutX="112.0" layoutY="14.0" mnemonicParsing="false" onAction="#expensesWeekLoadBtnClick" text="Expense">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Button>
+                                          <Label fx:id="expenseWeekTotalLabel" layoutX="232.0" layoutY="20.0" text="350.000d">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </Pane>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
                      </content>
                   </Tab>
-                  <Tab closable="false" text="Expense">
+                  <Tab closable="false" text="Monthly">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #dadae3;">
                            <children>
-                              <MenuButton fx:id="balanceExpenseMenuBtn" layoutX="722.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="128.0" text="Balance">
-                                 <items>
-                                    <RadioMenuItem mnemonicParsing="false" selected="true" text="Total">
-                                       <toggleGroup>
-                                          <ToggleGroup fx:id="balance2" />
-                                       </toggleGroup>
-                                    </RadioMenuItem>
-                                    <RadioMenuItem mnemonicParsing="false" text="Cash" toggleGroup="$balance2" />
-                                    <RadioMenuItem mnemonicParsing="false" text="Bank Account" toggleGroup="$balance2" />
-                                    <RadioMenuItem mnemonicParsing="false" text="Credit" toggleGroup="$balance2" />
-                                    <RadioMenuItem mnemonicParsing="false" text="Backup" toggleGroup="$balance2" />
-                                 </items>
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </MenuButton>
-                              <AnchorPane layoutY="51.0" prefHeight="490.0" prefWidth="851.0">
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="541.0" prefWidth="424.0" style="-fx-background-color: #B8C9DF;">
                                  <children>
-                                    <BarChart fx:id="expenseCategoriesBarChart" layoutX="168.0" layoutY="63.0" prefHeight="490.0" prefWidth="851.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                       <xAxis>
-                                          <CategoryAxis fx:id="expenseCategoriesAxis" side="BOTTOM" />
-                                       </xAxis>
-                                       <yAxis>
-                                          <NumberAxis side="LEFT" />
-                                       </yAxis>
-                                    </BarChart>
+                                    <PieChart fx:id="incomeMonthPie" layoutY="66.0" prefHeight="372.0" prefWidth="424.0" style="-fx-background-color: #E6E6FA" />
+                                    <Label layoutX="82.0" layoutY="461.0" text="Compared to last">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="216.0" layoutY="460.0" prefHeight="27.0" prefWidth="70.0" text="month">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="incomeMonthSignCompareLabel" layoutX="288.0" layoutY="452.0" text="↓" textFill="#f22d1b">
+                                       <font>
+                                          <Font size="29.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="incomeMonthDifferentCompareLabel" layoutX="312.0" layoutY="460.0" text="270" textFill="#1417eb">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="83.0" layoutY="493.0" prefHeight="25.0" prefWidth="188.0" text="Compared to all time">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="incomeAllTimeSignCompareMonthLabel" layoutX="289.0" layoutY="484.0" text="↓" textFill="#f22d1b">
+                                       <font>
+                                          <Font size="29.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="incomeAllTimeDifferentCompareMonthLabel" layoutX="313.0" layoutY="492.0" text="270" textFill="#1417eb">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="incomeMonthNote" layoutX="83.0" layoutY="241.0" text="Click Income above to load or refresh data">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
                                  </children>
                               </AnchorPane>
-                           </children></AnchorPane>
+                              <AnchorPane layoutX="424.0" layoutY="1.0" minHeight="0.0" minWidth="0.0" prefHeight="540.0" prefWidth="424.0" style="-fx-background-color: #B8C9DF;">
+                                 <children>
+                                    <PieChart fx:id="expensesMonthPie" layoutX="1.0" layoutY="63.0" prefHeight="374.0" prefWidth="424.0" style="-fx-background-color: #E6E6FA;" />
+                                    <Label fx:id="expensesMonthNote" layoutX="78.0" layoutY="241.0" text="Click Expenses above to load or refresh data">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="78.0" layoutY="457.0" text="Compared to last">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="213.0" layoutY="456.0" prefHeight="27.0" prefWidth="69.0" text="month">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="expensesMonthSignCompareLabel" layoutX="286.0" layoutY="448.0" text="↑" textFill="#24cd11">
+                                       <font>
+                                          <Font size="29.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="expensesMonthDifferentCompareLabel" layoutX="316.0" layoutY="456.0" text="100" textFill="#1417eb">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="79.0" layoutY="492.0" prefHeight="25.0" prefWidth="188.0" text="Compared to all time">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="expensesAllTimeSignCompareMonthLabel" layoutX="287.0" layoutY="483.0" text="↑" textFill="#24cd11">
+                                       <font>
+                                          <Font size="29.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="expensesAllTimeDifferentCompareMonthLabel" layoutX="317.0" layoutY="491.0" text="100" textFill="#1417eb">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                              <HBox prefHeight="67.0" prefWidth="851.0">
+                                 <children>
+                                    <Pane prefHeight="105.0" prefWidth="425.0" style="-fx-background-color: #23B383;">
+                                       <children>
+                                          <Button fx:id="incomeMonthLoadBtn" layoutX="108.0" layoutY="14.0" mnemonicParsing="false" text="Income">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Button>
+                                          <Label fx:id="incomeMonthTotalLabel" layoutX="221.0" layoutY="20.0" text="560.000 d">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </Pane>
+                                    <Pane fx:id="expensesLabel11" prefHeight="200.0" prefWidth="425.0" style="-fx-background-color: F88F79;">
+                                       <children>
+                                          <Button fx:id="expenseMonthLoadBtn" layoutX="112.0" layoutY="14.0" mnemonicParsing="false" text="Expense">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Button>
+                                          <Label fx:id="expenseMonthTotalLabel" layoutX="232.0" layoutY="20.0" text="350.000d">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </Pane>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab closable="false" text="Last 90 days">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #dadae3;">
+                           <children>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="541.0" prefWidth="424.0" style="-fx-background-color: #B8C9DF;">
+                                 <children>
+                                    <PieChart fx:id="incomeDaysPie" layoutY="66.0" prefHeight="372.0" prefWidth="424.0" style="-fx-background-color: #E6E6FA" />
+                                    <Label layoutX="82.0" layoutY="461.0" text="Compared to last">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="216.0" layoutY="460.0" prefHeight="27.0" prefWidth="70.0" text="90 days">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="incomeDaysSignCompareLabel" layoutX="288.0" layoutY="452.0" text="↓" textFill="#f22d1b">
+                                       <font>
+                                          <Font size="29.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="incomeDaysDifferentCompareLabel" layoutX="312.0" layoutY="460.0" text="270" textFill="#1417eb">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="83.0" layoutY="493.0" prefHeight="25.0" prefWidth="188.0" text="Compared to all time">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="incomeAllTimeSignCompareDaysLabel" layoutX="289.0" layoutY="484.0" text="↓" textFill="#f22d1b">
+                                       <font>
+                                          <Font size="29.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="incomeAllTimeDifferentCompareDaysLabel" layoutX="313.0" layoutY="492.0" text="270" textFill="#1417eb">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="incomeDaysNote" layoutX="83.0" layoutY="241.0" text="Click Income above to load or refresh data">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutX="424.0" layoutY="1.0" minHeight="0.0" minWidth="0.0" prefHeight="540.0" prefWidth="424.0" style="-fx-background-color: #B8C9DF;">
+                                 <children>
+                                    <PieChart fx:id="expensesDaysPie" layoutX="1.0" layoutY="63.0" prefHeight="374.0" prefWidth="424.0" style="-fx-background-color: #E6E6FA;" />
+                                    <Label fx:id="expensesDaysNote" layoutX="78.0" layoutY="241.0" text="Click Expenses above to load or refresh data">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="78.0" layoutY="457.0" text="Compared to last">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="213.0" layoutY="456.0" prefHeight="27.0" prefWidth="69.0" text="90 days">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="expensesDaysSignCompareLabel" layoutX="286.0" layoutY="448.0" text="↑" textFill="#24cd11">
+                                       <font>
+                                          <Font size="29.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="expensesDaysDifferentCompareLabel" layoutX="316.0" layoutY="456.0" text="100" textFill="#1417eb">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="79.0" layoutY="492.0" prefHeight="25.0" prefWidth="188.0" text="Compared to all time">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="expensesAllTimeSignCompareDaysLabel" layoutX="287.0" layoutY="483.0" text="↑" textFill="#24cd11">
+                                       <font>
+                                          <Font size="29.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="expensesAllTimeDifferentCompareDaysLabel" layoutX="317.0" layoutY="491.0" text="100" textFill="#1417eb">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                              <HBox prefHeight="67.0" prefWidth="851.0">
+                                 <children>
+                                    <Pane prefHeight="105.0" prefWidth="425.0" style="-fx-background-color: #23B383;">
+                                       <children>
+                                          <Button fx:id="incomeDaysLoadBtn" layoutX="108.0" layoutY="14.0" mnemonicParsing="false" text="Income">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Button>
+                                          <Label fx:id="incomeDaysTotalLabel" layoutX="221.0" layoutY="20.0" text="560.000 d">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </Pane>
+                                    <Pane fx:id="expensesLabel12" prefHeight="200.0" prefWidth="425.0" style="-fx-background-color: F88F79;">
+                                       <children>
+                                          <Button fx:id="expenseDaysLoadBtn" layoutX="112.0" layoutY="14.0" mnemonicParsing="false" text="Expense">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Button>
+                                          <Label fx:id="expenseDaysTotalLabel" layoutX="232.0" layoutY="20.0" text="350.000d">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </Pane>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab closable="false" text="Yearly">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #dadae3;">
+                           <children>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="541.0" prefWidth="424.0" style="-fx-background-color: #B8C9DF;">
+                                 <children>
+                                    <PieChart fx:id="incomeYearPie" layoutY="66.0" prefHeight="372.0" prefWidth="424.0" style="-fx-background-color: #E6E6FA" />
+                                    <Label layoutX="82.0" layoutY="461.0" text="Compared to last">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="216.0" layoutY="460.0" prefHeight="27.0" prefWidth="70.0" text="year">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="incomeYearSignCompareLabel" layoutX="288.0" layoutY="452.0" text="↓" textFill="#f22d1b">
+                                       <font>
+                                          <Font size="29.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="incomeYearDifferentCompareLabel" layoutX="312.0" layoutY="460.0" text="270" textFill="#1417eb">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="83.0" layoutY="493.0" prefHeight="25.0" prefWidth="188.0" text="Compared to all time">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="incomeAllTimeSignCompareYearLabel" layoutX="289.0" layoutY="484.0" text="↓" textFill="#f22d1b">
+                                       <font>
+                                          <Font size="29.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="incomeAllTimeDifferentCompareYearLabel" layoutX="313.0" layoutY="492.0" text="270" textFill="#1417eb">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="incomeYearNote" layoutX="83.0" layoutY="241.0" text="Click Income above to load or refresh data">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutX="424.0" layoutY="1.0" minHeight="0.0" minWidth="0.0" prefHeight="540.0" prefWidth="424.0" style="-fx-background-color: #B8C9DF;">
+                                 <children>
+                                    <PieChart fx:id="expensesYearPie" layoutX="1.0" layoutY="63.0" prefHeight="374.0" prefWidth="424.0" style="-fx-background-color: #E6E6FA;" />
+                                    <Label fx:id="expensesYearNote" layoutX="78.0" layoutY="241.0" text="Click Expenses above to load or refresh data">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="78.0" layoutY="457.0" text="Compared to last">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="213.0" layoutY="456.0" prefHeight="27.0" prefWidth="69.0" text="year">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="expensesYearSignCompareLabel" layoutX="286.0" layoutY="448.0" text="↑" textFill="#24cd11">
+                                       <font>
+                                          <Font size="29.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="expensesYearDifferentCompareLabel" layoutX="316.0" layoutY="456.0" text="100" textFill="#1417eb">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="79.0" layoutY="492.0" prefHeight="25.0" prefWidth="188.0" text="Compared to all time">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="expensesAllTimeSignCompareYearLabel" layoutX="287.0" layoutY="483.0" text="↑" textFill="#24cd11">
+                                       <font>
+                                          <Font size="29.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="expensesAllTimeDifferentCompareYearLabel" layoutX="317.0" layoutY="491.0" text="100" textFill="#1417eb">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                              <HBox prefHeight="67.0" prefWidth="851.0">
+                                 <children>
+                                    <Pane prefHeight="105.0" prefWidth="425.0" style="-fx-background-color: #23B383;">
+                                       <children>
+                                          <Button fx:id="incomeYearLoadBtn" layoutX="108.0" layoutY="14.0" mnemonicParsing="false" text="Income">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Button>
+                                          <Label fx:id="incomeYearTotalLabel" layoutX="221.0" layoutY="20.0" text="560.000 d">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </Pane>
+                                    <Pane fx:id="expensesLabel13" prefHeight="200.0" prefWidth="425.0" style="-fx-background-color: F88F79;">
+                                       <children>
+                                          <Button fx:id="expenseYearLoadBtn" layoutX="112.0" layoutY="14.0" mnemonicParsing="false" text="Expense">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Button>
+                                          <Label fx:id="expenseYearTotalLabel" layoutX="232.0" layoutY="20.0" text="350.000d">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </Pane>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab closable="false" text="All time">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #dadae3;">
+                           <children>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="541.0" prefWidth="424.0" style="-fx-background-color: #B8C9DF;">
+                                 <children>
+                                    <PieChart fx:id="incomeAllPie" layoutY="66.0" prefHeight="372.0" prefWidth="424.0" style="-fx-background-color: #E6E6FA" />
+                                    <Label fx:id="incomeAlltimeNote" layoutX="83.0" layoutY="241.0" text="Click Income above to load or refresh data">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutX="424.0" layoutY="1.0" minHeight="0.0" minWidth="0.0" prefHeight="540.0" prefWidth="424.0" style="-fx-background-color: #B8C9DF;">
+                                 <children>
+                                    <PieChart fx:id="expensesAllPie" layoutX="1.0" layoutY="63.0" prefHeight="374.0" prefWidth="424.0" style="-fx-background-color: #E6E6FA;" />
+                                    <Label fx:id="expensesAlltimeNote" layoutX="78.0" layoutY="241.0" text="Click Expenses above to load or refresh data">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                              <HBox prefHeight="67.0" prefWidth="851.0">
+                                 <children>
+                                    <Pane prefHeight="105.0" prefWidth="425.0" style="-fx-background-color: #23B383;">
+                                       <children>
+                                          <Button fx:id="incomeAlltimeLoadBtn" layoutX="108.0" layoutY="14.0" mnemonicParsing="false" text="Income">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Button>
+                                          <Label fx:id="incomeTotalLabel" layoutX="221.0" layoutY="20.0" text="560.000 d">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </Pane>
+                                    <Pane fx:id="expensesLabel14" prefHeight="200.0" prefWidth="425.0" style="-fx-background-color: F88F79;">
+                                       <children>
+                                          <Button fx:id="expenseAlltimeLoadBtn" layoutX="112.0" layoutY="14.0" mnemonicParsing="false" text="Expense">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Button>
+                                          <Label fx:id="expenseTotalLabel4" layoutX="232.0" layoutY="20.0" text="350.000d">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </Pane>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
                      </content>
                   </Tab>
                </tabs>

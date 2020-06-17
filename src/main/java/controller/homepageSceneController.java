@@ -117,7 +117,6 @@ public class homepageSceneController  implements Initializable {
         yOffset = event.getSceneY();
     }
 
-
     public void addTransClick(MouseEvent e) throws Exception {
         // first appear a dialog to choose the type of transaction for clear handle
         List<String> choices = new ArrayList<>();
