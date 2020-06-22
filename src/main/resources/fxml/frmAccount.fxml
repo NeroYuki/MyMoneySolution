@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -127,13 +128,40 @@
       </VBox>
    </left>
    <center>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" stylesheets="@../css/account.css" BorderPane.alignment="CENTER">
          <children>
             <TabPane prefHeight="600.0" prefWidth="850.0" stylesheets="@../css/account.css" tabClosingPolicy="UNAVAILABLE">
                <tabs>
                   <Tab text="Balance">
                      <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="746.0" style="-fx-background-color: #dadae3;" />
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="746.0" style="-fx-background-color: #dadae3;">
+                           <children>
+                              <Pane layoutY="471.0" prefHeight="70.0" prefWidth="851.0" style="-fx-background-color: #787878;">
+                                 <children>
+                                    <Button fx:id="editBalanceBtn" layoutX="592.0" layoutY="17.0" mnemonicParsing="false" onAction="#editBalanceBtnClick" prefHeight="37.0" prefWidth="91.0" text="EDIT" underline="true">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                    <Button fx:id="deleteBalanceBtn" layoutX="719.0" layoutY="17.0" mnemonicParsing="false" onAction="#deleteBalanceBtnClick" prefHeight="37.0" prefWidth="91.0" text="DELETE" underline="true">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                    <Button fx:id="viewBtn" layoutX="464.0" layoutY="17.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="91.0" text="VIEW" underline="true" visible="false">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                    <TextField fx:id="filterText" layoutX="41.0" layoutY="23.0" prefHeight="25.0" prefWidth="194.0" promptText="Search for name or description" />
+                                    <Button fx:id="addBalanceBtn" layoutX="464.0" layoutY="17.0" mnemonicParsing="false" onAction="#addBalanceBtnClick" prefHeight="37.0" prefWidth="91.0" text="ADD" underline="true">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                 </children>
+                              </Pane>
+                           </children></AnchorPane>
                      </content>
                   </Tab>
                   <Tab closable="false" text="Saving">

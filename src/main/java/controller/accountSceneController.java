@@ -156,4 +156,13 @@ public class accountSceneController implements Initializable {
         dialogAddStage.showAndWait();
 
     }
+
+    public void editBalanceBtnClick(ActionEvent actionEvent) {
+    }
+
+    public void deleteBalanceBtnClick(ActionEvent actionEvent) {
+    }
+
+    public void addBalanceBtnClick(ActionEvent actionEvent) {
+    }
 }

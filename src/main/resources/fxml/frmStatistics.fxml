@@ -192,8 +192,6 @@
                                     </RadioMenuItem>
                                     <RadioMenuItem mnemonicParsing="false" text="Cash" toggleGroup="$balance1" />
                                     <RadioMenuItem mnemonicParsing="false" text="Bank Account" toggleGroup="$balance1" />
-                                    <RadioMenuItem mnemonicParsing="false" text="Credit" toggleGroup="$balance1" />
-                                    <RadioMenuItem mnemonicParsing="false" text="Backup" toggleGroup="$balance1" />
                                  </items>
                                  <font>
                                     <Font size="18.0" />
@@ -228,8 +226,6 @@
                                     </RadioMenuItem>
                                     <RadioMenuItem mnemonicParsing="false" text="Cash" toggleGroup="$balance2" />
                                     <RadioMenuItem mnemonicParsing="false" text="Bank Account" toggleGroup="$balance2" />
-                                    <RadioMenuItem mnemonicParsing="false" text="Credit" toggleGroup="$balance2" />
-                                    <RadioMenuItem mnemonicParsing="false" text="Backup" toggleGroup="$balance2" />
                                  </items>
                                  <font>
                                     <Font size="18.0" />

@@ -1,7 +1,6 @@
 package controller;
 
 import helper.DateUtil;
-import helper.UUIDHelper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -18,8 +17,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import model.Expense;
-import model.Income;
 import model.Transaction;
 import scenes.*;
 
@@ -124,35 +121,35 @@ public class transactionSceneController implements Initializable {
     public void displayTableView() {
         // table view handle
         //TODO: get right list from own database
-        transactionList.add(
-                new Income(UUIDHelper.newUUIDString(),LocalDate.of(2004,1,5),50000, "School giving scholarship", "Bonus"));
-        transactionList.add(new Expense(UUIDHelper.newUUIDString(), LocalDate.of(2004,4,15),-20000, "Buy a phone in FPT", "Shopping"));
-        transactionList.add(new Income(UUIDHelper.newUUIDString(), LocalDate.of(2004,5,6),120000, "Salary May", "Salary"));
-        transactionList.add(new Expense(UUIDHelper.newUUIDString(), LocalDate.of(2004,11,23),-35000, "Restaurant district 5", "Food and Beverage"));
-
-        transactionList.add(
-                new Income(UUIDHelper.newUUIDString(), LocalDate.of(2004,1,5),50000, "School giving scholarship", "Bonus"));
-        transactionList.add(new Expense(UUIDHelper.newUUIDString(), LocalDate.of(2004,4,15),-20000, "Buy a phone in FPT", "Shopping"));
-        transactionList.add(new Income(UUIDHelper.newUUIDString(), LocalDate.of(2004,5,6),120000, "Salary May", "Salary"));
-        transactionList.add(new Expense(UUIDHelper.newUUIDString(), LocalDate.of(2004,11,23),-35000, "Restaurant district 5", "Food and Beverage"));
-
-        transactionList.add(
-                new Income(UUIDHelper.newUUIDString(), LocalDate.of(2004,1,5),50000, "School giving scholarship", "Bonus"));
-        transactionList.add(new Expense(UUIDHelper.newUUIDString(), LocalDate.of(2004,4,15),-20000, "Buy a phone in FPT", "Shopping"));
-        transactionList.add(new Income(UUIDHelper.newUUIDString(), LocalDate.of(2004,5,6),120000, "Salary May", "Salary"));
-        transactionList.add(new Expense(UUIDHelper.newUUIDString(), LocalDate.of(2004,11,23),-35000, "Restaurant district 5", "Food and Beverage"));
-
-        transactionList.add(
-                new Income(UUIDHelper.newUUIDString(), LocalDate.of(2004,1,5),50000, "School giving scholarship", "Bonus"));
-        transactionList.add(new Expense(UUIDHelper.newUUIDString(), LocalDate.of(2004,4,15),-20000, "Buy a phone in FPT", "Shopping"));
-        transactionList.add(new Income(UUIDHelper.newUUIDString(), LocalDate.of(2004,5,6),120000, "Salary May", "Salary"));
-        transactionList.add(new Expense(UUIDHelper.newUUIDString(), LocalDate.of(2004,11,23),-35000, "Restaurant district 5", "Food and Beverage"));
-
-        transactionList.add(
-                new Income(UUIDHelper.newUUIDString(), LocalDate.of(2004,1,5),50000, "School giving scholarship", "Bonus"));
-        transactionList.add(new Expense(UUIDHelper.newUUIDString(), LocalDate.of(2004,4,15),-20000, "Buy a phone in FPT", "Shopping"));
-        transactionList.add(new Income(UUIDHelper.newUUIDString(), LocalDate.of(2004,5,6),120000, "Salary May", "Salary"));
-        transactionList.add(new Expense(UUIDHelper.newUUIDString(), LocalDate.of(2004,11,23),-35000, "Restaurant district 5", "Food and Beverage"));
+//        transactionList.add(
+//                new Income(UUIDHelper.newUUIDString(),LocalDate.of(2004,1,5),50000, "School giving scholarship", "Bonus"));
+//        transactionList.add(new Expense(UUIDHelper.newUUIDString(), LocalDate.of(2004,4,15),-20000, "Buy a phone in FPT", "Shopping"));
+//        transactionList.add(new Income(UUIDHelper.newUUIDString(), LocalDate.of(2004,5,6),120000, "Salary May", "Salary"));
+//        transactionList.add(new Expense(UUIDHelper.newUUIDString(), LocalDate.of(2004,11,23),-35000, "Restaurant district 5", "Food and Beverage"));
+//
+//        transactionList.add(
+//                new Income(UUIDHelper.newUUIDString(), LocalDate.of(2004,1,5),50000, "School giving scholarship", "Bonus"));
+//        transactionList.add(new Expense(UUIDHelper.newUUIDString(), LocalDate.of(2004,4,15),-20000, "Buy a phone in FPT", "Shopping"));
+//        transactionList.add(new Income(UUIDHelper.newUUIDString(), LocalDate.of(2004,5,6),120000, "Salary May", "Salary"));
+//        transactionList.add(new Expense(UUIDHelper.newUUIDString(), LocalDate.of(2004,11,23),-35000, "Restaurant district 5", "Food and Beverage"));
+//
+//        transactionList.add(
+//                new Income(UUIDHelper.newUUIDString(), LocalDate.of(2004,1,5),50000, "School giving scholarship", "Bonus"));
+//        transactionList.add(new Expense(UUIDHelper.newUUIDString(), LocalDate.of(2004,4,15),-20000, "Buy a phone in FPT", "Shopping"));
+//        transactionList.add(new Income(UUIDHelper.newUUIDString(), LocalDate.of(2004,5,6),120000, "Salary May", "Salary"));
+//        transactionList.add(new Expense(UUIDHelper.newUUIDString(), LocalDate.of(2004,11,23),-35000, "Restaurant district 5", "Food and Beverage"));
+//
+//        transactionList.add(
+//                new Income(UUIDHelper.newUUIDString(), LocalDate.of(2004,1,5),50000, "School giving scholarship", "Bonus"));
+//        transactionList.add(new Expense(UUIDHelper.newUUIDString(), LocalDate.of(2004,4,15),-20000, "Buy a phone in FPT", "Shopping"));
+//        transactionList.add(new Income(UUIDHelper.newUUIDString(), LocalDate.of(2004,5,6),120000, "Salary May", "Salary"));
+//        transactionList.add(new Expense(UUIDHelper.newUUIDString(), LocalDate.of(2004,11,23),-35000, "Restaurant district 5", "Food and Beverage"));
+//
+//        transactionList.add(
+//                new Income(UUIDHelper.newUUIDString(), LocalDate.of(2004,1,5),50000, "School giving scholarship", "Bonus"));
+//        transactionList.add(new Expense(UUIDHelper.newUUIDString(), LocalDate.of(2004,4,15),-20000, "Buy a phone in FPT", "Shopping"));
+//        transactionList.add(new Income(UUIDHelper.newUUIDString(), LocalDate.of(2004,5,6),120000, "Salary May", "Salary"));
+//        transactionList.add(new Expense(UUIDHelper.newUUIDString(), LocalDate.of(2004,11,23),-35000, "Restaurant district 5", "Food and Beverage"));
 
         // add data to suitable columns
         idColumn.setCellValueFactory(new PropertyValueFactory<Transaction,String>("id"));
