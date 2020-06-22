@@ -18,6 +18,7 @@ import model.Transaction;
 import process.ProcessBalance;
 import process.ProcessCategories;
 import process.ProcessTransactionScene;
+import scenes.transactionScene;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -73,10 +74,22 @@ public class addIncomeBoxController implements Initializable {
 
     public void saveBtnClick(ActionEvent actionEvent) {
         try {
-            ProcessTransactionScene.addIncome(datepicker.getValue(), 1000000, descriptionTextArea.getText(), categoryCombo.getSelectionModel().getSelectedItem(), accountCombo.getSelectionModel().getSelectedItem());
-        }
-        catch (ProcessExeption pe) {
+            ProcessTransactionScene.addIncome(datepicker.getValue(), Double.parseDouble(valueText.getText()), descriptionTextArea.getText(), categoryCombo.getSelectionModel().getSelectedItem(), accountCombo.getSelectionModel().getSelectedItem());
+        } catch (ProcessExeption pe) {
             System.out.println(pe.getErrorCodeMessage());
+        }
+
+
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow(); // get stage of program, primary stage
+        stage.close();
+        try {
+            Stage stageAfter = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+            transactionScene transaction_scene = new transactionScene();
+            stageAfter.setScene(transaction_scene.getScene());
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
         }
     }
 
