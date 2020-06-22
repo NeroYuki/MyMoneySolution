@@ -1,5 +1,6 @@
 package controller;
 
+import exception.ProcessExeption;
 import helper.DateUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,6 +19,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.Transaction;
+import process.ProcessTransactionScene;
 import scenes.*;
 
 import java.net.URL;
@@ -121,6 +123,16 @@ public class transactionSceneController implements Initializable {
     public void displayTableView() {
         // table view handle
         //TODO: get right list from own database
+        ArrayList<Transaction> transactions=new ArrayList<>();
+        try{
+            transactions= ProcessTransactionScene.getTransactionsInfo();
+        }
+        catch (ProcessExeption pe)
+        {
+            System.out.println(pe.getErrorCodeMessage());
+        }
+
+        transactionList.addAll(transactions);
 //        transactionList.add(
 //                new Income(UUIDHelper.newUUIDString(),LocalDate.of(2004,1,5),50000, "School giving scholarship", "Bonus"));
 //        transactionList.add(new Expense(UUIDHelper.newUUIDString(), LocalDate.of(2004,4,15),-20000, "Buy a phone in FPT", "Shopping"));
@@ -158,6 +170,7 @@ public class transactionSceneController implements Initializable {
         categoryColumn.setCellValueFactory(new PropertyValueFactory<Transaction,String>("categoryName"));
         //typeColumn not set because there is no property in transaction
         //TODO: should add the account column here but no property now to use
+        accountColumn.setCellValueFactory(new PropertyValueFactory<Transaction,String >(""));
         valueColumn.setCellValueFactory(new PropertyValueFactory<Transaction,Double>("transValue"));
 
         // fill color to differentiate income and expense value
@@ -235,6 +248,12 @@ public class transactionSceneController implements Initializable {
             alertConfirm.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
             alertConfirm.showAndWait();
             if (alertConfirm.getResult() == ButtonType.YES) {
+                try{
+                    ProcessTransactionScene.deleteTransaction(select);
+                }
+                catch (ProcessExeption pe){
+                    pe.getErrorCodeMessage();
+                }
                 transactionList.remove(select); // delete call
             }
         } else {

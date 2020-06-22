@@ -8,16 +8,22 @@ import javafx.scene.Scene;
 public class editPlanBox {
 //    private double xOffset = 0;
 //    private double yOffset = 0;
-    private Scene scene;
+private Scene scene;
     private editPlanController controller;
     public editPlanBox() throws Exception {
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/frmAddPlan.fxml"));
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getClassLoader().getResource("fxml/fxml/frmEditPlan.fxml"));
 
+        Parent root = loader.load();
         scene = new Scene(root);
-        controller = new editPlanController();
+        controller = loader.getController();
     }
 
     public Scene getScene() {
         return scene;
+    }
+
+    public editPlanController getController() {
+        return controller;
     }
 }

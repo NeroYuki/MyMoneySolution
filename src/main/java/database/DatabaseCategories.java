@@ -2,11 +2,12 @@ package database;
 
 import exception.DatabaseException;
 import helper.UUIDHelper;
-import model.Budget;
 import model.Category;
 import model.Transaction;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class DatabaseCategories {
@@ -51,7 +52,7 @@ public class DatabaseCategories {
                         categoryResult.getString("description"),
                         categoryResult.getString("iconPath"),
                         categoryResult.getInt("transType"),
-                        categoryResult.getBoolean("isUsed")
+                        categoryResult.getBoolean("isAvailable")
                 );
                 result.add(categoryEntry);
             }
@@ -79,7 +80,7 @@ public class DatabaseCategories {
                         categoryResult.getString("description"),
                         categoryResult.getString("iconPath"),
                         categoryResult.getInt("transType"),
-                        categoryResult.getBoolean("isUsed")
+                        categoryResult.getBoolean("isAvailable")
                 );
                 result.add(categoryEntry);
             }
@@ -107,7 +108,7 @@ public class DatabaseCategories {
                         categoryResult.getString("description"),
                         categoryResult.getString("iconPath"),
                         categoryResult.getInt("transType"),
-                        categoryResult.getBoolean("isUsed")
+                        categoryResult.getBoolean("isAvailable")
                 );
                 return result;
             }

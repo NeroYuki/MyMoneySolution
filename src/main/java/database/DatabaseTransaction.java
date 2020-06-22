@@ -30,7 +30,7 @@ public class DatabaseTransaction {
                     Income incomeEntry = new Income(
                             queryResult.getString("transId"),
                             queryResult.getDate("occurDate").toLocalDate(),
-                            queryResult.getFloat("value"),
+                            queryResult.getDouble("value"),
                             queryResult.getString("description"),
                             DatabaseCategories.getCategoryById(queryResult.getString("transCategoryId"))
                     );
@@ -40,7 +40,7 @@ public class DatabaseTransaction {
                     Expense expenseEntry = new Expense(
                             queryResult.getString("transId"),
                             queryResult.getDate("occurDate").toLocalDate(),
-                            queryResult.getFloat("value"),
+                            queryResult.getDouble("value"),
                             queryResult.getString("description"),
                             DatabaseCategories.getCategoryById(queryResult.getString("transCategoryId"))
                     );
@@ -53,6 +53,7 @@ public class DatabaseTransaction {
         }
         catch (Exception e) {
             //if this happen then oh god oh fuck
+            System.out.println(e.getMessage());
             throw new DatabaseException(0);
         }
         return result;
@@ -166,7 +167,7 @@ public class DatabaseTransaction {
     public static boolean addIncome(Income trans) throws DatabaseException {
         try {
             Connection conn = DatabaseManager.getConnection();
-            PreparedStatement createCall = conn.prepareCall("INSERT INTO transHistory VALUES (?, ?, ?, ?, 1, ?, ?)");
+            PreparedStatement createCall = conn.prepareCall("INSERT INTO transHistory VALUES (?, ?, ?, ?, 1, ?, ?, 1)");
             if (trans.getId().equals("")) trans.setId(UUIDHelper.newUUIDString());
             else throw new DatabaseException(8);
 
@@ -186,6 +187,7 @@ public class DatabaseTransaction {
             throw de;
         }
         catch (Exception e) {
+            System.out.println(e.getMessage());
             throw new DatabaseException(0);
         }
         return true;
@@ -194,7 +196,7 @@ public class DatabaseTransaction {
     public static boolean addExpense(Expense trans) throws DatabaseException {
         try {
             Connection conn = DatabaseManager.getConnection();
-            PreparedStatement createCall = conn.prepareCall("INSERT INTO transHistory VALUES (?, ?, ?, ?, 2, ?, ?)");
+            PreparedStatement createCall = conn.prepareCall("INSERT INTO transHistory VALUES (?, ?, ?, ?, 2, ?, ?, 1)");
             if (trans.getId().equals("")) trans.setId(UUIDHelper.newUUIDString());
             else throw new DatabaseException(8);
 
