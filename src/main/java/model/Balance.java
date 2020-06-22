@@ -45,7 +45,7 @@ public class Balance {
         this.description = description;
     }
 
-    void setValue(double val) {
+    public void setValue(double val) {
         this.value = val;
     }
 }

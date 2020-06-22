@@ -17,6 +17,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.Transaction;
+import process.ProcessCategories;
 
 import java.io.File;
 import java.net.URL;
@@ -99,6 +100,13 @@ public class addCategoriesBoxController implements Initializable {
 
     public void saveBtnClick(ActionEvent actionEvent) throws ProcessExeption {
         //TODO: save add categories to database and show list view
+        try {
+            ProcessCategories.saveCategories(nameText.getText(),iconImage.getImage().getUrl(),infoTextArea.getText(),typeCombo.getSelectionModel().getSelectedItem().toString());
+        }
+        catch (ProcessExeption pe)
+        {
+            System.out.println(pe.getErrorCodeMessage());
+        }
     }
 
     public void typeComboSet() {

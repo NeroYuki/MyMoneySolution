@@ -9,11 +9,9 @@ import javax.swing.table.TableRowSorter;
 import java.util.ArrayList;
 
 public class ProcessCategories {
-    public static boolean saveCategories(String id,String Name, String FileName, String Info, String Type,boolean isUsed) throws ProcessExeption {
+    public static boolean saveCategories(String Name, String FileName, String Info, String Type) throws ProcessExeption {
         int Typeint = 0;
-        if(id==null){
-            throw new ProcessExeption(8);
-        }
+
         if (Name.length() >= 255) {
             throw new ProcessExeption(1);
         }
@@ -31,7 +29,7 @@ public class ProcessCategories {
             throw new ProcessExeption(2);
         }
         try {
-            Category category = new Category(id ,Name, FileName, Info, Typeint,isUsed);
+            Category category = new Category(Name, Info,FileName , Typeint);
             DatabaseCategories.addCategories(category);
         }
         catch (DatabaseException De) {
@@ -43,8 +41,11 @@ public class ProcessCategories {
         return true;
     }
 
-    public static boolean updateCategories(String Name,String FileName,String Info,String Type) throws ProcessExeption{
+    public static boolean updateCategories(String id,String Name, String FileName, String Info, String Type,boolean isUsed) throws ProcessExeption{
         int Typeint=0;
+        if(id==null){
+            throw new ProcessExeption(8);
+        }
         if(Name.length()>=255) {
             throw new ProcessExeption(1);
         }
@@ -65,7 +66,6 @@ public class ProcessCategories {
             throw new ProcessExeption(2);
         }
         try {
-
             Category category = new Category(Name, FileName, Info, Typeint);
             DatabaseCategories.updateCategory(category);
         }
@@ -85,6 +85,15 @@ public class ProcessCategories {
         }
         catch (DatabaseException De){
                 System.out.println(De.getErrorCodeMessage());
+        }
+    }
+    public static void softDeleteCategory(Category category)throws ProcessExeption{
+        if(category==null) throw new ProcessExeption(9);
+        try {
+            DatabaseCategories.softRemoveCategory(category);
+        }
+        catch (DatabaseException de){
+            System.out.println(de.getErrorCodeMessage());
         }
     }
     public static String[] getIncomeCategoriesName() throws DatabaseException{
@@ -153,7 +162,7 @@ public class ProcessCategories {
         ArrayList<Balance> result=new ArrayList<>(),temp;
         double value=0;
         try{
-            temp = DatabaseBalance.getBalances(DatabaseBudget.getBudget(singletonUser.getInstance().user).getId());
+            temp = DatabaseBalance.getBalances(DatabaseBudget.getBudget(singletonUser.getInstance().getUser()).getId());
             for(int i=0;i<temp.size();i++){
                 value=value +temp.get(i).getValue();
             }
@@ -169,7 +178,7 @@ public class ProcessCategories {
     public static ArrayList<Balance> getBalances() throws ProcessExeption{
         ArrayList<Balance> re   = new ArrayList<>();
         try{
-            re=DatabaseBalance.getBalances((DatabaseBudget.getBudget(singletonUser.getInstance().user).getId()));
+            re=DatabaseBalance.getBalances((DatabaseBudget.getBudget(singletonUser.getInstance().getUser()).getId()));
         }
         catch (DatabaseException de){
             System.out.println(de.getErrorCodeMessage());

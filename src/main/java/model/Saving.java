@@ -103,15 +103,15 @@ public class Saving {
     }
 
     Expense depositMoney(Balance bal, double amount, LocalDate date, String desc, Category category) {
-        Expense result = new Expense(date, amount, desc, category);
-        result.applyToBalance(bal);
+        Expense result = new Expense(date, amount, desc, category,bal);
+        result.applyToBalance();
         this.currentValue += amount;
         return result;
     }
 
     Income withdrawMoney(Balance bal, double amount, LocalDate date, String desc, Category category) {
-        Income result = new Income(date, amount, desc, category);
-        result.applyToBalance(bal);
+        Income result = new Income(date, amount, desc, category,bal);
+        result.applyToBalance();
         this.currentValue -= amount;
         return result;
     }

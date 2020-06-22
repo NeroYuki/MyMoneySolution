@@ -47,7 +47,7 @@ public abstract class Transaction {
     }
 
     //apply transaction value to specified balance (+ if income, - if expense)
-    public abstract void applyToBalance(Balance bal);
+    public abstract void applyToBalance();
     //return "Expense" if it is an expense object, and return "Income" if it is an income object
     public abstract String getType();
 

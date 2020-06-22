@@ -12,17 +12,21 @@ import java.util.ArrayList;
 public class ProcessTransactionScene {
     public static ArrayList<Transaction> getTransactionsInfo() throws ProcessExeption{
         try {
-            singletonUser usedModel = singletonUser.getInstance();
-            Budget budget = usedModel.user.getBudget();
+            Budget budget = singletonBudget.getInstance().getBudget();
             ArrayList<Balance> balances=DatabaseBalance.getBalances(budget.getId());
             ArrayList<Transaction> transaction = new ArrayList<>();
             for(int i=0;i<balances.size();i++)
             {
-                transaction.addAll(DatabaseTransaction.getTransaction(balances.get(i).getId()));
+                ArrayList<Transaction> transactions2=DatabaseTransaction.getTransaction(balances.get(i).getId());
+                for (Transaction j:transactions2) {
+                    j.setApplyingBalance(balances.get(i));
+                }
+                transaction.addAll(transactions2);
             }
             return transaction;
         }
         catch(DatabaseException de){
+            System.out.println(de.getErrorCodeMessage());
             throw new ProcessExeption(0);
         }
     }
@@ -34,11 +38,14 @@ public class ProcessTransactionScene {
         if(balance ==null) throw new ProcessExeption();
 
         Income income=new Income(date,value,desc,category,balance);
+        income.applyToBalance();
         try{
+            DatabaseBalance.updateBalance(income.getApplyingBalance());
             DatabaseTransaction.addIncome(income);
         }
         catch (DatabaseException de)
         {
+            System.out.println(de.getErrorCodeMessage());
             throw new ProcessExeption(0);
         }
     }
@@ -92,13 +99,38 @@ public class ProcessTransactionScene {
         }
     }
     public static void deleteTransaction(Transaction transaction)throws ProcessExeption{
-        if(transaction==null) throw new ProcessExeption();
+        if(transaction==null) throw new ProcessExeption(9);
         try{
+            revertTransaction(transaction);
             DatabaseTransaction.removeTransaction(transaction);
         }
         catch (DatabaseException de)
         {
             throw new ProcessExeption(0);
+        }
+        catch (ProcessExeption pe)
+        {
+            throw pe;
+        }
+    }
+
+
+
+    public static void revertTransaction(Transaction transaction)throws  ProcessExeption{
+        if (transaction == null) throw new ProcessExeption(9);
+        Balance balance=transaction.getApplyingBalance();
+        if(transaction.getType()=="Income") {
+            balance.setValue(balance.getValue() - transaction.getTransValue());
+        }
+        if(transaction.getType()=="Expense") {
+            balance.setValue(balance.getValue() + transaction.getTransValue());
+        }
+        try {
+            DatabaseBalance.updateBalance(balance);
+        }
+        catch (DatabaseException de)
+        {
+            System.out.println(de.getErrorCodeMessage());
         }
     }
 
@@ -110,9 +142,4 @@ public class ProcessTransactionScene {
 
 
 
-
-
-//    public static ArrayList<Transaction> getTransactionInfoByMonth() throws ProcessExeption{
-//
-//    }
 }

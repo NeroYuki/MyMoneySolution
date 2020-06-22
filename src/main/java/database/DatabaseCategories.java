@@ -51,7 +51,7 @@ public class DatabaseCategories {
                         categoryResult.getString("description"),
                         categoryResult.getString("iconPath"),
                         categoryResult.getInt("transType"),
-                        categoryResult.getBoolean("isUsed")
+                        categoryResult.getBoolean("isAvailable")
                 );
                 result.add(categoryEntry);
             }
@@ -79,7 +79,7 @@ public class DatabaseCategories {
                         categoryResult.getString("description"),
                         categoryResult.getString("iconPath"),
                         categoryResult.getInt("transType"),
-                        categoryResult.getBoolean("isUsed")
+                        categoryResult.getBoolean("isAvailable")
                 );
                 result.add(categoryEntry);
             }
@@ -107,7 +107,7 @@ public class DatabaseCategories {
                         categoryResult.getString("description"),
                         categoryResult.getString("iconPath"),
                         categoryResult.getInt("transType"),
-                        categoryResult.getBoolean("isUsed")
+                        categoryResult.getBoolean("isAvailable")
                 );
                 return result;
             }

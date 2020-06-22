@@ -1,5 +1,7 @@
 package controller;
 
+import exception.DatabaseException;
+import exception.ProcessExeption;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,6 +24,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.Category;
+import process.ProcessCategories;
 import scenes.*;
 
 import java.io.File;
@@ -216,9 +219,12 @@ public class categoriesSceneController implements Initializable {
             System.out.println(categories[i].getIconPath());
         }
 
+
+
         ObservableList<Category> items = FXCollections.observableArrayList(categories);
 //        ObservableList<String> items = FXCollections.observableArrayList(fileName);
         incomeListView.setItems(items);
+//        ArrayList<Category> finalCategories = categories;
         incomeListView.setCellFactory(param -> new ListCell<Category>() {
             //test
             HBox rowBox = new HBox();
@@ -257,6 +263,11 @@ public class categoriesSceneController implements Initializable {
                             System.out.println("item: " + itemRemove);
                             //TODO: delete categories in database there
                             getListView().getItems().remove(getItem());
+//                            try {
+//                                ProcessCategories.deleleCategory(finalCategories.get(getIndex()));
+//                            } catch (ProcessExeption processExeption) {
+//                                processExeption.printStackTrace();
+//                            }
                         }
                     } catch(Exception e){
                         e.printStackTrace();
@@ -292,29 +303,29 @@ public class categoriesSceneController implements Initializable {
             }
 
 
-            @Override
-            public void updateItem(Category category, boolean empty) {
-                super.updateItem(category, empty);
-                if (empty) {
-                    setText(null);
-                    setGraphic(null);
-                } else {
-                    for (int i = 0; i < categories.length; i++) {
-                        if (category.getName().equals(fileName[i].replace(".png",""))) {
-                            File file = new File(category.getIconPath());
-                            Image image = new Image(file.toURI().toString(),50,50,false,true);
-                            imageView.setImage(image);
-                            imageView.setFitWidth(50);
-                            imageView.setFitHeight(50);
-                        }
-                    }
-
-                    //TODO: get right name from database
-                    nameLabel.setText(category.getName().toUpperCase().replace(".PNG", "")); // set name display of item
-                    setGraphic(rowBox);
-                    //setGraphic(imageView);
-                }
-            }
+//            @Override
+//            public void updateItem(Category category, boolean empty) {
+//                super.updateItem(category, empty);
+//                if (empty) {
+//                    setText(null);
+//                    setGraphic(null);
+//                } else {
+//                    for (int i = 0; i < categories.length; i++) {
+//                        if (category.getName().equals(fileName[i].replace(".png",""))) {
+//                            File file = new File(category.getIconPath());
+//                            Image image = new Image(file.toURI().toString(),50,50,false,true);
+//                            imageView.setImage(image);
+//                            imageView.setFitWidth(50);
+//                            imageView.setFitHeight(50);
+//                        }
+//                    }
+//
+//                    //TODO: get right name from database
+//                    nameLabel.setText(category.getName().toUpperCase().replace(".PNG", "")); // set name display of item
+//                    setGraphic(rowBox);
+//                    //setGraphic(imageView);
+//                }
+//            }
         });
         listIncomeCategoryBox.getChildren().add(incomeListView);
     }

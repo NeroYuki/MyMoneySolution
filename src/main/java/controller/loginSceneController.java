@@ -1,6 +1,8 @@
 package controller;
 
 import database.DatabaseUser;
+import exception.DatabaseException;
+import exception.ProcessExeption;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
@@ -10,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import model.User;
+import process.ProcessUser;
 import scenes.homepageScene;
 
 import java.time.LocalDate;
@@ -33,6 +36,14 @@ public class loginSceneController {
         double y = bounds.getMinY() + (bounds.getHeight() - homepage_scene.getHeight()) * 0.1;
         stage.setX(x);
         stage.setY(y);
+
+        try{
+            ProcessUser.login(txtUsername.getText(),txtPassword.getText());
+        }
+        catch (ProcessExeption de)
+        {
+            System.out.println(de.getErrorCodeMessage());
+        }
 
         stage.setScene(homepage_scene.getScene());
     }

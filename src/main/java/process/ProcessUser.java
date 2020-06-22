@@ -1,5 +1,6 @@
 package process;
 
+import database.DatabaseBudget;
 import exception.DatabaseException;
 import exception.ProcessExeption;
 import database.DatabaseUser;
@@ -40,7 +41,10 @@ public class ProcessUser {
         if(username==null) throw new ProcessExeption(6);
         if(password==null) throw new ProcessExeption(6);
         try {
-            singletonUser.getInstance().user =DatabaseUser.getUserInfo(username,password);
+            User user=DatabaseUser.getUserInfo(username,password);
+            Budget budget= DatabaseBudget.getBudget(user);
+            singletonUser.getInstance().setUser(user);
+            singletonBudget.getInstance().setBudget(budget);
         }
         catch (DatabaseException de)
         {

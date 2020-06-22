@@ -114,14 +114,14 @@ public class Loan {
     }
 
     Income addToBalance(Balance bal, LocalDate date, String desc, Category category) {
-        Income result = new Income(date, baseValue, desc , category);
-        result.applyToBalance(bal);
+        Income result = new Income(date, baseValue, desc , category,bal);
+        result.applyToBalance();
         return result;
     }
 
     Expense loanPayment(Balance bal, double amount, LocalDate date, String desc, Category category) {
-        Expense result = new Expense(date, amount, desc, category);
-        result.applyToBalance(bal);
+        Expense result = new Expense(date, amount, desc, category,bal);
+        result.applyToBalance();
         this.currentValue -= amount;
         return result;
     }

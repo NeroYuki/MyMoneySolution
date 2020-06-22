@@ -12,7 +12,8 @@ public class ErrorCode2 {
             "Gia tri nhap khong hop le",                    //5
             "Loi khi dang nhap" ,                           //6
             "Loi khi xu li ham tu data",                    //7
-            "input value = null"                            //8
+            "input value = null"           ,                 //8
+            "invalid transaction"//9
     };
 
     public ErrorCode2(int code) {

@@ -50,10 +50,9 @@ public class Expense extends Transaction {
 
 
 
-    public void applyToBalance(Balance bal) {
-        double newValue = bal.getValue() - this.transValue;
-        this.applyingBalance = bal;
-        bal.setValue(newValue);
+    public void applyToBalance() {
+        this.applyingBalance.setValue(this.applyingBalance.getValue()-this.transValue);
+
     }
 
     public String getType() {
