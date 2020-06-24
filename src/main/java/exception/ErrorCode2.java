@@ -13,7 +13,16 @@ public class ErrorCode2 {
             "Loi khi dang nhap" ,                           //6
             "Loi khi xu li ham tu data",                    //7
             "input value = null"           ,                 //8
-            "invalid transaction"//9
+            "invalid transaction",//9
+            "invalid days input",//10
+            "invalid Value input",//11
+            "invalid Category  input",//12
+            "invalid Balance input",//13
+            "invalid days input",//10
+            "invalid days input",//10
+
+
+
     };
 
     public ErrorCode2(int code) {

@@ -31,11 +31,11 @@ public class ProcessTransactionScene {
         }
     }
     public static void addIncome(LocalDate date, double value, String desc, Category category,Balance balance) throws ProcessExeption{
-        if(date == null) throw new ProcessExeption();
-        if(value <0) throw new ProcessExeption();
+        if(date == null) throw new ProcessExeption(10);
+        if(value <0) throw new ProcessExeption(11);
         if(desc ==null) desc="";
-        if (category == null) throw new ProcessExeption();
-        if(balance ==null) throw new ProcessExeption();
+        if (category == null) throw new ProcessExeption(12);
+        if(balance ==null) throw new ProcessExeption(13);
 
         Income income=new Income(date,value,desc,category,balance);
         income.applyToBalance();
@@ -51,12 +51,14 @@ public class ProcessTransactionScene {
     }
     public static void updateIncome(String id, LocalDate date, double value, String desc, Category category,Balance balance) throws ProcessExeption{
         if(id == null) throw new ProcessExeption();
-        if(date == null) throw new ProcessExeption();
-        if(value <0) throw new ProcessExeption();
+        if(date == null) throw new ProcessExeption(10);
+        if(value <0) throw new ProcessExeption(11);
         if(desc ==null) desc="";
-        if (category == null) throw new ProcessExeption();
-        if(balance ==null) throw new ProcessExeption();
+        if (category == null) throw new ProcessExeption(12);
+        if(balance ==null) throw new ProcessExeption(13);
+
         Income income=new Income(id,date,value,desc,category,balance);
+        income.applyToBalance();
         try{
             DatabaseTransaction.updateTransaction(income);
         }
@@ -67,15 +69,16 @@ public class ProcessTransactionScene {
     }
 
     public static void addExpense(LocalDate date, double value, String desc, Category category,Balance balance) throws ProcessExeption{
-        if(date == null) throw new ProcessExeption();
-        if(value <0) throw new ProcessExeption();
+        if(date == null) throw new ProcessExeption(10);
+        if(value <0) throw new ProcessExeption(11);
         if(desc ==null) desc="";
-        if (category == null) throw new ProcessExeption();
-        if(balance ==null) throw new ProcessExeption();
+        if (category == null) throw new ProcessExeption(12);
+        if(balance ==null) throw new ProcessExeption(13);
 
-        Income income=new Income(date,value,desc,category,balance);
+        Expense expense=new Expense(date,value,desc,category,balance);
+        expense.applyToBalance();
         try{
-            DatabaseTransaction.addIncome(income);
+            DatabaseTransaction.addExpense(expense);
         }
         catch (DatabaseException de)
         {
@@ -84,14 +87,16 @@ public class ProcessTransactionScene {
     }
     public static void updateExpense(String id, LocalDate date, double value, String desc, Category category,Balance balance) throws ProcessExeption{
         if(id == null) throw new ProcessExeption();
-        if(date == null) throw new ProcessExeption();
-        if(value <0) throw new ProcessExeption();
+        if(date == null) throw new ProcessExeption(10);
+        if(value <0) throw new ProcessExeption(11);
         if(desc ==null) desc="";
-        if (category == null) throw new ProcessExeption();
-        if(balance ==null) throw new ProcessExeption();
-        Income income=new Income(id,date,value,desc,category,balance);
+        if (category == null) throw new ProcessExeption(12);
+        if(balance ==null) throw new ProcessExeption(13);
+
+        Expense expense=new Expense(date,value,desc,category,balance);
+        expense.applyToBalance();
         try{
-            DatabaseTransaction.updateTransaction(income);
+            DatabaseTransaction.updateTransaction(expense);
         }
         catch (DatabaseException de)
         {

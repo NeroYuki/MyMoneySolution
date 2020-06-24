@@ -1,5 +1,9 @@
 package controller;
 
+import exception.DatabaseException;
+import exception.ProcessExeption;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -7,18 +11,21 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import model.Expense;
-import model.Income;
-import model.Transaction;
+import javafx.util.StringConverter;
+import model.*;
+import process.ProcessBalance;
+import process.ProcessCategories;
+import process.ProcessTransactionScene;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class editTransactionBoxController implements Initializable {
     @FXML
     public DatePicker datepicker;
-    public ComboBox accountCombo;
-    public ComboBox categoryCombo;
+    public ComboBox<Balance> accountCombo;
+    public ComboBox<Category> categoryCombo;
     public TextField valueText;
     public ComboBox unitCombo;
     public TextArea descriptionTextArea;
@@ -61,20 +68,23 @@ public class editTransactionBoxController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
     }
 
     public void setTransaction(Transaction transaction){
         this.transaction = transaction;
+        setCategoryCombo();
+        setAccountCombo();
         // set date
         datepicker.setValue(transaction.getTransDate());
         // set account, maybe not vital
         accountCombo.setValue(transaction.getApplyingBalance());
         // set category
         if(transaction.getClass().getName().equals("model.Income")) {
-            categoryCombo.setValue(((Income)transaction).getCategoryName());
+            categoryCombo.setValue(((Income)transaction).getCategory());
         }
         else if(transaction.getClass().getName().equals("model.Expense")) {
-            categoryCombo.setValue(((Expense)transaction).getCategoryName());
+            categoryCombo.setValue(((Expense)transaction).getCategory());
         }
         // set type
         if(transaction.getClass().getName().equals("model.Income")){
@@ -89,10 +99,77 @@ public class editTransactionBoxController implements Initializable {
     }
 
     public void saveBtnClick(ActionEvent actionEvent) {
+        try{
+            ProcessTransactionScene.revertTransaction(transaction);
+            if(transaction.getClass().getName().equals("model.Income")) {
+                ProcessTransactionScene.updateIncome(transaction.getId(),datepicker.getValue(), Double.parseDouble(valueText.getText()), descriptionTextArea.getText(), categoryCombo.getSelectionModel().getSelectedItem(), accountCombo.getSelectionModel().getSelectedItem());
+            }
+            if(transaction.getClass().getName().equals("model.Expense")){
+                ProcessTransactionScene.updateExpense(transaction.getId(),datepicker.getValue(), Double.parseDouble(valueText.getText()), descriptionTextArea.getText(), categoryCombo.getSelectionModel().getSelectedItem(), accountCombo.getSelectionModel().getSelectedItem());
+            }
+        }
+        catch (ProcessExeption pe)
+        {
+            System.out.println(pe.getErrorCodeMessage());
+        }
     }
 
     public void resetBtnClick(ActionEvent actionEvent) {
         this.setTransaction(transaction);
     }
 
+
+    public void setCategoryCombo(){
+        ArrayList<Category> categories =new ArrayList<>();
+        try{
+            if(transaction.getClass().getName().equals("model.Income")) {
+                categories = ProcessCategories.getIncomeCategories();
+            }
+            if(transaction.getClass().getName().equals("model.Expense")){
+                categories=ProcessCategories.getExpenseCategories();
+            }
+        }
+        catch (DatabaseException de)
+        {
+            System.out.println(de.getErrorCodeMessage());
+        }
+        ObservableList<Category> categorieslist = FXCollections.observableArrayList(categories);
+        categoryCombo.setItems(categorieslist);
+        categoryCombo.setConverter(new StringConverter<Category>() {
+            @Override
+            public String toString(Category o) {
+                if(o==null) return "";
+                return o.getName();
+            }
+
+            @Override
+            public Category fromString(String s) {
+                return null;
+            }
+        });
+    }
+    public void setAccountCombo(){
+        ArrayList<Balance>balances=new ArrayList<>();
+        try {
+            balances = ProcessBalance.getBalances();
+        }
+        catch (ProcessExeption pe)
+        {
+            System.out.println(pe.getErrorCodeMessage());
+        }
+        ObservableList<Balance> Balancelist = FXCollections.observableArrayList(balances);
+        accountCombo.setItems(Balancelist);
+        accountCombo.setConverter(new StringConverter<Balance>() {
+            @Override
+            public String toString(Balance o) {
+                if(o==null) return "";
+                return o.getName();
+            }
+
+            @Override
+            public Balance fromString(String s) {
+                return null;
+            }
+        });
+    }
 }
