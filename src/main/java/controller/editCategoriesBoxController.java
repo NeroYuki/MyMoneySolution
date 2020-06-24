@@ -1,5 +1,8 @@
 package controller;
 
+import exception.ProcessExeption;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,6 +17,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.Category;
 import model.Transaction;
+import process.ProcessCategories;
 
 import java.io.File;
 import java.net.URL;
@@ -101,8 +105,7 @@ public class editCategoriesBoxController implements Initializable {
         // set name
         nameText.setText(category.getName());
         // set icon
-        File file = new File(category.getIconPath());
-        Image image = new Image(file.toURI().toString(),50,50,false,true);
+        Image image = new Image(category.getIconPath(),50,50,false,true);
         iconImage.setImage(image);
         // set info
         infoTextArea.setText(category.getDescription());
@@ -117,13 +120,15 @@ public class editCategoriesBoxController implements Initializable {
 
     public void saveBtnClick(ActionEvent actionEvent) {
         //TODO: save add categories to database and show list view
+        try {
+            ProcessCategories.updateCategories(category.getId(),nameText.getText(),iconImage.getImage().getUrl(),infoTextArea.getText(),category.getType(),category.getUsed());
+            System.out.println(iconImage.getImage().getUrl());
+        }
+        catch (ProcessExeption pe)
+        {
+            System.out.println(pe.getErrorCodeMessage());
+        }
     }
 
-//    public void typeComboSet() {
-//        // type list
-//        ObservableList<String> typeCategories = FXCollections.observableArrayList("Income", "Expense");
-//
-//        // set data of combo type
-//        typeCombo.setItems(typeCategories);
-//    }
+
 }

@@ -348,20 +348,27 @@ public class categoriesSceneController implements Initializable {
 
         // init array of original categories expense
         ArrayList<Category> categories = new ArrayList<Category>();
-        for(int i=0;i<files.length;i++){
-            File file = files[i];
-            //TODO: get right list from database
-            listOfImages[i] = new Image("/img/icon/expense/"+file.getName());
-            fileName[i] = file.getName();
-
-            // init category expenses
-            categories.add(new Category(fileName[i].replace(".png",""), "abc", folder.getAbsolutePath()+"\\"+file.getName(),2));
-            System.out.println(categories.get(i).getIconPath());
+        try{
+            categories =ProcessCategories.getExpenseCategories();
         }
+        catch (DatabaseException de){
+            de.getErrorCodeMessage();
+        }
+//        for(int i=0;i<files.length;i++){
+//            File file = files[i];
+//            //TODO: get right list from database
+//            listOfImages[i] = new Image("/img/icon/expense/"+file.getName());
+//            fileName[i] = file.getName();
+//
+//            // init category expenses
+//            categories.add(new Category(fileName[i].replace(".png",""), "abc", folder.getAbsolutePath()+"\\"+file.getName(),2));
+//            System.out.println(categories.get(i).getIconPath());
+//        }
 
         ObservableList<Category> items = FXCollections.observableArrayList(categories);
         expenseListView.setItems(items);
 
+        ArrayList<Category> finalCategories = categories;
         expenseListView.setCellFactory(param -> new ListCell<Category>() {
             //test
             HBox rowBox = new HBox();
@@ -400,6 +407,11 @@ public class categoriesSceneController implements Initializable {
                             System.out.println("item: " + itemRemove);
                             //TODO: delete categories in database there
                             getListView().getItems().remove(getItem());
+                            try {
+                                ProcessCategories.deleleCategory(finalCategories.get(getIndex()));
+                            } catch (ProcessExeption processExeption) {
+                                processExeption.printStackTrace();
+                            }
                         }
                     } catch(Exception e){
                         e.printStackTrace();
@@ -439,14 +451,12 @@ public class categoriesSceneController implements Initializable {
                     setText(null);
                     setGraphic(null);
                 } else {
-                    for (int i = 0; i < categories.size(); i++) {
-                        if (category.getName().equals(fileName[i].replace(".png",""))) {
-                            File file = new File(category.getIconPath());
-                            Image image = new Image(file.toURI().toString(),50,50,false,true);
+                    for (int i = 0; i < finalCategories.size(); i++) {
+   //                         File file = new File(category.getIconPath());
+                            Image image = new Image(category.getIconPath(),50,50,false,true);
                             imageView.setImage(image);
                             imageView.setFitWidth(50);
                             imageView.setFitHeight(50);
-                        }
                     }
 
                     //TODO: get right name from database

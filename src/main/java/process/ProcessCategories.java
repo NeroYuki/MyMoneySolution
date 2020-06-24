@@ -46,7 +46,7 @@ public class ProcessCategories {
         return true;
     }
 
-    public static boolean updateCategories(String id,String Name, String FileName, String Info, String Type,boolean isUsed) throws ProcessExeption{
+    public static boolean updateCategories(String id,String Name, String FileName, String Info, int Type,boolean isUsed) throws ProcessExeption{
         int Typeint=0;
         if(id==null){
             throw new ProcessExeption(8);
@@ -57,21 +57,11 @@ public class ProcessCategories {
         if(Info.length()>=1023){
             throw new ProcessExeption(3);
         }
-        if(Type=="Income"){
-            Typeint=1;
-        }
-        else if(Type=="Expense")
-        {
-            Typeint=2;
-        }
-        else{
-            throw new ProcessExeption(4);
-        }
         if(FileName ==null) {
             throw new ProcessExeption(2);
         }
         try {
-            Category category = new Category(Name, FileName, Info, Typeint);
+            Category category = new Category(id,Name, Info,FileName, Typeint,isUsed);
             DatabaseCategories.updateCategory(category);
         }
 
