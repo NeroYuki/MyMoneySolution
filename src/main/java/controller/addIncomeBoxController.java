@@ -18,7 +18,6 @@ import model.Transaction;
 import process.ProcessBalance;
 import process.ProcessCategories;
 import process.ProcessTransactionScene;
-import scenes.transactionScene;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -80,16 +79,15 @@ public class addIncomeBoxController implements Initializable {
         }
 
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow(); // get stage of program, primary stage
-        //stage.close();
-//        try {
-//            Stage stageAfter = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
-            transactionScene transaction_scene = new transactionScene();
-            stage.setScene(transaction_scene.getScene());
-//        }
-//        catch (Exception e)
-//        {
-//            System.out.println(e.getMessage());
-//        }
+        stage.close();
+        try {
+            transactionSceneController transactionScene_Controller = new transactionSceneController();
+            transactionScene_Controller.displayTableView();
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void resetBtnClick(ActionEvent actionEvent) {
