@@ -1,25 +1,38 @@
 package controller;
 
+import exception.ProcessExeption;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.ChoiceDialog;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.Balance;
+import process.ProcessBalance;
 import scenes.*;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class accountSceneController implements Initializable {
+    ListView<Balance> balanceListView = new ListView<>();
     @FXML
     private ImageView addTransBtn;
     @FXML
@@ -86,6 +99,172 @@ public class accountSceneController implements Initializable {
         Tooltip.install(addTransBtn, new Tooltip("Add new item"));
         Tooltip.install(planBtn, new Tooltip("Add financial goal"));
 
+        loadBalance();
+    }
+
+    @FXML
+    VBox listBalanceBox;
+
+    public void loadBalance(){
+        //TODO: get right list from database
+        //File folder = new File("src/main/resources/img/icon/income");
+
+        // init array of original categories income
+        ArrayList<Balance> balances = new ArrayList<Balance>();
+
+        try{
+            balances = ProcessBalance.getBalances();
+        }
+        catch (ProcessExeption pe){
+            pe.getMessage();
+        }
+
+        ObservableList<Balance> items = FXCollections.observableArrayList(balances);
+        balanceListView.setItems(items);
+//        ArrayList<Category> finalCategories = categories;
+        ArrayList<Balance> finalBalances = balances;
+        balanceListView.setCellFactory(param -> new ListCell<Balance>() {
+            //test
+            HBox rowBox = new HBox();
+            Label nameLabel = new Label("");
+            Label descriptionLabel = new Label("");
+            Label valueLabel = new Label("");
+            VBox infoBox = new VBox();
+            Label differenceLabel = new Label(""); // compare to yesterday
+            VBox compareBox = new VBox();
+            Label creationDateLabel = new Label("");
+            Pane pane = new Pane();
+            Button deleteBtn = new Button("Delete");
+            Button editBtn = new Button("Edit");
+
+            private ImageView imageView = new ImageView();
+
+            // initialize block in anonymous class implementation playing role constructor
+            {
+                // add elements of hbox
+                compareBox.getChildren().addAll(valueLabel, differenceLabel);
+                infoBox.getChildren().addAll(nameLabel, descriptionLabel);
+                rowBox.getChildren().addAll(imageView, infoBox, compareBox, creationDateLabel, pane, editBtn, deleteBtn);
+                HBox.setHgrow(pane, Priority.ALWAYS);
+
+                imageView.setTranslateX(10);
+
+                // style for title
+                infoBox.setPadding(new Insets(0,0,0,10));
+                infoBox.setPrefWidth(190);
+                Tooltip.install(infoBox, new Tooltip("Balance info"));
+
+                nameLabel.setTextAlignment(TextAlignment.CENTER);
+                nameLabel.setStyle("-fx-font-size: 24");
+                nameLabel.setPadding(new Insets(0, 0, 0, 15));
+
+                descriptionLabel.setTextAlignment(TextAlignment.CENTER);
+                descriptionLabel.setStyle("-fx-font-size: 16");
+                descriptionLabel.setPadding(new Insets(5, 0, 0, 15));
+
+                // style for value
+                compareBox.setPadding(new Insets(0,0,0,10));
+                compareBox.setPrefWidth(250);
+
+                valueLabel.setTextAlignment(TextAlignment.CENTER);
+                valueLabel.setStyle("-fx-font-size: 24");
+                valueLabel.setPadding(new Insets(0, 0, 0, 15));
+
+                differenceLabel.setTextAlignment(TextAlignment.CENTER);
+                differenceLabel.setStyle("-fx-font-size: 16");
+                differenceLabel.setPadding(new Insets(5, 0, 0, 15));
+
+                Tooltip.install(valueLabel, new Tooltip("Total amount"));
+                Tooltip.install(differenceLabel, new Tooltip("Difference compared to yesterday"));
+
+                creationDateLabel.setTextAlignment(TextAlignment.CENTER);
+                creationDateLabel.setStyle("-fx-font-size: 16");
+                creationDateLabel.setPadding(new Insets(10, 0, 0, 50));
+
+                // style button
+                deleteBtn.setStyle("-fx-font-size: 18;\n" +
+                        "-fx-padding: 15px;\n" + "-fx-background-insets: 15px;");
+                editBtn.setStyle("-fx-font-size: 18;\n" +
+                        "-fx-padding: 15px;\n" + "-fx-background-insets: 15px;");
+                // button delete categories place in every item
+//                deleteBtn.setOnAction(event -> {
+//                    try{
+//                        String itemRemove = getListView().getItems().get(getIndex()).getName().replace(".png", "");
+//                        //confirmation to delete
+//                        Alert alertConfirm = new Alert(Alert.AlertType.CONFIRMATION,
+//                                "Delete " + itemRemove + " ?", ButtonType.YES, ButtonType.NO);
+//                        alertConfirm.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+//                        alertConfirm.showAndWait();
+//                        if (alertConfirm.getResult() == ButtonType.YES) {
+//                            System.out.println("selectIdx: " + getIndex());
+//                            System.out.println("item: " + itemRemove);
+//                            //TODO: delete categories in database there
+//                            getListView().getItems().remove(getItem());
+//                            try {
+//                                ProcessCategories.deleleCategory(finalBalances.get(getIndex()));
+//                            } catch (ProcessExeption processExeption) {
+//                                processExeption.printStackTrace();
+//                            }
+//                        }
+//                    } catch(Exception e){
+//                        e.printStackTrace();
+//                    }
+
+//                });
+
+                // edit button
+//                editBtn.setOnAction(event -> {
+//                    try {
+//                        // get add income scene
+//                        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow(); // get stage of program, primary stage
+//
+//                        editCategoriesBox editCategories_box = new editCategoriesBox();
+//                        System.out.println("Edit categories click");
+//
+//                        // set value of dialog
+//                        Balance select = getListView().getItems().get(getIndex());
+//                        editCategories_box.getController().setCategory(select);
+//
+//                        // dialog show
+//                        Stage dialogAddStage = new Stage(StageStyle.TRANSPARENT);
+//                        dialogAddStage.setTitle("Edit categories");
+//                        dialogAddStage.initModality(Modality.WINDOW_MODAL);
+//                        dialogAddStage.initOwner(stage); // close this dialog to return to owner window
+//                        dialogAddStage.setScene(editCategories_box.getScene());
+//
+//                        dialogAddStage.showAndWait();
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                });
+//            }
+            }
+
+
+            @Override
+            public void updateItem(Balance balance, boolean empty) {
+                super.updateItem(balance, empty);
+                if (empty) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    Image image = new Image("/img/icon/income/credit-card.png",50,50,false,true);
+                    imageView.setImage(image);
+                    imageView.setFitWidth(50);
+                    imageView.setFitHeight(50);
+
+                    //TODO: get right name from database
+                    nameLabel.setText(balance.getName().toUpperCase()); // set name display of item
+                    descriptionLabel.setText(balance.getDescription().toUpperCase()); // set description of item
+                    valueLabel.setText(String.valueOf(balance.getValue())); // set value of item
+                    differenceLabel.setText(String.valueOf(balance.getValue())); // set value of item
+                    creationDateLabel.setText("Created on: \n" + LocalDate.now().toString());
+                    setGraphic(rowBox);
+                    //setGraphic(imageView);
+                }
+            }
+        });
+        listBalanceBox.getChildren().setAll(balanceListView);
     }
 
     public void addTransClick(MouseEvent e) throws Exception {

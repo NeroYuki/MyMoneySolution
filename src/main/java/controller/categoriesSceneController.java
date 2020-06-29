@@ -305,6 +305,8 @@ public class categoriesSceneController implements Initializable {
                         dialogAddStage.setScene(editCategories_box.getScene());
 
                         dialogAddStage.showAndWait();
+                        // refresh list
+                        incomeCategoriesLoad();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -440,6 +442,8 @@ public class categoriesSceneController implements Initializable {
                         dialogAddStage.setScene(editCategories_box.getScene());
 
                         dialogAddStage.showAndWait();
+                        // refresh list
+                        expenseCategoriesLoad();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
