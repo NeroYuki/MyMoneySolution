@@ -80,14 +80,6 @@ public class addIncomeBoxController implements Initializable {
 
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow(); // get stage of program, primary stage
         stage.close();
-        try {
-            transactionSceneController transactionScene_Controller = new transactionSceneController();
-            transactionScene_Controller.displayTableView();
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
     }
 
     public void resetBtnClick(ActionEvent actionEvent) {

@@ -341,6 +341,8 @@ public class transactionSceneController implements Initializable {
                 dialogAddStage.setScene(addIncome_box.getScene());
 
                 dialogAddStage.showAndWait();
+                // refresh if in the transaction page
+                displayTableView();
             }
             else if(result.get() == "Expenses"){ // expense select option
                 // get add income scene
