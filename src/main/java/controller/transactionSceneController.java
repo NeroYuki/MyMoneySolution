@@ -18,6 +18,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.Balance;
 import model.Transaction;
 import process.ProcessTransactionScene;
 import scenes.*;
@@ -41,7 +42,7 @@ public class transactionSceneController implements Initializable {
     public TableColumn<Transaction, String> idColumn;
     public TableColumn<Transaction, LocalDate> dateColumn;
     public TableColumn<Transaction, String> descriptionColumn;
-    public TableColumn<Transaction, String> accountColumn; // yet to be used because not in constructor of income or saving??
+    public TableColumn<Transaction, Balance> accountColumn; // yet to be used because not in constructor of income or saving??
     public TableColumn<Transaction, String> categoryColumn;
     public TableColumn<Transaction, Double> valueColumn;
 
@@ -170,7 +171,7 @@ public class transactionSceneController implements Initializable {
         categoryColumn.setCellValueFactory(new PropertyValueFactory<Transaction,String>("categoryName"));
         //typeColumn not set because there is no property in transaction
         //TODO: should add the account column here but no property now to use
-        accountColumn.setCellValueFactory(new PropertyValueFactory<Transaction,String >(""));
+        accountColumn.setCellValueFactory(new PropertyValueFactory<Transaction, Balance>("applyingBalance"));
         valueColumn.setCellValueFactory(new PropertyValueFactory<Transaction,Double>("transValue"));
 
         // fill color to differentiate income and expense value
@@ -293,6 +294,13 @@ public class transactionSceneController implements Initializable {
             dialogEditStage.setScene(editTransaction_box.getScene());
 
             dialogEditStage.showAndWait();
+            System.out.println("go back");
+            // refresh if in the transaction page
+            displayTableView();
+            // filter data when search table
+            filterData();
+            System.out.println(transactionTable.getItems().get(0).getTransDescription());
+
 
 
         } else {
@@ -305,6 +313,7 @@ public class transactionSceneController implements Initializable {
             alertWarning.setContentText("Please select a row in the table to edit");
             alertWarning.showAndWait();
         }
+
 
     }
 
@@ -343,6 +352,8 @@ public class transactionSceneController implements Initializable {
                 dialogAddStage.showAndWait();
                 // refresh if in the transaction page
                 displayTableView();
+                // filter data when search table
+                filterData();
             }
             else if(result.get() == "Expenses"){ // expense select option
                 // get add income scene
@@ -358,6 +369,10 @@ public class transactionSceneController implements Initializable {
                 dialogAddStage.setScene(addExpense_box.getScene());
 
                 dialogAddStage.showAndWait();
+                // refresh if in the transaction page
+                displayTableView();
+                // filter data when search table
+                filterData();
             }
         }
 

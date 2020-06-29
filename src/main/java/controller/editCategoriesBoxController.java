@@ -117,6 +117,10 @@ public class editCategoriesBoxController implements Initializable {
 
     public void saveBtnClick(ActionEvent actionEvent) {
         //TODO: save add categories to database and show list view
+
+
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow(); // get stage of program, primary stage
+        stage.close();
     }
 
 //    public void typeComboSet() {

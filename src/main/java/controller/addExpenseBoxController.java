@@ -74,11 +74,15 @@ public class addExpenseBoxController implements Initializable {
     }
 
     public void saveBtnClick(ActionEvent actionEvent) throws Exception {
+        System.out.println("save click");
         try {
             ProcessTransactionScene.addExpense(datepicker.getValue(), Double.parseDouble(valueText.getText()), descriptionTextArea.getText(), categoryCombo.getSelectionModel().getSelectedItem(), accountCombo.getSelectionModel().getSelectedItem());
         } catch (ProcessExeption pe) {
             System.out.println(pe.getErrorCodeMessage());
         }
+
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow(); // get stage of program, primary stage
+        stage.close();
     }
 
     public void resetBtnClick(ActionEvent actionEvent) {
