@@ -248,15 +248,21 @@ public class DatabaseTransaction {
                     "UPDATE transHistory " +
                             "SET description = ?, " +
                             "value = ?, " +
-                            "occurDate = ? " +
+                            "occurDate = ?, " +
+                            "transCategoryId = ?" +
                             "WHERE transId = ? "
             );
             if (trans.getId().equals("")) throw new DatabaseException(21);
             updateCall.setString(1, trans.getTransDescription());
             updateCall.setDouble(2, trans.getTransValue());
             updateCall.setDate(3, Date.valueOf(trans.getTransDate()));
-            updateCall.setString(4, trans.getId());
-
+            if(trans.getType().equals("Income")) {
+                updateCall.setString(4, ((Income)trans).getCategory().getId());
+            }
+            else if (trans.getType().equals("Expense")){
+                updateCall.setString(4, ((Expense)trans).getCategory().getId());
+            }
+            updateCall.setString(5, trans.getId());
             updateCall.execute();
             int result = updateCall.getUpdateCount();
             if (result == 0) throw new DatabaseException(21);
