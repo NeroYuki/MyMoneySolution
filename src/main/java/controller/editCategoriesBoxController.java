@@ -120,6 +120,7 @@ public class editCategoriesBoxController implements Initializable {
 
     public void saveBtnClick(ActionEvent actionEvent) {
         //TODO: save add categories to database and show list view
+
         try {
             ProcessCategories.updateCategories(category.getId(),nameText.getText(),iconImage.getImage().getUrl(),infoTextArea.getText(),category.getType(),category.getUsed());
             System.out.println(iconImage.getImage().getUrl());
@@ -128,6 +129,11 @@ public class editCategoriesBoxController implements Initializable {
         {
             System.out.println(pe.getErrorCodeMessage());
         }
+
+
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow(); // get stage of program, primary stage
+        stage.close();
+
     }
 
 

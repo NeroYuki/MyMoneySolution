@@ -24,7 +24,7 @@
                </padding></HBox>
             <Pane layoutY="378.0" prefHeight="102.0" prefWidth="600.0" style="-fx-background-color: #A0ACBD;">
                <children>
-                  <Button fx:id="saveBtn" layoutX="255.0" layoutY="33.0" mnemonicParsing="false" onAction="#saveBtnClick" prefHeight="37.0" prefWidth="91.0" text="SAVE" underline="true">
+                  <Button fx:id="saveBtn" defaultButton="true" layoutX="255.0" layoutY="33.0" mnemonicParsing="false" onAction="#saveBtnClick" prefHeight="37.0" prefWidth="91.0" text="SAVE" underline="true">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>

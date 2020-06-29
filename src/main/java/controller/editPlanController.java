@@ -65,6 +65,8 @@ public class editPlanController implements Initializable {
     }
 
     public void saveBtnClick(ActionEvent actionEvent) {
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow(); // get stage of program, primary stage
+        stage.close();
     }
 
     public void resetBtnClick(ActionEvent actionEvent) {

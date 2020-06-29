@@ -48,4 +48,10 @@ public class Balance {
     public void setValue(double val) {
         this.value = val;
     }
+
+    @Override
+    // to display account in table
+    public String toString(){
+        return name;
+    }
 }

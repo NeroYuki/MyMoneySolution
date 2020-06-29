@@ -112,6 +112,9 @@ public class editTransactionBoxController implements Initializable {
         {
             System.out.println(pe.getErrorCodeMessage());
         }
+
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow(); // get stage of program, primary stage
+        stage.close();
     }
 
     public void resetBtnClick(ActionEvent actionEvent) {
