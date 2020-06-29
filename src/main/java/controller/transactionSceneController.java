@@ -133,7 +133,7 @@ public class transactionSceneController implements Initializable {
             System.out.println(pe.getErrorCodeMessage());
         }
 
-        transactionList.addAll(transactions);
+        transactionList.setAll(transactions);
 //        transactionList.add(
 //                new Income(UUIDHelper.newUUIDString(),LocalDate.of(2004,1,5),50000, "School giving scholarship", "Bonus"));
 //        transactionList.add(new Expense(UUIDHelper.newUUIDString(), LocalDate.of(2004,4,15),-20000, "Buy a phone in FPT", "Shopping"));
