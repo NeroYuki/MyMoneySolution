@@ -14,11 +14,11 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="addCategoriesBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#drag" onMousePressed="#press" prefHeight="480.0" prefWidth="600.0" stylesheets="@../css/login.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.addCategoriesBoxController">
+<BorderPane fx:id="addCategoriesBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#drag" onMousePressed="#press" prefHeight="480.0" prefWidth="600.0" stylesheets="@../css/login.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.editBalanceBoxController">
    <left>
       <AnchorPane prefHeight="480.0" prefWidth="600.0" style="-fx-background-color: #404F81;" stylesheets="@../css/dialogStage.css" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER_LEFT" layoutX="211.0" layoutY="105.0" prefHeight="37.0" prefWidth="250.0" style="-fx-border-color: #bebfe1; -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-background-color: F1F1E6;">
+            <HBox alignment="CENTER_LEFT" layoutX="211.0" layoutY="119.0" prefHeight="37.0" prefWidth="250.0" style="-fx-border-color: #bebfe1; -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-background-color: F1F1E6;">
                <children>
                   <TextField fx:id="nameText" prefHeight="30.0" prefWidth="121.0" promptText="Enter name" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
                      <font>
@@ -46,50 +46,45 @@
                   <Font name="System Bold" size="24.0" />
                </font>
             </Button>
-            <Label alignment="CENTER_RIGHT" layoutX="140.0" layoutY="108.0" prefHeight="30.0" prefWidth="64.0" text="Name" textFill="WHITE">
+            <Label alignment="CENTER_RIGHT" layoutX="140.0" layoutY="122.0" prefHeight="30.0" prefWidth="64.0" text="Name" textFill="WHITE">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label alignment="CENTER_RIGHT" layoutX="154.0" layoutY="216.0" prefHeight="30.0" prefWidth="44.0" text="Info" textFill="WHITE">
+            <Label alignment="CENTER_RIGHT" layoutX="155.0" layoutY="183.0" prefHeight="30.0" prefWidth="44.0" text="Info" textFill="WHITE">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <TextArea fx:id="infoTextArea" layoutX="210.0" layoutY="221.0" prefHeight="64.0" prefWidth="250.0" promptText="Enter detail" style="-fx-border-color: #bebfe1; -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-background-color: #F1F1E6;">
+            <TextArea fx:id="infoTextArea" layoutX="211.0" layoutY="188.0" prefHeight="64.0" prefWidth="250.0" promptText="Enter detail" style="-fx-border-color: #bebfe1; -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-background-color: #F1F1E6;">
                <font>
                   <Font size="14.0" />
                </font>
             </TextArea>
-            <Label layoutX="192.0" layoutY="50.0" prefHeight="35.0" prefWidth="244.0" text="Add-Categories Form" textFill="WHITE">
+            <Label alignment="CENTER" layoutX="183.0" layoutY="50.0" prefHeight="35.0" prefWidth="244.0" text="Edit-Balance Form" textFill="WHITE">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <Label alignment="CENTER_RIGHT" layoutX="149.0" layoutY="163.0" prefHeight="30.0" prefWidth="55.0" text="Icon" textFill="WHITE">
+            <ImageView fx:id="iconImage" fitHeight="50.0" fitWidth="50.0" layoutX="347.0" layoutY="153.0" pickOnBounds="true" preserveRatio="true" />
+            <Label alignment="CENTER_RIGHT" layoutX="140.0" layoutY="284.0" prefHeight="30.0" prefWidth="64.0" text="Value" textFill="WHITE">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <Button fx:id="iconSelectBtn" layoutX="213.0" layoutY="163.0" mnemonicParsing="false" onAction="#iconSelectBtnClick" prefHeight="30.0" prefWidth="92.0" text="Click to select" underline="true">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <ImageView fx:id="iconImage" fitHeight="50.0" fitWidth="50.0" layoutX="347.0" layoutY="153.0" pickOnBounds="true" preserveRatio="true" />
-            <HBox alignment="CENTER_LEFT" layoutX="211.0" layoutY="304.0" prefHeight="37.0" prefWidth="250.0" style="-fx-border-color: #bebfe1; -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-background-color: F1F1E6;">
+            <HBox alignment="CENTER_LEFT" layoutX="211.0" layoutY="281.0" prefHeight="37.0" prefWidth="250.0" style="-fx-border-color: #bebfe1; -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-background-color: F1F1E6;">
+               <children>
+                  <TextField fx:id="valueText" prefHeight="30.0" prefWidth="121.0" promptText="Enter amount of money" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+                  <ComboBox fx:id="unitCombo" prefHeight="25.0" prefWidth="54.0" />
+               </children>
                <padding>
                   <Insets left="10.0" />
                </padding>
-               <children>
-                  <ComboBox fx:id="typeCombo" prefHeight="30.0" prefWidth="256.0" promptText="Pick type of categories" style="-fx-background-color: transparent; -fx-font-weight: bold;" />
-               </children>
             </HBox>
-            <Label alignment="CENTER_RIGHT" layoutX="140.0" layoutY="307.0" prefHeight="30.0" prefWidth="64.0" text="Type" textFill="WHITE">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
          </children>
       </AnchorPane>
    </left>

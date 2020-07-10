@@ -186,58 +186,55 @@ public class accountSceneController implements Initializable {
                         "-fx-padding: 15px;\n" + "-fx-background-insets: 15px;");
                 editBtn.setStyle("-fx-font-size: 18;\n" +
                         "-fx-padding: 15px;\n" + "-fx-background-insets: 15px;");
-                // button delete categories place in every item
-//                deleteBtn.setOnAction(event -> {
-//                    try{
-//                        String itemRemove = getListView().getItems().get(getIndex()).getName().replace(".png", "");
-//                        //confirmation to delete
-//                        Alert alertConfirm = new Alert(Alert.AlertType.CONFIRMATION,
-//                                "Delete " + itemRemove + " ?", ButtonType.YES, ButtonType.NO);
-//                        alertConfirm.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
-//                        alertConfirm.showAndWait();
-//                        if (alertConfirm.getResult() == ButtonType.YES) {
-//                            System.out.println("selectIdx: " + getIndex());
-//                            System.out.println("item: " + itemRemove);
-//                            //TODO: delete categories in database there
-//                            getListView().getItems().remove(getItem());
+                // button delete balance place in every item
+                deleteBtn.setOnAction(event -> {
+                    try{
+                        String itemRemove = getListView().getItems().get(getIndex()).getName().replace(".png", "");
+                        //confirmation to delete
+                        Alert alertConfirm = new Alert(Alert.AlertType.CONFIRMATION,
+                                "Delete " + itemRemove + " ?", ButtonType.YES, ButtonType.NO);
+                        alertConfirm.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+                        alertConfirm.showAndWait();
+                        if (alertConfirm.getResult() == ButtonType.YES) {
+                            System.out.println("selectIdx: " + getIndex());
+                            System.out.println("item: " + itemRemove);
+                            //TODO: delete balance in database there
+                            getListView().getItems().remove(getItem());
 //                            try {
 //                                ProcessCategories.deleleCategory(finalBalances.get(getIndex()));
 //                            } catch (ProcessExeption processExeption) {
 //                                processExeption.printStackTrace();
 //                            }
-//                        }
-//                    } catch(Exception e){
-//                        e.printStackTrace();
-//                    }
+                        }
+                    } catch(Exception e){
+                        e.printStackTrace();
+                    }
 
-//                });
+                });
 
                 // edit button
-//                editBtn.setOnAction(event -> {
-//                    try {
-//                        // get add income scene
-//                        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow(); // get stage of program, primary stage
-//
-//                        editCategoriesBox editCategories_box = new editCategoriesBox();
-//                        System.out.println("Edit categories click");
-//
-//                        // set value of dialog
-//                        Balance select = getListView().getItems().get(getIndex());
-//                        editCategories_box.getController().setCategory(select);
-//
-//                        // dialog show
-//                        Stage dialogAddStage = new Stage(StageStyle.TRANSPARENT);
-//                        dialogAddStage.setTitle("Edit categories");
-//                        dialogAddStage.initModality(Modality.WINDOW_MODAL);
-//                        dialogAddStage.initOwner(stage); // close this dialog to return to owner window
-//                        dialogAddStage.setScene(editCategories_box.getScene());
-//
-//                        dialogAddStage.showAndWait();
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                });
-//            }
+                editBtn.setOnAction(event -> {
+                    try {
+                        // get add income scene
+                        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow(); // get stage of program, primary stage
+
+                        editBalanceBox editBalance_box = new editBalanceBox();
+                        // set value of dialog
+                        Balance select = getListView().getItems().get(getIndex());
+                        editBalance_box.getController().setBalance(select);
+
+                        // dialog show
+                        Stage dialogAddStage = new Stage(StageStyle.TRANSPARENT);
+                        dialogAddStage.setTitle("Edit categories");
+                        dialogAddStage.initModality(Modality.WINDOW_MODAL);
+                        dialogAddStage.initOwner(stage); // close this dialog to return to owner window
+                        dialogAddStage.setScene(editBalance_box.getScene());
+
+                        dialogAddStage.showAndWait();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
             }
 
 
@@ -342,6 +339,22 @@ public class accountSceneController implements Initializable {
     public void deleteBalanceBtnClick(ActionEvent actionEvent) {
     }
 
-    public void addBalanceBtnClick(ActionEvent actionEvent) {
+    public void addBalanceBtnClick(ActionEvent e) throws Exception {
+        // get add income scene
+        Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage
+
+        addBalanceBox addBalance_box = new addBalanceBox();
+        //System.out.println("Add categories click");
+
+        // dialog show
+        Stage dialogAddStage = new Stage(StageStyle.TRANSPARENT);
+        dialogAddStage.setTitle("Add balance");
+        dialogAddStage.initModality(Modality.WINDOW_MODAL);
+        dialogAddStage.initOwner(stage); // close this dialog to return to owner window
+        dialogAddStage.setScene(addBalance_box.getScene());
+
+        dialogAddStage.showAndWait();
+        // refresh balance in listview
+        loadBalance();
     }
 }
