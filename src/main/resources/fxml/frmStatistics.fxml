@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckMenuItem?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.RadioMenuItem?>
 <?import javafx.scene.control.Tab?>
@@ -163,19 +163,8 @@
                                     <CheckMenuItem mnemonicParsing="false" selected="true" text="Credit" />
                                  </items>
                               </MenuButton>
-                              <MenuButton fx:id="unitCurrencyMenu" mnemonicParsing="false" prefHeight="51.0" prefWidth="128.0" text="Currency">
-                                 <items>
-                                    <RadioMenuItem mnemonicParsing="false" selected="true" text="VND">
-                                       <toggleGroup>
-                                          <ToggleGroup fx:id="balance111" />
-                                       </toggleGroup>
-                                    </RadioMenuItem>
-                                    <RadioMenuItem mnemonicParsing="false" text="USD" toggleGroup="$balance111" />
-                                 </items>
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </MenuButton>
+                              <DatePicker fx:id="balanceStart" layoutX="14.0" layoutY="13.0" prefHeight="37.0" prefWidth="188.0" promptText="Start Date" />
+                              <DatePicker fx:id="balanceFinish" layoutX="211.0" layoutY="13.0" prefHeight="37.0" prefWidth="188.0" promptText="Finish Date" />
                            </children></AnchorPane>
                      </content>
                   </Tab>
@@ -199,16 +188,18 @@
                               </MenuButton>
                               <AnchorPane layoutX="1.0" layoutY="51.0" prefHeight="490.0" prefWidth="851.0">
                                  <children>
-                                    <BarChart fx:id="incomeCategoriesBarChart" layoutX="168.0" layoutY="63.0" prefHeight="490.0" prefWidth="851.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <LineChart fx:id="incomeLineChart" prefHeight="492.0" prefWidth="851.0">
                                        <xAxis>
-                                          <CategoryAxis fx:id="incomeCategoriesAxis" side="BOTTOM" />
+                                          <CategoryAxis label="Time" side="BOTTOM" />
                                        </xAxis>
                                        <yAxis>
-                                          <NumberAxis side="LEFT" />
+                                          <NumberAxis label="Money" side="LEFT" />
                                        </yAxis>
-                                    </BarChart>
+                                    </LineChart>
                                  </children>
                               </AnchorPane>
+                              <DatePicker fx:id="incomeStart" layoutX="14.0" layoutY="13.0" prefHeight="37.0" prefWidth="188.0" promptText="Start Date" />
+                              <DatePicker fx:id="incomeFinish" layoutX="211.0" layoutY="13.0" prefHeight="37.0" prefWidth="188.0" promptText="Finish Date" />
                            </children>
                         </AnchorPane>
                      </content>
@@ -217,7 +208,7 @@
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #dadae3;">
                            <children>
-                              <MenuButton fx:id="balanceExpenseMenuBtn" layoutX="722.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="128.0" text="Balance">
+                              <MenuButton fx:id="balanceExpenseMenu" layoutX="722.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="128.0" text="Balance">
                                  <items>
                                     <RadioMenuItem mnemonicParsing="false" selected="true" text="Total">
                                        <toggleGroup>
@@ -233,16 +224,18 @@
                               </MenuButton>
                               <AnchorPane layoutY="51.0" prefHeight="490.0" prefWidth="851.0">
                                  <children>
-                                    <BarChart fx:id="expenseCategoriesBarChart" layoutX="168.0" layoutY="63.0" prefHeight="490.0" prefWidth="851.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <LineChart fx:id="expenseLineChart" prefHeight="492.0" prefWidth="851.0">
                                        <xAxis>
-                                          <CategoryAxis fx:id="expenseCategoriesAxis" side="BOTTOM" />
+                                          <CategoryAxis label="Time" side="BOTTOM" />
                                        </xAxis>
                                        <yAxis>
-                                          <NumberAxis side="LEFT" />
+                                          <NumberAxis label="Money" side="LEFT" />
                                        </yAxis>
-                                    </BarChart>
+                                    </LineChart>
                                  </children>
                               </AnchorPane>
+                              <DatePicker fx:id="expenseStart" layoutX="14.0" layoutY="13.0" prefHeight="37.0" prefWidth="188.0" promptText="Start Date" />
+                              <DatePicker fx:id="expenseFinish" layoutX="211.0" layoutY="13.0" prefHeight="37.0" prefWidth="188.0" promptText="Finish Date" />
                            </children>
                         </AnchorPane>
                      </content>
