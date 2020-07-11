@@ -255,9 +255,9 @@ public class categoriesSceneController implements Initializable {
                 nameLabel.setPadding(new Insets(10, 0, 0, 10));
                 // style button
                 deleteBtn.setStyle("-fx-font-size: 18;\n" +
-                        "-fx-padding: 10px;\n" + "-fx-background-insets: 10px;");
+                        "-fx-padding: 15px;\n" + "-fx-background-insets: 10px;");
                 editBtn.setStyle("-fx-font-size: 18;\n" +
-                        "-fx-padding: 10px;\n" + "-fx-background-insets: 10px;");
+                        "-fx-padding: 15px;\n" + "-fx-background-insets: 10px;");
                 // button delete categories place in every item
                 deleteBtn.setOnAction(event -> {
                     try{
@@ -393,9 +393,9 @@ public class categoriesSceneController implements Initializable {
                 nameLabel.setPadding(new Insets(10,0,0,10));
                 // style button
                 deleteBtn.setStyle("-fx-font-size: 18;\n" +
-                        "-fx-padding: 10px;\n" + "-fx-background-insets: 10px;");
+                        "-fx-padding: 15px;\n" + "-fx-background-insets: 10px;");
                 editBtn.setStyle("-fx-font-size: 18;\n" +
-                        "-fx-padding: 10px;\n" + "-fx-background-insets: 10px;");
+                        "-fx-padding: 15px;\n" + "-fx-background-insets: 10px;");
                 // button delete categories place in every item
                 deleteBtn.setOnAction(event -> {
                     try{

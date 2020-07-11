@@ -1,29 +1,34 @@
 package controller;
 
+import exception.ProcessExeption;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import model.FinancialGoal;
+import model.Saving;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class editPlanController implements Initializable {
+public class addSavingBoxController implements Initializable {
     @FXML
-    public DatePicker startdatepicker;
-    public DatePicker expiredatepicker;
-    public TextArea descriptionTextArea;
     public Button saveBtn;
-    public Button resetBtn;
+    @FXML
+    public TextField nameText; // name text field
+    public TextArea descriptionTextArea; // info text area
+    public ComboBox intervalCombo;
+    public TextField timeSpanText;
+    public TextField baseValueText; // value text field
+    public TextField interestRateText;
     public ComboBox unitCombo;
-    public ComboBox accountCombo;
-    public TextField typeText;
-    public Label comparisonLabel;
-    public TextField thresholdText;
 
     // test dialog stage, not used but maybe later
     public Stage dialogEditStage;
@@ -53,22 +58,38 @@ public class editPlanController implements Initializable {
         yOffset = event.getSceneY();
     }
 
-    private FinancialGoal financialGoal; // not used but maybe later
+    private Saving saving;
+
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if(typeText.getText().equals("Balance")){
-            this.accountCombo.setDisable(false);
-        }
+        // init interval combo
+        setIntervalCombo();
     }
 
-    public void saveBtnClick(ActionEvent actionEvent) {
+    public void saveBtnClick(ActionEvent actionEvent) throws ProcessExeption {
+        //TODO: save add saving to database and show list view
+//        try {
+//            ProcessCategories.saveCategories(nameText.getText(),iconImage.getImage().getUrl(),infoTextArea.getText(),typeCombo.getSelectionModel().getSelectedItem().toString());
+//        }
+//        catch (ProcessExeption pe)
+//        {
+//            System.out.println(pe.getErrorCodeMessage());
+//        }
+
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow(); // get stage of program, primary stage
         stage.close();
     }
 
-    public void resetBtnClick(ActionEvent actionEvent) {
+    public void setIntervalCombo(){
+        // type list
+        ObservableList<String> typeInterval = FXCollections.observableArrayList("Daily", "Weekly","Monthly","Quarterly","Yearly");
+
+        // set data of combo interval
+        intervalCombo.setItems(typeInterval);
     }
 
+    public void resetBtnClick(ActionEvent actionEvent) {
+    }
 }
