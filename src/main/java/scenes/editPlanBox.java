@@ -12,7 +12,7 @@ private Scene scene;
     private editPlanController controller;
     public editPlanBox() throws Exception {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getClassLoader().getResource("fxml/fxml/frmEditPlan.fxml"));
+        loader.setLocation(getClass().getClassLoader().getResource("fxml/frmEditPlan.fxml"));
 
         Parent root = loader.load();
         scene = new Scene(root);

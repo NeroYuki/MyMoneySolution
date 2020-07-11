@@ -53,7 +53,7 @@ public class editPlanController implements Initializable {
         yOffset = event.getSceneY();
     }
 
-    private FinancialGoal financialGoal; // not used but maybe later
+    private FinancialGoal goal; // not used but maybe later
 
 
     @Override
@@ -63,12 +63,41 @@ public class editPlanController implements Initializable {
         }
     }
 
+    public void setPlan(FinancialGoal goal) {
+        this.goal = goal;
+        // set day
+        startdatepicker.setValue(goal.getStartDate());
+        expiredatepicker.setValue(goal.getExpireDate());
+        // set account
+        accountCombo.setValue(goal.getCheckBalance());
+        // set type
+        if(goal.getType()==1) {
+            typeText.setText("Income");
+        } else if(goal.getType()==2){
+            typeText.setText("Expense");
+        } else {
+            typeText.setText("Balance");
+        }
+        // set compare label
+        if(typeText.getText().equals("Balance")){
+            this.comparisonLabel.setText("over");
+        } else if(typeText.getText().equals("Income")) {
+            this.comparisonLabel.setText("over");
+        } else {
+            this.comparisonLabel.setText("under");
+        }
+        thresholdText.setText(Double.toString(goal.getThreshold()));
+        descriptionTextArea.setText(goal.getDescription());
+    }
+
     public void saveBtnClick(ActionEvent actionEvent) {
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow(); // get stage of program, primary stage
         stage.close();
     }
 
     public void resetBtnClick(ActionEvent actionEvent) {
+        this.setPlan(goal);
     }
+
 
 }

@@ -243,6 +243,9 @@ public class accountSceneController implements Initializable {
                         dialogAddStage.setScene(editBalance_box.getScene());
 
                         dialogAddStage.showAndWait();
+
+                        // refresh balance data
+                        loadBalance();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -452,6 +455,9 @@ public class accountSceneController implements Initializable {
                         dialogAddStage.setScene(editSaving_box.getScene());
 
                         dialogAddStage.showAndWait();
+
+                        // refresh data saving
+                        loadSaving();
                     } catch(Exception e) {
                         e.printStackTrace();
                     }

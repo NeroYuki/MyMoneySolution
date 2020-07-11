@@ -174,29 +174,59 @@ public class transactionSceneController implements Initializable {
         accountColumn.setCellValueFactory(new PropertyValueFactory<Transaction, Balance>("applyingBalance"));
         valueColumn.setCellValueFactory(new PropertyValueFactory<Transaction,Double>("transValue"));
 
-        // fill color to differentiate income and expense value
-        valueColumn.setCellFactory(column -> {
-            return new TableCell<Transaction, Double>() {
-                @Override
-                protected void updateItem(Double item, boolean empty) {
-                    super.updateItem(item, empty);
+        transactionTable.setRowFactory(table -> new TableRow<>(){
+            @Override
+            protected void updateItem(Transaction transItem, boolean empty) {
+                super.updateItem(transItem, empty);
 
-                    if (item == null || empty) {
-                        setText("");
-                        setStyle("");
-                    } else {
-                        // Format number
-                        setText(String.valueOf(item).replace("-",""));
-                        if (item.doubleValue() < 0) {
-                            //setTextFill(Color.DARKRED);
-                            setStyle("-fx-background-color: red");
-                        } else {
-                            setStyle("-fx-background-color: #009383");
+                if (transItem == null || empty) {
+                    setStyle("");
+                } else {
+                    valueColumn.setCellFactory(column -> new TableCell<Transaction, Double>() {
+                        @Override
+                        protected void updateItem(Double valueItem, boolean empty) {
+                            super.updateItem(valueItem, empty);
+
+                            if (valueItem == null || empty) {
+                                setText("");
+                                setStyle("");
+                            } else {
+                                setText(String.valueOf(valueItem).replace("-",""));
+                                if (transItem.getType().equals("Expense")) {
+                                    //setTextFill(Color.DARKRED);
+                                    setStyle("-fx-background-color: red");
+                                } else if(transItem.getType().equals("Income")) {
+                                    setStyle("-fx-background-color: #009383");
+                                }
+                            }
                         }
-                    }
+                    });
+
                 }
-            };
+            }
         });
+
+        // fill color to differentiate income and expense value
+//        valueColumn.setCellFactory(column -> new TableCell<Transaction, Double>() {
+//            @Override
+//            protected void updateItem(Double item, boolean empty) {
+//                super.updateItem(item, empty);
+//
+//                if (item == null || empty) {
+//                    setText("");
+//                    setStyle("");
+//                } else {
+//                    // Format number
+//                    setText(String.valueOf(item).replace("-",""));
+//                    if (item.doubleValue() < 0) {
+//                        //setTextFill(Color.DARKRED);
+//                        setStyle("-fx-background-color: red");
+//                    } else {
+//                        setStyle("-fx-background-color: #009383");
+//                    }
+//                }
+//            }
+//        });
 
         // bring data to the table
         transactionTable.setItems(transactionList);

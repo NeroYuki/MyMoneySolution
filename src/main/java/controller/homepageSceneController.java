@@ -1,13 +1,14 @@
 package controller;
 
 import helper.ComponentUI.RingProgressIndicator;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.ChoiceDialog;
-import javafx.scene.control.Slider;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -16,9 +17,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.Balance;
+import model.FinancialGoal;
 import scenes.*;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -33,6 +37,14 @@ public class homepageSceneController  implements Initializable {
     public ImageView addTransBtn;
     @FXML
     public ImageView planBtn;
+
+    @FXML
+    public TableView<FinancialGoal> goalTable;
+    public TableColumn<FinancialGoal, String> statusColumn;
+    public TableColumn<FinancialGoal, String> descriptionColumn;
+    public TableColumn<FinancialGoal, Integer> daysColumn;
+
+    private ObservableList<FinancialGoal> goalList = FXCollections.observableArrayList(); // list of goal (default by date)
 
     public void transactionBtnClick(ActionEvent e) throws Exception {
         System.out.println("Transaction clicked");
@@ -82,6 +94,7 @@ public class homepageSceneController  implements Initializable {
 
         // add progress indicator
         RingProgressIndicator indicator = new RingProgressIndicator();
+        //TODO: get first data in table view
         Slider slider = new Slider(0, 100, 50);
         indicator.setStyle("-fx-background:  #E6E6FA;");
 
@@ -99,7 +112,75 @@ public class homepageSceneController  implements Initializable {
         indicator.setColor("red");
         indicator.setColor("green");
 
+        // display table
+        displayTableView();
 
+    }
+
+    private void displayTableView() {
+        // table view handle
+        //TODO: get right list from own database
+        ArrayList<FinancialGoal> goals =new ArrayList<>();
+//        try{
+//            goals = ProcessTransactionScene.getTransactionsInfo();
+//        }
+//        catch (ProcessExeption pe)
+//        {
+//            System.out.println(pe.getErrorCodeMessage());
+//        }
+
+//        goalList.setAll(goals);
+
+        // example for display test UI
+        goalList.setAll(
+                new FinancialGoal("test1",1,50000,LocalDate.of(2004,1,5),LocalDate.of(2004,2,6),new Balance("balance1","yes",500)),
+                new FinancialGoal("test2",1,6000,LocalDate.of(2006,5,16),LocalDate.of(2009,3,5),new Balance("balancego","yesss",300)));
+
+        // add data to suitable columns
+        //statusColumn.setCellValueFactory(new PropertyValueFactory<FinancialGoal,String>("status"));
+        descriptionColumn.setCellValueFactory(new PropertyValueFactory<FinancialGoal, String>("description"));
+        //daysColumn.setCellValueFactory(new PropertyValueFactory<FinancialGoal,Integer>("days"));
+
+        goalTable.setRowFactory(table -> new TableRow<>() {
+            @Override
+            protected void updateItem(FinancialGoal goalItem, boolean empty) {
+                super.updateItem(goalItem, empty);
+
+                if (goalItem == null || empty) {
+
+                } else {
+                    statusColumn.setCellFactory(column -> new TableCell<FinancialGoal, String>() {
+                        @Override
+                        protected void updateItem(String statusItem, boolean empty) {
+                            super.updateItem(statusItem, empty);
+
+                            if (goalItem == null || empty) {
+                                setText("");
+                                //TODO: set case of status
+                            } else {
+                                setText("90%");
+                            }
+                        }
+                    });
+                    daysColumn.setCellFactory(column -> new TableCell<FinancialGoal, Integer>() {
+                        @Override
+                        protected void updateItem(Integer dayItem, boolean empty) {
+                            super.updateItem(dayItem, empty);
+
+                            if (goalItem == null || empty) {
+                                setText("");
+                                //TODO: set number of days for plan
+                            } else {
+                                setText("110");
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
+        // bring data to the table
+        goalTable.setItems(goalList);
     }
 
     // position to move screen around easily
@@ -186,4 +267,75 @@ public class homepageSceneController  implements Initializable {
 
     }
 
+    public void deleteBtnClick(ActionEvent actionEvent) {
+        FinancialGoal select = goalTable.getSelectionModel().getSelectedItem(); // select an item
+        if (select != null) {
+            // confirmation to delete
+            Alert alertConfirm = new Alert(Alert.AlertType.CONFIRMATION,
+                    "Delete " + select.getDescription() + " ?",ButtonType.YES, ButtonType.NO);
+            alertConfirm.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+            alertConfirm.showAndWait();
+            if (alertConfirm.getResult() == ButtonType.YES) {
+                //TODO: process to remove there
+//                try{
+//                    ProcessTransactionScene.deleteTransaction(select);
+//                }
+//                catch (ProcessExeption pe){
+//                    pe.getErrorCodeMessage();
+//                }
+                goalList.remove(select); // delete call
+            }
+        } else {
+            // Nothing select
+            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+            alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+            alertWarning.setTitle("No Selection");
+            alertWarning.setHeaderText("No data selected");
+            alertWarning.setContentText("Please select a row in the table to delete");
+            alertWarning.showAndWait();
+        }
+    }
+
+    public void editBtnClick(ActionEvent e) throws Exception {
+        FinancialGoal select = goalTable.getSelectionModel().getSelectedItem(); // select an item
+        // really need a check type condition here to determine the select is income or expense by using instanceof
+        // or getClass() to return the runtime of transaction object
+        // ex: if(select instanceof Income) { ... } else we know type income or expense to serve purpose in edit form
+        if (select != null) {
+            // get edit plan scene
+            System.out.println("Edit clicked");
+            Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage
+
+            //TODO: generate id from process (arraylist)
+            editPlanBox editPlan_box = new editPlanBox();
+
+            // set value of dialog
+            editPlan_box.getController().setPlan(select);
+
+            // dialog show
+            Stage dialogEditStage = new Stage(StageStyle.TRANSPARENT);
+            dialogEditStage.setTitle("Edit Transaction");
+            dialogEditStage.initModality(Modality.WINDOW_MODAL);
+            dialogEditStage.initOwner(stage); // close this dialog to return to owner window
+            dialogEditStage.setScene(editPlan_box.getScene());
+
+            dialogEditStage.showAndWait();
+            System.out.println("go back");
+            // refresh data
+            displayTableView();
+            System.out.println(goalTable.getItems().get(0).getDescription());
+
+
+
+        } else {
+            // Nothing select
+            System.out.println("no selection");
+            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+            alertWarning.setTitle("No Selection");
+            alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+            alertWarning.setHeaderText("No data selected");
+            alertWarning.setContentText("Please select a row in the table to edit");
+            alertWarning.showAndWait();
+        }
+    }
 }

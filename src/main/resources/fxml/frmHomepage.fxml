@@ -193,18 +193,18 @@
                                           <TableColumn fx:id="idColumn" editable="false" prefWidth="100" resizable="false" sortable="false" text="ID" visible="false" />
                                           <TableColumn fx:id="statusColumn" editable="false" prefWidth="86.0" resizable="false" style="-fx-alignment: CENTER;" text="Status" />
                                           <TableColumn fx:id="descriptionColumn" editable="false" prefWidth="219.0" resizable="false" sortable="false" text="Plan description" />
-                                          <TableColumn fx:id="timeColumn" editable="false" prefWidth="148.0" resizable="false" style="-fx-alignment: CENTER;" text="Time left" />
+                                          <TableColumn fx:id="daysColumn" editable="false" prefWidth="148.0" resizable="false" style="-fx-alignment: CENTER;" text="Time left" />
                                        </columns>
                                        <columnResizePolicy>
                                           <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                        </columnResizePolicy>
                                     </TableView>
-                                    <Button fx:id="deleteBtn" layoutX="373.0" layoutY="14.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="91.0" text="DELETE" underline="true">
+                                    <Button fx:id="deleteBtn" layoutX="373.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteBtnClick" prefHeight="37.0" prefWidth="91.0" text="DELETE" underline="true">
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <Button fx:id="editBtn" layoutX="259.0" layoutY="14.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="91.0" text="EDIT" underline="true">
+                                    <Button fx:id="editBtn" layoutX="259.0" layoutY="14.0" mnemonicParsing="false" onAction="#editBtnClick" prefHeight="37.0" prefWidth="91.0" text="EDIT" underline="true">
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
