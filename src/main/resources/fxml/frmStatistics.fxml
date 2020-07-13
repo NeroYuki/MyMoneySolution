@@ -199,7 +199,7 @@
                                  </children>
                               </AnchorPane>
                               <DatePicker fx:id="incomeStart" layoutX="14.0" layoutY="13.0" prefHeight="37.0" prefWidth="188.0" promptText="Start Date" />
-                              <DatePicker fx:id="incomeFinish" layoutX="211.0" layoutY="13.0" prefHeight="37.0" prefWidth="188.0" promptText="Finish Date" />
+                              <DatePicker fx:id="incomeFinish" layoutX="209.0" layoutY="14.0" prefHeight="37.0" prefWidth="188.0" promptText="Finish Date" />
                            </children>
                         </AnchorPane>
                      </content>
@@ -234,8 +234,8 @@
                                     </LineChart>
                                  </children>
                               </AnchorPane>
-                              <DatePicker fx:id="expenseStart" layoutX="14.0" layoutY="13.0" prefHeight="37.0" prefWidth="188.0" promptText="Start Date" />
-                              <DatePicker fx:id="expenseFinish" layoutX="211.0" layoutY="13.0" prefHeight="37.0" prefWidth="188.0" promptText="Finish Date" />
+                              <DatePicker fx:id="expenseStart" layoutX="14.0" layoutY="14.0" prefHeight="37.0" prefWidth="188.0" promptText="Start Date" />
+                              <DatePicker fx:id="expenseFinish" layoutX="210.0" layoutY="14.0" prefHeight="37.0" prefWidth="188.0" promptText="Finish Date" />
                            </children>
                         </AnchorPane>
                      </content>

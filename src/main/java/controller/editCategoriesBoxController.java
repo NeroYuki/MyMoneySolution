@@ -1,8 +1,6 @@
 package controller;
 
 import exception.ProcessExeption;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,7 +14,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.Category;
-import model.Transaction;
 import process.ProcessCategories;
 
 import java.io.File;
@@ -62,8 +59,6 @@ public class editCategoriesBoxController implements Initializable {
         xOffset = event.getSceneX();
         yOffset = event.getSceneY();
     }
-
-    private Transaction transaction; // not used but maybe later
 
 
     @Override

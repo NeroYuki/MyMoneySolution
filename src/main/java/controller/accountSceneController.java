@@ -106,7 +106,7 @@ public class accountSceneController implements Initializable {
 
         loadBalance();
         loadSaving();
-        //loadLoan();
+        loadLoan();
     }
 
     @FXML
@@ -463,28 +463,56 @@ public class accountSceneController implements Initializable {
                     }
                 });
 
-//                depositBtn.setOnAction(event -> {
-//                    try {
-//                        // get deposit scene
-//                        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow(); // get stage of program, primary stage
-//
-//                        depositSavingBox depositSaving_box = new depositSavingBox();
-//                        // set value of dialog
-//                        Saving select = getListView().getItems().get(getIndex());
-//                        depositSaving_box.getController().setSaving(select);
-//
-//                        // dialog show
-//                        Stage dialogAddStage = new Stage(StageStyle.TRANSPARENT);
-//                        dialogAddStage.setTitle("Edit deposit saving");
-//                        dialogAddStage.initModality(Modality.WINDOW_MODAL);
-//                        dialogAddStage.initOwner(stage); // close this dialog to return to owner window
-//                        dialogAddStage.setScene(depositSaving_box.getScene());
-//
-//                        dialogAddStage.showAndWait();
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                });
+                depositBtn.setOnAction(event -> {
+                    try {
+                        // get deposit scene
+                        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow(); // get stage of program, primary stage
+
+                        depositSavingBox depositSaving_box = new depositSavingBox();
+                        // set value of dialog
+                        Saving select = getListView().getItems().get(getIndex());
+                        depositSaving_box.getController().setSaving(select);
+
+                        // dialog show
+                        Stage dialogAddStage = new Stage(StageStyle.TRANSPARENT);
+                        dialogAddStage.setTitle("Deposit saving");
+                        dialogAddStage.initModality(Modality.WINDOW_MODAL);
+                        dialogAddStage.initOwner(stage); // close this dialog to return to owner window
+                        dialogAddStage.setScene(depositSaving_box.getScene());
+
+                        dialogAddStage.showAndWait();
+
+                        // refresh data saing
+                        loadSaving();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+
+                withdrawBtn.setOnAction(event -> {
+                    try {
+                        // get withdraw scene
+                        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow(); // get stage of program, primary stage
+
+                        withdrawSavingBox withdrawSaving_box = new withdrawSavingBox();
+                        // set value of dialog
+                        Saving select = getListView().getItems().get(getIndex());
+                        withdrawSaving_box.getController().setSaving(select);
+
+                        // dialog show
+                        Stage dialogAddStage = new Stage(StageStyle.TRANSPARENT);
+                        dialogAddStage.setTitle("Withdraw saving");
+                        dialogAddStage.initModality(Modality.WINDOW_MODAL);
+                        dialogAddStage.initOwner(stage); // close this dialog to return to owner window
+                        dialogAddStage.setScene(withdrawSaving_box.getScene());
+
+                        dialogAddStage.showAndWait();
+                        // refresh data saing
+                        loadSaving();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
             }
 
 
@@ -518,6 +546,250 @@ public class accountSceneController implements Initializable {
             }
         });
         listSavingBox.getChildren().setAll(savingListView);
+    }
+
+    @FXML
+    VBox listLoanBox;
+    public void loadLoan(){
+        //TODO: get right list from database
+        //File folder = new File("src/main/resources/img/icon/income");
+
+        // init array of original categories income
+        ArrayList<Loan> loans = new ArrayList<Loan>();
+
+        //TODO: implement loan process there
+//        try{
+//            balances = ProcessBalance.getBalances();
+//        }
+//        catch (ProcessExeption pe){
+//            pe.getMessage();
+//        }
+
+        // init sample to test UI a bit
+        loans.add(new Loan("test","this is a test",5.5,LocalDate.now(),90, IntervalEnum.INTERVAL.DAILY, IntervalEnum.INTERVAL.WEEKLY,10000,15000));
+
+        loanListView.setPrefHeight(470);
+
+        ObservableList<Loan> items = FXCollections.observableArrayList(loans);
+        loanListView.setItems(items);
+        ArrayList<Loan> finalBalances = loans;
+        loanListView.setCellFactory(param -> new ListCell<Loan>() {
+            //test
+            HBox rowBox = new HBox();
+            Label nameLabel = new Label("");
+            Label descriptionLabel = new Label("");
+            Label currentValueLabel = new Label("");
+            VBox infoBox = new VBox();
+            Label baseValueLabel = new Label("");
+            VBox valueBox = new VBox();
+            Label interestRateLabel = new Label("");
+            Label interestIntervalLabel = new Label("");
+            Label paymentIntervalLabel = new Label("");
+            VBox interestBox = new VBox();
+            Label creationDateLabel = new Label("");
+            Label timeSpanLabel = new Label("");
+            VBox activeDateBox = new VBox();
+            Pane pane = new Pane();
+            Button deleteBtn = new Button("Deactivate");
+            Button editBtn = new Button("Edit");
+            HBox hbox1 = new HBox();
+            Button withdrawBtn = new Button("Withdraw");
+            HBox hbox2 = new HBox();
+            VBox buttonArea = new VBox();
+
+            private ImageView imageView = new ImageView();
+
+            // initialize block in anonymous class implementation playing role constructor
+            {
+                // add elements of hbox
+                valueBox.getChildren().addAll(currentValueLabel, baseValueLabel);
+                infoBox.getChildren().addAll(nameLabel, descriptionLabel);
+                interestBox.getChildren().addAll(interestRateLabel, interestIntervalLabel, paymentIntervalLabel);
+                activeDateBox.getChildren().addAll(creationDateLabel,timeSpanLabel);
+                hbox1.getChildren().addAll(editBtn,deleteBtn);
+                hbox2.getChildren().addAll(withdrawBtn);
+                buttonArea.getChildren().addAll(hbox1,hbox2);
+                rowBox.getChildren().addAll(infoBox, valueBox, interestBox, activeDateBox, pane, buttonArea);
+                HBox.setHgrow(pane, Priority.ALWAYS);
+
+                imageView.setTranslateX(10);
+
+                // style for title
+                infoBox.setPadding(new Insets(0,0,0,10));
+                infoBox.setPrefWidth(140);
+                Tooltip.install(infoBox, new Tooltip("Loan info"));
+
+                nameLabel.setTextAlignment(TextAlignment.CENTER);
+                nameLabel.setStyle("-fx-font-size: 24");
+                nameLabel.setPadding(new Insets(0, 0, 0, 15));
+                nameLabel.setWrapText(true);
+
+                descriptionLabel.setTextAlignment(TextAlignment.CENTER);
+                descriptionLabel.setStyle("-fx-font-size: 16");
+                descriptionLabel.setPadding(new Insets(5, 0, 0, 15));
+                descriptionLabel.setWrapText(true);
+
+                // style for value
+                valueBox.setPadding(new Insets(0,0,0,10));
+                valueBox.setPrefWidth(190);
+
+                currentValueLabel.setTextAlignment(TextAlignment.CENTER);
+                currentValueLabel.setStyle("-fx-font-size: 20");
+                currentValueLabel.setPadding(new Insets(0, 0, 0, 15));
+
+                baseValueLabel.setTextAlignment(TextAlignment.CENTER);
+                baseValueLabel.setStyle("-fx-font-size: 16");
+                baseValueLabel.setPadding(new Insets(5, 0, 0, 35));
+
+                // style for interest value
+                interestBox.setPadding(new Insets(0,0,0,5));
+                interestBox.setPrefWidth(170);
+
+                interestRateLabel.setTextAlignment(TextAlignment.CENTER);
+                interestRateLabel.setStyle("-fx-font-size: 18");
+                interestRateLabel.setPadding(new Insets(0, 0, 0, 10));
+
+                interestIntervalLabel.setTextAlignment(TextAlignment.CENTER);
+                interestIntervalLabel.setStyle("-fx-font-size: 16");
+                interestIntervalLabel.setPadding(new Insets(5, 0, 0, 10));
+
+                paymentIntervalLabel.setTextAlignment(TextAlignment.CENTER);
+                paymentIntervalLabel.setStyle("-fx-font-size: 16");
+                paymentIntervalLabel.setPadding(new Insets(5, 0, 0, 10));
+
+                // style for active date
+                activeDateBox.setPadding(new Insets(0,0,0,10));
+
+                creationDateLabel.setTextAlignment(TextAlignment.CENTER);
+                creationDateLabel.setStyle("-fx-font-size: 16");
+                creationDateLabel.setPadding(new Insets(10, 0, 0, 10));
+
+                timeSpanLabel.setTextAlignment(TextAlignment.CENTER);
+                timeSpanLabel.setStyle("-fx-font-size: 16");
+                timeSpanLabel.setPadding(new Insets(10, 0, 0, 10));
+
+                // style button
+                editBtn.setPrefWidth(100);
+                deleteBtn.setPrefWidth(120);
+                withdrawBtn.setPrefWidth(120);
+                withdrawBtn.setTranslateX(50);
+                deleteBtn.setStyle("-fx-font-size: 18;\n" +
+                        "-fx-padding: 15px;\n" + "-fx-background-insets: 10px;");
+                editBtn.setStyle("-fx-font-size: 18;\n" +
+                        "-fx-padding: 15px;\n" + "-fx-background-insets: 10px;");
+                withdrawBtn.setStyle("-fx-font-size: 18;\n" +
+                        "-fx-padding: 15px;\n" + "-fx-background-insets: 10px;");
+                // button delete balance place in every item
+                deleteBtn.setOnAction(event -> {
+                    try{
+                        String itemRemove = getListView().getItems().get(getIndex()).getName().replace(".png", "");
+                        //confirmation to delete
+                        Alert alertConfirm = new Alert(Alert.AlertType.CONFIRMATION,
+                                "Delete " + itemRemove + " ?", ButtonType.YES, ButtonType.NO);
+                        alertConfirm.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+                        alertConfirm.showAndWait();
+                        if (alertConfirm.getResult() == ButtonType.YES) {
+                            System.out.println("selectIdx: " + getIndex());
+                            System.out.println("item: " + itemRemove);
+                            //TODO: delete loan in database there
+                            getListView().getItems().remove(getItem());
+//                            try {
+//                                ProcessCategories.deleleCategory(finalBalances.get(getIndex()));
+//                            } catch (ProcessExeption processExeption) {
+//                                processExeption.printStackTrace();
+//                            }
+                        }
+                    } catch(Exception e){
+                        e.printStackTrace();
+                    }
+
+                });
+
+                // edit button
+                editBtn.setOnAction(event -> {
+                    try{
+                        // get add income scene
+                        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow(); // get stage of program, primary stage
+
+                        editLoanBox editLoan_box = new editLoanBox();
+                        // set value of dialog
+                        Loan select = getListView().getItems().get(getIndex());
+                        editLoan_box.getController().setLoan(select);
+
+                        // dialog show
+                        Stage dialogAddStage = new Stage(StageStyle.TRANSPARENT);
+                        dialogAddStage.setTitle("Edit loans");
+                        dialogAddStage.initModality(Modality.WINDOW_MODAL);
+                        dialogAddStage.initOwner(stage); // close this dialog to return to owner window
+                        dialogAddStage.setScene(editLoan_box.getScene());
+
+                        dialogAddStage.showAndWait();
+
+                        // refresh data loan
+                        loadLoan();
+                    } catch(Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+
+                withdrawBtn.setOnAction(event -> {
+                    try {
+                        // get withdraw scene
+                        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow(); // get stage of program, primary stage
+
+                        withdrawLoanBox withdrawLoan_box = new withdrawLoanBox();
+                        // set value of dialog
+                        Loan select = getListView().getItems().get(getIndex());
+                        withdrawLoan_box.getController().setLoan(select);
+
+                        // dialog show
+                        Stage dialogAddStage = new Stage(StageStyle.TRANSPARENT);
+                        dialogAddStage.setTitle("Withdraw loan");
+                        dialogAddStage.initModality(Modality.WINDOW_MODAL);
+                        dialogAddStage.initOwner(stage); // close this dialog to return to owner window
+                        dialogAddStage.setScene(withdrawLoan_box.getScene());
+
+                        dialogAddStage.showAndWait();
+                        // refresh data saing
+                        loadLoan();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+            }
+
+
+            @Override
+            public void updateItem(Loan loan, boolean empty) {
+                super.updateItem(loan, empty);
+                if (empty) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    Image image = new Image("/img/loan.png",50,50,false,true);
+                    imageView.setImage(image);
+                    imageView.setFitWidth(50);
+                    imageView.setFitHeight(50);
+
+                    //TODO: get right name from database
+                    nameLabel.setText(loan.getName().toUpperCase()); // set name display of item
+                    descriptionLabel.setText(loan.getDescription().toUpperCase()); // set description of item
+                    currentValueLabel.setText(String.valueOf("Current value: \n" + loan.getCurrentValue())); // set  current value of item
+                    baseValueLabel.setText(String.valueOf("Base value: \n" + loan.getBaseValue())); // set base value of item
+                    creationDateLabel.setText("Created on: \n" + loan.getCreationDate()); // get creation date of item
+                    if(loan.getActiveTimeSpan() > 1)
+                        timeSpanLabel.setText("Time span: \n" + loan.getActiveTimeSpan() + " days");
+                    else
+                        timeSpanLabel.setText("Time span: \n" + loan.getActiveTimeSpan() + " day");
+                    interestRateLabel.setText("\nInterest rate: " + loan.getInterestRate()+ "%");
+                    interestIntervalLabel.setText("Interval: "+ loan.getInterestInterval());
+                    paymentIntervalLabel.setText("Payment: " + loan.getPaymentInterval());
+                    setGraphic(rowBox);
+                    //setGraphic(imageView);
+                }
+            }
+        });
+        listLoanBox.getChildren().setAll(loanListView);
     }
 
     public void addTransClick(MouseEvent e) throws Exception {
@@ -589,12 +861,6 @@ public class accountSceneController implements Initializable {
 
     }
 
-    public void editBalanceBtnClick(ActionEvent actionEvent) {
-    }
-
-    public void deleteBalanceBtnClick(ActionEvent actionEvent) {
-    }
-
     public void addBalanceBtnClick(ActionEvent e) throws Exception {
         // get add income scene
         Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage
@@ -615,7 +881,7 @@ public class accountSceneController implements Initializable {
     }
 
     public void addSavingBtnClick(ActionEvent e) throws Exception {
-        // get add income scene
+        // get add saving scene
         Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage
 
         addSavingBox addSaving_box = new addSavingBox();
@@ -633,6 +899,22 @@ public class accountSceneController implements Initializable {
         loadSaving();
     }
 
-    public void addLoanBtnClick(ActionEvent actionEvent) {
+    public void addLoanBtnClick(ActionEvent actionEvent) throws Exception {
+        // get add loan scene
+        Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow(); // get stage of program, primary stage
+
+        addLoanBox addLoan_box = new addLoanBox();
+        System.out.println("Add savings click");
+
+        // dialog show
+        Stage dialogAddStage = new Stage(StageStyle.TRANSPARENT);
+        dialogAddStage.setTitle("Add loan");
+        dialogAddStage.initModality(Modality.WINDOW_MODAL);
+        dialogAddStage.initOwner(stage); // close this dialog to return to owner window
+        dialogAddStage.setScene(addLoan_box.getScene());
+
+        dialogAddStage.showAndWait();
+        // refresh saving in listview
+        loadLoan();
     }
 }
