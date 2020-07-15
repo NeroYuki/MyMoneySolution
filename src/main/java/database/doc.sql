@@ -48,6 +48,7 @@ CREATE TABLE savingHistory (
     --amount of money that can be taken from this Saving instance (the saving become inactive if this value is 0?)
     interestRate DOUBLE DEFAULT 0.0,
     interestInterval ENUM('DAILY', 'WEEKLY', 'MONTHLY', 'QUARTERLY', 'YEARLY') DEFAULT 'MONTHLY',
+    lastCheckedDate DATE NOT NULL,
     PRIMARY KEY (savingId),
     FOREIGN KEY (ownBudget) REFERENCES userBudget(budgetId)
 )
@@ -70,6 +71,7 @@ CREATE TABLE loanHistory (
     interestRate DOUBLE DEFAULT 0.0,
     interestInterval ENUM('DAILY', 'WEEKLY', 'MONTHLY', 'QUARTERLY', 'YEARLY', 'ONE_TIME') DEFAULT 'MONTHLY',
     paymentInterval ENUM('DAILY', 'WEEKLY', 'MONTHLY', 'QUARTERLY', 'YEARLY') DEFAULT 'MONTHLY',
+    lastCheckedDate DATE NOT NULL,
     PRIMARY KEY (loanId),
     FOREIGN KEY (ownBudget) REFERENCES userBudget(budgetId)
 )

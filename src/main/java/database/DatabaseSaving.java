@@ -32,7 +32,8 @@ public class DatabaseSaving {
                         activeSavingResult.getInt("activeTimeSpan"),
                         IntervalEnum.INTERVAL.valueOf(activeSavingResult.getString("interestInterval")),
                         activeSavingResult.getDouble("baseValue"),
-                        activeSavingResult.getDouble("currentValue")
+                        activeSavingResult.getDouble("currentValue"),
+                        activeSavingResult.getDate("lastCheckedDate").toLocalDate()
                 );
                 result.add(savingEntry);
             }
@@ -49,7 +50,7 @@ public class DatabaseSaving {
     public static boolean addSaving(Saving saving, Budget ownBudget) throws DatabaseException {
         try {
             Connection conn = DatabaseManager.getConnection();
-            PreparedStatement registerCall = conn.prepareCall("INSERT INTO savingHistory VALUES (?, ?, ?, ?, 1, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement registerCall = conn.prepareCall("INSERT INTO savingHistory VALUES (?, ?, ?, ?, 1, ?, ?, ?, ?, ?, ?, ?)");
             if (saving.getId().equals("")) saving.setId(UUIDHelper.newUUIDString());
             else throw new DatabaseException(7);
 
@@ -63,6 +64,7 @@ public class DatabaseSaving {
             registerCall.setDouble(8, saving.getCurrentValue());
             registerCall.setDouble(9, saving.getInterestRate());
             registerCall.setString(10, saving.getInterestInterval().toString());
+            registerCall.setDate(11, Date.valueOf(saving.getLastCheckedDate()));
             registerCall.execute();
             int result = registerCall.getUpdateCount();
             if (result == 0) throw new DatabaseException(7);
@@ -131,7 +133,8 @@ public class DatabaseSaving {
                             "description = ?, " +
                             "activeTimeSpan = ?, " +
                             "currentValue = ?, " +
-                            "interestRate = ? " +
+                            "interestRate = ?," +
+                            "lastCheckedDate = ? " +
                             "WHERE savingId = ?"
             );
             if (saving.getId().equals("")) throw new DatabaseException(20);
@@ -140,7 +143,8 @@ public class DatabaseSaving {
             updateCall.setInt(3, saving.getActiveTimeSpan());
             updateCall.setDouble(4, saving.getCurrentValue());
             updateCall.setDouble(5, saving.getInterestRate());
-            updateCall.setString(6, saving.getId());
+            updateCall.setDate(6, Date.valueOf(saving.getLastCheckedDate()));
+            updateCall.setString(7, saving.getId());
 
             updateCall.execute();
             int result = updateCall.getUpdateCount();

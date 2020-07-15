@@ -37,7 +37,8 @@ public class DatabaseLoan {
                         IntervalEnum.INTERVAL.valueOf(activeLoanResult.getString("interestInterval")),
                         IntervalEnum.INTERVAL.valueOf(activeLoanResult.getString("paymentInterval")),
                         activeLoanResult.getDouble("baseValue"),
-                        activeLoanResult.getDouble("currentValue")
+                        activeLoanResult.getDouble("currentValue"),
+                        activeLoanResult.getDate("lastCheckedDate").toLocalDate()
                 );
                 result.add(loanEntry);
             }
@@ -54,7 +55,7 @@ public class DatabaseLoan {
     public static boolean addLoan(Loan loan, Budget ownBudget) throws DatabaseException {
         try {
             Connection conn = DatabaseManager.getConnection();
-            PreparedStatement registerCall = conn.prepareCall("INSERT INTO loanHistory VALUES (?, ?, ?, ?, 1, ?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement registerCall = conn.prepareCall("INSERT INTO loanHistory VALUES (?, ?, ?, ?, 1, ?, ?, ?, ?, ?, ?, ?, ?)");
             if (loan.getId().equals("")) loan.setId(UUIDHelper.newUUIDString());
             else throw new DatabaseException(6);
 
@@ -69,6 +70,7 @@ public class DatabaseLoan {
             registerCall.setDouble(9, loan.getInterestRate());
             registerCall.setString(10, loan.getInterestInterval().toString());
             registerCall.setString(11, loan.getPaymentInterval().toString());
+            registerCall.setDate(12, Date.valueOf(loan.getLastCheckedDate()));
 
             registerCall.execute();
             int result = registerCall.getUpdateCount();
@@ -139,7 +141,8 @@ public class DatabaseLoan {
                             "description = ?, " +
                             "activeTimeSpan = ?, " +
                             "currentValue = ?, " +
-                            "interestRate = ? " +
+                            "interestRate = ?, " +
+                            "lastCheckedDate = ? " +
                             "WHERE loanId = ?"
             );
             if (loan.getId().equals("")) throw new DatabaseException(19);
@@ -148,7 +151,8 @@ public class DatabaseLoan {
             updateCall.setInt(3, loan.getActiveTimeSpan());
             updateCall.setDouble(4, loan.getCurrentValue());
             updateCall.setDouble(5, loan.getInterestRate());
-            updateCall.setString(6, loan.getId());
+            updateCall.setDate(6, Date.valueOf(loan.getLastCheckedDate()));
+            updateCall.setString(7, loan.getId());
 
             updateCall.execute();
             int result = updateCall.getUpdateCount();

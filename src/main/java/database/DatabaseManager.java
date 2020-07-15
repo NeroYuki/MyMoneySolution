@@ -112,6 +112,7 @@ public class DatabaseManager {
                     "    currentValue DOUBLE NOT NULL,\n" +
                     "    interestRate DOUBLE DEFAULT 0.0,\n" +
                     "    interestInterval ENUM('DAILY', 'WEEKLY', 'MONTHLY', 'QUARTERLY', 'YEARLY') DEFAULT 'MONTHLY',\n" +
+                    "    lastCheckedDate DATE NOT NULL,\n" +
                     "    PRIMARY KEY (savingId),\n" +
                     "    FOREIGN KEY (ownBudget) REFERENCES userBudget(budgetId)\n" +
                     ");";
@@ -129,6 +130,7 @@ public class DatabaseManager {
                     "    interestRate DOUBLE DEFAULT 0.0,\n" +
                     "    interestInterval ENUM('DAILY', 'WEEKLY', 'MONTHLY', 'QUARTERLY', 'YEARLY', 'ONE_TIME') DEFAULT 'MONTHLY',\n" +
                     "    paymentInterval ENUM('DAILY', 'WEEKLY', 'MONTHLY', 'QUARTERLY', 'YEARLY') DEFAULT 'MONTHLY',\n" +
+                    "    lastCheckedDate DATE NOT NULL,\n" +
                     "    PRIMARY KEY (loanId),\n" +
                     "    FOREIGN KEY (ownBudget) REFERENCES userBudget(budgetId)\n" +
                     ");";

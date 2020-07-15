@@ -14,6 +14,7 @@ public class Saving {
     private IntervalEnum interestInterval;
     private double baseValue;
     private double currentValue;
+    private LocalDate lastCheckedDate;
 
     public Saving (String name, String desc, double interest, LocalDate creationDate, int activeTime, IntervalEnum.INTERVAL interestInterval, double baseValue, double currentValue) {
         setName(name);
@@ -24,9 +25,11 @@ public class Saving {
         setInterestInterval(new IntervalEnum(interestInterval));
         setBaseValue(baseValue);
         setCurrentValue(currentValue);
+        setLastCheckedDate(creationDate);
     }
-    public Saving (String id, String name, String desc, double interest, LocalDate creationDate, int activeTime, IntervalEnum.INTERVAL interestInterval, double baseValue, double currentValue) {
+    public Saving (String id, String name, String desc, double interest, LocalDate creationDate, int activeTime, IntervalEnum.INTERVAL interestInterval, double baseValue, double currentValue, LocalDate lastCheckedDate) {
         this(name, desc, interest, creationDate, activeTime, interestInterval, baseValue, currentValue);
+        setLastCheckedDate(lastCheckedDate);
         setId(id);
     }
 
@@ -100,6 +103,14 @@ public class Saving {
 
     public double getCurrentValue() {
         return currentValue;
+    }
+
+    public LocalDate getLastCheckedDate() {
+        return lastCheckedDate;
+    }
+
+    public void setLastCheckedDate(LocalDate lastCheckedDate) {
+        this.lastCheckedDate = lastCheckedDate;
     }
 
     Expense depositMoney(Balance bal, double amount, LocalDate date, String desc, Category category) {

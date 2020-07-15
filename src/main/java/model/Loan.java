@@ -15,6 +15,7 @@ public class Loan {
     private IntervalEnum paymentInterval;
     private double baseValue;
     private double currentValue;
+    private LocalDate lastCheckedDate;
 
     public Loan(String name, String desc, double interest, LocalDate creationDate, int activeTime, IntervalEnum.INTERVAL interestInterval, IntervalEnum.INTERVAL paymentInterval, double baseValue, double currentValue) {
         setName(name);
@@ -26,10 +27,12 @@ public class Loan {
         setPaymentInterval(new IntervalEnum(paymentInterval));
         setBaseValue(baseValue);
         setCurrentValue(currentValue);
+        setLastCheckedDate(creationDate);
     }
 
-    public Loan(String id, String name, String desc, double interest, LocalDate creationDate, int activeTime, IntervalEnum.INTERVAL interestInterval, IntervalEnum.INTERVAL paymentInterval, double baseValue, double currentValue) {
+    public Loan(String id, String name, String desc, double interest, LocalDate creationDate, int activeTime, IntervalEnum.INTERVAL interestInterval, IntervalEnum.INTERVAL paymentInterval, double baseValue, double currentValue, LocalDate lastCheckedDate) {
         this(name, desc, interest, creationDate, activeTime, interestInterval, paymentInterval, baseValue, currentValue);
+        setLastCheckedDate(lastCheckedDate);
         setId(id);
     }
 
@@ -111,6 +114,14 @@ public class Loan {
 
     public double getCurrentValue() {
         return currentValue;
+    }
+
+    public void setLastCheckedDate(LocalDate lastCheckedDate) {
+        this.lastCheckedDate = lastCheckedDate;
+    }
+
+    public LocalDate getLastCheckedDate() {
+        return lastCheckedDate;
     }
 
     Income addToBalance(Balance bal, LocalDate date, String desc, Category category) {
