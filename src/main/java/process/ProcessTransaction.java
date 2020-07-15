@@ -79,6 +79,7 @@ public class ProcessTransaction {
         Income income=new Income(id,date,value,desc,category,balance);
         income.applyToBalance();
         try{
+            DatabaseBalance.updateBalance(income.getApplyingBalance());
             DatabaseTransaction.updateTransaction(income);
         }
         catch (DatabaseException de)
@@ -97,6 +98,7 @@ public class ProcessTransaction {
         Expense expense=new Expense(date,value,desc,category,balance);
         expense.applyToBalance();
         try{
+            DatabaseBalance.updateBalance(expense.getApplyingBalance());
             DatabaseTransaction.addExpense(expense);
         }
         catch (DatabaseException de)
@@ -115,6 +117,7 @@ public class ProcessTransaction {
         Expense expense=new Expense(date,value,desc,category,balance);
         expense.applyToBalance();
         try{
+            DatabaseBalance.updateBalance(expense.getApplyingBalance());
             DatabaseTransaction.updateTransaction(expense);
         }
         catch (DatabaseException de)

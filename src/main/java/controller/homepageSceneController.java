@@ -65,7 +65,8 @@ public class homepageSceneController  implements Initializable {
     public Label moneyDoneDisplay;
     @FXML
     public Label moneyDoneDisplay1;
-
+    @FXML
+    public Label commnetLabel;
 
     @FXML
     public TableView<FinancialGoal> goalTable;
@@ -117,14 +118,14 @@ public class homepageSceneController  implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        setAccountCombo();
+        totalBalanceText.setText(Double.toString(ProcessBalance.getSum()));
         // tooltip handle for add item and plan buttons
         Tooltip.install(addTransBtn, new Tooltip("Add new item"));
         Tooltip.install(planBtn, new Tooltip("Add financial goal"));
 
 
         setUser();
-        displayRing(new FinancialGoal("",1,0,LocalDate.now(),LocalDate.now(),null));
+        displayRing(new FinancialGoal("",1,0,LocalDate.now(),LocalDate.now().plusDays(1),null));
         goalTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 displayRing(goalTable.getSelectionModel().getSelectedItem());
@@ -136,7 +137,7 @@ public class homepageSceneController  implements Initializable {
                 totalBalanceText.setText(Double.toString(balanceComboBox.getSelectionModel().getSelectedItem().getValue()));
             }
         });
-
+        setAccountCombo();
         // display table
         displayTableView();
     }
@@ -175,6 +176,13 @@ public class homepageSceneController  implements Initializable {
         // change progress goal show color base on type of goal
         indicator.setColor("red");
         indicator.setColor("green");
+        try {
+            commnetLabel.setText(ProcessFinancialGoal.predictResult(financialGoal));
+        }
+        catch (ProcessExeption pe)
+        {
+            pe.printStackTrace();
+        }
 
     }
 
@@ -214,16 +222,17 @@ public class homepageSceneController  implements Initializable {
                         @Override
                         protected void updateItem(String statusItem, boolean empty) {
                             super.updateItem(statusItem, empty);
-                            ProcessFinancialGoal.objectiveModel objectiveModel=null;
-                            try {
-                                objectiveModel =ProcessFinancialGoal.getStatus(goalItem);
-                            } catch (ProcessExeption processExeption) {
-                                processExeption.printStackTrace();
-                            }
+
                             if (goalItem == null || empty) {
                                 setText("");
                                 //TODO: set case of status
                             } else {
+                                ProcessFinancialGoal.objectiveModel objectiveModel=null;
+                                try {
+                                    objectiveModel =ProcessFinancialGoal.getStatus(goalItem);
+                                } catch (ProcessExeption processExeption) {
+                                    processExeption.printStackTrace();
+                                }
                                 setText(Double.toString(objectiveModel.progress)+"%");
                             }
                         }
@@ -433,6 +442,5 @@ public class homepageSceneController  implements Initializable {
         usernameText.setText(user.getUsername());
         emailText.setText(user.getEmail());
         birthdayText.setText(user.getBirthday().toString());
-        totalBalanceText.setText(Double.toString(ProcessBalance.getSum()));
     }
 }

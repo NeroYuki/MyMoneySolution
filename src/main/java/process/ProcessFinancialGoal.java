@@ -10,7 +10,8 @@ import model.Transaction;
 
 import java.time.LocalDate;
 import java.time.temporal.TemporalUnit;
-import java.util.ArrayList;
+import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class ProcessFinancialGoal {
@@ -23,7 +24,7 @@ public class ProcessFinancialGoal {
 
         public objectiveModel (double curValue, double goalValue, int type) {
             this.curValue=curValue;
-            progress = curValue / goalValue;
+            progress = (curValue / goalValue)*100;
             isPassed = false;
             if (type == 1 || type == 3 && progress > 1) isPassed = true;
             else if (type == 2 && progress < 1) isPassed = true;
@@ -103,7 +104,7 @@ public class ProcessFinancialGoal {
                 }
             }
             objectiveModel=new objectiveModel(temp,financialGoal.getThreshold(),1);
-       }
+        }
         else if(financialGoal.getType()==2){
             double temp=0;
             for (Transaction transaction:transactions) {
@@ -112,7 +113,6 @@ public class ProcessFinancialGoal {
                 }
             }
             objectiveModel=new objectiveModel(temp,financialGoal.getThreshold(),2);
-
         }
         else if(financialGoal.getType()==3){
             objectiveModel=new objectiveModel(financialGoal.getCheckBalance().getValue(),financialGoal.getThreshold(),3);
@@ -125,5 +125,82 @@ public class ProcessFinancialGoal {
         LocalDate end=financialGoal.getExpireDate();
         long result = end.toEpochDay() - now.toEpochDay();
         return result;
+    }
+    public static String predictResult(FinancialGoal financialGoal) throws ProcessExeption {
+        LocalDate endDay = null;
+        if (financialGoal.getExpireDate().isBefore(LocalDate.now())) {
+            endDay = financialGoal.getExpireDate();
+        } else endDay = LocalDate.now();
+        Map<LocalDate, Double> maps = new TreeMap<LocalDate, Double>();
+        List<LocalDate> localDateList = financialGoal.getStartDate().datesUntil(endDay).collect(Collectors.toList());
+        for (LocalDate local : localDateList) {
+            maps.put(local, 0.0);
+        }
+        if (financialGoal.getType() == 3) {
+            ArrayList<Transaction> transactions = ProcessTransaction.getTransactionsInfo(financialGoal.getStartDate(), endDay);
+            Double bal = financialGoal.getCheckBalance().getValue();
+            for (Transaction transaction : transactions) {
+                if (transaction.getType() == "Income") bal -= transaction.getTransValue();
+                else if (transaction.getType() == "Expense") bal += transaction.getTransValue();
+            }
+            maps.put(financialGoal.getStartDate(), bal);
+            double temp2 = 0;
+            for (Transaction transaction : transactions) {
+                if (transaction.getType() == "Income") temp2 = transaction.getTransValue();
+                else if (transaction.getType() == "Expense") temp2 = -transaction.getTransValue();
+                else temp2 = 0;
+                maps.put(transaction.getTransDate(), maps.get(transaction.getTransDate()) + temp2);
+            }
+        } else if (financialGoal.getType() == 1) {
+            ArrayList<Transaction> transactions1 = ProcessTransaction.getTransactionsInfo(financialGoal.getStartDate(), endDay);
+
+            for (Transaction transaction : transactions1) {
+                if (transaction.getType() == "Income") {
+                    maps.put(transaction.getTransDate(), maps.get(transaction.getTransDate()) + transaction.getTransValue());
+                }
+            }
+        } else if (financialGoal.getType() == 2) {
+            ArrayList<Transaction> transactions1 = ProcessTransaction.getTransactionsInfo(financialGoal.getStartDate(), endDay);
+
+            for (Transaction transaction : transactions1) {
+                if (transaction.getType() == "Expense") {
+                    maps.put(transaction.getTransDate(), maps.get(transaction.getTransDate()) + transaction.getTransValue());
+                }
+            }
+        }
+
+
+//        System.out.println(maps.toString());
+
+        ArrayList<Double> dates = new ArrayList<Double>();
+        ArrayList<Double> values = new ArrayList<Double>();
+
+        double temp = 0;
+
+        for (Map.Entry<LocalDate, Double> entry : maps.entrySet()) {
+            dates.add(Double.valueOf(entry.getKey().toEpochDay() - financialGoal.getStartDate().toEpochDay()));
+            System.out.println(entry.getKey().toEpochDay() - financialGoal.getStartDate().toEpochDay());
+            temp += entry.getValue();
+            values.add(temp);
+            System.out.println(temp);
+        }
+        if (dates.size() < 2) return "";
+        helper.LinearRegressionClassifier linearRegressionClassifier = new helper.LinearRegressionClassifier(dates, values);
+        double prediction = linearRegressionClassifier.predictValue(Double.valueOf(endDay.toEpochDay() - financialGoal.getStartDate().toEpochDay()));
+        System.out.println(prediction);
+        if (prediction < financialGoal.getThreshold()) {
+            if ((financialGoal.getType() == 1) || (financialGoal.getType() == 3))
+                return "Your goal may not achievable due remaining time";
+            else if (financialGoal.getType() == 2) {
+                return "you likely to spend less than you expected";
+            }
+        } else if (prediction >= financialGoal.getThreshold()){
+            if ((financialGoal.getType() == 1) || (financialGoal.getType() == 3))
+                return "You have a good change to get your plan goal";
+            else if (financialGoal.getType() == 2) {
+                return "you likely to over spend during this plan";
+            }
+        }
+        return "";
     }
 }
