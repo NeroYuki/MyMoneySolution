@@ -75,8 +75,8 @@ public class ProcessBalance {
         }
         return  true;
     }
-    public static double getSum(){
-        ArrayList<Balance> balances =singletonBudget.getInstance().getBudget().getBalanceList();
+    public static double getSum() throws ProcessExeption {
+        ArrayList<Balance> balances =getBalances();
         Double sum=0.0;
         for (Balance balance: balances
              ) {

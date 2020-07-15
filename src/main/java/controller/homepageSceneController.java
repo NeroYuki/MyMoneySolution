@@ -118,7 +118,11 @@ public class homepageSceneController  implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        totalBalanceText.setText(Double.toString(ProcessBalance.getSum()));
+        try {
+            totalBalanceText.setText(Double.toString(ProcessBalance.getSum()));
+        } catch (ProcessExeption processExeption) {
+            processExeption.printStackTrace();
+        }
         // tooltip handle for add item and plan buttons
         Tooltip.install(addTransBtn, new Tooltip("Add new item"));
         Tooltip.install(planBtn, new Tooltip("Add financial goal"));
@@ -412,14 +416,16 @@ public class homepageSceneController  implements Initializable {
     }
     public void setAccountCombo(){
         ArrayList<Balance> balances=new ArrayList<>();
+        Balance all= null;
         try {
             balances = ProcessBalance.getBalances();
+            all=new Balance("all","",ProcessBalance.getSum());
         }
         catch (ProcessExeption pe)
         {
             System.out.println(pe.getErrorCodeMessage());
         }
-        Balance all=new Balance("all","",ProcessBalance.getSum());
+
         balances.add(all);
         ObservableList<Balance> Balancelist = FXCollections.observableArrayList(balances);
         balanceComboBox.setItems(Balancelist);
