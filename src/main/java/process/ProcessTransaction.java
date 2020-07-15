@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 
-public class ProcessTransactionScene {
+public class ProcessTransaction {
     public static ArrayList<Transaction> getTransactionsInfo() throws ProcessExeption{
         try {
             Budget budget = singletonBudget.getInstance().getBudget();
@@ -30,7 +30,26 @@ public class ProcessTransactionScene {
             throw new ProcessExeption(0);
         }
     }
-    public static void addIncome(LocalDate date, double value, String desc, Category category,Balance balance) throws ProcessExeption{
+    public static ArrayList<Transaction> getTransactionsInfo(LocalDate startDate, LocalDate endDate) throws ProcessExeption{
+        try {
+            Budget budget = singletonBudget.getInstance().getBudget();
+            ArrayList<Balance> balances=DatabaseBalance.getBalances(budget.getId());
+            ArrayList<Transaction> transaction = new ArrayList<>();
+            for(int i=0;i<balances.size();i++)
+            {
+                ArrayList<Transaction> transactions2=DatabaseTransaction.getTransaction(balances.get(i).getId(),startDate,endDate);
+                for (Transaction j:transactions2) {
+                    j.setApplyingBalance(balances.get(i));
+                }
+                transaction.addAll(transactions2);
+            }
+            return transaction;
+        }
+        catch(DatabaseException de){
+            System.out.println(de.getErrorCodeMessage());
+            throw new ProcessExeption(0);
+        }
+    }    public static void addIncome(LocalDate date, double value, String desc, Category category,Balance balance) throws ProcessExeption{
         if(date == null) throw new ProcessExeption(10);
         if(value <0) throw new ProcessExeption(11);
         if(desc ==null) desc="";
@@ -50,7 +69,7 @@ public class ProcessTransactionScene {
         }
     }
     public static void updateIncome(String id, LocalDate date, double value, String desc, Category category,Balance balance) throws ProcessExeption{
-        if(id == null) throw new ProcessExeption();
+        if(id == null) throw new ProcessExeption(8);
         if(date == null) throw new ProcessExeption(10);
         if(value <0) throw new ProcessExeption(11);
         if(desc ==null) desc="";

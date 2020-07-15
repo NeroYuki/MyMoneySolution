@@ -23,6 +23,13 @@ public class loginSceneController {
     public TextField txtPassword;
 
     public void loginBtnClick(ActionEvent e) throws Exception {
+        try{
+            ProcessUser.login(txtUsername.getText(),txtPassword.getText());
+        }
+        catch (ProcessExeption de)
+        {
+            System.out.println(de.getErrorCodeMessage());
+        }
         System.out.println("Login clicked");
         Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage
         //stage.setFullScreen(true);
@@ -36,13 +43,7 @@ public class loginSceneController {
         stage.setX(x);
         stage.setY(y);
 
-        try{
-            ProcessUser.login(txtUsername.getText(),txtPassword.getText());
-        }
-        catch (ProcessExeption de)
-        {
-            System.out.println(de.getErrorCodeMessage());
-        }
+
 
         stage.setScene(homepage_scene.getScene());
     }

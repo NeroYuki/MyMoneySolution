@@ -15,7 +15,7 @@ import javafx.util.StringConverter;
 import model.*;
 import process.ProcessBalance;
 import process.ProcessCategories;
-import process.ProcessTransactionScene;
+import process.ProcessTransaction;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -100,12 +100,12 @@ public class editTransactionBoxController implements Initializable {
 
     public void saveBtnClick(ActionEvent actionEvent) {
         try{
-            ProcessTransactionScene.revertTransaction(transaction);
+            ProcessTransaction.revertTransaction(transaction);
             if(transaction.getClass().getName().equals("model.Income")) {
-                ProcessTransactionScene.updateIncome(transaction.getId(),datepicker.getValue(), Double.parseDouble(valueText.getText()), descriptionTextArea.getText(), categoryCombo.getSelectionModel().getSelectedItem(), accountCombo.getSelectionModel().getSelectedItem());
+                ProcessTransaction.updateIncome(transaction.getId(),datepicker.getValue(), Double.parseDouble(valueText.getText()), descriptionTextArea.getText(), categoryCombo.getSelectionModel().getSelectedItem(), accountCombo.getSelectionModel().getSelectedItem());
             }
             if(transaction.getClass().getName().equals("model.Expense")){
-                ProcessTransactionScene.updateExpense(transaction.getId(),datepicker.getValue(), Double.parseDouble(valueText.getText()), descriptionTextArea.getText(), categoryCombo.getSelectionModel().getSelectedItem(), accountCombo.getSelectionModel().getSelectedItem());
+                ProcessTransaction.updateExpense(transaction.getId(),datepicker.getValue(), Double.parseDouble(valueText.getText()), descriptionTextArea.getText(), categoryCombo.getSelectionModel().getSelectedItem(), accountCombo.getSelectionModel().getSelectedItem());
             }
         }
         catch (ProcessExeption pe)

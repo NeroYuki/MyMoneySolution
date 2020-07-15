@@ -16,10 +16,13 @@ public class ErrorCode2 {
             "invalid transaction",//9
             "invalid days input",//10
             "invalid Value input",//11
-            "invalid Category  input",//12
-            "invalid Balance input",//13
-            "invalid days input",//10
-            "invalid days input",//10
+            "invalid balance Name input", // 12
+            "description too long", //13
+            "Balance selected is null",//14
+            "Failure to excecute code from database",//15
+            "Expire days is before begin day",//16
+            "Null balance",//17
+            "threshold is negative,"
 
 
 

@@ -17,7 +17,7 @@ import model.Category;
 import model.Transaction;
 import process.ProcessBalance;
 import process.ProcessCategories;
-import process.ProcessTransactionScene;
+import process.ProcessTransaction;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -73,7 +73,7 @@ public class addIncomeBoxController implements Initializable {
 
     public void saveBtnClick(ActionEvent actionEvent) throws Exception {
         try {
-            ProcessTransactionScene.addIncome(datepicker.getValue(), Double.parseDouble(valueText.getText()), descriptionTextArea.getText(), categoryCombo.getSelectionModel().getSelectedItem(), accountCombo.getSelectionModel().getSelectedItem());
+            ProcessTransaction.addIncome(datepicker.getValue(), Double.parseDouble(valueText.getText()), descriptionTextArea.getText(), categoryCombo.getSelectionModel().getSelectedItem(), accountCombo.getSelectionModel().getSelectedItem());
         } catch (ProcessExeption pe) {
             System.out.println(pe.getErrorCodeMessage());
         }

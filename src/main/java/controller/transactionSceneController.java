@@ -20,7 +20,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.Balance;
 import model.Transaction;
-import process.ProcessTransactionScene;
+import process.ProcessTransaction;
 import scenes.*;
 
 import java.net.URL;
@@ -126,7 +126,7 @@ public class transactionSceneController implements Initializable {
         //TODO: get right list from own database
         ArrayList<Transaction> transactions=new ArrayList<>();
         try{
-            transactions= ProcessTransactionScene.getTransactionsInfo();
+            transactions= ProcessTransaction.getTransactionsInfo();
         }
         catch (ProcessExeption pe)
         {
@@ -280,7 +280,7 @@ public class transactionSceneController implements Initializable {
             alertConfirm.showAndWait();
             if (alertConfirm.getResult() == ButtonType.YES) {
                 try{
-                    ProcessTransactionScene.deleteTransaction(select);
+                    ProcessTransaction.deleteTransaction(select);
                 }
                 catch (ProcessExeption pe){
                     pe.getErrorCodeMessage();

@@ -1,9 +1,12 @@
 package controller;
 
+import exception.ProcessExeption;
 import helper.ComponentUI.RingProgressIndicator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -17,8 +20,13 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.StringConverter;
 import model.Balance;
 import model.FinancialGoal;
+import model.User;
+import process.ProcessBalance;
+import process.ProcessFinancialGoal;
+import process.singletonUser;
 import scenes.*;
 
 import java.net.URL;
@@ -37,6 +45,27 @@ public class homepageSceneController  implements Initializable {
     public ImageView addTransBtn;
     @FXML
     public ImageView planBtn;
+    @FXML
+    public TextField totalBalanceText;
+    @FXML
+    public ComboBox<Balance>balanceComboBox;
+    @FXML
+    public TextField usernameText;
+    @FXML
+    public TextField emailText;
+    @FXML
+    public TextField birthdayText;
+    @FXML
+    public Label planSelectionLabel;
+    @FXML
+    public Label daysLabel;
+    @FXML
+    public Label lastDayLabel;
+    @FXML
+    public Label moneyDoneDisplay;
+    @FXML
+    public Label moneyDoneDisplay1;
+
 
     @FXML
     public TableView<FinancialGoal> goalTable;
@@ -88,12 +117,47 @@ public class homepageSceneController  implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        setAccountCombo();
         // tooltip handle for add item and plan buttons
         Tooltip.install(addTransBtn, new Tooltip("Add new item"));
         Tooltip.install(planBtn, new Tooltip("Add financial goal"));
 
+
+        setUser();
+        displayRing(new FinancialGoal("",1,0,LocalDate.now(),LocalDate.now(),null));
+        goalTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                displayRing(goalTable.getSelectionModel().getSelectedItem());
+            }
+        });
+        balanceComboBox.setOnAction(new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                totalBalanceText.setText(Double.toString(balanceComboBox.getSelectionModel().getSelectedItem().getValue()));
+            }
+        });
+
+        // display table
+        displayTableView();
+    }
+
+    private void displayRing(FinancialGoal financialGoal){
         // add progress indicator
+        planSelectionLabel.setText(financialGoal.getDescription());
+        if(ProcessFinancialGoal.getRemainDays(financialGoal)<0) daysLabel.setText("0");
+        else daysLabel.setText(ProcessFinancialGoal.getRemainDays(financialGoal)+"");
+        lastDayLabel.setText(financialGoal.getExpireDate().toString());
+
         RingProgressIndicator indicator = new RingProgressIndicator();
+        ProcessFinancialGoal.objectiveModel objectiveModel=null;
+        try {
+            objectiveModel = ProcessFinancialGoal.getStatus(financialGoal);
+        }
+        catch (ProcessExeption pe){
+            System.out.println(pe.getErrorCodeMessage());
+        }
+        moneyDoneDisplay.setText(objectiveModel.curValue+" VND");
+        moneyDoneDisplay1.setText((financialGoal.getThreshold()-objectiveModel.curValue)+" VND");
         //TODO: get first data in table view
         Slider slider = new Slider(0, 100, 50);
         indicator.setStyle("-fx-background:  #E6E6FA;");
@@ -102,7 +166,7 @@ public class homepageSceneController  implements Initializable {
         VBox main = new VBox(1, indicator);
         indicator.setProgress(Double.valueOf(slider.getValue()).intValue());
 
-        slider.setValue(90); // set value of progress using this
+        slider.setValue(objectiveModel.progress); // set value of progress using this
         main.setLayoutX(progressArea.getPrefWidth()/3.8);
         main.setLayoutY(progressArea.getPrefWidth()/3.5);
 
@@ -112,29 +176,26 @@ public class homepageSceneController  implements Initializable {
         indicator.setColor("red");
         indicator.setColor("green");
 
-        // display table
-        displayTableView();
-
     }
 
     private void displayTableView() {
         // table view handle
         //TODO: get right list from own database
         ArrayList<FinancialGoal> goals =new ArrayList<>();
-//        try{
-//            goals = ProcessTransactionScene.getTransactionsInfo();
-//        }
-//        catch (ProcessExeption pe)
-//        {
-//            System.out.println(pe.getErrorCodeMessage());
-//        }
+        try{
+            goals = ProcessFinancialGoal.getFinancialGoals();
+        }
+        catch (ProcessExeption pe)
+        {
+            System.out.println(pe.getErrorCodeMessage());
+        }
 
-//        goalList.setAll(goals);
+        goalList.setAll(goals);
 
         // example for display test UI
-        goalList.setAll(
-                new FinancialGoal("test1",1,50000,LocalDate.of(2004,1,5),LocalDate.of(2004,2,6),new Balance("balance1","yes",500)),
-                new FinancialGoal("test2",1,6000,LocalDate.of(2006,5,16),LocalDate.of(2009,3,5),new Balance("balancego","yesss",300)));
+//        goalList.setAll(
+//                new FinancialGoal("test1",1,50000,LocalDate.of(2004,1,5),LocalDate.of(2004,2,6),new Balance("balance1","yes",500)),
+//                new FinancialGoal("test2",1,6000,LocalDate.of(2006,5,16),LocalDate.of(2009,3,5),new Balance("balancego","yesss",300)));
 
         // add data to suitable columns
         //statusColumn.setCellValueFactory(new PropertyValueFactory<FinancialGoal,String>("status"));
@@ -153,12 +214,17 @@ public class homepageSceneController  implements Initializable {
                         @Override
                         protected void updateItem(String statusItem, boolean empty) {
                             super.updateItem(statusItem, empty);
-
+                            ProcessFinancialGoal.objectiveModel objectiveModel=null;
+                            try {
+                                objectiveModel =ProcessFinancialGoal.getStatus(goalItem);
+                            } catch (ProcessExeption processExeption) {
+                                processExeption.printStackTrace();
+                            }
                             if (goalItem == null || empty) {
                                 setText("");
                                 //TODO: set case of status
                             } else {
-                                setText("90%");
+                                setText(Double.toString(objectiveModel.progress)+"%");
                             }
                         }
                     });
@@ -171,11 +237,13 @@ public class homepageSceneController  implements Initializable {
                                 setText("");
                                 //TODO: set number of days for plan
                             } else {
-                                setText("110");
+                                if (ProcessFinancialGoal.getRemainDays(goalItem)<0)setText("0");
+                                else setText(ProcessFinancialGoal.getRemainDays(goalItem)+" Days");
                             }
                         }
                     });
                 }
+
             }
         });
 
@@ -277,12 +345,7 @@ public class homepageSceneController  implements Initializable {
             alertConfirm.showAndWait();
             if (alertConfirm.getResult() == ButtonType.YES) {
                 //TODO: process to remove there
-//                try{
-//                    ProcessTransactionScene.deleteTransaction(select);
-//                }
-//                catch (ProcessExeption pe){
-//                    pe.getErrorCodeMessage();
-//                }
+                ProcessFinancialGoal.deleteFinanacialGoal(select);
                 goalList.remove(select); // delete call
             }
         } else {
@@ -337,5 +400,39 @@ public class homepageSceneController  implements Initializable {
             alertWarning.setContentText("Please select a row in the table to edit");
             alertWarning.showAndWait();
         }
+    }
+    public void setAccountCombo(){
+        ArrayList<Balance> balances=new ArrayList<>();
+        try {
+            balances = ProcessBalance.getBalances();
+        }
+        catch (ProcessExeption pe)
+        {
+            System.out.println(pe.getErrorCodeMessage());
+        }
+        Balance all=new Balance("all","",ProcessBalance.getSum());
+        balances.add(all);
+        ObservableList<Balance> Balancelist = FXCollections.observableArrayList(balances);
+        balanceComboBox.setItems(Balancelist);
+        balanceComboBox.setConverter(new StringConverter<Balance>() {
+            @Override
+            public String toString(Balance o) {
+                if(o==null) return "";
+                return o.getName();
+            }
+
+            @Override
+            public Balance fromString(String s) {
+                return null;
+            }
+        });
+    }
+
+    public void setUser(){
+        User user= singletonUser.getInstance().getUser();
+        usernameText.setText(user.getUsername());
+        emailText.setText(user.getEmail());
+        birthdayText.setText(user.getBirthday().toString());
+        totalBalanceText.setText(Double.toString(ProcessBalance.getSum()));
     }
 }

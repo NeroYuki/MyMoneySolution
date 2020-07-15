@@ -212,11 +212,24 @@ public class accountSceneController implements Initializable {
                             System.out.println("item: " + itemRemove);
                             //TODO: delete balance in database there
                             getListView().getItems().remove(getItem());
-//                            try {
-//                                ProcessCategories.deleleCategory(finalBalances.get(getIndex()));
-//                            } catch (ProcessExeption processExeption) {
-//                                processExeption.printStackTrace();
-//                            }
+                            try {
+                                if(ProcessBalance.removeBalace(finalBalances.get(getIndex()))){
+                                    Alert alert =new Alert(Alert.AlertType.INFORMATION);
+                                    alert.setHeaderText("");
+                                    alert.setTitle("Ket qua");
+                                    alert.setContentText("Thanh cong");
+                                    alert.showAndWait();
+                                }
+                                else{
+                                    Alert alert =new Alert(Alert.AlertType.INFORMATION);
+                                    alert.setHeaderText("");
+                                    alert.setTitle("Ket qua");
+                                    alert.setContentText("That bai");
+                                    alert.showAndWait();
+                                };
+                            } catch (ProcessExeption processExeption) {
+                                processExeption.printStackTrace();
+                            }
                         }
                     } catch(Exception e){
                         e.printStackTrace();
@@ -270,7 +283,7 @@ public class accountSceneController implements Initializable {
                     valueLabel.setText(String.valueOf(balance.getValue())); // set value of item
                     //TODO: set difference value yesterday
                     differenceLabel.setText(String.valueOf(balance.getValue())); // set difference value
-                    creationDateLabel.setText("Created on: \n" + LocalDate.now().toString());
+                    creationDateLabel.setText("Created on: \n" + balance.getCreationDate().toString());
                     setGraphic(rowBox);
                     //setGraphic(imageView);
                 }

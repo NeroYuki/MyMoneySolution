@@ -8,10 +8,7 @@ import model.FinancialGoal;
 import model.Transaction;
 
 import javax.xml.crypto.Data;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -60,7 +57,12 @@ public class DatabaseFinancialGoal {
             registerCall.setString(2, ownBudget.getId());
             registerCall.setString(3, financialGoal.getDescription());
             registerCall.setInt(4, financialGoal.getType());
+            if(financialGoal.getCheckBalance()==null){
+                registerCall.setNull(5, Types.VARCHAR);
+            }
+            else{
             registerCall.setString(5, financialGoal.getCheckBalance().getId());
+            }
             registerCall.setDouble(6, financialGoal.getThreshold());
             registerCall.setDate(7, Date.valueOf(financialGoal.getStartDate()));
             registerCall.setDate(8, Date.valueOf(financialGoal.getExpireDate()));

@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.Balance;
+import process.ProcessBalance;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -71,7 +72,13 @@ public class addBalanceBoxController implements Initializable {
 //        {
 //            System.out.println(pe.getErrorCodeMessage());
 //        }
-
+        try{
+            ProcessBalance.addBalance(nameText.getText(),infoTextArea.getText(),Double.parseDouble(valueText.getText()));
+        }
+        catch (ProcessExeption pe)
+        {
+            System.out.println(pe.getErrorCodeMessage());
+        }
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow(); // get stage of program, primary stage
         stage.close();
     }

@@ -17,7 +17,7 @@ import model.Category;
 import model.Transaction;
 import process.ProcessBalance;
 import process.ProcessCategories;
-import process.ProcessTransactionScene;
+import process.ProcessTransaction;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -76,7 +76,7 @@ public class addExpenseBoxController implements Initializable {
     public void saveBtnClick(ActionEvent actionEvent) throws Exception {
         System.out.println("save click");
         try {
-            ProcessTransactionScene.addExpense(datepicker.getValue(), Double.parseDouble(valueText.getText()), descriptionTextArea.getText(), categoryCombo.getSelectionModel().getSelectedItem(), accountCombo.getSelectionModel().getSelectedItem());
+            ProcessTransaction.addExpense(datepicker.getValue(), Double.parseDouble(valueText.getText()), descriptionTextArea.getText(), categoryCombo.getSelectionModel().getSelectedItem(), accountCombo.getSelectionModel().getSelectedItem());
         } catch (ProcessExeption pe) {
             System.out.println(pe.getErrorCodeMessage());
         }

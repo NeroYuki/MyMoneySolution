@@ -2,6 +2,7 @@
 
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -137,17 +138,17 @@
                      <children>
                         <AnchorPane fx:id="progressArea" layoutX="476.0" minHeight="0.0" minWidth="0.0" prefHeight="431.0" prefWidth="374.0" style="-fx-background-color: #E6E6FA;">
                            <children>
-                              <Label layoutX="112.0" layoutY="47.0" text="left">
+                              <Label fx:id="remainDays" layoutX="88.0" layoutY="48.0" text="day left">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="planSelectionLabel" alignment="CENTER" layoutX="88.0" layoutY="14.0" prefHeight="27.0" prefWidth="215.0" text="Bind Tên goal được chọn">
+                              <Label fx:id="planSelectionLabel" alignment="CENTER" layoutX="88.0" layoutY="14.0" prefHeight="27.0" prefWidth="215.0" text="Description">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="daysLabel" layoutX="37.0" layoutY="46.0" text="số ngày" textFill="#1417eb">
+                              <Label fx:id="daysLabel" alignment="CENTER_RIGHT" layoutX="47.0" layoutY="47.0" prefHeight="27.0" prefWidth="33.0" text="0" textFill="#1417eb">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -157,27 +158,27 @@
                                     <Font name="System Bold" size="18.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="commnetLabel" alignment="CENTER" layoutX="35.0" layoutY="373.0" prefHeight="27.0" prefWidth="305.0" text="AI comment :v">
+                              <Label fx:id="commnetLabel" alignment="CENTER" layoutX="35.0" layoutY="373.0" prefHeight="27.0" prefWidth="305.0">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="moneyDoneDisplay" alignment="CENTER" layoutX="49.0" layoutY="291.0" prefHeight="27.0" prefWidth="126.0" text="money" textFill="#1417eb">
+                              <Label fx:id="moneyDoneDisplay" alignment="CENTER" layoutX="49.0" layoutY="291.0" prefHeight="27.0" prefWidth="126.0" text="0" textFill="#1417eb">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <Label alignment="CENTER" layoutX="187.0" layoutY="292.0" prefHeight="25.0" prefWidth="126.0" text="achieved/spent">
+                              <Label fx:id="spentLabel" alignment="CENTER" layoutX="187.0" layoutY="292.0" prefHeight="25.0" prefWidth="126.0" text="achieved/spent">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="moneyDoneDisplay1" alignment="CENTER" layoutX="49.0" layoutY="326.0" prefHeight="27.0" prefWidth="126.0" text="money" textFill="#ee4111">
+                              <Label fx:id="moneyDoneDisplay1" alignment="CENTER" layoutX="49.0" layoutY="326.0" prefHeight="27.0" prefWidth="126.0" text="0" textFill="#ee4111">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <Label alignment="CENTER" layoutX="187.0" layoutY="327.0" prefHeight="25.0" prefWidth="150.0" text="to complete/exceed">
+                              <Label fx:id="needLabel" alignment="CENTER" layoutX="187.0" layoutY="327.0" prefHeight="25.0" prefWidth="150.0" text="to complete/exceed">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
@@ -263,24 +264,25 @@
                         </Pane>
                         <Pane fx:id="expensesLabel" prefHeight="120.0" prefWidth="375.0" style="-fx-background-color: F88F79;">
                            <children>
-                              <Button fx:id="detailValueBtn" layoutX="283.0" layoutY="108.0" mnemonicParsing="false" text="DETAIL">
+                              <TextField fx:id="totalBalanceText" editable="false" layoutX="71.0" layoutY="78.0" prefHeight="61.0" prefWidth="232.0" style="-fx-background-color: transparent;" text="0">
                                  <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Button>
-                              <Label layoutX="65.0" layoutY="20.0" prefHeight="57.0" prefWidth="147.0" text="TOTAL BALANCE">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <TextField fx:id="totalBalanceText" alignment="CENTER" editable="false" layoutX="22.0" layoutY="63.0" prefHeight="61.0" prefWidth="232.0" style="-fx-background-color: transparent;" text="Sum all present balance">
-                                 <font>
-                                    <Font name="System Bold" size="18.0" />
+                                    <Font name="System Bold" size="24.0" />
                                  </font>
                               </TextField>
-                              <Label layoutX="177.0" layoutY="108.0" prefHeight="43.0" prefWidth="50.0" text="VND">
+                              <Label layoutX="299.0" layoutY="87.0" prefHeight="43.0" prefWidth="50.0" text="VND">
                                  <font>
-                                    <Font size="18.0" />
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                              <ComboBox fx:id="balanceComboBox" layoutX="150.0" layoutY="39.0" prefHeight="25.0" prefWidth="193.0" promptText="&lt;Pick a Balance&gt;" />
+                              <ImageView fitHeight="47.0" fitWidth="47.0" layoutX="14.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/icon/add-more/coin-10.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="15.0" layoutY="41.0" text="Current Value of :">
+                                 <font>
+                                    <Font size="15.0" />
                                  </font>
                               </Label>
                            </children>

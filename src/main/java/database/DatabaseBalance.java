@@ -28,7 +28,8 @@ public class DatabaseBalance {
                         balanceResult.getString("balanceId"),
                         balanceResult.getString("name"),
                         balanceResult.getString("description"),
-                        balanceResult.getDouble("currentValue")
+                        balanceResult.getDouble("currentValue"),
+                        balanceResult.getDate("creationDate").toLocalDate()
                 );
                 result.add(balanceEntry);
             }

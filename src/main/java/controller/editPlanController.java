@@ -1,5 +1,8 @@
 package controller;
 
+import exception.ProcessExeption;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -7,9 +10,14 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
+import model.Balance;
 import model.FinancialGoal;
+import process.ProcessBalance;
+import process.ProcessFinancialGoal;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class editPlanController implements Initializable {
@@ -20,7 +28,7 @@ public class editPlanController implements Initializable {
     public Button saveBtn;
     public Button resetBtn;
     public ComboBox unitCombo;
-    public ComboBox accountCombo;
+    public ComboBox<Balance> accountCombo;
     public TextField typeText;
     public Label comparisonLabel;
     public TextField thresholdText;
@@ -91,9 +99,43 @@ public class editPlanController implements Initializable {
     }
 
     public void saveBtnClick(ActionEvent actionEvent) {
+
+        try {
+            ProcessFinancialGoal.editFinancialGoal(goal,Double.parseDouble(thresholdText.getText()),descriptionTextArea.getText());
+        }
+        catch (ProcessExeption pe)
+        {
+            System.out.println(pe.getErrorCodeMessage());
+        }
+
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow(); // get stage of program, primary stage
         stage.close();
     }
+    public void setAccountCombo(){
+        ArrayList<Balance> balances=new ArrayList<>();
+        try {
+            balances = ProcessBalance.getBalances();
+        }
+        catch (ProcessExeption pe)
+        {
+            System.out.println(pe.getErrorCodeMessage());
+        }
+        ObservableList<Balance> Balancelist = FXCollections.observableArrayList(balances);
+        accountCombo.setItems(Balancelist);
+        accountCombo.setConverter(new StringConverter<Balance>() {
+            @Override
+            public String toString(Balance o) {
+                if(o==null) return "";
+                return o.getName();
+            }
+
+            @Override
+            public Balance fromString(String s) {
+                return null;
+            }
+        });
+    }
+
 
     public void resetBtnClick(ActionEvent actionEvent) {
         this.setPlan(goal);
