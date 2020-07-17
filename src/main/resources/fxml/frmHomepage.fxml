@@ -158,7 +158,7 @@
                                     <Font name="System Bold" size="18.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="commnetLabel" alignment="CENTER" layoutX="35.0" layoutY="373.0" prefHeight="27.0" prefWidth="305.0">
+                              <Label fx:id="commnetLabel" alignment="CENTER" layoutX="35.0" layoutY="358.0" prefHeight="57.0" prefWidth="305.0" wrapText="true">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>

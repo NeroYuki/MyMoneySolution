@@ -1,31 +1,72 @@
 package controller;
 
+import exception.ProcessExeption;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.ChoiceDialog;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.StringConverter;
+import model.Balance;
+import model.Income;
+import org.controlsfx.control.CheckComboBox;
+import process.ProcessBalance;
+import process.ProcessStaticstics;
 import scenes.*;
 
+import java.awt.event.ActionListener;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+
+
 
 public class statisticsSceneController implements Initializable {
     @FXML
     public ImageView addTransBtn;
     @FXML
     public ImageView planBtn;
+    @FXML
+    public CheckComboBox<Balance> balancesCheckComboBox;
+
+    @FXML
+    public ComboBox<Balance> IncomeComboBox;
+    @FXML
+    public ComboBox<Balance> expenseComboBox;
+    @FXML
+    public DatePicker balanceStart;
+    @FXML
+    public DatePicker balanceFinish;
+    @FXML
+    public DatePicker incomeStart;
+    @FXML
+    public DatePicker incomeFinish;
+    @FXML
+    public DatePicker expenseStart;
+    @FXML
+    public DatePicker expenseFinish;
+
+
+
+
+
+
 
     public void transactionBtnClick(ActionEvent e) throws Exception {
         System.out.println("Transaction clicked");
@@ -89,12 +130,72 @@ public class statisticsSceneController implements Initializable {
         Tooltip.install(planBtn, new Tooltip("Add financial goal"));
 
         // display line chart of balance all time
-        displayBalanceChart();
-
         // display line chart in tab income and expense
-        displayIncomeChart();
-        displayExpenseChart();
 
+
+        setBalanceMenu();
+        balancesCheckComboBox.getCheckModel().getCheckedItems().addListener(new ListChangeListener<Balance>() {
+            @Override
+            public void onChanged(Change<? extends Balance> c) {
+                    ArrayList<Balance> balances = new ArrayList<>( balancesCheckComboBox.getCheckModel().getCheckedItems());
+                    displayBalanceChart(balances);
+            }
+        });
+        IncomeComboBox.setOnAction(new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent event) {
+                displayIncomeChart(IncomeComboBox.getSelectionModel().getSelectedItem());
+            }
+        });
+        expenseComboBox.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                displayExpenseChart(expenseComboBox.getSelectionModel().getSelectedItem());
+            }
+        });
+        incomeStart.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                displayIncomeChart(IncomeComboBox.getSelectionModel().getSelectedItem());
+            }
+        });
+        incomeFinish.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                displayIncomeChart(IncomeComboBox.getSelectionModel().getSelectedItem());
+            }
+        });
+        expenseStart.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                displayExpenseChart(expenseComboBox.getSelectionModel().getSelectedItem());
+            }
+        });
+        expenseFinish.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                displayExpenseChart(expenseComboBox.getSelectionModel().getSelectedItem());
+            }
+        });
+        balanceStart.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                ArrayList<Balance> balances = new ArrayList<>( balancesCheckComboBox.getCheckModel().getCheckedItems());
+                displayBalanceChart(balances);
+            }
+        });
+        balanceFinish.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                ArrayList<Balance> balances = new ArrayList<>( balancesCheckComboBox.getCheckModel().getCheckedItems());
+                displayBalanceChart(balances);
+            }
+        });
+
+
+
+//        displayIncomeChart();
+//        displayExpenseChart();
     }
 
 
@@ -184,63 +285,84 @@ public class statisticsSceneController implements Initializable {
 //    }
 
     @FXML
-    LineChart<String,Number> incomeLineChart;
+    BarChart<String,Number> incomeBarChart;
     @FXML
-    LineChart<String,Number> expenseLineChart;
-    public void displayIncomeChart() {
-        // first data
+    BarChart<String,Number> expenseBarChart;
+
+    public void displayIncomeChart(Balance balance) {
+        if(balance == null )return;
+        if(incomeStart.getValue()==null)return;
+        if(incomeFinish.getValue()==null)return;;
+
+
         XYChart.Series<String, Number> seriesA = new XYChart.Series<>();
-        XYChart.Data<String, Number> jan1 = new XYChart.Data<>("Jan", 300);
-        XYChart.Data<String, Number> feb1 = new XYChart.Data<>("Feb", 500);
-        XYChart.Data<String, Number> mar1 = new XYChart.Data<>("Mar", 600);
-        seriesA.getData().addAll(jan1, feb1, mar1);
-        seriesA.setName("Income item a");
-        // next data
-        XYChart.Series<String, Number> seriesB = new XYChart.Series<>();
-        XYChart.Data<String, Number> jan2 = new XYChart.Data<>("Jan", 400);
-        XYChart.Data<String, Number> feb2 = new XYChart.Data<>("Feb", 200);
-        XYChart.Data<String, Number> mar2 = new XYChart.Data<>("Mar", 950);
-        seriesB.getData().addAll(jan2, feb2, mar2);
-        seriesB.setName("Income item b");
-        incomeLineChart.getData().addAll(seriesA, seriesB);
+        ProcessStaticstics.ChartModel chartModel= null;
+        try {
+            chartModel = ProcessStaticstics.getIncomeChart(balance, incomeStart.getValue(), incomeFinish.getValue());
+            if(chartModel==null) return;
+            XYChart.Series<String, Number> series = new XYChart.Series<>();
+            series.setName(balance.getName());
+            for(int i=0;i<chartModel.localDates.size();i++){
+                XYChart.Data<String, Number> d = new XYChart.Data<>(chartModel.localDates.get(i).toString(), chartModel.numbers.get(i));
+                series.getData().add(d);
+            }
+            incomeBarChart.getData().setAll(series);
+        }
+        catch (ProcessExeption pe)
+        {
+            pe.printStackTrace();
+        }
     }
 
-    public void displayExpenseChart() {
-        // first data
+    public void displayExpenseChart(Balance balance) {
+        if(balance == null )return;
+        if(expenseFinish.getValue()==null)return;
+        if(expenseStart.getValue()==null)return;;
         XYChart.Series<String, Number> seriesA = new XYChart.Series<>();
-        XYChart.Data<String, Number> jan1 = new XYChart.Data<>("Jan", 300);
-        XYChart.Data<String, Number> feb1 = new XYChart.Data<>("Feb", 500);
-        XYChart.Data<String, Number> mar1 = new XYChart.Data<>("Mar", 600);
-        seriesA.getData().addAll(jan1, feb1, mar1);
-        seriesA.setName("Expense item a");
-        // next data
-        XYChart.Series<String, Number> seriesB = new XYChart.Series<>();
-        XYChart.Data<String, Number> jan2 = new XYChart.Data<>("Jan", 400);
-        XYChart.Data<String, Number> feb2 = new XYChart.Data<>("Feb", 200);
-        XYChart.Data<String, Number> mar2 = new XYChart.Data<>("Mar", 950);
-        seriesB.getData().addAll(jan2, feb2, mar2);
-        seriesB.setName("Expense item b");
-        expenseLineChart.getData().addAll(seriesA, seriesB);
+        ProcessStaticstics.ChartModel chartModel= null;
+        try {
+            chartModel = ProcessStaticstics.getExpenseChart(balance, expenseStart.getValue(), expenseFinish.getValue());
+            if(chartModel==null) return;
+            XYChart.Series<String, Number> series = new XYChart.Series<>();
+            series.setName(balance.getName());
+            for(int i=0;i<chartModel.localDates.size();i++){
+                XYChart.Data<String, Number> d = new XYChart.Data<>(chartModel.localDates.get(i).toString(), chartModel.numbers.get(i));
+                series.getData().add(d);
+            }
+                expenseBarChart.getData().setAll(series);
+        }
+        catch (ProcessExeption pe)
+        {
+            pe.printStackTrace();
+        }
     }
 
     @FXML
     LineChart<String,Number> balanceLineChart;
-    public void displayBalanceChart() {
-        // first data
-        XYChart.Series<String, Number> seriesA = new XYChart.Series<>();
-        XYChart.Data<String,Number> jan1 = new XYChart.Data<>("Jan",300);
-        XYChart.Data<String,Number> feb1 = new XYChart.Data<>("Feb",500);
-        XYChart.Data<String,Number> mar1 = new XYChart.Data<>("Mar",600);
-        seriesA.getData().addAll(jan1,feb1,mar1);
-        seriesA.setName("Balance item a");
-        // next data
-        XYChart.Series<String, Number> seriesB = new XYChart.Series<>();
-        XYChart.Data<String,Number> jan2 = new XYChart.Data<>("Jan",400);
-        XYChart.Data<String,Number> feb2 = new XYChart.Data<>("Feb",200);
-        XYChart.Data<String,Number> mar2 = new XYChart.Data<>("Mar",950);
-        seriesB.getData().addAll(jan2,feb2,mar2);
-        seriesB.setName("Balance item b");
-        balanceLineChart.getData().addAll(seriesA,seriesB);
+    public void displayBalanceChart(ArrayList<Balance> balances) {
+        if(balances.size() == 0 )return;
+        if(balanceStart.getValue()==null)return;
+        if(balanceFinish.getValue()==null)return;;
+        ArrayList<XYChart.Series<String,Number>> seriesA=new ArrayList<>();
+        try {
+            for (Balance balance:balances){
+                XYChart.Series<String, Number> series = new XYChart.Series<>();
+                series.setName(balance.getName());
+                ProcessStaticstics.ChartModel chartModel = ProcessStaticstics.getTransactionInTime(balance, balanceStart.getValue(), balanceFinish.getValue());
+                if(chartModel==null) return;
+                for(int i=0;i<chartModel.localDates.size();i++){
+                    XYChart.Data<String, Number> d = new XYChart.Data<>(chartModel.localDates.get(i).toString(), chartModel.numbers.get(i));
+
+                    series.getData().add(d);
+                }
+                seriesA.add(series);
+            }
+        }
+        catch (ProcessExeption processExeption){
+            processExeption.printStackTrace();
+        }
+        balanceLineChart.getData().setAll(seriesA);
+
     }
 
     public void addTransClick(MouseEvent e) throws Exception {
@@ -311,5 +433,56 @@ public class statisticsSceneController implements Initializable {
         dialogAddStage.showAndWait();
 
     }
+    public void setBalanceMenu(){
+        ArrayList<Balance> balances=new ArrayList<>();
+        Balance all= null;
+        try {
+            balances = ProcessBalance.getBalances();
+        }
+        catch (ProcessExeption pe)
+        {
+            System.out.println(pe.getErrorCodeMessage());
+        }
+        final ObservableList<Balance> balancelist = FXCollections.observableArrayList(balances);
+        balancesCheckComboBox.getItems().setAll(balancelist);
+        balancesCheckComboBox.setConverter(new StringConverter<Balance>() {
+            @Override
+            public String toString(Balance o) {
+                if(o==null) return "";
+                return o.getName();
+            }
+            @Override
+            public Balance fromString(String s) {
+                return null;
+            }
+        });
+
+        IncomeComboBox.getItems().setAll(balancelist);
+        IncomeComboBox.setConverter(new StringConverter<Balance>() {
+            @Override
+            public String toString(Balance o) {
+                if(o==null) return "";
+                return o.getName();
+            }
+            @Override
+            public Balance fromString(String string) {
+                return null;
+            }
+        });
+        expenseComboBox.getItems().setAll(balancelist);
+        expenseComboBox.setConverter(new StringConverter<Balance>() {
+            @Override
+            public String toString(Balance o) {
+                if(o==null) return "";
+                return o.getName();
+            }
+            @Override
+            public Balance fromString(String string) {
+                return null;
+            }
+        });
+    }
+
+
 
 }

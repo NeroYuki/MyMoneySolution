@@ -94,7 +94,7 @@ public class addIncomeBoxController implements Initializable {
         try{
             categories= ProcessCategories.getIncomeCategories();
         }
-        catch (DatabaseException de)
+        catch (ProcessExeption de)
         {
             System.out.println("addIccome setcat");
         }

@@ -132,7 +132,7 @@ public class editTransactionBoxController implements Initializable {
                 categories=ProcessCategories.getExpenseCategories();
             }
         }
-        catch (DatabaseException de)
+        catch (ProcessExeption de)
         {
             System.out.println(de.getErrorCodeMessage());
         }

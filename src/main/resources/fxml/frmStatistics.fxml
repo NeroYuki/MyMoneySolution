@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckMenuItem?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.RadioMenuItem?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -19,7 +17,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.CheckComboBox?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#drag" onMousePressed="#press" prefHeight="600.0" prefWidth="1050.0" stylesheets="@../css/statistics.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.statisticsSceneController">
    <left>
@@ -144,7 +142,7 @@
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="746.0" style="-fx-background-color: #dadae3;">
                            <children>
-                              <LineChart fx:id="balanceLineChart" layoutY="51.0" prefHeight="492.0" prefWidth="851.0">
+                              <LineChart fx:id="balanceLineChart" animated="false" createSymbols="false" layoutX="-2.0" layoutY="51.0" prefHeight="492.0" prefWidth="851.0">
                                  <xAxis>
                                     <CategoryAxis label="Time" side="BOTTOM" />
                                  </xAxis>
@@ -152,19 +150,9 @@
                                     <NumberAxis label="Money" side="LEFT" />
                                  </yAxis>
                               </LineChart>
-                              <MenuButton fx:id="balanceMenu" layoutX="722.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="128.0" text="Balance">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                                 <items>
-                                    <CheckMenuItem mnemonicParsing="false" selected="true" text="Total" />
-                                    <CheckMenuItem mnemonicParsing="false" selected="true" text="Cash" />
-                                    <CheckMenuItem mnemonicParsing="false" selected="true" text="Bank Account" />
-                                    <CheckMenuItem mnemonicParsing="false" selected="true" text="Credit" />
-                                 </items>
-                              </MenuButton>
                               <DatePicker fx:id="balanceStart" layoutX="14.0" layoutY="13.0" prefHeight="37.0" prefWidth="188.0" promptText="Start Date" />
                               <DatePicker fx:id="balanceFinish" layoutX="211.0" layoutY="13.0" prefHeight="37.0" prefWidth="188.0" promptText="Finish Date" />
+                              <CheckComboBox fx:id="balancesCheckComboBox" layoutX="709.0" layoutY="19.0" prefHeight="25.0" prefWidth="127.0" title="Balances" />
                            </children></AnchorPane>
                      </content>
                   </Tab>
@@ -172,34 +160,21 @@
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #dadae3;">
                            <children>
-                              <MenuButton fx:id="balanceIncomeMenu" layoutX="722.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="128.0" text="Balance">
-                                 <items>
-                                    <RadioMenuItem mnemonicParsing="false" selected="true" text="Total">
-                                       <toggleGroup>
-                                          <ToggleGroup fx:id="balance1" />
-                                       </toggleGroup>
-                                    </RadioMenuItem>
-                                    <RadioMenuItem mnemonicParsing="false" text="Cash" toggleGroup="$balance1" />
-                                    <RadioMenuItem mnemonicParsing="false" text="Bank Account" toggleGroup="$balance1" />
-                                 </items>
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </MenuButton>
                               <AnchorPane layoutX="1.0" layoutY="51.0" prefHeight="490.0" prefWidth="851.0">
                                  <children>
-                                    <LineChart fx:id="incomeLineChart" prefHeight="492.0" prefWidth="851.0">
-                                       <xAxis>
-                                          <CategoryAxis label="Time" side="BOTTOM" />
-                                       </xAxis>
-                                       <yAxis>
-                                          <NumberAxis label="Money" side="LEFT" />
-                                       </yAxis>
-                                    </LineChart>
+                                    <BarChart fx:id="incomeBarChart" animated="false" layoutX="-3.0" prefHeight="492.0" prefWidth="851.0">
+                                      <xAxis>
+                                        <CategoryAxis label="Time" side="BOTTOM" />
+                                      </xAxis>
+                                      <yAxis>
+                                        <NumberAxis label="Money" side="LEFT" />
+                                      </yAxis>
+                                    </BarChart>
                                  </children>
                               </AnchorPane>
                               <DatePicker fx:id="incomeStart" layoutX="14.0" layoutY="13.0" prefHeight="37.0" prefWidth="188.0" promptText="Start Date" />
-                              <DatePicker fx:id="incomeFinish" layoutX="209.0" layoutY="14.0" prefHeight="37.0" prefWidth="188.0" promptText="Finish Date" />
+                              <DatePicker fx:id="incomeFinish" layoutX="211.0" layoutY="13.0" prefHeight="37.0" prefWidth="188.0" promptText="Finish Date" />
+                              <ComboBox fx:id="IncomeComboBox" layoutX="741.0" layoutY="19.0" prefHeight="25.0" prefWidth="95.0" promptText="Balance" />
                            </children>
                         </AnchorPane>
                      </content>
@@ -208,34 +183,21 @@
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #dadae3;">
                            <children>
-                              <MenuButton fx:id="balanceExpenseMenu" layoutX="722.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="128.0" text="Balance">
-                                 <items>
-                                    <RadioMenuItem mnemonicParsing="false" selected="true" text="Total">
-                                       <toggleGroup>
-                                          <ToggleGroup fx:id="balance2" />
-                                       </toggleGroup>
-                                    </RadioMenuItem>
-                                    <RadioMenuItem mnemonicParsing="false" text="Cash" toggleGroup="$balance2" />
-                                    <RadioMenuItem mnemonicParsing="false" text="Bank Account" toggleGroup="$balance2" />
-                                 </items>
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </MenuButton>
                               <AnchorPane layoutY="51.0" prefHeight="490.0" prefWidth="851.0">
                                  <children>
-                                    <LineChart fx:id="expenseLineChart" prefHeight="492.0" prefWidth="851.0">
+                                    <BarChart fx:id="expenseBarChart" animated="false" layoutX="-2.0" prefHeight="492.0" prefWidth="851.0">
                                        <xAxis>
                                           <CategoryAxis label="Time" side="BOTTOM" />
                                        </xAxis>
                                        <yAxis>
                                           <NumberAxis label="Money" side="LEFT" />
                                        </yAxis>
-                                    </LineChart>
+                                    </BarChart>
                                  </children>
                               </AnchorPane>
-                              <DatePicker fx:id="expenseStart" layoutX="14.0" layoutY="14.0" prefHeight="37.0" prefWidth="188.0" promptText="Start Date" />
-                              <DatePicker fx:id="expenseFinish" layoutX="210.0" layoutY="14.0" prefHeight="37.0" prefWidth="188.0" promptText="Finish Date" />
+                              <DatePicker fx:id="expenseStart" layoutX="14.0" layoutY="13.0" prefHeight="37.0" prefWidth="188.0" promptText="Start Date" />
+                              <DatePicker fx:id="expenseFinish" layoutX="211.0" layoutY="13.0" prefHeight="37.0" prefWidth="188.0" promptText="Finish Date" />
+                              <ComboBox fx:id="expenseComboBox" layoutX="741.0" layoutY="19.0" prefHeight="25.0" prefWidth="95.0" promptText="Balance" />
                            </children>
                         </AnchorPane>
                      </content>

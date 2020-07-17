@@ -345,7 +345,7 @@ public class homepageSceneController  implements Initializable {
         dialogAddStage.setScene(addPlan_box.getScene());
 
         dialogAddStage.showAndWait();
-
+        displayTableView();
     }
 
     public void deleteBtnClick(ActionEvent actionEvent) {

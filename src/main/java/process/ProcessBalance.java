@@ -50,7 +50,7 @@ public class ProcessBalance {
     public static boolean removeBalace(Balance balance) throws ProcessExeption{
         if(balance ==null) throw new ProcessExeption(14);
         try{
-            DatabaseBalance.removeBalance(balance);
+            DatabaseBalance.softRemoveBalance(balance);
         }
         catch (DatabaseException de)
         {

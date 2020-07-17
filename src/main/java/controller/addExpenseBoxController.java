@@ -95,7 +95,7 @@ public class addExpenseBoxController implements Initializable {
         try{
             categories= ProcessCategories.getExpenseCategories();
         }
-        catch (DatabaseException de)
+        catch (ProcessExeption de)
         {
             System.out.println("add Expense setcat");
         }

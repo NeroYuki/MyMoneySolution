@@ -19,6 +19,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -105,17 +106,28 @@ public class categoriesSceneController implements Initializable {
         Tooltip.install(planBtn, new Tooltip("Add financial goal"));
 
         // load income categories
-        incomeCategoriesLoad();
 
         // load expense categories
-        expenseCategoriesLoad();
+
 
         // load income and expense
-        incomeWeekLoad();
-        expensesWeekLoad();
-
+        loadTab();
     }
 
+    public void loadTab(){
+        incomeCategoriesLoad();
+        expenseCategoriesLoad();
+        incomeWeekLoad();
+        expensesWeekLoad();
+        incomeMonthLoad();
+        expensesMonthLoad();
+        incomeDaysLoad();
+        expensesDaysLoad();
+        incomeYearLoad();
+        expensesYearLoad();
+        incomeAllLoad();
+        expensesAllLoad();
+    }
     @FXML
     PieChart incomeWeekPie;
     @FXML
@@ -124,6 +136,20 @@ public class categoriesSceneController implements Initializable {
     public Label expensesWeekNote;
     @FXML
     public Label incomeWeekNote;
+    @FXML
+    public Label incomeWeekTotalLabel;
+    @FXML
+    public Label expenseWeekTotalLabel;
+    @FXML
+    public Label incomeWeekSignCompareLabel;
+    @FXML
+    public Label incomeWeekDifferentCompareLabel;
+    @FXML
+    public Label expensesWeekSignCompareLabel;
+    @FXML
+    public Label expensesWeekDifferentCompareLabel;
+
+
     public void incomeWeekLoadBtnClick(Event actionEvent) {
         incomeWeekLoad();
     }
@@ -134,18 +160,35 @@ public class categoriesSceneController implements Initializable {
 
     public void incomeWeekLoad() {
         try{
-            // data to be imported
-            //TODO: get suitable values from own database
-
-            int salaryValue = 200;
-            int savingValue = 300;
-            int businessValue = 600;
-            PieChart.Data salary = new PieChart.Data("salary", salaryValue);
-            PieChart.Data saving = new PieChart.Data("saving", savingValue);
-            PieChart.Data business = new PieChart.Data("business", businessValue);
+            ArrayList< ProcessCategories.CatModel > catModels=ProcessCategories.getIncomePineChart(0,7);
+            Double sum1=ProcessCategories.getSum(catModels);
+            incomeWeekTotalLabel.setText(String.valueOf(sum1));
+            ArrayList<PieChart.Data> datas=new ArrayList<>();
+            for (ProcessCategories.CatModel catModel:catModels) {
+                if(catModel.value!=0) {
+                    PieChart.Data data = new PieChart.Data(catModel.key, catModel.value);
+                    datas.add(data);
+                }
+            }
+            Double sum2=ProcessCategories.getSum(ProcessCategories.getIncomePineChart(7,7));
+            if(sum1>sum2) {
+                incomeWeekSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↑"));
+                incomeWeekSignCompareLabel.textFillProperty().set(Color.GREEN);
+                incomeWeekDifferentCompareLabel.setText(String.valueOf(sum1-sum2));
+            }
+            else if(sum2>sum1)
+            {
+                incomeWeekSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↓"));
+                incomeWeekSignCompareLabel.textFillProperty().set(Color.RED);
+                incomeWeekDifferentCompareLabel.setText(String.valueOf(sum2-sum1));
+            }
+            else if (sum1==sum2) {
+                incomeWeekSignCompareLabel.setText("=");
+                incomeWeekDifferentCompareLabel.setText(String.valueOf(sum2 - sum1));
+            }
             incomeWeekPie.getData().clear();
-            incomeWeekPie.getData().addAll(salary, saving,business);
-            // display info when click
+            incomeWeekPie.getData().addAll(datas);
+
             for(PieChart.Data data : incomeWeekPie.getData()){
                 data.getNode().addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -154,8 +197,10 @@ public class categoriesSceneController implements Initializable {
                     alert.showAndWait();
                 });
             }
-
             incomeWeekNote.setVisible(false);
+        }
+        catch (ProcessExeption pe){
+            pe.printStackTrace();
         }
         catch(Exception ex){
 
@@ -164,15 +209,35 @@ public class categoriesSceneController implements Initializable {
 
     public void expensesWeekLoad() {
         try{
-            // data to be imported
-            int shopValue = 400;
-            int billValue = 280;
-            int healthValue = 500;
-            PieChart.Data shop = new PieChart.Data("shopping", shopValue);
-            PieChart.Data billing = new PieChart.Data("bill", billValue);
-            PieChart.Data health = new PieChart.Data("health", healthValue);
-            expensesWeekPie.getData().clear();
-            expensesWeekPie.getData().addAll(shop, billing,health);
+            ArrayList<ProcessCategories.CatModel > catModels=ProcessCategories.getExpensePineChart(0,7);
+            Double sum1=ProcessCategories.getSum(catModels);
+            expenseWeekTotalLabel.setText(String.valueOf(sum1));
+            ArrayList<PieChart.Data> datas=new ArrayList<>();
+            for (ProcessCategories.CatModel catModel:catModels) {
+                if(catModel.value!=0) {
+                    PieChart.Data data = new PieChart.Data(catModel.key, catModel.value);
+                    datas.add(data);
+                }
+            }
+            expensesWeekPie.getData().setAll(datas);
+
+            Double sum2=ProcessCategories.getSum(ProcessCategories.getExpensePineChart(7,7));
+            if(sum1>sum2) {
+                incomeWeekSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↑"));
+                incomeWeekSignCompareLabel.textFillProperty().set(Color.GREEN);
+                incomeWeekDifferentCompareLabel.setText(String.valueOf(sum1-sum2));
+            }
+            else if(sum2>sum1)
+            {
+                incomeWeekSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↓"));
+                incomeWeekSignCompareLabel.textFillProperty().set(Color.RED);
+                incomeWeekDifferentCompareLabel.setText(String.valueOf(sum2-sum1));
+            }
+            else if (sum1==sum2) {
+                incomeWeekSignCompareLabel.setText("=");
+                incomeWeekDifferentCompareLabel.setText(String.valueOf(sum2 - sum1));
+            }
+
             // display info when click
             for(PieChart.Data data : expensesWeekPie.getData()){
                 data.getNode().addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
@@ -182,10 +247,443 @@ public class categoriesSceneController implements Initializable {
                     alert.showAndWait();
                 });
             }
-
             expensesWeekNote.setVisible(false);
         }
+        catch (ProcessExeption pe){
+            pe.printStackTrace();
+        }
+        catch(Exception ex) {
+
+        }
+    }
+
+    @FXML
+    PieChart incomeMonthPie;
+    @FXML
+    PieChart expensesMonthPie;
+    @FXML
+    public Label expensesMonthNote;
+    @FXML
+    public Label incomeMonthNote;
+    @FXML
+    public Label incomeMonthTotalLabel;
+    @FXML
+    public Label expenseMonthTotalLabel;
+    @FXML
+    public Label incomeMonthSignCompareLabel;
+    @FXML
+    public Label expensesMonthSignCompareLabel;
+    @FXML
+    public Label incomeMonthDifferentCompareLabel;
+    @FXML
+    public Label expensesMonthDifferentCompareLabel;
+    public void incomeMonthLoad() {
+        try{
+            ArrayList< ProcessCategories.CatModel > catModels=ProcessCategories.getIncomePineChart(0,30);
+            Double sum1=ProcessCategories.getSum(catModels);
+            incomeMonthTotalLabel.setText(String.valueOf(sum1));
+            ArrayList<PieChart.Data> datas=new ArrayList<>();
+            for (ProcessCategories.CatModel catModel:catModels) {
+                if(catModel.value!=0) {
+                    PieChart.Data data = new PieChart.Data(catModel.key, catModel.value);
+                    datas.add(data);
+                }
+            }
+            Double sum2=ProcessCategories.getSum(ProcessCategories.getIncomePineChart(30,30));
+            if(sum1>sum2) {
+                incomeMonthSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↑"));
+                incomeMonthSignCompareLabel.textFillProperty().set(Color.GREEN);
+                incomeMonthDifferentCompareLabel.setText(String.valueOf(sum1-sum2));
+            }
+            else if(sum2>sum1)
+            {
+                incomeMonthSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↓"));
+                incomeMonthSignCompareLabel.textFillProperty().set(Color.RED);
+                incomeMonthDifferentCompareLabel.setText(String.valueOf(sum2-sum1));
+            }
+            else if (sum1==sum2) {
+                incomeMonthSignCompareLabel.setText("=");
+                incomeMonthDifferentCompareLabel.setText(String.valueOf(sum2 - sum1));
+            }
+            incomeMonthPie.getData().setAll(datas);
+
+            for(PieChart.Data data : incomeMonthPie.getData()){
+                data.getNode().addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Data");
+                    alert.setContentText(data.getName()+" : "+data.getPieValue()); // customize info
+                    alert.showAndWait();
+                });
+            }
+            incomeMonthNote.setVisible(false);
+        }
+        catch (ProcessExeption pe){
+            pe.printStackTrace();
+        }
         catch(Exception ex){
+
+        }
+    }
+
+    public void expensesMonthLoad() {
+        try{
+            ArrayList<ProcessCategories.CatModel > catModels=ProcessCategories.getExpensePineChart(0,7);
+            Double sum1=ProcessCategories.getSum(catModels);
+            expenseMonthTotalLabel.setText(String.valueOf(sum1));
+            ArrayList<PieChart.Data> datas=new ArrayList<>();
+            for (ProcessCategories.CatModel catModel:catModels) {
+                if(catModel.value!=0) {
+                    PieChart.Data data = new PieChart.Data(catModel.key, catModel.value);
+                    datas.add(data);
+                }
+            }
+            expensesMonthPie.getData().setAll(datas);
+
+            Double sum2=ProcessCategories.getSum(ProcessCategories.getExpensePineChart(90,90));
+            if(sum1>sum2) {
+                incomeMonthSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↑"));
+                incomeMonthSignCompareLabel.textFillProperty().set(Color.GREEN);
+                incomeMonthDifferentCompareLabel.setText(String.valueOf(sum1-sum2));
+            }
+            else if(sum2>sum1)
+            {
+                incomeMonthSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↓"));
+                incomeMonthSignCompareLabel.textFillProperty().set(Color.RED);
+                incomeMonthDifferentCompareLabel.setText(String.valueOf(sum2-sum1));
+            }
+            else if (sum1==sum2) {
+                incomeMonthSignCompareLabel.setText("=");
+                incomeMonthDifferentCompareLabel.setText(String.valueOf(sum2 - sum1));
+            }
+
+            // display info when click
+            for(PieChart.Data data : expensesMonthPie.getData()){
+                data.getNode().addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Data");
+                    alert.setContentText(data.getName()+" : "+data.getPieValue()); // customize info
+                    alert.showAndWait();
+                });
+            }
+            expensesMonthNote.setVisible(false);
+        }
+        catch (ProcessExeption pe){
+            pe.printStackTrace();
+        }
+        catch(Exception ex) {
+
+        }
+    }
+    @FXML
+    PieChart incomeDaysPie;
+    @FXML
+    PieChart expensesDaysPie;
+    @FXML
+    public Label expensesDaysNote;
+    @FXML
+    public Label incomeDaysNote;
+    @FXML
+    public Label incomeDaysTotalLabel;
+    @FXML
+    public Label expenseDaysTotalLabel;
+    @FXML
+    public Label incomeDaysSignCompareLabel;
+    @FXML
+    public Label expensesDaysSignCompareLabel;
+    @FXML
+    public Label incomeDaysDifferentCompareLabel;
+    @FXML
+    public Label expensesDaysDifferentCompareLabel;
+    public void incomeDaysLoad() {
+        try{
+            ArrayList< ProcessCategories.CatModel > catModels=ProcessCategories.getIncomePineChart(0,90);
+            Double sum1=ProcessCategories.getSum(catModels);
+            incomeDaysTotalLabel.setText(String.valueOf(sum1));
+            ArrayList<PieChart.Data> datas=new ArrayList<>();
+            for (ProcessCategories.CatModel catModel:catModels) {
+                if(catModel.value!=0) {
+                    PieChart.Data data = new PieChart.Data(catModel.key, catModel.value);
+                    datas.add(data);
+                }
+            }
+            Double sum2=ProcessCategories.getSum(ProcessCategories.getIncomePineChart(90,90));
+            if(sum1>sum2) {
+                incomeDaysSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↑"));
+                incomeDaysSignCompareLabel.textFillProperty().set(Color.GREEN);
+                incomeDaysDifferentCompareLabel.setText(String.valueOf(sum1-sum2));
+            }
+            else if(sum2>sum1)
+            {
+                incomeDaysSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↓"));
+                incomeDaysSignCompareLabel.textFillProperty().set(Color.RED);
+                incomeDaysDifferentCompareLabel.setText(String.valueOf(sum2-sum1));
+            }
+            else if (sum1==sum2) {
+                incomeDaysSignCompareLabel.setText("=");
+                incomeDaysDifferentCompareLabel.setText(String.valueOf(sum2 - sum1));
+            }
+            incomeDaysPie.getData().setAll(datas);
+
+            for(PieChart.Data data : incomeDaysPie.getData()){
+                data.getNode().addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Data");
+                    alert.setContentText(data.getName()+" : "+data.getPieValue()); // customize info
+                    alert.showAndWait();
+                });
+            }
+            incomeDaysNote.setVisible(false);
+        }
+        catch (ProcessExeption pe){
+            pe.printStackTrace();
+        }
+        catch(Exception ex){
+
+        }
+    }
+
+    public void expensesDaysLoad() {
+        try{
+            ArrayList<ProcessCategories.CatModel > catModels=ProcessCategories.getExpensePineChart(0,90);
+            Double sum1=ProcessCategories.getSum(catModels);
+            expenseDaysTotalLabel.setText(String.valueOf(sum1));
+            ArrayList<PieChart.Data> datas=new ArrayList<>();
+            for (ProcessCategories.CatModel catModel:catModels) {
+                if(catModel.value!=0) {
+                    PieChart.Data data = new PieChart.Data(catModel.key, catModel.value);
+                    datas.add(data);
+                }
+            }
+            expensesDaysPie.getData().setAll(datas);
+
+            Double sum2=ProcessCategories.getSum(ProcessCategories.getExpensePineChart(90,90));
+            if(sum1>sum2) {
+                incomeDaysSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↑"));
+                incomeDaysSignCompareLabel.textFillProperty().set(Color.GREEN);
+                incomeDaysDifferentCompareLabel.setText(String.valueOf(sum1-sum2));
+            }
+            else if(sum2>sum1)
+            {
+                incomeDaysSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↓"));
+                incomeDaysSignCompareLabel.textFillProperty().set(Color.RED);
+                incomeDaysDifferentCompareLabel.setText(String.valueOf(sum2-sum1));
+            }
+            else if (sum1==sum2) {
+                incomeDaysSignCompareLabel.setText("=");
+                incomeDaysDifferentCompareLabel.setText(String.valueOf(sum2 - sum1));
+            }
+
+            // display info when click
+            for(PieChart.Data data : expensesDaysPie.getData()){
+                data.getNode().addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Data");
+                    alert.setContentText(data.getName()+" : "+data.getPieValue()); // customize info
+                    alert.showAndWait();
+                });
+            }
+            expensesDaysNote.setVisible(false);
+        }
+        catch (ProcessExeption pe){
+            pe.printStackTrace();
+        }
+        catch(Exception ex) {
+
+        }
+    }
+    @FXML
+    PieChart incomeYearPie;
+    @FXML
+    PieChart expensesYearPie;
+    @FXML
+    public Label expensesYearNote;
+    @FXML
+    public Label incomeYearNote;
+    @FXML
+    public Label incomeYearTotalLabel;
+    @FXML
+    public Label expenseYearTotalLabel;
+    @FXML
+    public Label incomeYearSignCompareLabel;
+    @FXML
+    public Label expensesYearSignCompareLabel;
+    @FXML
+    public Label incomeYearDifferentCompareLabel;
+    @FXML
+    public Label expensesYearDifferentCompareLabel;
+
+    public void incomeYearLoad() {
+        try{
+            ArrayList< ProcessCategories.CatModel > catModels=ProcessCategories.getIncomePineChart(0,356);
+            Double sum1=ProcessCategories.getSum(catModels);
+            incomeYearTotalLabel.setText(String.valueOf(sum1));
+            ArrayList<PieChart.Data> datas=new ArrayList<>();
+            for (ProcessCategories.CatModel catModel:catModels) {
+                if(catModel.value!=0) {
+                    PieChart.Data data = new PieChart.Data(catModel.key, catModel.value);
+                    datas.add(data);
+                }
+            }
+            Double sum2=ProcessCategories.getSum(ProcessCategories.getIncomePineChart(356,356));
+            if(sum1>sum2) {
+                incomeYearSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↑"));
+                incomeYearSignCompareLabel.textFillProperty().set(Color.GREEN);
+                incomeYearDifferentCompareLabel.setText(String.valueOf(sum1-sum2));
+            }
+            else if(sum2>sum1)
+            {
+                incomeYearSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↓"));
+                incomeYearSignCompareLabel.textFillProperty().set(Color.RED);
+                incomeYearDifferentCompareLabel.setText(String.valueOf(sum2-sum1));
+            }
+            else if (sum1==sum2) {
+                incomeYearSignCompareLabel.setText("=");
+                incomeYearDifferentCompareLabel.setText(String.valueOf(sum2 - sum1));
+            }
+            incomeYearPie.getData().setAll(datas);
+
+            for(PieChart.Data data : incomeYearPie.getData()){
+                data.getNode().addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Data");
+                    alert.setContentText(data.getName()+" : "+data.getPieValue()); // customize info
+                    alert.showAndWait();
+                });
+            }
+            incomeYearNote.setVisible(false);
+        }
+        catch (ProcessExeption pe){
+            pe.printStackTrace();
+        }
+        catch(Exception ex){
+
+        }
+    }
+
+    public void expensesYearLoad() {
+        try{
+            ArrayList<ProcessCategories.CatModel > catModels=ProcessCategories.getExpensePineChart(0,356);
+            Double sum1=ProcessCategories.getSum(catModels);
+            expenseYearTotalLabel.setText(String.valueOf(sum1));
+            ArrayList<PieChart.Data> datas=new ArrayList<>();
+            for (ProcessCategories.CatModel catModel:catModels) {
+                if(catModel.value!=0) {
+                    PieChart.Data data = new PieChart.Data(catModel.key, catModel.value);
+                    datas.add(data);
+                }
+            }
+            expensesYearPie.getData().setAll(datas);
+
+            Double sum2=ProcessCategories.getSum(ProcessCategories.getExpensePineChart(356,356));
+            if(sum1>sum2) {
+                incomeYearSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↑"));
+                incomeYearSignCompareLabel.textFillProperty().set(Color.GREEN);
+                incomeYearDifferentCompareLabel.setText(String.valueOf(sum1-sum2));
+            }
+            else if(sum2>sum1)
+            {
+                incomeYearSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↓"));
+                incomeYearSignCompareLabel.textFillProperty().set(Color.RED);
+                incomeYearDifferentCompareLabel.setText(String.valueOf(sum2-sum1));
+            }
+            else if (sum1==sum2) {
+                incomeYearSignCompareLabel.setText("=");
+                incomeYearDifferentCompareLabel.setText(String.valueOf(sum2 - sum1));
+            }
+
+            // display info when click
+            for(PieChart.Data data : expensesYearPie.getData()){
+                data.getNode().addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Data");
+                    alert.setContentText(data.getName()+" : "+data.getPieValue()); // customize info
+                    alert.showAndWait();
+                });
+            }
+            expensesYearNote.setVisible(false);
+        }
+        catch (ProcessExeption pe){
+            pe.printStackTrace();
+        }
+        catch(Exception ex) {
+
+        }
+    }
+
+    @FXML
+    PieChart incomeAllPie;
+    @FXML
+    PieChart expensesAllPie;
+    @FXML
+    public Label expensesAlltimeNote;
+    @FXML
+    public Label incomeAlltimeNote;
+    @FXML
+    public Label incomeTotalLabel;
+    @FXML
+    public Label expenseTotalLabel4;
+    public void incomeAllLoad() {
+        try{
+            ArrayList< ProcessCategories.CatModel > catModels=ProcessCategories.getIncomePineChart();
+            Double sum1=ProcessCategories.getSum(catModels);
+            incomeTotalLabel.setText(String.valueOf(sum1));
+            ArrayList<PieChart.Data> datas=new ArrayList<>();
+            for (ProcessCategories.CatModel catModel:catModels) {
+                if(catModel.value!=0) {
+                    PieChart.Data data = new PieChart.Data(catModel.key, catModel.value);
+                    datas.add(data);
+                }
+            }
+            incomeAllPie.getData().setAll(datas);
+
+            for(PieChart.Data data : incomeAllPie.getData()){
+                data.getNode().addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Data");
+                    alert.setContentText(data.getName()+" : "+data.getPieValue()); // customize info
+                    alert.showAndWait();
+                });
+            }
+            incomeAlltimeNote.setVisible(false);
+        }
+        catch (ProcessExeption pe){
+            pe.printStackTrace();
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+        }
+    }
+
+    public void expensesAllLoad() {
+        try{
+            ArrayList<ProcessCategories.CatModel > catModels=ProcessCategories.getExpensePineChart();
+            Double sum1=ProcessCategories.getSum(catModels);
+            incomeTotalLabel.setText(String.valueOf(sum1));
+            ArrayList<PieChart.Data> datas=new ArrayList<>();
+            for (ProcessCategories.CatModel catModel:catModels) {
+                if(catModel.value!=0) {
+                    PieChart.Data data = new PieChart.Data(catModel.key, catModel.value);
+                    datas.add(data);
+                }
+            }
+            expensesAllPie.getData().setAll(datas);
+
+
+            // display info when click
+            for(PieChart.Data data : expensesAllPie.getData()){
+                data.getNode().addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Data");
+                    alert.setContentText(data.getName()+" : "+data.getPieValue()); // customize info
+                    alert.showAndWait();
+                });
+            }
+            expensesAlltimeNote.setVisible(false);
+        }
+        catch (ProcessExeption pe){
+            pe.printStackTrace();
+        }
+        catch(Exception ex) {
 
         }
     }
@@ -213,7 +711,7 @@ public class categoriesSceneController implements Initializable {
         try{
             categories =ProcessCategories.getIncomeCategories();
         }
-        catch (DatabaseException de){
+        catch (ProcessExeption de){
             de.getErrorCodeMessage();
         }
 //        for(int i=0;i<files.length;i++){
@@ -354,7 +852,7 @@ public class categoriesSceneController implements Initializable {
             categories =ProcessCategories.getExpenseCategories();
 
         }
-        catch (DatabaseException de){
+        catch (ProcessExeption de){
             de.getErrorCodeMessage();
         }
 //        for(int i=0;i<files.length;i++){
@@ -572,6 +1070,8 @@ public class categoriesSceneController implements Initializable {
                 dialogAddStage.showAndWait();
             }
         }
+        loadTab();
+
 
     }
 
@@ -588,7 +1088,7 @@ public class categoriesSceneController implements Initializable {
         dialogAddStage.setScene(addPlan_box.getScene());
 
         dialogAddStage.showAndWait();
-
+        loadTab();
     }
 
 }

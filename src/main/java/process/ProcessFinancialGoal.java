@@ -137,7 +137,7 @@ public class ProcessFinancialGoal {
             maps.put(local, 0.0);
         }
         if (financialGoal.getType() == 3) {
-            ArrayList<Transaction> transactions = ProcessTransaction.getTransactionsInfo(financialGoal.getStartDate(), endDay);
+            ArrayList<Transaction> transactions = ProcessTransaction.getTransactionsInfo(financialGoal.getCheckBalance(),financialGoal.getStartDate(), endDay);
             Double bal = financialGoal.getCheckBalance().getValue();
             for (Transaction transaction : transactions) {
                 if (transaction.getType() == "Income") bal -= transaction.getTransValue();
@@ -179,10 +179,10 @@ public class ProcessFinancialGoal {
 
         for (Map.Entry<LocalDate, Double> entry : maps.entrySet()) {
             dates.add(Double.valueOf(entry.getKey().toEpochDay() - financialGoal.getStartDate().toEpochDay()));
-            System.out.println(entry.getKey().toEpochDay() - financialGoal.getStartDate().toEpochDay());
+//            System.out.println(entry.getKey().toEpochDay() - financialGoal.getStartDate().toEpochDay());
             temp += entry.getValue();
             values.add(temp);
-            System.out.println(temp);
+//            System.out.println(temp);
         }
         if (dates.size() < 2) return "";
         helper.LinearRegressionClassifier linearRegressionClassifier = new helper.LinearRegressionClassifier(dates, values);

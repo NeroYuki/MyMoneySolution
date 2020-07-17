@@ -11,9 +11,24 @@ import model.Category;
 import model.Expense;
 import model.Income;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 public class ProcessCategories {
+    public static class CatModel{
+        public String key;
+        public Double value;
+        public CatModel(String a,double b){
+            key=a;
+            value=b;
+        }
+    }
+
+
     public static boolean saveCategories(String Name, String FileName, String Info, String Type) throws ProcessExeption {
         int Typeint = 0;
 
@@ -91,7 +106,7 @@ public class ProcessCategories {
             System.out.println(de.getErrorCodeMessage());
         }
     }
-    public static String[] getIncomeCategoriesName() throws DatabaseException{
+    public static String[] getIncomeCategoriesName() throws ProcessExeption{
         try {
             ArrayList<Category> categories = DatabaseCategories.getIncomeCategory();
             String[] categoriesname=new String[categories.size()];
@@ -101,10 +116,10 @@ public class ProcessCategories {
             return  categoriesname;
         }
         catch (DatabaseException de){
-            throw de;
+            throw new ProcessExeption();
         }
     }
-    public static String[] getExpenseCategoriesName() throws DatabaseException{
+    public static String[] getExpenseCategoriesName() throws ProcessExeption{
         try {
             ArrayList<Category> categories = DatabaseCategories.getExpenseCategory();
             String[] categoriesname=new String[categories.size()];
@@ -114,26 +129,26 @@ public class ProcessCategories {
             return  categoriesname;
         }
         catch (DatabaseException de){
-            throw de;
+            throw new ProcessExeption();
         }
     }
-    public static ArrayList<Category> getIncomeCategories()throws DatabaseException{
+    public static ArrayList<Category> getIncomeCategories()throws ProcessExeption{
         try {
             ArrayList<Category> categories = DatabaseCategories.getIncomeCategory();
             return  categories;
         }
         catch (DatabaseException de){
-            throw de;
+            throw new ProcessExeption();
         }
     }
 
-    public static ArrayList<Category> getExpenseCategories()throws DatabaseException{
+    public static ArrayList<Category> getExpenseCategories()throws ProcessExeption{
         try {
             ArrayList<Category> categories = DatabaseCategories.getExpenseCategory();
             return  categories;
         }
         catch (DatabaseException de){
-            throw de;
+            throw new ProcessExeption();
         }
         catch (Exception e){
             throw e;
@@ -166,7 +181,7 @@ public class ProcessCategories {
             result.addAll(temp);
         }
         catch (DatabaseException de){
-            System.out.println(de.getErrorCodeMessage());
+            throw new ProcessExeption();
         }
         return result;
     }
@@ -176,69 +191,120 @@ public class ProcessCategories {
             re=DatabaseBalance.getBalances((DatabaseBudget.getBudget(singletonUser.getInstance().getUser()).getId()));
         }
         catch (DatabaseException de){
-            System.out.println(de.getErrorCodeMessage());
+            throw new ProcessExeption();
         }
         return re;
     }
-    public static ArrayList<Income> getIncome(Balance balance) throws ProcessExeption{
-        if (balance==null){
-            throw new ProcessExeption(8);
-        }
-        ArrayList<Income> incomes=new ArrayList<>();
-        try{
-            incomes=DatabaseTransaction.getIncome(balance.getId());
-        }
-        catch (DatabaseException De)
-        {
-            System.out.println(De.getErrorCodeMessage());
 
+
+    public static ArrayList<CatModel> getIncomePineChart(int a,int b)throws ProcessExeption{
+        LocalDate now=LocalDate.now().minusDays(a);
+        LocalDate past=now.minusDays(b);
+        ArrayList<Category> categories= getIncomeCategories();
+        ArrayList<CatModel> catModels=new ArrayList<>();
+        ArrayList<Income> incomes=ProcessTransaction.getAllIncome(past,now);
+
+
+        Map<String, Double> maps = new TreeMap<String, Double>();
+        for (Category category : categories) {
+            maps.put(category.getName(), 0.0);
         }
-        return  incomes;
+        for (Income income:incomes) {
+            maps.put(income.getCategoryName(),maps.get(income.getCategoryName())+income.getTransValue());
+        }
+        for (Map.Entry<String, Double> entry : maps.entrySet()) {
+            catModels.add(new CatModel(entry.getKey(),entry.getValue()));
+        }
+        return catModels;
     }
-    public static ArrayList<Expense> getExpense(Balance balance) throws ProcessExeption{
-        if (balance==null){
-            throw new ProcessExeption(8);
+
+    public static ArrayList<CatModel> getIncomePineChart()throws ProcessExeption{
+        ArrayList<Category> categories= getIncomeCategories();
+        ArrayList<CatModel> catModels=new ArrayList<>();
+        ArrayList<Income> incomes=ProcessTransaction.getAllIncome();
+
+        Map<String, Double> maps = new TreeMap<String, Double>();
+        for (Category category : categories) {
+            maps.put(category.getName(), 0.0);
         }
-        ArrayList<Expense> Expense=new ArrayList<>();
-        try{
-            Expense=DatabaseTransaction.getExpense(balance.getId());
+        for (Income income:incomes) {
+            maps.put(income.getCategoryName(),maps.get(income.getCategoryName())+income.getTransValue());
         }
-        catch (DatabaseException De)
-        {
-            System.out.println(De.getErrorCodeMessage());
+        for (Map.Entry<String, Double> entry : maps.entrySet()) {
+            catModels.add(new CatModel(entry.getKey(),entry.getValue()));
         }
-        return  Expense;
+        return catModels;
     }
-    public static ArrayList<Income> getAllIncome() throws ProcessExeption {
-        ArrayList<Income> incomes=new ArrayList<>();
-        try{
-            ArrayList<Balance> balances=ProcessCategories.getBalances();
-            for (Balance balance:balances) {
-                incomes.addAll(DatabaseTransaction.getIncome(balance.getId()));
-            }
+
+
+    public static ArrayList<CatModel> getExpensePineChart(int a,int b)throws ProcessExeption{
+        LocalDate now=LocalDate.now().minusDays(a);
+        LocalDate past=now.minusDays(b);
+        ArrayList<Category> categories= getExpenseCategories();
+        ArrayList<CatModel> catModels=new ArrayList<>();
+        ArrayList<Expense> expenses=ProcessTransaction.getAllExpense(past,now);
+
+
+        Map<String, Double> maps = new TreeMap<String, Double>();
+        for (Category category : categories) {
+            maps.put(category.getName(), 0.0);
         }
-        catch (ProcessExeption pe){
-            throw pe;
+        for (Expense expense:expenses) {
+            maps.put(expense.getCategoryName(),maps.get(expense.getCategoryName())+expense.getTransValue());
         }
-        catch (DatabaseException de){
-            System.out.println(de.getErrorCodeMessage());
+        for (Map.Entry<String, Double> entry : maps.entrySet()) {
+            catModels.add(new CatModel(entry.getKey(),entry.getValue()));
         }
-        return incomes;
+        return catModels;
     }
-    public static ArrayList<Expense> getAllExpense() throws ProcessExeption {
-        ArrayList<Expense> Expenses=new ArrayList<>();
-        try{
-            ArrayList<Balance> balances=ProcessCategories.getBalances();
-            for (Balance balance:balances) {
-                Expenses.addAll(DatabaseTransaction.getExpense(balance.getId()));
-            }
+    public static ArrayList<CatModel> getExpensePineChart()throws ProcessExeption{
+        ArrayList<Category> categories= getExpenseCategories();
+        ArrayList<CatModel> catModels=new ArrayList<>();
+        ArrayList<Expense> expenses=ProcessTransaction.getAllExpense();
+
+
+        Map<String, Double> maps = new TreeMap<String, Double>();
+        for (Category category : categories) {
+            maps.put(category.getName(), 0.0);
         }
-        catch (ProcessExeption pe){
-            throw pe;
+        for (Expense expense:expenses) {
+            maps.put(expense.getCategoryName(),maps.get(expense.getCategoryName())+expense.getTransValue());
         }
-        catch (DatabaseException de){
-            System.out.println(de.getErrorCodeMessage());
+        for (Map.Entry<String, Double> entry : maps.entrySet()) {
+            catModels.add(new CatModel(entry.getKey(),entry.getValue()));
         }
-        return Expenses;
+        return catModels;
     }
+    public static double getSum(ArrayList<CatModel> catModels){
+        double sum=0;
+        for (CatModel catModel:catModels
+             ) {
+            sum+=catModel.value;
+        }
+        return sum;
+    }
+    public static double getAllIncomeSum() throws ProcessExeption {
+        ArrayList<CatModel> catModels=getIncomePineChart();
+        double sum=0;
+        for (CatModel catModel:catModels
+        ) {
+            sum+=catModel.value;
+        }
+        return sum;
+    }
+    public static double getAllExpenseSum() throws ProcessExeption {
+        ArrayList<CatModel> catModels=getExpensePineChart();
+        double sum=0;
+        for (CatModel catModel:catModels
+        ) {
+            sum+=catModel.value;
+        }
+        return sum;
+    }
+
+
+
+
+
+
 }
