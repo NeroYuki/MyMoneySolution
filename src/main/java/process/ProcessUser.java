@@ -1,9 +1,9 @@
 package process;
 
 import database.DatabaseBudget;
+import database.DatabaseUser;
 import exception.DatabaseException;
 import exception.ProcessExeption;
-import database.DatabaseUser;
 import model.Budget;
 import model.User;
 
@@ -57,5 +57,18 @@ public class ProcessUser {
             throw new ProcessExeption(0);
         }
         return true;
+    }
+    public static String getPassword(String username,String email,LocalDate localDate)throws ProcessExeption{
+        if(username ==null)throw  new ProcessExeption(20);
+        if(email == null)throw  new ProcessExeption(20);
+        if(localDate==null)throw  new ProcessExeption(20);
+        String res = "";
+        try{
+            res = DatabaseUser.getUserPassword(username,email,localDate);
+        }
+        catch (DatabaseException de){
+            throw new ProcessExeption(20);
+        }
+        return res;
     }
 }

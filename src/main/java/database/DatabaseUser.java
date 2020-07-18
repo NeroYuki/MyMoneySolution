@@ -3,11 +3,13 @@ package database;
 import exception.DatabaseException;
 import helper.UUIDHelper;
 import model.Budget;
-import model.Expense;
-import model.Transaction;
 import model.User;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.time.LocalDate;
 
 public class DatabaseUser {
     //Get user info from a given username and password
@@ -123,5 +125,30 @@ public class DatabaseUser {
             throw new DatabaseException(0);
         }
         return true;
+    }
+
+    public static String getUserPassword(String username, String email, LocalDate dob) throws DatabaseException {
+        String result = "";
+        try {
+            Connection conn = DatabaseManager.getConnection();
+            PreparedStatement userQuery = conn.prepareCall("SELECT * FROM loggedUser WHERE username = ? AND email = ? AND birthday = ?");
+            userQuery.setString(1, username);
+            userQuery.setString(2, email);
+            userQuery.setDate(3, Date.valueOf(dob));
+            ResultSet userResult = userQuery.executeQuery();
+            if (userResult.first()) {
+                result = userResult.getString("password");
+            }
+            else {
+                throw new DatabaseException(2);
+            }
+        }
+        catch (DatabaseException de) {
+            throw de;
+        }
+        catch (Exception e) {
+            throw new DatabaseException(0);
+        }
+        return result;
     }
 }

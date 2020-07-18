@@ -23,7 +23,8 @@ public class ErrorCode2 {
             "Expire days is before begin day",//16
             "Null balance",//17
             "threshold is negative",
-            "Incorect usename or password"
+            "Incorect usename or password",//19,
+            "Fill correct username, email and dayofbirth"
 
 
     };
