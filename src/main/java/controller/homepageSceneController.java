@@ -5,7 +5,6 @@ import helper.ComponentUI.RingProgressIndicator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -341,6 +340,8 @@ public class homepageSceneController  implements Initializable {
         dialogAddStage.setScene(addPlan_box.getScene());
 
         dialogAddStage.showAndWait();
+        // refresh if in the homepage
+        displayTableView();
 
     }
 
