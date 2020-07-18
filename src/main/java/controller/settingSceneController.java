@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.User;
 import process.singletonUser;
+import process.singletonBudget;
 import scenes.*;
 
 import java.net.URL;
@@ -162,13 +163,22 @@ public class settingSceneController implements Initializable {
         setUser();
     }
 
-    public void logOutBtnClick(ActionEvent actionEvent) {
+    public void logOutBtnClick(ActionEvent actionEvent) throws Exception {
         Alert alertConfirm = new Alert(Alert.AlertType.CONFIRMATION,
-                "Logout?", ButtonType.YES, ButtonType.NO);
+                "Logout now?", ButtonType.YES, ButtonType.NO);
         alertConfirm.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
         alertConfirm.showAndWait();
         if (alertConfirm.getResult() == ButtonType.YES) {
-            System.exit(0);
+            System.out.println("Logout clicked");
+            Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow(); // get stage of program, primary stage
+
+            loginScene login_scene = new loginScene();
+            stage.setScene(login_scene.getScene());
+
+            // reset user
+            singletonUser.getInstance().setUser(null);
+            singletonBudget.getInstance().setBudget(null);
+            //System.exit(0);
         }
     }
 

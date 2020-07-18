@@ -33,6 +33,8 @@ public class addSavingBoxController implements Initializable {
     public TextField interestRateText;
     public ComboBox unitCombo;
 
+    public boolean saved = false;
+
     // test dialog stage, not used but maybe later
     public Stage dialogEditStage;
 
@@ -82,6 +84,7 @@ public class addSavingBoxController implements Initializable {
             System.out.println(pe.getErrorCodeMessage());
         }
 
+        saved = true;
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow(); // get stage of program, primary stage
         stage.close();
     }
