@@ -4,13 +4,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.ChoiceDialog;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.User;
+import process.singletonUser;
 import scenes.*;
 
 import java.net.URL;
@@ -24,6 +25,10 @@ public class settingSceneController implements Initializable {
     public ImageView addTransBtn;
     @FXML
     public ImageView planBtn;
+    public TextField nameText;
+    public PasswordField passwordText;
+    public DatePicker dobpicker;
+    public TextField emailText;
 
     public void transactionBtnClick(ActionEvent e) throws Exception {
         System.out.println("Transaction clicked");
@@ -154,9 +159,37 @@ public class settingSceneController implements Initializable {
         Tooltip.install(addTransBtn, new Tooltip("Add new item"));
         Tooltip.install(planBtn, new Tooltip("Add plan"));
 
+        setUser();
     }
 
     public void logOutBtnClick(ActionEvent actionEvent) {
-        System.exit(0);
+        Alert alertConfirm = new Alert(Alert.AlertType.CONFIRMATION,
+                "Logout?", ButtonType.YES, ButtonType.NO);
+        alertConfirm.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+        alertConfirm.showAndWait();
+        if (alertConfirm.getResult() == ButtonType.YES) {
+            System.exit(0);
+        }
+    }
+
+    public void setUser(){
+        User user = singletonUser.getInstance().getUser();
+        nameText.setText(user.getUsername());
+        dobpicker.setValue(user.getBirthday());
+        emailText.setText(user.getEmail());
+    }
+
+    public void editBtnClick(ActionEvent actionEvent) {
+        //nameText.setEditable(true);
+        passwordText.setEditable(true);
+        dobpicker.setEditable(true);
+        emailText.setEditable(true);
+    }
+
+    public void saveBtnClick(ActionEvent actionEvent) {
+        //TODO: save edit to database
+        passwordText.setEditable(false);
+        dobpicker.setEditable(false);
+        emailText.setEditable(false);
     }
 }

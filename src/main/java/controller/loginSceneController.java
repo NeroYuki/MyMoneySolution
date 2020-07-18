@@ -1,6 +1,5 @@
 package controller;
 
-import database.DatabaseUser;
 import exception.ProcessExeption;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,13 +7,14 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import model.User;
+import javafx.stage.StageStyle;
 import process.ProcessUser;
+import scenes.forgetPasswordBox;
 import scenes.homepageScene;
-
-import java.time.LocalDate;
+import scenes.registerBox;
 
 public class loginSceneController {
     @FXML
@@ -50,7 +50,35 @@ public class loginSceneController {
 
     public void registerBtnClick(ActionEvent e) throws Exception {
         System.out.println("Register clicked");
-        DatabaseUser.registerUser(new User(this.txtUsername.getText(), this.txtPassword.getText(), "a@b.c", LocalDate.of(2004,11,23), null));
+        Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage
+        //TODO: generate id from process (arraylist)
+        registerBox register_box = new registerBox();
+
+        // dialog show
+        Stage dialogEditStage = new Stage(StageStyle.TRANSPARENT);
+        dialogEditStage.setTitle("Register users");
+        dialogEditStage.initModality(Modality.WINDOW_MODAL);
+        dialogEditStage.initOwner(stage); // close this dialog to return to owner window
+        dialogEditStage.setScene(register_box.getScene());
+
+        dialogEditStage.showAndWait();
+        //DatabaseUser.registerUser(new User(this.txtUsername.getText(), this.txtPassword.getText(), "a@b.c", LocalDate.of(2004,11,23), null));
+    }
+
+    public void forgetPassword(ActionEvent e) throws Exception {
+        System.out.println("Forget password clicked");
+        Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage
+        //TODO: generate id from process (arraylist)
+        forgetPasswordBox forgetpassword_box = new forgetPasswordBox();
+
+        // dialog show
+        Stage dialogEditStage = new Stage(StageStyle.TRANSPARENT);
+        dialogEditStage.setTitle("Find password");
+        dialogEditStage.initModality(Modality.WINDOW_MODAL);
+        dialogEditStage.initOwner(stage); // close this dialog to return to owner window
+        dialogEditStage.setScene(forgetpassword_box.getScene());
+
+        dialogEditStage.showAndWait();
     }
 
     public void closeBtnClick(ActionEvent e){
