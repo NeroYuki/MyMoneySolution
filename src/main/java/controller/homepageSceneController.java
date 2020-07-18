@@ -117,29 +117,31 @@ public class homepageSceneController  implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        try {
-            totalBalanceText.setText(Double.toString(ProcessBalance.getSum()));
-        } catch (ProcessExeption processExeption) {
-            processExeption.printStackTrace();
-        }
+
         // tooltip handle for add item and plan buttons
         Tooltip.install(addTransBtn, new Tooltip("Add new item"));
         Tooltip.install(planBtn, new Tooltip("Add financial goal"));
 
 
         setUser();
+
         displayRing(new FinancialGoal("",1,0,LocalDate.now(),LocalDate.now().plusDays(1),null));
         goalTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
                 displayRing(goalTable.getSelectionModel().getSelectedItem());
         });
         displayRing(null);
+
         balanceComboBox.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent actionEvent) {
-                totalBalanceText.setText(Double.toString(balanceComboBox.getSelectionModel().getSelectedItem().getValue()));
+                if (balanceComboBox.getSelectionModel().getSelectedIndex() != -1) {
+                    totalBalanceText.setText(Double.toString(balanceComboBox.getSelectionModel().getSelectedItem().getValue()));
+                }
             }
         });
         setAccountCombo();
+        balanceComboBox.getSelectionModel().selectLast();
+        totalBalanceText.setText(Double.toString(balanceComboBox.getSelectionModel().getSelectedItem().getValue()));
         // display table
         displayTableView();
     }
