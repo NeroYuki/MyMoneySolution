@@ -1,8 +1,8 @@
+import database.DatabaseManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import scenes.*;
-import database.*;
+import scenes.loginScene;
 
 public class mainActivity extends Application {
 
