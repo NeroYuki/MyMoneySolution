@@ -10,10 +10,11 @@ import model.FinancialGoal;
 import model.Transaction;
 
 import java.time.LocalDate;
-import java.time.temporal.TemporalUnit;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class ProcessFinancialGoal {
 
@@ -194,17 +195,44 @@ public class ProcessFinancialGoal {
         helper.LinearRegressionClassifier linearRegressionClassifier = new helper.LinearRegressionClassifier(dates, values);
         double prediction = linearRegressionClassifier.predictValue(Double.valueOf(endDay.toEpochDay() - financialGoal.getStartDate().toEpochDay()));
         System.out.println(prediction);
-        if (prediction < financialGoal.getThreshold()) {
-            if ((financialGoal.getType() == 1) || (financialGoal.getType() == 3))
-                return "Your goal may not achievable due remaining time";
-            else if (financialGoal.getType() == 2) {
-                return "you likely to spend less than you expected";
+        if (financialGoal.getExpireDate().toEpochDay() - LocalDate.now().toEpochDay() > 0) {
+            String res = "";
+            if (prediction < financialGoal.getThreshold()) {
+                if ((financialGoal.getType() == 1) || (financialGoal.getType() == 3))
+                    res ="Your goal may not be achievable in time";
+                else if (financialGoal.getType() == 2) {
+                    res ="You are likely to spend less than you expected";
+                }
             }
-        } else if (prediction >= financialGoal.getThreshold()){
-            if ((financialGoal.getType() == 1) || (financialGoal.getType() == 3))
-                return "You have a good change to get your plan goal";
-            else if (financialGoal.getType() == 2) {
-                return "you likely to over spend during this plan";
+            else if (prediction >= financialGoal.getThreshold()) {
+                if ((financialGoal.getType() == 1) || (financialGoal.getType() == 3))
+                    res ="You have a good chance to reach your goal";
+                else if (financialGoal.getType() == 2) {
+                    res ="Please do not overspend, good luck";
+                }
+            }
+            if (temp >= financialGoal.getThreshold()) {
+                if ((financialGoal.getType() == 1))
+                    res ="We can't believe your outstanding move, a perfect money maker";
+                else if (financialGoal.getType() == 2) {
+                    res ="So disappointed because you are such a reckless spender";
+                }
+            }
+            return res;
+        }
+        else {
+            if (temp < financialGoal.getThreshold()) {
+                if ((financialGoal.getType() == 1) || (financialGoal.getType() == 3))
+                    return "You have failed to achieve your goal";
+                else if (financialGoal.getType() == 2) {
+                    return "You've got good news, everything is under your control";
+                }
+            } else if (temp >= financialGoal.getThreshold()) {
+                if ((financialGoal.getType() == 1) || (financialGoal.getType() == 3))
+                    return "Wow you should be proud to get to the top of the goal";
+                else if (financialGoal.getType() == 2) {
+                    return "Oh your spending is too much, but sometimes we should learn to accept it";
+                }
             }
         }
         return "";

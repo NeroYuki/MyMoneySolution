@@ -22,8 +22,9 @@ public class ErrorCode2 {
             "Failure to excecute code from database",//15
             "Expire days is before begin day",//16
             "Null balance",//17
-            "threshold is negative,"
-
+            "threshold is negative",
+            "Incorect usename or password",//19,
+            "Fill correct username, email and dayofbirth"
 
 
     };

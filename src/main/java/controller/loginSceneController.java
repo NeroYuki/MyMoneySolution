@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
@@ -29,6 +30,13 @@ public class loginSceneController {
         catch (ProcessExeption de)
         {
             System.out.println(de.getErrorCodeMessage());
+            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+            alertWarning.setTitle("No user");
+            alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+            alertWarning.setHeaderText("Wrong username or password");
+            alertWarning.setContentText("Please login again");
+            alertWarning.showAndWait();
+            return;
         }
         System.out.println("Login clicked");
         Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage

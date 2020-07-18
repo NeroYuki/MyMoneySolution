@@ -1,7 +1,5 @@
 package controller;
 
-import database.DatabaseUser;
-import exception.DatabaseException;
 import exception.ProcessExeption;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.User;
+import process.ProcessUser;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -64,13 +63,17 @@ public class registerBoxController implements Initializable {
 
     }
 
-    public void saveBtnClick(ActionEvent actionEvent) throws ProcessExeption {
+    public void saveBtnClick(ActionEvent actionEvent) {
+
+            //TODO: process.registerUser() returns boolean
         try{
-            DatabaseUser.registerUser(new User(this.nameText.getText(), this.passwordText.getText(), this.emailText.getText(), dobpicker.getValue(), null));
+            ProcessUser.registerUser(nameText.getText(),passwordText.getText(),emailText.getText(), dobpicker.getValue());
         }
-        catch (DatabaseException dbe){
-            System.out.println(dbe.getErrorCodeMessage());
+        catch (ProcessExeption processExeption)
+        {
+            processExeption.printStackTrace();
         }
+
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow(); // get stage of program, primary stage
         stage.close();
     }

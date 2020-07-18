@@ -117,35 +117,59 @@ public class homepageSceneController  implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        try {
-            totalBalanceText.setText(Double.toString(ProcessBalance.getSum()));
-        } catch (ProcessExeption processExeption) {
-            processExeption.printStackTrace();
-        }
+
         // tooltip handle for add item and plan buttons
         Tooltip.install(addTransBtn, new Tooltip("Add new item"));
         Tooltip.install(planBtn, new Tooltip("Add financial goal"));
 
 
         setUser();
+
         displayRing(new FinancialGoal("",1,0,LocalDate.now(),LocalDate.now().plusDays(1),null));
         goalTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
                 displayRing(goalTable.getSelectionModel().getSelectedItem());
-            }
         });
+        displayRing(null);
+
         balanceComboBox.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent actionEvent) {
-                totalBalanceText.setText(Double.toString(balanceComboBox.getSelectionModel().getSelectedItem().getValue()));
+                if (balanceComboBox.getSelectionModel().getSelectedIndex() != -1) {
+                    totalBalanceText.setText(Double.toString(balanceComboBox.getSelectionModel().getSelectedItem().getValue()));
+                }
             }
         });
         setAccountCombo();
+        balanceComboBox.getSelectionModel().selectLast();
+        totalBalanceText.setText(Double.toString(balanceComboBox.getSelectionModel().getSelectedItem().getValue()));
         // display table
         displayTableView();
     }
 
     private void displayRing(FinancialGoal financialGoal){
+        if(financialGoal==null){
+            planSelectionLabel.setText("");
+            daysLabel.setText("0");
+            lastDayLabel.setText(String.valueOf(LocalDate.now()));
+            RingProgressIndicator indicator = new RingProgressIndicator();
+            moneyDoneDisplay.setText(0+" VND");
+            moneyDoneDisplay1.setText(0+" VND");
+            commnetLabel.setText("");
+            //TODO: get first data in table view
+            Slider slider = new Slider(0, 100, 50);
+            indicator.setStyle("-fx-background:  #E6E6FA;");
+
+            slider.valueProperty().addListener((o, oldVal, newVal) -> indicator.setProgress(newVal.intValue()));
+            VBox main = new VBox(1, indicator);
+            indicator.setProgress(Double.valueOf(slider.getValue()).intValue());
+
+            slider.setValue(0); // set value of progress using this
+            main.setLayoutX(progressArea.getPrefWidth()/3.8);
+            main.setLayoutY(progressArea.getPrefWidth()/3.5);
+
+            progressArea.getChildren().add(main);
+            return;
+        }
         // add progress indicator
         planSelectionLabel.setText(financialGoal.getDescription());
         if(ProcessFinancialGoal.getRemainDays(financialGoal)<0) daysLabel.setText("0");
@@ -177,8 +201,13 @@ public class homepageSceneController  implements Initializable {
         progressArea.getChildren().add(main);
 
         // change progress goal show color base on type of goal
-        indicator.setColor("red");
-        indicator.setColor("green");
+        if(financialGoal.getType()==1 || financialGoal.getType()==3){
+            indicator.setColor("green");
+        }
+        else if(financialGoal.getType()==2){
+            indicator.setColor("red");
+        }
+
         try {
             commnetLabel.setText(ProcessFinancialGoal.predictResult(financialGoal));
         }
@@ -311,6 +340,7 @@ public class homepageSceneController  implements Initializable {
                 dialogAddStage.setScene(addIncome_box.getScene());
 
                 dialogAddStage.showAndWait();
+
             }
             else if(result.get() == "Expenses"){ // expense select option
                 // get add income scene
@@ -327,6 +357,11 @@ public class homepageSceneController  implements Initializable {
 
                 dialogAddStage.showAndWait();
             }
+            int i=balanceComboBox.getSelectionModel().getSelectedIndex();
+            setAccountCombo();
+            balanceComboBox.getSelectionModel().select(i);
+            displayRing(goalTable.getSelectionModel().getSelectedItem());
+            totalBalanceText.setText(Double.toString(balanceComboBox.getSelectionModel().getSelectedItem().getValue()));
         }
 
     }
@@ -346,6 +381,7 @@ public class homepageSceneController  implements Initializable {
         dialogAddStage.showAndWait();
         // refresh if in the homepage
         displayTableView();
+
 
     }
 
@@ -414,13 +450,14 @@ public class homepageSceneController  implements Initializable {
             alertWarning.setContentText("Please select a row in the table to edit");
             alertWarning.showAndWait();
         }
+        displayRing(select);
     }
     public void setAccountCombo(){
         ArrayList<Balance> balances=new ArrayList<>();
         Balance all= null;
         try {
             balances = ProcessBalance.getBalances();
-            all=new Balance("all","",ProcessBalance.getSum());
+            all=new Balance("All","",ProcessBalance.getSum());
         }
         catch (ProcessExeption pe)
         {

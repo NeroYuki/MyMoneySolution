@@ -5,13 +5,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import model.User;
+import process.ProcessUser;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -21,7 +20,7 @@ public class forgetPasswordBoxController implements Initializable {
     public Button saveBtn;
     @FXML
     public TextField nameText;
-    public PasswordField passwordText;
+    public TextField passwordText;
     public DatePicker dobpicker;
     public TextField emailText;
 
@@ -63,7 +62,18 @@ public class forgetPasswordBoxController implements Initializable {
     }
 
     public void getPasswordBtnClick(ActionEvent actionEvent) throws ProcessExeption {
-
+        passwordText.setText("");
+        try {
+            passwordText.setText(ProcessUser.getPassword(nameText.getText(), emailText.getText(), dobpicker.getValue()));
+        }
+        catch (ProcessExeption pe){
+            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+            alertWarning.setTitle("Not correct input");
+            alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+            alertWarning.setHeaderText("No data found");
+            alertWarning.setContentText("Please fill in the suitable info");
+            alertWarning.showAndWait();
+        }
 //        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow(); // get stage of program, primary stage
 //        stage.close();
     }
