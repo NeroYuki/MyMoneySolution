@@ -63,7 +63,7 @@ public class forgetPasswordBoxController implements Initializable {
     }
 
     public void getPasswordBtnClick(ActionEvent actionEvent) throws ProcessExeption {
-
+            //TODO: Process.getPassword returns string(password)
 //        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow(); // get stage of program, primary stage
 //        stage.close();
     }
