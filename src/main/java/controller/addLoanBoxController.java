@@ -31,6 +31,8 @@ public class addLoanBoxController implements Initializable {
     public TextField interestRateText;
     public ComboBox unitCombo;
 
+    public boolean saved = false;
+
     // test dialog stage, not used but maybe later
     public Stage dialogEditStage;
 
@@ -73,6 +75,7 @@ public class addLoanBoxController implements Initializable {
         //TODO: save add loan to database and show list view
 //        try {
 //            ProcessCategories.saveCategories(nameText.getText(),iconImage.getImage().getUrl(),infoTextArea.getText(),typeCombo.getSelectionModel().getSelectedItem().toString());
+        saved = true;
 //        }
 //        catch (ProcessExeption pe)
 //        {

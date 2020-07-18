@@ -1,6 +1,5 @@
 package controller;
 
-import exception.DatabaseException;
 import exception.ProcessExeption;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -71,6 +70,10 @@ public class addExpenseBoxController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         setCategoryCombo();
         setAccountCombo();
+    }
+
+    public void setDefaultForSavingLoan(String des){
+        descriptionTextArea.setText(des);
     }
 
     public void saveBtnClick(ActionEvent actionEvent) throws Exception {

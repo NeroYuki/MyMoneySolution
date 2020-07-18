@@ -22,18 +22,6 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <HBox alignment="CENTER_LEFT" layoutX="134.0" layoutY="329.0" prefHeight="37.0" prefWidth="250.0" style="-fx-border-color: #bebfe1; -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-background-color: F1F1E6;">
-               <children>
-                  <TextField fx:id="baseValueText" prefHeight="30.0" prefWidth="121.0" promptText="Enter amount of money" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
-                  <ComboBox fx:id="unitCombo" prefHeight="25.0" prefWidth="54.0" />
-               </children>
-               <padding>
-                  <Insets left="10.0" />
-               </padding></HBox>
             <Pane layoutY="398.0" prefHeight="102.0" prefWidth="720.0" style="-fx-background-color: #A0ACBD;">
                <children>
                   <Button fx:id="saveBtn" defaultButton="true" layoutX="196.0" layoutY="33.0" mnemonicParsing="false" onAction="#saveBtnClick" prefHeight="37.0" prefWidth="91.0" text="SAVE" underline="true">
@@ -67,11 +55,6 @@
                   <Font name="System Bold" size="24.0" />
                </font>
             </Button>
-            <Label alignment="CENTER_RIGHT" layoutX="17.0" layoutY="333.0" prefHeight="30.0" prefWidth="110.0" text="Base Value" textFill="WHITE">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
             <Label layoutX="427.0" layoutY="161.0" prefHeight="30.0" prefWidth="116.0" text="Description" textFill="WHITE">
                <font>
                   <Font size="20.0" />

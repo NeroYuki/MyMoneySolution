@@ -30,6 +30,8 @@ public class addSavingBoxController implements Initializable {
     public TextField interestRateText;
     public ComboBox unitCombo;
 
+    public boolean saved = false;
+
     // test dialog stage, not used but maybe later
     public Stage dialogEditStage;
 
@@ -72,6 +74,7 @@ public class addSavingBoxController implements Initializable {
         //TODO: save add saving to database and show list view
 //        try {
 //            ProcessCategories.saveCategories(nameText.getText(),iconImage.getImage().getUrl(),infoTextArea.getText(),typeCombo.getSelectionModel().getSelectedItem().toString());
+        saved = true;
 //        }
 //        catch (ProcessExeption pe)
 //        {

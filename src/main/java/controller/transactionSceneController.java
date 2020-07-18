@@ -38,15 +38,15 @@ public class transactionSceneController implements Initializable {
     public ImageView addTransBtn;
     @FXML
     public ImageView planBtn;
-    public TableView<Transaction> transactionTable;
-    public TableColumn<Transaction, String> idColumn;
-    public TableColumn<Transaction, LocalDate> dateColumn;
-    public TableColumn<Transaction, String> descriptionColumn;
-    public TableColumn<Transaction, Balance> accountColumn; // yet to be used because not in constructor of income or saving??
-    public TableColumn<Transaction, String> categoryColumn;
-    public TableColumn<Transaction, Double> valueColumn;
+    public TableView<Transaction> transactionWeekTable;
+    public TableColumn<Transaction, String> idWeekColumn;
+    public TableColumn<Transaction, LocalDate> dateWeekColumn;
+    public TableColumn<Transaction, String> descriptionWeekColumn;
+    public TableColumn<Transaction, Balance> accountWeekColumn; // yet to be used because not in constructor of income or saving??
+    public TableColumn<Transaction, String> categoryWeekColumn;
+    public TableColumn<Transaction, Double> valueWeekColumn;
 
-    public TextField filterText;
+    public TextField filterWeekText;
     @FXML
     public Button viewBtn;
 
@@ -165,16 +165,16 @@ public class transactionSceneController implements Initializable {
 //        transactionList.add(new Expense(UUIDHelper.newUUIDString(), LocalDate.of(2004,11,23),-35000, "Restaurant district 5", "Food and Beverage"));
 
         // add data to suitable columns
-        idColumn.setCellValueFactory(new PropertyValueFactory<Transaction,String>("id"));
-        dateColumn.setCellValueFactory(new PropertyValueFactory<Transaction,LocalDate>("transDate"));
-        descriptionColumn.setCellValueFactory(new PropertyValueFactory<Transaction,String>("transDescription"));
-        categoryColumn.setCellValueFactory(new PropertyValueFactory<Transaction,String>("categoryName"));
+        //idWeekColumn.setCellValueFactory(new PropertyValueFactory<Transaction,String>("id"));
+        dateWeekColumn.setCellValueFactory(new PropertyValueFactory<Transaction,LocalDate>("transDate"));
+        descriptionWeekColumn.setCellValueFactory(new PropertyValueFactory<Transaction,String>("transDescription"));
+        categoryWeekColumn.setCellValueFactory(new PropertyValueFactory<Transaction,String>("categoryName"));
         //typeColumn not set because there is no property in transaction
         //TODO: should add the account column here but no property now to use
-        accountColumn.setCellValueFactory(new PropertyValueFactory<Transaction, Balance>("applyingBalance"));
-        valueColumn.setCellValueFactory(new PropertyValueFactory<Transaction,Double>("transValue"));
+        accountWeekColumn.setCellValueFactory(new PropertyValueFactory<Transaction, Balance>("applyingBalance"));
+        valueWeekColumn.setCellValueFactory(new PropertyValueFactory<Transaction,Double>("transValue"));
 
-        transactionTable.setRowFactory(table -> new TableRow<>(){
+        transactionWeekTable.setRowFactory(table -> new TableRow<>(){
             @Override
             protected void updateItem(Transaction transItem, boolean empty) {
                 super.updateItem(transItem, empty);
@@ -182,7 +182,7 @@ public class transactionSceneController implements Initializable {
                 if (transItem == null || empty) {
                     setStyle("");
                 } else {
-                    valueColumn.setCellFactory(column -> new TableCell<Transaction, Double>() {
+                    valueWeekColumn.setCellFactory(column -> new TableCell<Transaction, Double>() {
                         @Override
                         protected void updateItem(Double valueItem, boolean empty) {
                             super.updateItem(valueItem, empty);
@@ -207,7 +207,7 @@ public class transactionSceneController implements Initializable {
         });
 
         // fill color to differentiate income and expense value
-//        valueColumn.setCellFactory(column -> new TableCell<Transaction, Double>() {
+//        valueWeekColumn.setCellFactory(column -> new TableCell<Transaction, Double>() {
 //            @Override
 //            protected void updateItem(Double item, boolean empty) {
 //                super.updateItem(item, empty);
@@ -229,7 +229,7 @@ public class transactionSceneController implements Initializable {
 //        });
 
         // bring data to the table
-        transactionTable.setItems(transactionList);
+        transactionWeekTable.setItems(transactionList);
     }
 
     public void filterData() {
@@ -238,7 +238,7 @@ public class transactionSceneController implements Initializable {
         FilteredList<Transaction> filteredData = new FilteredList<>(transactionList, p -> true);
 
         // 2. Set the filter Predicate whenever the filter changes.
-        filterText.textProperty().addListener((observable, oldValue, newValue) -> {
+        filterWeekText.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(transaction -> {
                 // If filter text is empty, display all persons.
                 if (newValue == null || newValue.isEmpty()) {
@@ -260,18 +260,18 @@ public class transactionSceneController implements Initializable {
         SortedList<Transaction> sortedData = new SortedList<>(filteredData);
 
         // 4. Bind the SortedList comparator to the TableView comparator.
-        sortedData.comparatorProperty().bind(transactionTable.comparatorProperty());
+        sortedData.comparatorProperty().bind(transactionWeekTable.comparatorProperty());
 
         // 5. Add sorted (and filtered) data to the table.
-        transactionTable.setItems(sortedData);
+        transactionWeekTable.setItems(sortedData);
     }
 
     /**
      * Called when the user clicks on the delete button.
      */
     @FXML
-    public void deleteBtnClick(ActionEvent e) {
-        Transaction select = transactionTable.getSelectionModel().getSelectedItem(); // select an item
+    public void deleteWeekBtnClick(ActionEvent e) {
+        Transaction select = transactionWeekTable.getSelectionModel().getSelectedItem(); // select an item
         if (select != null) {
             // confirmation to delete
             Alert alertConfirm = new Alert(Alert.AlertType.CONFIRMATION,
@@ -300,8 +300,8 @@ public class transactionSceneController implements Initializable {
     }
 
     @FXML
-    public void editBtnClick(ActionEvent e) throws Exception {
-        Transaction select = transactionTable.getSelectionModel().getSelectedItem(); // select an item
+    public void editWeekBtnClick(ActionEvent e) throws Exception {
+        Transaction select = transactionWeekTable.getSelectionModel().getSelectedItem(); // select an item
         // really need a check type condition here to determine the select is income or expense by using instanceof
         // or getClass() to return the runtime of transaction object
         // ex: if(select instanceof Income) { ... } else we know type income or expense to serve purpose in edit form
@@ -329,7 +329,7 @@ public class transactionSceneController implements Initializable {
             displayTableView();
             // filter data when search table
             filterData();
-            System.out.println(transactionTable.getItems().get(0).getTransDescription());
+            System.out.println(transactionWeekTable.getItems().get(0).getTransDescription());
 
 
 

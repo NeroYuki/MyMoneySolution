@@ -448,8 +448,6 @@ public class accountSceneController implements Initializable {
                 });
 
                 // edit button
-
-                // deposit button
                 editBtn.setOnAction(event -> {
                     try{
                         // get add income scene
@@ -476,22 +474,25 @@ public class accountSceneController implements Initializable {
                     }
                 });
 
+                // deposit button
                 depositBtn.setOnAction(event -> {
                     try {
                         // get deposit scene
                         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow(); // get stage of program, primary stage
 
-                        depositSavingBox depositSaving_box = new depositSavingBox();
-                        // set value of dialog
-                        Saving select = getListView().getItems().get(getIndex());
-                        depositSaving_box.getController().setSaving(select);
+                        addExpenseBox addExpense_box = new addExpenseBox();
+
+                        String des = "Deposit for " + nameLabel.getText();
+
+                        // set default value
+                        addExpense_box.getController().setDefaultForSavingLoan(des);
 
                         // dialog show
                         Stage dialogAddStage = new Stage(StageStyle.TRANSPARENT);
-                        dialogAddStage.setTitle("Deposit saving");
+                        dialogAddStage.setTitle("Add expense");
                         dialogAddStage.initModality(Modality.WINDOW_MODAL);
                         dialogAddStage.initOwner(stage); // close this dialog to return to owner window
-                        dialogAddStage.setScene(depositSaving_box.getScene());
+                        dialogAddStage.setScene(addExpense_box.getScene());
 
                         dialogAddStage.showAndWait();
 
@@ -507,17 +508,19 @@ public class accountSceneController implements Initializable {
                         // get withdraw scene
                         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow(); // get stage of program, primary stage
 
-                        withdrawSavingBox withdrawSaving_box = new withdrawSavingBox();
-                        // set value of dialog
-                        Saving select = getListView().getItems().get(getIndex());
-                        withdrawSaving_box.getController().setSaving(select);
+                        addIncomeBox addIncome_box = new addIncomeBox();
+
+                        String des = "Withdraw from " + nameLabel.getText();
+
+                        // set default value
+                        addIncome_box.getController().setDefaultForSavingLoan(des);
 
                         // dialog show
                         Stage dialogAddStage = new Stage(StageStyle.TRANSPARENT);
-                        dialogAddStage.setTitle("Withdraw saving");
+                        dialogAddStage.setTitle("Add income");
                         dialogAddStage.initModality(Modality.WINDOW_MODAL);
                         dialogAddStage.initOwner(stage); // close this dialog to return to owner window
-                        dialogAddStage.setScene(withdrawSaving_box.getScene());
+                        dialogAddStage.setScene(addIncome_box.getScene());
 
                         dialogAddStage.showAndWait();
                         // refresh data saing
@@ -750,19 +753,22 @@ public class accountSceneController implements Initializable {
                         // get withdraw scene
                         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow(); // get stage of program, primary stage
 
-                        withdrawLoanBox withdrawLoan_box = new withdrawLoanBox();
-                        // set value of dialog
-                        Loan select = getListView().getItems().get(getIndex());
-                        withdrawLoan_box.getController().setLoan(select);
+                        addExpenseBox addExpense_box = new addExpenseBox();
+
+                        String des = "Payment for " + nameLabel.getText();
+
+                        // set default value
+                        addExpense_box.getController().setDefaultForSavingLoan(des);
 
                         // dialog show
                         Stage dialogAddStage = new Stage(StageStyle.TRANSPARENT);
-                        dialogAddStage.setTitle("Withdraw loan");
+                        dialogAddStage.setTitle("Add expense");
                         dialogAddStage.initModality(Modality.WINDOW_MODAL);
                         dialogAddStage.initOwner(stage); // close this dialog to return to owner window
-                        dialogAddStage.setScene(withdrawLoan_box.getScene());
+                        dialogAddStage.setScene(addExpense_box.getScene());
 
                         dialogAddStage.showAndWait();
+
                         // refresh data saing
                         loadLoan();
                     } catch (Exception e) {
@@ -908,6 +914,28 @@ public class accountSceneController implements Initializable {
         dialogAddStage.setScene(addSaving_box.getScene());
 
         dialogAddStage.showAndWait();
+
+        // add expense
+        stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage
+
+        addExpenseBox addExpense_box = new addExpenseBox();
+
+        if (addSaving_box.getController().saved == true){
+            String des = "Initial deposit for " + addSaving_box.getController().nameText.getText();
+
+            // set default value
+            addExpense_box.getController().setDefaultForSavingLoan(des);
+
+            // dialog show
+            dialogAddStage = new Stage(StageStyle.TRANSPARENT);
+            dialogAddStage.setTitle("Add expense");
+            dialogAddStage.initModality(Modality.WINDOW_MODAL);
+            dialogAddStage.initOwner(stage); // close this dialog to return to owner window
+            dialogAddStage.setScene(addExpense_box.getScene());
+
+            dialogAddStage.showAndWait();
+        }
+
         // refresh saving in listview
         loadSaving();
     }
@@ -917,7 +945,7 @@ public class accountSceneController implements Initializable {
         Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow(); // get stage of program, primary stage
 
         addLoanBox addLoan_box = new addLoanBox();
-        System.out.println("Add savings click");
+        System.out.println("Add loan click");
 
         // dialog show
         Stage dialogAddStage = new Stage(StageStyle.TRANSPARENT);
@@ -927,6 +955,28 @@ public class accountSceneController implements Initializable {
         dialogAddStage.setScene(addLoan_box.getScene());
 
         dialogAddStage.showAndWait();
+
+        // add expense
+        stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow(); // get stage of program, primary stage
+
+        addIncomeBox addIncome_box = new addIncomeBox();
+
+        if (addLoan_box.getController().saved == true){
+            String des = "Initial gain from " + addLoan_box.getController().nameText.getText();
+
+            // set default value
+            addIncome_box.getController().setDefaultForSavingLoan(des);
+
+            // dialog show
+            dialogAddStage = new Stage(StageStyle.TRANSPARENT);
+            dialogAddStage.setTitle("Add expense");
+            dialogAddStage.initModality(Modality.WINDOW_MODAL);
+            dialogAddStage.initOwner(stage); // close this dialog to return to owner window
+            dialogAddStage.setScene(addIncome_box.getScene());
+
+            dialogAddStage.showAndWait();
+        }
+
         // refresh saving in listview
         loadLoan();
     }
