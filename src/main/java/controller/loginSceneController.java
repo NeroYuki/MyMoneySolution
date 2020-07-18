@@ -12,6 +12,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import process.ProcessUser;
+import scenes.forgetPasswordBox;
 import scenes.homepageScene;
 import scenes.registerBox;
 
@@ -62,6 +63,22 @@ public class loginSceneController {
 
         dialogEditStage.showAndWait();
         //DatabaseUser.registerUser(new User(this.txtUsername.getText(), this.txtPassword.getText(), "a@b.c", LocalDate.of(2004,11,23), null));
+    }
+
+    public void forgetPassword(ActionEvent e) throws Exception {
+        System.out.println("Forget password clicked");
+        Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage
+        //TODO: generate id from process (arraylist)
+        forgetPasswordBox forgetpassword_box = new forgetPasswordBox();
+
+        // dialog show
+        Stage dialogEditStage = new Stage(StageStyle.TRANSPARENT);
+        dialogEditStage.setTitle("Find password");
+        dialogEditStage.initModality(Modality.WINDOW_MODAL);
+        dialogEditStage.initOwner(stage); // close this dialog to return to owner window
+        dialogEditStage.setScene(forgetpassword_box.getScene());
+
+        dialogEditStage.showAndWait();
     }
 
     public void closeBtnClick(ActionEvent e){
