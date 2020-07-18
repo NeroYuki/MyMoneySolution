@@ -20,12 +20,12 @@ public class Saving {
         setName(name);
         setDescription(desc);
         setInterestRate(interest);
-        setCreationDate(creationDate);
+        setCreationDate(LocalDate.now());
         setActiveTimeSpan(activeTime);
         setInterestInterval(new IntervalEnum(interestInterval));
         setBaseValue(baseValue);
         setCurrentValue(currentValue);
-        setLastCheckedDate(creationDate);
+        setLastCheckedDate(LocalDate.now());
     }
     public Saving (String id, String name, String desc, double interest, LocalDate creationDate, int activeTime, IntervalEnum.INTERVAL interestInterval, double baseValue, double currentValue, LocalDate lastCheckedDate) {
         this(name, desc, interest, creationDate, activeTime, interestInterval, baseValue, currentValue);

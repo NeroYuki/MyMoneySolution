@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.Loan;
+import process.ProcessLoan;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -86,13 +87,13 @@ public class editLoanBoxController implements Initializable {
 
     public void saveBtnClick(ActionEvent actionEvent) throws ProcessExeption {
         //TODO: save add saving to database and show list view
-//        try {
-//            ProcessCategories.saveCategories(nameText.getText(),iconImage.getImage().getUrl(),infoTextArea.getText(),typeCombo.getSelectionModel().getSelectedItem().toString());
-//        }
-//        catch (ProcessExeption pe)
-//        {
-//            System.out.println(pe.getErrorCodeMessage());
-//        }
+        try {
+            ProcessLoan.editLoan(loan,nameText.getText(),descriptionTextArea.getText());
+        }
+        catch (ProcessExeption pe)
+        {
+            System.out.println(pe.getErrorCodeMessage());
+        }
 
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow(); // get stage of program, primary stage
         stage.close();

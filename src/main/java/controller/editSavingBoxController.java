@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.Saving;
+import process.ProcessSaving;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -83,13 +84,13 @@ public class editSavingBoxController implements Initializable {
 
     public void saveBtnClick(ActionEvent actionEvent) throws ProcessExeption {
         //TODO: save add saving to database and show list view
-//        try {
-//            ProcessCategories.saveCategories(nameText.getText(),iconImage.getImage().getUrl(),infoTextArea.getText(),typeCombo.getSelectionModel().getSelectedItem().toString());
-//        }
-//        catch (ProcessExeption pe)
-//        {
-//            System.out.println(pe.getErrorCodeMessage());
-//        }
+        try {
+            ProcessSaving.editSaving(saving,nameText.getText(),descriptionTextArea.getText());
+        }
+        catch (ProcessExeption pe)
+        {
+            System.out.println(pe.getErrorCodeMessage());
+        }
 
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow(); // get stage of program, primary stage
         stage.close();

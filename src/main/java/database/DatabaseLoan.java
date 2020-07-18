@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class DatabaseLoan {
@@ -63,7 +64,7 @@ public class DatabaseLoan {
             registerCall.setString(2, ownBudget.getId());
             registerCall.setString(3, loan.getName());
             registerCall.setString(4, loan.getDescription());
-            registerCall.setDate(5, Date.valueOf(loan.getCreationDate()));
+            registerCall.setDate(5, Date.valueOf(LocalDate.now()));
             registerCall.setInt(6, loan.getActiveTimeSpan());
             registerCall.setDouble(7, loan.getBaseValue());
             registerCall.setDouble(8, loan.getCurrentValue());

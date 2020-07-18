@@ -25,6 +25,8 @@ import model.Balance;
 import model.Loan;
 import model.Saving;
 import process.ProcessBalance;
+import process.ProcessLoan;
+import process.ProcessSaving;
 import scenes.*;
 
 import java.net.URL;
@@ -300,7 +302,13 @@ public class accountSceneController implements Initializable {
 
         // init array of original categories income
         ArrayList<Saving> savings = new ArrayList<Saving>();
-
+        try {
+            savings=(ProcessSaving.getSaving());
+        }
+        catch (ProcessExeption processExeption)
+        {
+            processExeption.printStackTrace();
+        }
         //TODO: implement saving process there
 //        try{
 //            balances = ProcessBalance.getBalances();
@@ -310,7 +318,7 @@ public class accountSceneController implements Initializable {
 //        }
 
         // init sample to test UI a bit
-        savings.add(new Saving("test","this is a test",5.5,LocalDate.now(),90, IntervalEnum.INTERVAL.DAILY,10000,15000));
+//        savings.add(new Saving("test","this is a test",5.5,LocalDate.now(),90, IntervalEnum.INTERVAL.DAILY,10000,15000));
 
         savingListView.setPrefHeight(470);
 
@@ -435,11 +443,11 @@ public class accountSceneController implements Initializable {
                             System.out.println("item: " + itemRemove);
                             //TODO: delete saving in database there
                             getListView().getItems().remove(getItem());
-//                            try {
-//                                ProcessCategories.deleleCategory(finalBalances.get(getIndex()));
-//                            } catch (ProcessExeption processExeption) {
-//                                processExeption.printStackTrace();
-//                            }
+                            try {
+                                ProcessSaving.deactivate(finalBalances.get(getIndex()));
+                            } catch (ProcessExeption processExeption) {
+                                processExeption.printStackTrace();
+                            }
                         }
                     } catch(Exception e){
                         e.printStackTrace();
@@ -570,16 +578,15 @@ public class accountSceneController implements Initializable {
         // init array of original categories income
         ArrayList<Loan> loans = new ArrayList<Loan>();
 
-        //TODO: implement loan process there
-//        try{
-//            balances = ProcessBalance.getBalances();
-//        }
-//        catch (ProcessExeption pe){
-//            pe.getMessage();
-//        }
+        try{
+            loans= ProcessLoan.getLoan();
+        }
+        catch (ProcessExeption pe){
+            pe.printStackTrace();
+        }
 
         // init sample to test UI a bit
-        loans.add(new Loan("test","this is a test",5.5,LocalDate.now(),90, IntervalEnum.INTERVAL.DAILY, IntervalEnum.INTERVAL.WEEKLY,10000,15000));
+//        loans.add(new Loan("test","this is a test",5.5,LocalDate.now(),90, IntervalEnum.INTERVAL.DAILY, IntervalEnum.INTERVAL.WEEKLY,10000,15000));
 
         loanListView.setPrefHeight(470);
 
@@ -706,11 +713,11 @@ public class accountSceneController implements Initializable {
                             System.out.println("item: " + itemRemove);
                             //TODO: delete loan in database there
                             getListView().getItems().remove(getItem());
-//                            try {
-//                                ProcessCategories.deleleCategory(finalBalances.get(getIndex()));
-//                            } catch (ProcessExeption processExeption) {
-//                                processExeption.printStackTrace();
-//                            }
+                            try {
+                                ProcessLoan.deactivate(finalBalances.get(getIndex()));
+                            } catch (ProcessExeption processExeption) {
+                                processExeption.printStackTrace();
+                            }
                         }
                     } catch(Exception e){
                         e.printStackTrace();

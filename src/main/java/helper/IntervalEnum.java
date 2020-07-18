@@ -16,6 +16,10 @@ public class IntervalEnum {
         this.intervalValue = input;
     }
 
+    public IntervalEnum(String intervalString) {
+        this.intervalValue = INTERVAL.valueOf(intervalString);
+    }
+
     @Override
     public String toString() {
         return intervalValue.toString();

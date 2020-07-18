@@ -1,5 +1,6 @@
 package process;
 
+import database.DatabaseBudget;
 import database.DatabaseFinancialGoal;
 import exception.DatabaseException;
 import exception.ProcessExeption;
@@ -36,7 +37,9 @@ public class ProcessFinancialGoal {
         if(threshold <0)throw new ProcessExeption(18);
         FinancialGoal financialGoal=new FinancialGoal(desc,type,threshold,startDate,expireDate,checkBalance);
         try{
-            if(DatabaseFinancialGoal.addFinancialGoal(financialGoal,singletonBudget.getInstance().getBudget()));
+            if(DatabaseFinancialGoal.addFinancialGoal(financialGoal,singletonBudget.getInstance().getBudget())) {
+                singletonBudget.getInstance().getBudget().getActiveFinancialGoalList().add(financialGoal);
+            }
             else throw new ProcessExeption(15);
         }
         catch (DatabaseException de)
@@ -49,7 +52,9 @@ public class ProcessFinancialGoal {
         if(threshold <0)throw new ProcessExeption(18);
         FinancialGoal financialGoal=new FinancialGoal(desc,type,threshold,startDate,expireDate,null);
         try{
-            if(DatabaseFinancialGoal.addFinancialGoal(financialGoal,singletonBudget.getInstance().getBudget()));
+            if(DatabaseFinancialGoal.addFinancialGoal(financialGoal,singletonBudget.getInstance().getBudget())){
+                singletonBudget.getInstance().getBudget().getActiveFinancialGoalList().add(financialGoal);
+            }
             else throw new ProcessExeption(15);
         }
         catch (DatabaseException de)
@@ -76,6 +81,7 @@ public class ProcessFinancialGoal {
         financialGoal.setDescription(desc);
         try{
             DatabaseFinancialGoal.updateFinancialGoal(financialGoal);
+            singletonBudget.getInstance().setBudget(DatabaseBudget.getBudget(singletonUser.getInstance().getUser()));
         }
         catch (DatabaseException de){
             System.out.println(de.getErrorCodeMessage());

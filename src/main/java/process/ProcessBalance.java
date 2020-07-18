@@ -65,6 +65,7 @@ public class ProcessBalance {
         try {
             Balance balance = new Balance(id,name, desc,value);
             DatabaseBalance.updateBalance(balance);
+            singletonBudget.getInstance().setBudget(DatabaseBudget.getBudget(singletonUser.getInstance().getUser()));
         }
 
         catch (DatabaseException De){

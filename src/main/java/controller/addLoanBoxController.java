@@ -1,6 +1,7 @@
 package controller;
 
 import exception.ProcessExeption;
+import helper.IntervalEnum;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,6 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.Loan;
+import process.ProcessLoan;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -71,13 +73,13 @@ public class addLoanBoxController implements Initializable {
 
     public void saveBtnClick(ActionEvent actionEvent) throws ProcessExeption {
         //TODO: save add loan to database and show list view
-//        try {
-//            ProcessCategories.saveCategories(nameText.getText(),iconImage.getImage().getUrl(),infoTextArea.getText(),typeCombo.getSelectionModel().getSelectedItem().toString());
-//        }
-//        catch (ProcessExeption pe)
-//        {
-//            System.out.println(pe.getErrorCodeMessage());
-//        }
+        try {
+            ProcessLoan.addLoan(nameText.getText(),descriptionTextArea.getText(),Double.valueOf(interestRateText.getText()),Integer.valueOf(timeSpanText.getText()),helper.IntervalEnum.INTERVAL.valueOf(interestIntervalCombo.getSelectionModel().getSelectedItem().toString()),helper.IntervalEnum.INTERVAL.valueOf(paymentIntervalCombo.getSelectionModel().getSelectedItem().toString()),Double.valueOf(baseValueText.getText()));
+        }
+        catch (ProcessExeption pe)
+        {
+            System.out.println(pe.getErrorCodeMessage());
+        }
 
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow(); // get stage of program, primary stage
         stage.close();
@@ -85,8 +87,8 @@ public class addLoanBoxController implements Initializable {
 
     public void setIntervalCombo(){
         // type list
-        ObservableList<String> typeInterestInterval = FXCollections.observableArrayList("Daily", "Weekly","Monthly","Quarterly","Yearly");
-        ObservableList<String> typePaymentInterval = FXCollections.observableArrayList("Daily", "Weekly","Monthly","Quarterly","Yearly");
+        ObservableList<String> typeInterestInterval = FXCollections.observableArrayList("DAILY", "WEEKLY","MONTHLY","QUARTERLY","YEARLY");
+        ObservableList<String> typePaymentInterval = FXCollections.observableArrayList("DAILY", "WEEKLY","MONTHLY","QUARTERLY","YEARLY");
 
         // set data of combo interval
         interestIntervalCombo.setItems(typeInterestInterval);
