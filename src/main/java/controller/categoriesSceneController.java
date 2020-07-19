@@ -1078,15 +1078,6 @@ public class categoriesSceneController implements Initializable {
             expenseListView.setItems(expenseFilteredList);
         }
     }
-//    @Override
-//    public void initialize(URL fxmlFileLocation, ResourceBundle rb) {
-//
-//        //add Listener to filterInput TextField
-//        filterInput.textProperty().addListener(new ChangeListener() {
-//            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-//                filterPlantList((String) oldValue, (String) newValue);
-//            }
-//        });
 
     public void addTransClick(MouseEvent e) throws Exception {
         // first appear a dialog to choose the type of transaction for clear handle
