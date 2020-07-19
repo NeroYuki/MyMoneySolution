@@ -68,7 +68,7 @@ public class editBalanceBoxController implements Initializable {
         // set info
         infoTextArea.setText(balance.getDescription());
         // set value
-        valueText.setText(Double.toString(balance.getValue()));
+        valueText.setText(String.format("%8d",(int)(balance.getValue())));
     }
 
     public void saveBtnClick(ActionEvent actionEvent) {

@@ -63,7 +63,7 @@ public class depositSavingBoxController implements Initializable {
         // set name
         nameText.setText(saving.getName());
         // set current
-        currentValueText.setText(Double.toString(saving.getCurrentValue()));
+        currentValueText.setText(String.format("%8d",(int)saving.getCurrentValue()));
 
     }
 
