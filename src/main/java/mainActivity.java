@@ -1,8 +1,8 @@
-import database.DatabaseManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import scenes.loginScene;
+import scenes.*;
+import database.*;
 
 public class mainActivity extends Application {
 
@@ -11,6 +11,7 @@ public class mainActivity extends Application {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/jfinance?useUnicode=true&characterEncoding=UTF-8";
     private static final String USER_NAME = "root";
     private static final String PASSWORD = "minhhieu123";
+
 
     @Override
     public void start(Stage primaryStage) throws Exception{

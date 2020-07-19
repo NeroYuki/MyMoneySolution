@@ -5,12 +5,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import model.User;
 import process.ProcessUser;
 
@@ -71,7 +69,14 @@ public class registerBoxController implements Initializable {
         }
         catch (ProcessExeption processExeption)
         {
+            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+            alertWarning.setTitle("Missing something");
+            alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+            alertWarning.setHeaderText("Some data is incorrect");
+            alertWarning.setContentText("Please check carefully");
+            alertWarning.showAndWait();
             processExeption.printStackTrace();
+            return;
         }
 
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow(); // get stage of program, primary stage

@@ -187,7 +187,14 @@ public class homepageSceneController  implements Initializable {
             objectiveModel = ProcessFinancialGoal.getStatus(financialGoal);
         }
         catch (ProcessExeption pe){
+            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+            alertWarning.setTitle("Missing something");
+            alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+            alertWarning.setHeaderText("Cannot load status of plan");
+            alertWarning.setContentText("Please check carefully");
+            alertWarning.showAndWait();
             System.out.println(pe.getErrorCodeMessage());
+            return;
         }
         moneyDoneDisplay.setText(objectiveModel.curValue+" VND");
         moneyDoneDisplay1.setText((financialGoal.getThreshold()-objectiveModel.curValue)+" VND");
@@ -221,7 +228,15 @@ public class homepageSceneController  implements Initializable {
         }
         catch (ProcessExeption pe)
         {
+            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+            alertWarning.setTitle("Missing something");
+            alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+            alertWarning.setHeaderText("Cannot predict result of plan");
+            alertWarning.setContentText("Please check carefully");
+            alertWarning.showAndWait();
+            System.out.println(pe.getErrorCodeMessage());
             pe.printStackTrace();
+            return;
         }
 
     }
@@ -235,7 +250,14 @@ public class homepageSceneController  implements Initializable {
         }
         catch (ProcessExeption pe)
         {
+            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+            alertWarning.setTitle("Missing something");
+            alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+            alertWarning.setHeaderText("Some data is incorrect to load table");
+            alertWarning.setContentText("Please check carefully");
+            alertWarning.showAndWait();
             System.out.println(pe.getErrorCodeMessage());
+            return;
         }
 
         goalList.setAll(goals);
@@ -271,7 +293,14 @@ public class homepageSceneController  implements Initializable {
                                 try {
                                     objectiveModel =ProcessFinancialGoal.getStatus(goalItem);
                                 } catch (ProcessExeption processExeption) {
-                                    processExeption.printStackTrace();
+                                    Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+                                    alertWarning.setTitle("Missing something");
+                                    alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+                                    alertWarning.setHeaderText("Some data for status is incorrect");
+                                    alertWarning.setContentText("Please check carefully");
+                                    alertWarning.showAndWait();
+                                    System.out.println(processExeption.getErrorCodeMessage());
+                                    return;
                                 }
                                 setText(Double.toString(objectiveModel.progress)+"%");
                             }
@@ -469,7 +498,14 @@ public class homepageSceneController  implements Initializable {
         }
         catch (ProcessExeption pe)
         {
+            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+            alertWarning.setTitle("Missing something");
+            alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+            alertWarning.setHeaderText("Some data for account is incorrect");
+            alertWarning.setContentText("Please check carefully");
+            alertWarning.showAndWait();
             System.out.println(pe.getErrorCodeMessage());
+            return;
         }
 
         balances.add(all);

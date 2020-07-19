@@ -32,7 +32,7 @@ public class ProcessCategories {
     public static boolean saveCategories(String Name, String FileName, String Info, String Type) throws ProcessExeption {
         int Typeint = 0;
 
-        if (Name.length() >= 255) {
+        if (Name.length() >= 255 || Name.length() <= 0) {
             throw new ProcessExeption(1);
         }
         if (Info.length() >= 1023) {
@@ -66,7 +66,7 @@ public class ProcessCategories {
         if(id==null){
             throw new ProcessExeption(8);
         }
-        if(Name.length()>=255) {
+        if(Name.length()>=255 || Name.length() <= 0) {
             throw new ProcessExeption(1);
         }
         if(Info.length()>=1023){

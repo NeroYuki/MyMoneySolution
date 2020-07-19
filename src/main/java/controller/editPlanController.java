@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.StringConverter;
 import model.Balance;
 import model.FinancialGoal;
@@ -105,7 +106,14 @@ public class editPlanController implements Initializable {
         }
         catch (ProcessExeption pe)
         {
+            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+            alertWarning.setTitle("Missing something");
+            alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+            alertWarning.setHeaderText("Some data is incorrect");
+            alertWarning.setContentText("Please check carefully");
+            alertWarning.showAndWait();
             System.out.println(pe.getErrorCodeMessage());
+            return;
         }
 
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow(); // get stage of program, primary stage
@@ -118,7 +126,14 @@ public class editPlanController implements Initializable {
         }
         catch (ProcessExeption pe)
         {
+            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+            alertWarning.setTitle("Missing something");
+            alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+            alertWarning.setHeaderText("Some data for account is incorrect");
+            alertWarning.setContentText("Please check carefully");
+            alertWarning.showAndWait();
             System.out.println(pe.getErrorCodeMessage());
+            return;
         }
         ObservableList<Balance> Balancelist = FXCollections.observableArrayList(balances);
         accountCombo.setItems(Balancelist);

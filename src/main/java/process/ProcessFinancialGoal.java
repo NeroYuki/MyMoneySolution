@@ -49,6 +49,7 @@ public class ProcessFinancialGoal {
         }
     }
     public static void addFinancialGoal(LocalDate startDate, LocalDate expireDate,double threshold,int type,String desc)throws ProcessExeption{
+        //FIXME: Condition check
         if(expireDate.isBefore(startDate))throw new ProcessExeption(16);
         if(threshold <0)throw new ProcessExeption(18);
         FinancialGoal financialGoal=new FinancialGoal(desc,type,threshold,startDate,expireDate,null);
@@ -64,6 +65,7 @@ public class ProcessFinancialGoal {
         }
     }
     public static ArrayList<FinancialGoal> getFinancialGoals()throws ProcessExeption{
+
         ArrayList<FinancialGoal> financialGoals=new ArrayList<>();
         Budget budget=singletonBudget.getInstance().getBudget();
         try {
@@ -75,6 +77,7 @@ public class ProcessFinancialGoal {
         return financialGoals;
     }
     public static void editFinancialGoal(FinancialGoal financialGoal,double value,String desc)throws ProcessExeption{
+        //FIXME: Condition check
         if(financialGoal==null){
             throw new ProcessExeption();
         }

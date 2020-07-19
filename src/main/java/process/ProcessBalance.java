@@ -14,7 +14,7 @@ public class ProcessBalance {
 
     public static void addBalance(String name, String desc, double value) throws ProcessExeption {
         //TODO : add check x
-        if (name.length() >= 255) throw new ProcessExeption(12);
+        if (name.length() >= 255 || name.length() <= 0) throw new ProcessExeption(12);
         if (desc.length() >= 1023) throw new ProcessExeption(13);
         Balance balance = new Balance(name, desc, value);
         Budget budget = singletonBudget.getInstance().getBudget();
@@ -55,7 +55,7 @@ public class ProcessBalance {
         if (id == null) {
             throw new ProcessExeption(8);
         }
-        if (name.length() >= 255) throw new ProcessExeption(12);
+        if (name.length() >= 255 || name.length() <= 0) throw new ProcessExeption(12);
         if (desc.length() >= 1023) throw new ProcessExeption(13);
         try {
             Balance balance = new Balance(id, name, desc, value);
