@@ -182,6 +182,16 @@ public class settingSceneController implements Initializable {
         }
     }
 
+    public void exitBtnClick(ActionEvent actionEvent){
+        Alert alertConfirm = new Alert(Alert.AlertType.CONFIRMATION,
+                "Want to exit from us?", ButtonType.YES, ButtonType.NO);
+        alertConfirm.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+        alertConfirm.showAndWait();
+        if (alertConfirm.getResult() == ButtonType.YES) {
+            System.exit(0);
+        }
+    }
+
     public void setUser(){
         User user = singletonUser.getInstance().getUser();
         nameText.setText(user.getUsername());

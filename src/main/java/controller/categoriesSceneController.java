@@ -208,7 +208,15 @@ public class categoriesSceneController implements Initializable {
             incomeWeekNote.setVisible(false);
         }
         catch (ProcessExeption pe){
+            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+            alertWarning.setTitle("Missing something");
+            alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+            alertWarning.setHeaderText("Some data for income week is incorrect");
+            alertWarning.setContentText("Please check carefully");
+            alertWarning.showAndWait();
+            System.out.println(pe.getErrorCodeMessage());
             pe.printStackTrace();
+            return;
         }
         catch(Exception ex){
 
@@ -258,7 +266,15 @@ public class categoriesSceneController implements Initializable {
             expensesWeekNote.setVisible(false);
         }
         catch (ProcessExeption pe){
+            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+            alertWarning.setTitle("Missing something");
+            alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+            alertWarning.setHeaderText("Some data for expense week is incorrect");
+            alertWarning.setContentText("Please check carefully");
+            alertWarning.showAndWait();
+            System.out.println(pe.getErrorCodeMessage());
             pe.printStackTrace();
+            return;
         }
         catch(Exception ex) {
 
@@ -326,7 +342,15 @@ public class categoriesSceneController implements Initializable {
             incomeMonthNote.setVisible(false);
         }
         catch (ProcessExeption pe){
+            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+            alertWarning.setTitle("Missing something");
+            alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+            alertWarning.setHeaderText("Some data for income month is incorrect");
+            alertWarning.setContentText("Please check carefully");
+            alertWarning.showAndWait();
+            System.out.println(pe.getErrorCodeMessage());
             pe.printStackTrace();
+            return;
         }
         catch(Exception ex){
 
@@ -376,7 +400,15 @@ public class categoriesSceneController implements Initializable {
             expensesMonthNote.setVisible(false);
         }
         catch (ProcessExeption pe){
+            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+            alertWarning.setTitle("Missing something");
+            alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+            alertWarning.setHeaderText("Some data for expense month is incorrect");
+            alertWarning.setContentText("Please check carefully");
+            alertWarning.showAndWait();
+            System.out.println(pe.getErrorCodeMessage());
             pe.printStackTrace();
+            return;
         }
         catch(Exception ex) {
 
@@ -443,7 +475,15 @@ public class categoriesSceneController implements Initializable {
             incomeDaysNote.setVisible(false);
         }
         catch (ProcessExeption pe){
+            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+            alertWarning.setTitle("Missing something");
+            alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+            alertWarning.setHeaderText("Some data for income days is incorrect");
+            alertWarning.setContentText("Please check carefully");
+            alertWarning.showAndWait();
+            System.out.println(pe.getErrorCodeMessage());
             pe.printStackTrace();
+            return;
         }
         catch(Exception ex){
 
@@ -493,7 +533,15 @@ public class categoriesSceneController implements Initializable {
             expensesDaysNote.setVisible(false);
         }
         catch (ProcessExeption pe){
+            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+            alertWarning.setTitle("Missing something");
+            alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+            alertWarning.setHeaderText("Some data for expense days is incorrect");
+            alertWarning.setContentText("Please check carefully");
+            alertWarning.showAndWait();
+            System.out.println(pe.getErrorCodeMessage());
             pe.printStackTrace();
+            return;
         }
         catch(Exception ex) {
 
@@ -561,7 +609,15 @@ public class categoriesSceneController implements Initializable {
             incomeYearNote.setVisible(false);
         }
         catch (ProcessExeption pe){
+            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+            alertWarning.setTitle("Missing something");
+            alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+            alertWarning.setHeaderText("Some data for income year is incorrect");
+            alertWarning.setContentText("Please check carefully");
+            alertWarning.showAndWait();
+            System.out.println(pe.getErrorCodeMessage());
             pe.printStackTrace();
+            return;
         }
         catch(Exception ex){
 
@@ -611,7 +667,15 @@ public class categoriesSceneController implements Initializable {
             expensesYearNote.setVisible(false);
         }
         catch (ProcessExeption pe){
+            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+            alertWarning.setTitle("Missing something");
+            alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+            alertWarning.setHeaderText("Some data for expense year is incorrect");
+            alertWarning.setContentText("Please check carefully");
+            alertWarning.showAndWait();
+            System.out.println(pe.getErrorCodeMessage());
             pe.printStackTrace();
+            return;
         }
         catch(Exception ex) {
 
@@ -655,7 +719,15 @@ public class categoriesSceneController implements Initializable {
             incomeAlltimeNote.setVisible(false);
         }
         catch (ProcessExeption pe){
+            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+            alertWarning.setTitle("Missing something");
+            alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+            alertWarning.setHeaderText("Some data for income all is incorrect");
+            alertWarning.setContentText("Please check carefully");
+            alertWarning.showAndWait();
+            System.out.println(pe.getErrorCodeMessage());
             pe.printStackTrace();
+            return;
         }
         catch(Exception ex){
             ex.printStackTrace();
@@ -689,7 +761,15 @@ public class categoriesSceneController implements Initializable {
             expensesAlltimeNote.setVisible(false);
         }
         catch (ProcessExeption pe){
+            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+            alertWarning.setTitle("Missing something");
+            alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+            alertWarning.setHeaderText("Some data for expense all is incorrect");
+            alertWarning.setContentText("Please check carefully");
+            alertWarning.showAndWait();
+            System.out.println(pe.getErrorCodeMessage());
             pe.printStackTrace();
+            return;
         }
         catch(Exception ex) {
 
@@ -719,8 +799,15 @@ public class categoriesSceneController implements Initializable {
         try{
             categories =ProcessCategories.getIncomeCategories();
         }
-        catch (ProcessExeption de){
-            de.getErrorCodeMessage();
+        catch (ProcessExeption pe){
+            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+            alertWarning.setTitle("Missing something");
+            alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+            alertWarning.setHeaderText("Some data for income is incorrect");
+            alertWarning.setContentText("Please check carefully");
+            alertWarning.showAndWait();
+            System.out.println(pe.getErrorCodeMessage());
+            return;
         }
 //        for(int i=0;i<files.length;i++){
 //            File file = files[i];
@@ -781,11 +868,24 @@ public class categoriesSceneController implements Initializable {
                             try {
                                 ProcessCategories.deleleCategory(finalCategories.get(getIndex()));
                             } catch (ProcessExeption processExeption) {
-                                processExeption.printStackTrace();
+                                Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+                                alertWarning.setTitle("Missing something");
+                                alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+                                alertWarning.setHeaderText("Cannot delete");
+                                alertWarning.setContentText("Please check carefully");
+                                alertWarning.showAndWait();
+                                System.out.println(processExeption.getErrorCodeMessage());
+                                return;
                             }
                         }
                     } catch(Exception e){
-                        e.printStackTrace();
+                        Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+                        alertWarning.setTitle("Missing something");
+                        alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+                        alertWarning.setHeaderText("Cannot choose item");
+                        alertWarning.setContentText("Please check carefully");
+                        alertWarning.showAndWait();
+                        return;
                     }
 
                 });
@@ -814,7 +914,14 @@ public class categoriesSceneController implements Initializable {
                         // refresh list
                         incomeCategoriesLoad();
                     } catch (Exception e) {
+                        Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+                        alertWarning.setTitle("Missing something");
+                        alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+                        alertWarning.setHeaderText("Cannot edit");
+                        alertWarning.setContentText("Please check carefully");
+                        alertWarning.showAndWait();
                         e.printStackTrace();
+                        return;
                     }
                 });
             }
@@ -860,8 +967,15 @@ public class categoriesSceneController implements Initializable {
             categories =ProcessCategories.getExpenseCategories();
 
         }
-        catch (ProcessExeption de){
-            de.getErrorCodeMessage();
+        catch (ProcessExeption pe){
+            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+            alertWarning.setTitle("Missing something");
+            alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+            alertWarning.setHeaderText("Some data for expense is incorrect");
+            alertWarning.setContentText("Please check carefully");
+            alertWarning.showAndWait();
+            System.out.println(pe.getErrorCodeMessage());
+            return;
         }
 //        for(int i=0;i<files.length;i++){
 //            File file = files[i];
@@ -919,11 +1033,26 @@ public class categoriesSceneController implements Initializable {
                             try {
                                 ProcessCategories.deleleCategory(finalCategories.get(getIndex()));
                             } catch (ProcessExeption processExeption) {
+                                Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+                                alertWarning.setTitle("Missing something");
+                                alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+                                alertWarning.setHeaderText("Cannot delete");
+                                alertWarning.setContentText("Please check carefully");
+                                alertWarning.showAndWait();
+                                System.out.println(processExeption.getErrorCodeMessage());
                                 processExeption.printStackTrace();
+                                return;
                             }
                         }
                     } catch(Exception e){
+                        Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+                        alertWarning.setTitle("Missing something");
+                        alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+                        alertWarning.setHeaderText("Cannot choose item");
+                        alertWarning.setContentText("Please check carefully");
+                        alertWarning.showAndWait();
                         e.printStackTrace();
+                        return;
                     }
 
                 });
@@ -951,7 +1080,14 @@ public class categoriesSceneController implements Initializable {
                         // refresh list
                         expenseCategoriesLoad();
                     } catch (Exception e) {
+                        Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+                        alertWarning.setTitle("Missing something");
+                        alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+                        alertWarning.setHeaderText("Cannot edit");
+                        alertWarning.setContentText("Please check carefully");
+                        alertWarning.showAndWait();
                         e.printStackTrace();
+                        return;
                     }
                 });
             }
@@ -1003,30 +1139,6 @@ public class categoriesSceneController implements Initializable {
 
     }
 
-    public void deleteCategories(ActionEvent actionEvent) {
-//        final int selectedIncome = incomeListView.getSelectionModel().getSelectedIndex();
-//        String itemIncomeRemove = incomeListView.getSelectionModel().getSelectedItem().getName();
-//        if (selectedIncome != -1) {
-//
-//            expenseListView.getSelectionModel().select(-1); // deselect expense item
-//            itemIncomeRemove = itemIncomeRemove.replace(".png","");
-//            // confirmation to delete
-//            Alert alertConfirm = new Alert(Alert.AlertType.CONFIRMATION,
-//                    "Delete " + itemIncomeRemove + " ?", ButtonType.YES, ButtonType.NO);
-//            alertConfirm.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
-//            alertConfirm.showAndWait();
-//            if (alertConfirm.getResult() == ButtonType.YES) {
-//                incomeListView.getItems().remove(selectedIncome);
-//                //System.out.println("selectIdx: " + selectedIncome);
-//                //System.out.println("item: " + itemIncomeRemove);
-//            }
-//            // deselect all item
-//            incomeListView.getSelectionModel().select(-1);
-//
-//        }
-
-
-    }
 
     @FXML
     public TextField filterText;
@@ -1039,7 +1151,14 @@ public class categoriesSceneController implements Initializable {
             incomeCategories =ProcessCategories.getIncomeCategories();
         }
         catch (ProcessExeption de){
-            de.getErrorCodeMessage();
+            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+            alertWarning.setTitle("Missing something");
+            alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+            alertWarning.setHeaderText("Cannot get list of income");
+            alertWarning.setContentText("Please check carefully");
+            alertWarning.showAndWait();
+            de.printStackTrace();
+            return;
         }
         ObservableList<Category> incomeItems = FXCollections.observableArrayList(incomeCategories);
 
@@ -1051,7 +1170,14 @@ public class categoriesSceneController implements Initializable {
             expenseCategories =ProcessCategories.getExpenseCategories();
         }
         catch (ProcessExeption de){
-            de.getErrorCodeMessage();
+            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+            alertWarning.setTitle("Missing something");
+            alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+            alertWarning.setHeaderText("Cannot get list of expense");
+            alertWarning.setContentText("Please check carefully");
+            alertWarning.showAndWait();
+            de.printStackTrace();
+            return;
         }
         ObservableList<Category> expenseItems = FXCollections.observableArrayList(expenseCategories);
 

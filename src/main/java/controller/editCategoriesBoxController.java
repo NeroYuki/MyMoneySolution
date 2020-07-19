@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -13,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import model.Category;
 import process.ProcessCategories;
 
@@ -122,7 +124,14 @@ public class editCategoriesBoxController implements Initializable {
         }
         catch (ProcessExeption pe)
         {
+            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+            alertWarning.setTitle("Missing something");
+            alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+            alertWarning.setHeaderText("Some data is incorrect");
+            alertWarning.setContentText("Please check carefully");
+            alertWarning.showAndWait();
             System.out.println(pe.getErrorCodeMessage());
+            return;
         }
 
 

@@ -1,7 +1,6 @@
 package controller;
 
 import exception.ProcessExeption;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -21,15 +20,12 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.StringConverter;
 import model.Balance;
-import model.Income;
 import org.controlsfx.control.CheckComboBox;
 import process.ProcessBalance;
 import process.ProcessStaticstics;
 import scenes.*;
 
-import java.awt.event.ActionListener;
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -310,7 +306,15 @@ public class statisticsSceneController implements Initializable {
         }
         catch (ProcessExeption pe)
         {
+            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+            alertWarning.setTitle("Missing something");
+            alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+            alertWarning.setHeaderText("Some data for income is incorrect");
+            alertWarning.setContentText("Please check carefully");
+            alertWarning.showAndWait();
+            System.out.println(pe.getErrorCodeMessage());
             pe.printStackTrace();
+            return;
         }
     }
 
@@ -333,7 +337,14 @@ public class statisticsSceneController implements Initializable {
         }
         catch (ProcessExeption pe)
         {
+            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+            alertWarning.setTitle("Missing something");
+            alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+            alertWarning.setHeaderText("Some data for expense is incorrect");
+            alertWarning.setContentText("Please check carefully");
+            alertWarning.showAndWait();
             pe.printStackTrace();
+            return;
         }
     }
 
@@ -359,7 +370,15 @@ public class statisticsSceneController implements Initializable {
             }
         }
         catch (ProcessExeption processExeption){
+            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+            alertWarning.setTitle("Missing something");
+            alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+            alertWarning.setHeaderText("Some data balance is incorrect");
+            alertWarning.setContentText("Please check carefully");
+            alertWarning.showAndWait();
+            System.out.println(processExeption.getErrorCodeMessage());
             processExeption.printStackTrace();
+            return;
         }
         balanceLineChart.getData().setAll(seriesA);
 
@@ -441,7 +460,14 @@ public class statisticsSceneController implements Initializable {
         }
         catch (ProcessExeption pe)
         {
+            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+            alertWarning.setTitle("Missing something");
+            alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+            alertWarning.setHeaderText("Cannot get balance list combo");
+            alertWarning.setContentText("Please check carefully");
+            alertWarning.showAndWait();
             System.out.println(pe.getErrorCodeMessage());
+            return;
         }
         final ObservableList<Balance> balancelist = FXCollections.observableArrayList(balances);
         balancesCheckComboBox.getItems().setAll(balancelist);

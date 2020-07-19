@@ -130,7 +130,14 @@ public class transactionSceneController implements Initializable {
         }
         catch (ProcessExeption pe)
         {
+            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+            alertWarning.setTitle("Missing something");
+            alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+            alertWarning.setHeaderText("Cannot display table view");
+            alertWarning.setContentText("Please check carefully");
+            alertWarning.showAndWait();
             System.out.println(pe.getErrorCodeMessage());
+            return;
         }
 
         transactionWeekList.setAll(transactions);
@@ -261,7 +268,14 @@ public class transactionSceneController implements Initializable {
                     ProcessTransaction.deleteTransaction(select);
                 }
                 catch (ProcessExeption pe){
-                    pe.getErrorCodeMessage();
+                    Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+                    alertWarning.setTitle("Missing something");
+                    alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+                    alertWarning.setHeaderText("Cannot delete week item");
+                    alertWarning.setContentText("Please check carefully");
+                    alertWarning.showAndWait();
+                    System.out.println(pe.getErrorCodeMessage());
+                    return;
                 }
                 transactionWeekList.remove(select); // delete call
             }
