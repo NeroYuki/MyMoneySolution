@@ -13,7 +13,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class ProcessLoan {
-    public static void addLoan(String Name, String desc, double interset, int activeTime, IntervalEnum.INTERVAL interestInterval,IntervalEnum.INTERVAL paymenInterVal, double baseValue)throws ProcessExeption {
+    public static String addLoan(String Name, String desc, double interset, int activeTime, IntervalEnum.INTERVAL interestInterval, IntervalEnum.INTERVAL paymenInterVal) throws ProcessExeption {
         if (Name.length() >= 255) {
             throw new ProcessExeption(1);
         }
@@ -32,19 +32,21 @@ public class ProcessLoan {
         if (paymenInterVal == null) {
             throw new ProcessExeption();
         }
-        if (baseValue < 0) {
-            throw new ProcessExeption();
-        }
+
+        String id = null;
         try {
-            Loan loan = new Loan(Name, desc, interset, LocalDate.now(), activeTime, interestInterval, paymenInterVal, baseValue, baseValue);
-            DatabaseLoan.addLoan(loan, singletonBudget.getInstance().getBudget());
+            Loan loan = new Loan(Name, desc, interset, LocalDate.now(), activeTime, interestInterval, paymenInterVal, 0, 0);
+            id = DatabaseLoan.addLoan(loan, singletonBudget.getInstance().getBudget());
+            loan.setId(id);
             singletonBudget.getInstance().getBudget().getActiveLoanList().add(loan);
         } catch (DatabaseException de) {
             de.printStackTrace();
             throw new ProcessExeption();
         }
+        return id;
     }
-    public static void editLoan(Loan loan,String name,String desc)throws ProcessExeption {
+
+    public static void editLoan(Loan loan, String name, String desc) throws ProcessExeption {
         if (name.length() >= 255) {
             throw new ProcessExeption(1);
         }
@@ -61,26 +63,55 @@ public class ProcessLoan {
             de.printStackTrace();
         }
     }
-        public static ArrayList<Loan> getLoan()throws  ProcessExeption {
-            try {
-                return DatabaseLoan.getActiveLoan(singletonBudget.getInstance().getBudget().getId());
-            }
-            catch (DatabaseException de)
-            {
-                de.printStackTrace();
-            }
-            return null;
+    public static void editLoan(Loan loan) throws ProcessExeption {
+        try {
+            DatabaseLoan.updateLoan(loan);
+            singletonBudget.getInstance().setBudget(DatabaseBudget.getBudget(singletonUser.getInstance().getUser()));
+        } catch (DatabaseException de) {
+            de.printStackTrace();
         }
-        public static boolean deactivate(Loan loan)throws ProcessExeption{
-            if (loan==null) throw new ProcessExeption();
-            try {
-                return DatabaseLoan.deactivateLoan(loan);
-            }
-            catch (DatabaseException de){
-                de.printStackTrace();
-            }
-            return false;
+    }
+    public static ArrayList<Loan> getLoan() throws ProcessExeption {
+        try {
+            return DatabaseLoan.getActiveLoan(singletonBudget.getInstance().getBudget().getId());
+        } catch (DatabaseException de) {
+            de.printStackTrace();
         }
+        return null;
+    }
+
+    public static Loan getLoan(String id) throws ProcessExeption {
+        ArrayList<Loan> loans = getLoan();
+        for (Loan loan : loans) {
+            if (loan.getId().equals(id)) return loan;
+        }
+        return null;
+    }
+
+    public static boolean deactivate(Loan loan) throws ProcessExeption {
+        if (loan == null) throw new ProcessExeption();
+        try {
+            return DatabaseLoan.deactivateLoan(loan);
+        } catch (DatabaseException de) {
+            de.printStackTrace();
+        }
+        return false;
+    }
+
+    public static boolean deleteLoan(Loan loan) throws ProcessExeption {
+        if (loan == null) throw new ProcessExeption();
+        try {
+            return DatabaseLoan.removeLoan(loan);
+        } catch (DatabaseException de) {
+            de.printStackTrace();
+        }
+        return false;
+    }
+    public static void applyLoan(String id,Double value) throws  ProcessExeption{
+        Loan loan=getLoan(id);
+        loan.setCurrentValue(value);
+            editLoan(loan);
 
     }
+}
 

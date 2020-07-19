@@ -16,6 +16,7 @@ import model.Category;
 import model.Transaction;
 import process.ProcessBalance;
 import process.ProcessCategories;
+import process.ProcessSaving;
 import process.ProcessTransaction;
 
 import java.net.URL;
@@ -36,7 +37,9 @@ public class addIncomeBoxController implements Initializable {
 
     // test dialog stage, not used but maybe later
     public Stage dialogEditStage;
-
+    public boolean saved=false;
+    public String idSaving="";
+    public String idLoan="";
     public void setDialogStage(Stage dialogStage) { // not use this set method but maybe used later
         this.dialogEditStage = dialogStage;
     }
@@ -76,7 +79,24 @@ public class addIncomeBoxController implements Initializable {
 
     public void saveBtnClick(ActionEvent actionEvent) throws Exception {
         try {
-            ProcessTransaction.addIncome(datepicker.getValue(), Double.parseDouble(valueText.getText()), descriptionTextArea.getText(), categoryCombo.getSelectionModel().getSelectedItem(), accountCombo.getSelectionModel().getSelectedItem());
+            if(idSaving!="") {
+                if(ProcessSaving.getSaving(idSaving).getCurrentValue()>=Double.parseDouble(valueText.getText())) {
+                    ProcessTransaction.addIncome(datepicker.getValue(), Double.parseDouble(valueText.getText()), descriptionTextArea.getText(), categoryCombo.getSelectionModel().getSelectedItem(), accountCombo.getSelectionModel().getSelectedItem());
+                    ProcessSaving.withdrawSaving(idSaving,Double.parseDouble(valueText.getText()));
+                    saved = true;
+                }
+                else{
+                    Alert alert=new Alert(Alert.AlertType.INFORMATION);
+                    alert.setHeaderText("Inform");
+                    alert.setTitle("");
+                    alert.setContentText("Current Saving can't withdraw that much money");
+                    alert.showAndWait();
+                }
+            }
+            else {
+                ProcessTransaction.addIncome(datepicker.getValue(), Double.parseDouble(valueText.getText()), descriptionTextArea.getText(), categoryCombo.getSelectionModel().getSelectedItem(), accountCombo.getSelectionModel().getSelectedItem());
+                saved = true;
+            }
         } catch (ProcessExeption pe) {
             System.out.println(pe.getErrorCodeMessage());
         }

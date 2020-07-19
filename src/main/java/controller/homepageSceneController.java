@@ -22,9 +22,11 @@ import javafx.stage.StageStyle;
 import javafx.util.StringConverter;
 import model.Balance;
 import model.FinancialGoal;
+import model.Saving;
 import model.User;
 import process.ProcessBalance;
 import process.ProcessFinancialGoal;
+import process.ProcessSaving;
 import process.singletonUser;
 import scenes.*;
 
@@ -143,6 +145,9 @@ public class homepageSceneController  implements Initializable {
         balanceComboBox.getSelectionModel().selectLast();
         totalBalanceText.setText(Double.toString(balanceComboBox.getSelectionModel().getSelectedItem().getValue()));
         // display table
+
+
+
         displayTableView();
     }
 

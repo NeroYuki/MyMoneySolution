@@ -36,6 +36,9 @@ public class addExpenseBoxController implements Initializable {
 
     // test dialog stage, not used but maybe later
     public Stage dialogEditStage;
+    public boolean saved=false;
+    public String idSaving="";
+    public String idLoan="";
 
     public void setDialogStage(Stage dialogStage) { // not use this set method but maybe used later
         this.dialogEditStage = dialogStage;
@@ -80,6 +83,7 @@ public class addExpenseBoxController implements Initializable {
         System.out.println("save click");
         try {
             ProcessTransaction.addExpense(datepicker.getValue(), Double.parseDouble(valueText.getText()), descriptionTextArea.getText(), categoryCombo.getSelectionModel().getSelectedItem(), accountCombo.getSelectionModel().getSelectedItem());
+            saved=true;
         } catch (ProcessExeption pe) {
             System.out.println(pe.getErrorCodeMessage());
         }

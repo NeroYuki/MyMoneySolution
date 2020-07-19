@@ -91,7 +91,7 @@ public class ProcessCategories {
     public static void deleleCategory(Category category)throws ProcessExeption{
         if (category==null) throw new ProcessExeption(8);
         try{
-            DatabaseCategories.removeCategory(category);
+            DatabaseCategories.softRemoveCategory(category);
         }
         catch (DatabaseException De){
                 System.out.println(De.getErrorCodeMessage());

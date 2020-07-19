@@ -48,7 +48,7 @@ public class DatabaseSaving {
         return result;
     }
 
-    public static boolean addSaving(Saving saving, Budget ownBudget) throws DatabaseException {
+    public static String addSaving(Saving saving, Budget ownBudget) throws DatabaseException {
         try {
             Connection conn = DatabaseManager.getConnection();
             PreparedStatement registerCall = conn.prepareCall("INSERT INTO savingHistory VALUES (?, ?, ?, ?, 1, ?, ?, ?, ?, ?, ?, ?)");
@@ -76,7 +76,7 @@ public class DatabaseSaving {
         catch (Exception e) {
             throw new DatabaseException(0);
         }
-        return true;
+        return saving.getId();
     }
 
     //not recommend, use deactivate instead

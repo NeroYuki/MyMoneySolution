@@ -332,7 +332,7 @@ public class accountSceneController implements Initializable {
             Label descriptionLabel = new Label("");
             Label currentValueLabel = new Label("");
             VBox infoBox = new VBox();
-            Label baseValueLabel = new Label("");
+            Label isExpireLabel = new Label("");
             VBox valueBox = new VBox();
             Label interestRateLabel = new Label("");
             Label intervalLabel = new Label("");
@@ -354,7 +354,7 @@ public class accountSceneController implements Initializable {
             // initialize block in anonymous class implementation playing role constructor
             {
                 // add elements of hbox
-                valueBox.getChildren().addAll(currentValueLabel, baseValueLabel);
+                valueBox.getChildren().addAll(currentValueLabel, isExpireLabel);
                 infoBox.getChildren().addAll(nameLabel, descriptionLabel);
                 interestBox.getChildren().addAll(interestRateLabel,intervalLabel);
                 activeDateBox.getChildren().addAll(creationDateLabel,timeSpanLabel);
@@ -389,9 +389,10 @@ public class accountSceneController implements Initializable {
                 currentValueLabel.setStyle("-fx-font-size: 20");
                 currentValueLabel.setPadding(new Insets(0, 0, 0, 15));
 
-                baseValueLabel.setTextAlignment(TextAlignment.CENTER);
-                baseValueLabel.setStyle("-fx-font-size: 16");
-                baseValueLabel.setPadding(new Insets(5, 0, 0, 35));
+                isExpireLabel.setTextAlignment(TextAlignment.CENTER);
+                isExpireLabel.setStyle("-fx-font-size: 20");
+                isExpireLabel.setPadding(new Insets(5, 0, 0, 15));
+                isExpireLabel.setWrapText(true);
 
                 // style for interest value
                 interestBox.setPadding(new Insets(0,0,0,5));
@@ -494,7 +495,8 @@ public class accountSceneController implements Initializable {
 
                         // set default value
                         addExpense_box.getController().setDefaultForSavingLoan(des);
-
+                        addExpense_box.getController().datepicker.setValue(LocalDate.now());
+                        addExpense_box.getController().datepicker.setDisable(true);
                         // dialog show
                         Stage dialogAddStage = new Stage(StageStyle.TRANSPARENT);
                         dialogAddStage.setTitle("Add expense");
@@ -504,6 +506,9 @@ public class accountSceneController implements Initializable {
 
                         dialogAddStage.showAndWait();
 
+                        if(addExpense_box.getController().saved){
+                            ProcessSaving.depositSaving(finalBalances.get(getIndex()).getId(),Double.valueOf(addExpense_box.getController().valueText.getText()));
+                        }
                         // refresh data saing
                         loadSaving();
                     } catch (Exception e) {
@@ -522,7 +527,10 @@ public class accountSceneController implements Initializable {
 
                         // set default value
                         addIncome_box.getController().setDefaultForSavingLoan(des);
-
+                        addIncome_box.getController().datepicker.setValue(LocalDate.now());
+                        addIncome_box.getController().datepicker.setDisable(true);
+                        addIncome_box.getController().idSaving=finalBalances.get(getIndex()).getId();
+                        addIncome_box.getController().valueText.setText(String.valueOf(finalBalances.get(getIndex()).getCurrentValue()));
                         // dialog show
                         Stage dialogAddStage = new Stage(StageStyle.TRANSPARENT);
                         dialogAddStage.setTitle("Add income");
@@ -532,6 +540,7 @@ public class accountSceneController implements Initializable {
 
                         dialogAddStage.showAndWait();
                         // refresh data saing
+
                         loadSaving();
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -556,7 +565,13 @@ public class accountSceneController implements Initializable {
                     nameLabel.setText(saving.getName().toUpperCase()); // set name display of item
                     descriptionLabel.setText(saving.getDescription().toUpperCase()); // set description of item
                     currentValueLabel.setText(String.valueOf("Current value: \n" + saving.getCurrentValue())); // set  current value of item
-                    baseValueLabel.setText(String.valueOf("Base value: \n" + saving.getBaseValue())); // set base value of item
+                    if(saving.getCreationDate().plusDays(saving.getActiveTimeSpan()).isAfter(LocalDate.now())) {
+                        isExpireLabel.setText("Is Available");
+                    }// set base value of item
+                    else{
+                        isExpireLabel.setText("Is Expired for "+ (LocalDate.now().toEpochDay()-saving.getCreationDate().plusDays(saving.getActiveTimeSpan()).toEpochDay())+" days ago");
+                        depositBtn.setDisable(true);
+                    }
                     creationDateLabel.setText("Created on: \n" + saving.getCreationDate()); // get creation date of item
                     if(saving.getActiveTimeSpan() > 1)
                         timeSpanLabel.setText("Time span: \n" + saving.getActiveTimeSpan() + " days");
@@ -922,6 +937,7 @@ public class accountSceneController implements Initializable {
 
         dialogAddStage.showAndWait();
 
+        String id =addSaving_box.getController().id;
         // add expense
         stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage
 
@@ -932,7 +948,8 @@ public class accountSceneController implements Initializable {
 
             // set default value
             addExpense_box.getController().setDefaultForSavingLoan(des);
-
+            addExpense_box.getController().datepicker.setValue(LocalDate.now());
+            addExpense_box.getController().datepicker.setDisable(true);
             // dialog show
             dialogAddStage = new Stage(StageStyle.TRANSPARENT);
             dialogAddStage.setTitle("Add expense");
@@ -941,6 +958,18 @@ public class accountSceneController implements Initializable {
             dialogAddStage.setScene(addExpense_box.getScene());
 
             dialogAddStage.showAndWait();
+            if(addExpense_box.getController().saved){
+                ProcessSaving.applySaving(id,Double.valueOf(addExpense_box.getController().valueText.getText()));
+            }
+            else {
+                Alert alertConfirm = new Alert(Alert.AlertType.INFORMATION);
+                alertConfirm.setTitle("");
+                alertConfirm.setContentText("Saving isn't goint to be saved");
+                alertConfirm.setHeaderText("Inform");
+                alertConfirm.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+                alertConfirm.showAndWait();
+                ProcessSaving.deleteSaving(ProcessSaving.getSaving(id));
+            }
         }
 
         // refresh saving in listview
@@ -962,6 +991,7 @@ public class accountSceneController implements Initializable {
         dialogAddStage.setScene(addLoan_box.getScene());
 
         dialogAddStage.showAndWait();
+        String id =addLoan_box.getController().id;
 
         // add expense
         stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow(); // get stage of program, primary stage
@@ -982,6 +1012,18 @@ public class accountSceneController implements Initializable {
             dialogAddStage.setScene(addIncome_box.getScene());
 
             dialogAddStage.showAndWait();
+            if(addIncome_box.getController().saved){
+                ProcessLoan.applyLoan(id,Double.valueOf(addIncome_box.getController().valueText.getText()));
+            }
+            else {
+                Alert alertConfirm = new Alert(Alert.AlertType.INFORMATION);
+                alertConfirm.setTitle("");
+                alertConfirm.setContentText("Loan isn't goint to be saved");
+                alertConfirm.setHeaderText("Inform");
+                alertConfirm.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+                alertConfirm.showAndWait();
+                ProcessSaving.deleteSaving(ProcessSaving.getSaving(id));
+            }
         }
 
         // refresh saving in listview

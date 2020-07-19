@@ -24,7 +24,8 @@ public class ErrorCode2 {
             "Null balance",//17
             "threshold is negative",
             "Incorect usename or password",//19,
-            "Fill correct username, email and dayofbirth"
+            "Fill correct username, email and dayofbirth",
+            "trans value is more than balanse current value",//21
 
 
     };

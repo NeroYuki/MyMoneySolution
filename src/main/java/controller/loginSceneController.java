@@ -12,10 +12,14 @@ import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.Saving;
+import process.ProcessSaving;
 import process.ProcessUser;
 import scenes.forgetPasswordBox;
 import scenes.homepageScene;
 import scenes.registerBox;
+
+import java.util.ArrayList;
 
 public class loginSceneController {
     @FXML
@@ -26,6 +30,7 @@ public class loginSceneController {
     public void loginBtnClick(ActionEvent e) throws Exception {
         try{
             ProcessUser.login(txtUsername.getText(),txtPassword.getText());
+            ArrayList<Saving> savings= ProcessSaving.savingUpdating();
         }
         catch (ProcessExeption de)
         {

@@ -34,9 +34,10 @@ public class addSavingBoxController implements Initializable {
     public ComboBox unitCombo;
 
     public boolean saved = false;
-
+    public String id;
     // test dialog stage, not used but maybe later
     public Stage dialogEditStage;
+
 
     public void setDialogStage(Stage dialogStage) { // not use this set method but maybe used later
         this.dialogEditStage = dialogStage;
@@ -76,15 +77,14 @@ public class addSavingBoxController implements Initializable {
     public void saveBtnClick(ActionEvent actionEvent) throws ProcessExeption {
         //TODO: save add saving to database and show list view
         try {
-            System.out.println(intervalCombo.getSelectionModel().getSelectedItem().toString());
-            ProcessSaving.addSaving(nameText.getText(),descriptionTextArea.getText(),Double.valueOf(interestRateText.getText()),Integer.valueOf(timeSpanText.getText()),helper.IntervalEnum.INTERVAL.valueOf(intervalCombo.getSelectionModel().getSelectedItem().toString()),Double.valueOf(baseValueText.getText()));
+            id = ProcessSaving.addSaving(nameText.getText(),descriptionTextArea.getText(),Double.valueOf(interestRateText.getText()),Integer.valueOf(timeSpanText.getText()),helper.IntervalEnum.INTERVAL.valueOf(intervalCombo.getSelectionModel().getSelectedItem().toString()));
+            saved = true;
         }
         catch (ProcessExeption pe)
         {
             System.out.println(pe.getErrorCodeMessage());
         }
 
-        saved = true;
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow(); // get stage of program, primary stage
         stage.close();
     }

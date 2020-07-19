@@ -34,7 +34,7 @@ public class addLoanBoxController implements Initializable {
     public ComboBox unitCombo;
 
     public boolean saved = false;
-
+    public String id;
     // test dialog stage, not used but maybe later
     public Stage dialogEditStage;
 
@@ -77,13 +77,13 @@ public class addLoanBoxController implements Initializable {
         //TODO: save add loan to database and show list view
 
         try {
-            ProcessLoan.addLoan(nameText.getText(),descriptionTextArea.getText(),Double.valueOf(interestRateText.getText()),Integer.valueOf(timeSpanText.getText()),helper.IntervalEnum.INTERVAL.valueOf(interestIntervalCombo.getSelectionModel().getSelectedItem().toString()),helper.IntervalEnum.INTERVAL.valueOf(paymentIntervalCombo.getSelectionModel().getSelectedItem().toString()),Double.valueOf(baseValueText.getText()));
+            id =ProcessLoan.addLoan(nameText.getText(),descriptionTextArea.getText(),Double.valueOf(interestRateText.getText()),Integer.valueOf(timeSpanText.getText()),helper.IntervalEnum.INTERVAL.valueOf(interestIntervalCombo.getSelectionModel().getSelectedItem().toString()),helper.IntervalEnum.INTERVAL.valueOf(paymentIntervalCombo.getSelectionModel().getSelectedItem().toString()));
+            saved = true;
         }
         catch (ProcessExeption pe)
         {
             System.out.println(pe.getErrorCodeMessage());
         }
-        saved = true;
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow(); // get stage of program, primary stage
         stage.close();
     }

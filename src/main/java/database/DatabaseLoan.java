@@ -53,7 +53,7 @@ public class DatabaseLoan {
         return result;
     }
 
-    public static boolean addLoan(Loan loan, Budget ownBudget) throws DatabaseException {
+    public static String addLoan(Loan loan, Budget ownBudget) throws DatabaseException {
         try {
             Connection conn = DatabaseManager.getConnection();
             PreparedStatement registerCall = conn.prepareCall("INSERT INTO loanHistory VALUES (?, ?, ?, ?, 1, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -83,7 +83,7 @@ public class DatabaseLoan {
         catch (Exception e) {
             throw new DatabaseException(0);
         }
-        return true;
+        return loan.getId();
     }
 
     //not recommend, use deactivate instead
