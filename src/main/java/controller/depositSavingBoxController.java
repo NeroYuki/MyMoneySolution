@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import model.Saving;
 
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class depositSavingBoxController implements Initializable {
@@ -63,7 +64,7 @@ public class depositSavingBoxController implements Initializable {
         // set name
         nameText.setText(saving.getName());
         // set current
-        currentValueText.setText(String.format("%8d",(int)saving.getCurrentValue()));
+        currentValueText.setText(String.format(Locale.US,"%,.0f",saving.getCurrentValue()));
 
     }
 

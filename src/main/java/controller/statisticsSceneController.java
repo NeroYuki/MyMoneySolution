@@ -26,6 +26,7 @@ import process.ProcessStaticstics;
 import scenes.*;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -57,8 +58,12 @@ public class statisticsSceneController implements Initializable {
     public DatePicker expenseStart;
     @FXML
     public DatePicker expenseFinish;
-
-
+    @FXML
+    public Label dateLabel1;
+    @FXML
+    public Label dateLabel2;
+    @FXML
+    public Label dateLabel3;
 
 
 
@@ -287,9 +292,10 @@ public class statisticsSceneController implements Initializable {
 
     public void displayIncomeChart(Balance balance) {
         if(balance == null )return;
-        if(incomeStart.getValue()==null)return;
-        if(incomeFinish.getValue()==null)return;;
-
+        if(incomeStart.getValue()==null){dateLabel2.setText("");return;}
+        if(incomeFinish.getValue()==null){dateLabel2.setText("");return;}
+        if(incomeStart.getValue().isAfter(incomeFinish.getValue())){dateLabel2.setText("Start day cannot be after finnish day");}
+        if(incomeStart.getValue().isAfter(LocalDate.now())){dateLabel2.setText("Start day cannot be after today");}
 
         XYChart.Series<String, Number> seriesA = new XYChart.Series<>();
         ProcessStaticstics.ChartModel chartModel= null;
@@ -320,8 +326,10 @@ public class statisticsSceneController implements Initializable {
 
     public void displayExpenseChart(Balance balance) {
         if(balance == null )return;
-        if(expenseFinish.getValue()==null)return;
-        if(expenseStart.getValue()==null)return;;
+        if(expenseFinish.getValue()==null){dateLabel3.setText("");return;}
+        if(expenseStart.getValue()==null){dateLabel3.setText("");return;}
+        if(expenseStart.getValue().isAfter(expenseFinish.getValue())){dateLabel3.setText("Start day cannot be after finnish day");}
+        if(expenseStart.getValue().isAfter(LocalDate.now())){dateLabel3.setText("Start day cannot be after today");}
         XYChart.Series<String, Number> seriesA = new XYChart.Series<>();
         ProcessStaticstics.ChartModel chartModel= null;
         try {
@@ -352,8 +360,11 @@ public class statisticsSceneController implements Initializable {
     LineChart<String,Number> balanceLineChart;
     public void displayBalanceChart(ArrayList<Balance> balances) {
         if(balances.size() == 0 )return;
-        if(balanceStart.getValue()==null)return;
-        if(balanceFinish.getValue()==null)return;;
+
+        if(balanceFinish.getValue()==null){dateLabel1.setText("");return;}
+        if(balanceStart.getValue()==null){dateLabel1.setText("");return;}
+        if(balanceStart.getValue().isAfter(balanceFinish.getValue())){dateLabel1.setText("Start day cannot be after finnish day");}
+        if(balanceStart.getValue().isAfter(LocalDate.now())){dateLabel1.setText("Start day cannot be after today");}
         ArrayList<XYChart.Series<String,Number>> seriesA=new ArrayList<>();
         try {
             for (Balance balance:balances){

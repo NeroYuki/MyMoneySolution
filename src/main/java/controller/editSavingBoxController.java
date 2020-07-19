@@ -15,6 +15,7 @@ import model.Saving;
 import process.ProcessSaving;
 
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class editSavingBoxController implements Initializable {
@@ -77,7 +78,7 @@ public class editSavingBoxController implements Initializable {
         // set active time span
         timeSpanText.setText(Integer.toString(saving.getActiveTimeSpan()));
         // set base value
-        baseValueText.setText(String.format("%8d",(int)(saving.getBaseValue())));
+        baseValueText.setText(String.format(Locale.US,"%,.0f",saving.getBaseValue()));
         // set interest
         interestRateText.setText(Double.toString(saving.getInterestRate()));
     }

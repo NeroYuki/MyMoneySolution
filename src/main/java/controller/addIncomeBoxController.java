@@ -80,6 +80,7 @@ public class addIncomeBoxController implements Initializable {
 
     public void saveBtnClick(ActionEvent actionEvent) throws Exception {
         try {
+            if (valueText.getText().equals("")) throw new ProcessExeption();
             if(idSaving!="") {
                 if(ProcessSaving.getSaving(idSaving).getCurrentValue()>=Double.parseDouble(valueText.getText())) {
                     ProcessTransaction.addIncome(datepicker.getValue(), Double.parseDouble(valueText.getText()), descriptionTextArea.getText(), categoryCombo.getSelectionModel().getSelectedItem(), accountCombo.getSelectionModel().getSelectedItem());
@@ -89,9 +90,10 @@ public class addIncomeBoxController implements Initializable {
                 else{
                     Alert alert=new Alert(Alert.AlertType.INFORMATION);
                     alert.setHeaderText("Inform");
-                    alert.setTitle("");
+                    alert.setTitle("Please check carefully");
                     alert.setContentText("Current Saving can't withdraw that much money");
                     alert.showAndWait();
+                    return;
                 }
             }
             else {

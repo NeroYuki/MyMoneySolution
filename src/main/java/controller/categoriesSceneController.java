@@ -31,10 +31,7 @@ import scenes.*;
 
 import java.io.File;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class categoriesSceneController implements Initializable {
     ListView<Category> incomeListView = new ListView<>();
@@ -170,7 +167,7 @@ public class categoriesSceneController implements Initializable {
         try{
             ArrayList< ProcessCategories.CatModel > catModels=ProcessCategories.getIncomePineChart(0,7);
             Double sum1=ProcessCategories.getSum(catModels);
-            incomeWeekTotalLabel.setText(String.format("%,8d%n",(int)((double)(sum1))));
+            incomeWeekTotalLabel.setText(String.format(Locale.US,"%,.0f", sum1));
             ArrayList<PieChart.Data> datas=new ArrayList<>();
             for (ProcessCategories.CatModel catModel:catModels) {
                 if(catModel.value!=0) {
@@ -182,17 +179,17 @@ public class categoriesSceneController implements Initializable {
             if(sum1>sum2) {
                 incomeWeekSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↑"));
                 incomeWeekSignCompareLabel.textFillProperty().set(Color.GREEN);
-                incomeWeekDifferentCompareLabel.setText(String.valueOf(sum1-sum2));
+                incomeWeekDifferentCompareLabel.setText(String.format(Locale.US,"%,.0f",sum1-sum2));
             }
             else if(sum2>sum1)
             {
                 incomeWeekSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↓"));
                 incomeWeekSignCompareLabel.textFillProperty().set(Color.RED);
-                incomeWeekDifferentCompareLabel.setText(String.valueOf(sum2-sum1));
+                incomeWeekDifferentCompareLabel.setText(String.format(Locale.US,"%,.0f",sum2-sum1));
             }
             else if (sum1==sum2) {
                 incomeWeekSignCompareLabel.setText("=");
-                incomeWeekDifferentCompareLabel.setText(String.valueOf(sum2 - sum1));
+                incomeWeekDifferentCompareLabel.setText(String.format(Locale.US,"%,.0f",sum2 - sum1));
             }
             incomeWeekPie.getData().clear();
             incomeWeekPie.getData().addAll(datas);
@@ -227,7 +224,7 @@ public class categoriesSceneController implements Initializable {
         try{
             ArrayList<ProcessCategories.CatModel > catModels=ProcessCategories.getExpensePineChart(0,7);
             Double sum1=ProcessCategories.getSum(catModels);
-            expenseWeekTotalLabel.setText(String.valueOf(sum1));
+            expenseWeekTotalLabel.setText(String.format(Locale.US,"%,.0f", sum1));
             ArrayList<PieChart.Data> datas=new ArrayList<>();
             for (ProcessCategories.CatModel catModel:catModels) {
                 if(catModel.value!=0) {
@@ -241,17 +238,17 @@ public class categoriesSceneController implements Initializable {
             if(sum1>sum2) {
                 expensesWeekSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↑"));
                 expensesWeekSignCompareLabel.textFillProperty().set(Color.GREEN);
-                expensesWeekDifferentCompareLabel.setText(String.valueOf(sum1-sum2));
+                expensesWeekDifferentCompareLabel.setText(String.format(Locale.US,"%,.0f",sum1-sum2));
             }
             else if(sum2>sum1)
             {
                 expensesWeekSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↓"));
                 expensesWeekSignCompareLabel.textFillProperty().set(Color.RED);
-                expensesWeekDifferentCompareLabel.setText(String.valueOf(sum2-sum1));
+                expensesWeekDifferentCompareLabel.setText(String.format(Locale.US,"%,.0f",sum2-sum1));
             }
             else if (sum1==sum2) {
                 expensesWeekSignCompareLabel.setText("=");
-                expensesWeekDifferentCompareLabel.setText(String.valueOf(sum2 - sum1));
+                expensesWeekDifferentCompareLabel.setText(String.format(Locale.US,"%,.0f",sum2 - sum1));
             }
 
             // display info when click
@@ -305,7 +302,7 @@ public class categoriesSceneController implements Initializable {
         try{
             ArrayList< ProcessCategories.CatModel > catModels=ProcessCategories.getIncomePineChart(0,30);
             Double sum1=ProcessCategories.getSum(catModels);
-            incomeMonthTotalLabel.setText(String.valueOf(sum1));
+            incomeMonthTotalLabel.setText(String.format(Locale.US,"%,.0f", sum1));
             ArrayList<PieChart.Data> datas=new ArrayList<>();
             for (ProcessCategories.CatModel catModel:catModels) {
                 if(catModel.value!=0) {
@@ -317,17 +314,17 @@ public class categoriesSceneController implements Initializable {
             if(sum1>sum2) {
                 incomeMonthSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↑"));
                 incomeMonthSignCompareLabel.textFillProperty().set(Color.GREEN);
-                incomeMonthDifferentCompareLabel.setText(String.valueOf(sum1-sum2));
+                incomeMonthDifferentCompareLabel.setText(String.format(Locale.US,"%,.0f",sum1-sum2));
             }
             else if(sum2>sum1)
             {
                 incomeMonthSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↓"));
                 incomeMonthSignCompareLabel.textFillProperty().set(Color.RED);
-                incomeMonthDifferentCompareLabel.setText(String.valueOf(sum2-sum1));
+                incomeMonthDifferentCompareLabel.setText(String.format(Locale.US,"%,.0f",sum2-sum1));
             }
             else if (sum1==sum2) {
                 incomeMonthSignCompareLabel.setText("=");
-                incomeMonthDifferentCompareLabel.setText(String.valueOf(sum2 - sum1));
+                incomeMonthDifferentCompareLabel.setText(String.format(Locale.US,"%,.0f",sum2 - sum1));
             }
             incomeMonthPie.getData().setAll(datas);
 
@@ -361,7 +358,7 @@ public class categoriesSceneController implements Initializable {
         try{
             ArrayList<ProcessCategories.CatModel > catModels=ProcessCategories.getExpensePineChart(0,7);
             Double sum1=ProcessCategories.getSum(catModels);
-            expenseMonthTotalLabel.setText(String.valueOf(sum1));
+            expenseMonthTotalLabel.setText(String.format(Locale.US,"%,.0f", sum1));
             ArrayList<PieChart.Data> datas=new ArrayList<>();
             for (ProcessCategories.CatModel catModel:catModels) {
                 if(catModel.value!=0) {
@@ -375,17 +372,17 @@ public class categoriesSceneController implements Initializable {
             if(sum1>sum2) {
                 expensesMonthSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↑"));
                 expensesMonthSignCompareLabel.textFillProperty().set(Color.GREEN);
-                expensesMonthDifferentCompareLabel.setText(String.valueOf(sum1-sum2));
+                expensesMonthDifferentCompareLabel.setText(String.format(Locale.US,"%,.0f",sum1-sum2));
             }
             else if(sum2>sum1)
             {
                 expensesMonthSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↓"));
                 expensesMonthSignCompareLabel.textFillProperty().set(Color.RED);
-                expensesMonthDifferentCompareLabel.setText(String.valueOf(sum2-sum1));
+                expensesMonthDifferentCompareLabel.setText(String.format(Locale.US,"%,.0f",sum2-sum1));
             }
             else if (sum1==sum2) {
                 expensesMonthSignCompareLabel.setText("=");
-                expensesMonthDifferentCompareLabel.setText(String.valueOf(sum2 - sum1));
+                expensesMonthDifferentCompareLabel.setText(String.format(Locale.US,"%,.0f",sum2 - sum1));
             }
 
             // display info when click
@@ -438,7 +435,7 @@ public class categoriesSceneController implements Initializable {
         try{
             ArrayList< ProcessCategories.CatModel > catModels=ProcessCategories.getIncomePineChart(0,90);
             Double sum1=ProcessCategories.getSum(catModels);
-            incomeDaysTotalLabel.setText(String.valueOf(sum1));
+            incomeDaysTotalLabel.setText(String.format(Locale.US,"%,.0f", sum1));
             ArrayList<PieChart.Data> datas=new ArrayList<>();
             for (ProcessCategories.CatModel catModel:catModels) {
                 if(catModel.value!=0) {
@@ -450,17 +447,17 @@ public class categoriesSceneController implements Initializable {
             if(sum1>sum2) {
                 incomeDaysSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↑"));
                 incomeDaysSignCompareLabel.textFillProperty().set(Color.GREEN);
-                incomeDaysDifferentCompareLabel.setText(String.valueOf(sum1-sum2));
+                incomeDaysDifferentCompareLabel.setText(String.format(Locale.US,"%,.0f",sum1-sum2));
             }
             else if(sum2>sum1)
             {
                 incomeDaysSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↓"));
                 incomeDaysSignCompareLabel.textFillProperty().set(Color.RED);
-                incomeDaysDifferentCompareLabel.setText(String.valueOf(sum2-sum1));
+                incomeDaysDifferentCompareLabel.setText(String.format(Locale.US,"%,.0f",sum2-sum1));
             }
             else if (sum1==sum2) {
                 incomeDaysSignCompareLabel.setText("=");
-                incomeDaysDifferentCompareLabel.setText(String.valueOf(sum2 - sum1));
+                incomeDaysDifferentCompareLabel.setText(String.format(Locale.US,"%,.0f",sum2 - sum1));
             }
             incomeDaysPie.getData().setAll(datas);
 
@@ -494,7 +491,7 @@ public class categoriesSceneController implements Initializable {
         try{
             ArrayList<ProcessCategories.CatModel > catModels=ProcessCategories.getExpensePineChart(0,90);
             Double sum1=ProcessCategories.getSum(catModels);
-            expenseDaysTotalLabel.setText(String.valueOf(sum1));
+            expenseDaysTotalLabel.setText(String.format(Locale.US,"%,.0f", sum1));
             ArrayList<PieChart.Data> datas=new ArrayList<>();
             for (ProcessCategories.CatModel catModel:catModels) {
                 if(catModel.value!=0) {
@@ -508,17 +505,17 @@ public class categoriesSceneController implements Initializable {
             if(sum1>sum2) {
                 expensesDaysSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↑"));
                 expensesDaysSignCompareLabel.textFillProperty().set(Color.GREEN);
-                expensesDaysDifferentCompareLabel.setText(String.valueOf(sum1-sum2));
+                expensesDaysDifferentCompareLabel.setText(String.format(Locale.US,"%,.0f",sum1-sum2));
             }
             else if(sum2>sum1)
             {
                 expensesDaysSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↓"));
                 expensesDaysSignCompareLabel.textFillProperty().set(Color.RED);
-                expensesDaysDifferentCompareLabel.setText(String.valueOf(sum2-sum1));
+                expensesDaysDifferentCompareLabel.setText(String.format(Locale.US,"%,.0f",sum2-sum1));
             }
             else if (sum1==sum2) {
                 expensesDaysSignCompareLabel.setText("=");
-                expensesDaysDifferentCompareLabel.setText(String.valueOf(sum2 - sum1));
+                expensesDaysDifferentCompareLabel.setText(String.format(Locale.US,"%,.0f",sum2 - sum1));
             }
 
             // display info when click
@@ -572,7 +569,7 @@ public class categoriesSceneController implements Initializable {
         try{
             ArrayList< ProcessCategories.CatModel > catModels=ProcessCategories.getIncomePineChart(0,356);
             Double sum1=ProcessCategories.getSum(catModels);
-            incomeYearTotalLabel.setText(String.valueOf(sum1));
+            incomeYearTotalLabel.setText(String.format(Locale.US,"%,.0f", sum1));
             ArrayList<PieChart.Data> datas=new ArrayList<>();
             for (ProcessCategories.CatModel catModel:catModels) {
                 if(catModel.value!=0) {
@@ -584,17 +581,17 @@ public class categoriesSceneController implements Initializable {
             if(sum1>sum2) {
                 incomeYearSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↑"));
                 incomeYearSignCompareLabel.textFillProperty().set(Color.GREEN);
-                incomeYearDifferentCompareLabel.setText(String.valueOf(sum1-sum2));
+                incomeYearDifferentCompareLabel.setText(String.format(Locale.US,"%,.0f",sum1-sum2));
             }
             else if(sum2>sum1)
             {
                 incomeYearSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↓"));
                 incomeYearSignCompareLabel.textFillProperty().set(Color.RED);
-                incomeYearDifferentCompareLabel.setText(String.valueOf(sum2-sum1));
+                incomeYearDifferentCompareLabel.setText(String.format(Locale.US,"%,.0f",sum2-sum1));
             }
             else if (sum1==sum2) {
                 incomeYearSignCompareLabel.setText("=");
-                incomeYearDifferentCompareLabel.setText(String.valueOf(sum2 - sum1));
+                incomeYearDifferentCompareLabel.setText(String.format(Locale.US,"%,.0f",sum2 - sum1));
             }
             incomeYearPie.getData().setAll(datas);
 
@@ -628,7 +625,7 @@ public class categoriesSceneController implements Initializable {
         try{
             ArrayList<ProcessCategories.CatModel > catModels=ProcessCategories.getExpensePineChart(0,356);
             Double sum1=ProcessCategories.getSum(catModels);
-            expenseYearTotalLabel.setText(String.valueOf(sum1));
+            expenseYearTotalLabel.setText(String.format(Locale.US,"%,.0f", sum1));
             ArrayList<PieChart.Data> datas=new ArrayList<>();
             for (ProcessCategories.CatModel catModel:catModels) {
                 if(catModel.value!=0) {
@@ -642,17 +639,17 @@ public class categoriesSceneController implements Initializable {
             if(sum1>sum2) {
                 expensesYearSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↑"));
                 expensesYearSignCompareLabel.textFillProperty().set(Color.GREEN);
-                expensesYearDifferentCompareLabel.setText(String.valueOf(sum1-sum2));
+                expensesYearDifferentCompareLabel.setText(String.format(Locale.US,"%,.0f",sum1-sum2));
             }
             else if(sum2>sum1)
             {
                 expensesYearSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↓"));
                 expensesYearSignCompareLabel.textFillProperty().set(Color.RED);
-                expensesYearDifferentCompareLabel.setText(String.valueOf(sum2-sum1));
+                expensesYearDifferentCompareLabel.setText(String.format(Locale.US,"%,.0f",sum2-sum1));
             }
             else if (sum1==sum2) {
                 expensesYearSignCompareLabel.setText("=");
-                expensesYearDifferentCompareLabel.setText(String.valueOf(sum2 - sum1));
+                expensesYearDifferentCompareLabel.setText(String.format(Locale.US,"%,.0f",sum2 - sum1));
             }
 
             // display info when click
@@ -698,7 +695,7 @@ public class categoriesSceneController implements Initializable {
         try{
             ArrayList< ProcessCategories.CatModel > catModels=ProcessCategories.getIncomePineChart();
             Double sum1=ProcessCategories.getSum(catModels);
-            incomeTotalLabel.setText(String.valueOf(sum1));
+            incomeTotalLabel.setText(String.format(Locale.US,"%,.0f", sum1));
             ArrayList<PieChart.Data> datas=new ArrayList<>();
             for (ProcessCategories.CatModel catModel:catModels) {
                 if(catModel.value!=0) {
@@ -738,7 +735,7 @@ public class categoriesSceneController implements Initializable {
         try{
             ArrayList<ProcessCategories.CatModel > catModels=ProcessCategories.getExpensePineChart();
             Double sum1=ProcessCategories.getSum(catModels);
-            expenseTotalLabel4.setText(String.valueOf(sum1));
+            expenseTotalLabel4.setText(String.format(Locale.US,"%,.0f", sum1));
             ArrayList<PieChart.Data> datas=new ArrayList<>();
             for (ProcessCategories.CatModel catModel:catModels) {
                 if(catModel.value!=0) {
@@ -783,6 +780,10 @@ public class categoriesSceneController implements Initializable {
     @FXML
     VBox listExpenseCategoryBox;
 
+    @FXML
+    Label incomeGeneralTotalLabel;
+    @FXML
+    Label expenseGeneralTotalLabel;
     public void incomeCategoriesLoad() {
         //TODO: get right list from database
         File folder = new File("src/main/resources/img/icon/income");
@@ -798,6 +799,7 @@ public class categoriesSceneController implements Initializable {
 
         try{
             categories =ProcessCategories.getIncomeCategories();
+            incomeGeneralTotalLabel.setText(categories.size() + " categories");
         }
         catch (ProcessExeption pe){
             Alert alertWarning = new Alert(Alert.AlertType.WARNING);
@@ -965,7 +967,7 @@ public class categoriesSceneController implements Initializable {
         ArrayList<Category> categories = new ArrayList<Category>();
         try{
             categories =ProcessCategories.getExpenseCategories();
-
+            expenseGeneralTotalLabel.setText(categories.size() + " categories");
         }
         catch (ProcessExeption pe){
             Alert alertWarning = new Alert(Alert.AlertType.WARNING);

@@ -55,10 +55,8 @@ public class loginSceneController {
         double y = bounds.getMinY() + (bounds.getHeight() - homepage_scene.getHeight()) * 0.1;
         stage.setX(x);
         stage.setY(y);
-
-
-
         stage.setScene(homepage_scene.getScene());
+        homepage_scene.getController().updateLoanSaving();
     }
 
     public void registerBtnClick(ActionEvent e) throws Exception {

@@ -19,6 +19,7 @@ import process.ProcessTransaction;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class editTransactionBoxController implements Initializable {
@@ -93,7 +94,7 @@ public class editTransactionBoxController implements Initializable {
         else if(transaction.getClass().getName().equals("model.Expense")){
             typeText.setText("Expense");
         }
-        valueText.setText(String.format("%8d",(int)(Math.abs(this.transaction.getTransValue()))));
+        valueText.setText(String.format(Locale.US,"%,.0f",(Math.abs(this.transaction.getTransValue()))));
         // set description
         descriptionTextArea.setText(this.transaction.getTransDescription());
     }

@@ -148,10 +148,12 @@ public class ProcessTransaction {
 
     public static void addIncome(LocalDate date, double value, String desc, Category category,Balance balance) throws ProcessExeption{
         if(date == null) throw new ProcessExeption(10);
+        if(date.isAfter(LocalDate.now()))throw new ProcessExeption(10);
         if(value <0) throw new ProcessExeption(11);
         if(desc ==null) desc="";
         if (category == null) throw new ProcessExeption(12);
         if(balance ==null) throw new ProcessExeption(13);
+
 
         Income income=new Income(date,value,desc,category,balance);
         income.applyToBalance();
@@ -168,6 +170,7 @@ public class ProcessTransaction {
     public static void updateIncome(String id, LocalDate date, double value, String desc, Category category,Balance balance) throws ProcessExeption{
         if(id == null) throw new ProcessExeption(8);
         if(date == null) throw new ProcessExeption(10);
+        if(date.isAfter(LocalDate.now()))throw new ProcessExeption(10);
         if(value <0) throw new ProcessExeption(11);
         if(desc ==null) desc="";
         if (category == null) throw new ProcessExeption(12);
@@ -187,6 +190,7 @@ public class ProcessTransaction {
 
     public static void addExpense(LocalDate date, double value, String desc, Category category,Balance balance) throws ProcessExeption{
         if(date == null) throw new ProcessExeption(10);
+        if(date.isAfter(LocalDate.now()))throw new ProcessExeption(10);
         if(value <0) throw new ProcessExeption(11);
         if(desc ==null) desc="";
         if (category == null) throw new ProcessExeption(12);
@@ -205,6 +209,7 @@ public class ProcessTransaction {
     }
     public static void updateExpense(String id, LocalDate date, double value, String desc, Category category,Balance balance) throws ProcessExeption{
         if(id == null) throw new ProcessExeption();
+        if(date.isAfter(LocalDate.now()))throw new ProcessExeption(10);
         if(date == null) throw new ProcessExeption(10);
         if(value <0) throw new ProcessExeption(11);
         if(desc ==null) desc="";

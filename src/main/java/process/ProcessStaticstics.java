@@ -145,7 +145,7 @@ public class ProcessStaticstics {
         } else endDay = LocalDate.now();
 
         Map<LocalDate, Double> maps = new TreeMap<LocalDate, Double>();
-        List<LocalDate> localDateList = start.datesUntil(endDay).collect(Collectors.toList());
+        List<LocalDate> localDateList = start.datesUntil(endDay.plusDays(1)).collect(Collectors.toList());
         for (LocalDate local : localDateList) {
             maps.put(local, 0.0);
         }
@@ -195,7 +195,7 @@ public class ProcessStaticstics {
         } else endDay = LocalDate.now();
 
         Map<LocalDate, Double> maps = new TreeMap<LocalDate, Double>();
-        List<LocalDate> localDateList = start.datesUntil(endDay).collect(Collectors.toList());
+        List<LocalDate> localDateList = start.datesUntil(endDay.plusDays(1)).collect(Collectors.toList());
         for (LocalDate local : localDateList) {
             maps.put(local, 0.0);
         }
@@ -236,7 +236,7 @@ public class ProcessStaticstics {
         } else endDay = LocalDate.now();
 
         Map<LocalDate, Double> maps = new TreeMap<LocalDate, Double>();
-        List<LocalDate> localDateList = start.datesUntil(endDay).collect(Collectors.toList());
+        List<LocalDate> localDateList = start.datesUntil(endDay.plusDays(1)).collect(Collectors.toList());
         for (LocalDate local : localDateList) {
             maps.put(local, 0.0);
         }

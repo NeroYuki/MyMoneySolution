@@ -45,7 +45,6 @@ public class ProcessUser {
             Budget budget= DatabaseBudget.getBudget(user);
             singletonUser.getInstance().setUser(user);
             singletonBudget.getInstance().setBudget(budget);
-            ProcessSaving.savingUpdating();
         }
         catch (DatabaseException de)
         {

@@ -11,6 +11,9 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -29,13 +32,13 @@ import process.ProcessBalance;
 import process.ProcessLoan;
 import process.ProcessSaving;
 import scenes.*;
+import javafx.scene.paint.Color;
 
+import java.awt.*;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
 
 public class accountSceneController implements Initializable {
     ListView<Balance> balanceListView = new ListView<>();
@@ -290,9 +293,9 @@ public class accountSceneController implements Initializable {
 
                     nameLabel.setText(balance.getName().toUpperCase()); // set name display of item
                     descriptionLabel.setText(balance.getDescription().toUpperCase()); // set description of item
-                    valueLabel.setText(String.valueOf(balance.getValue())); // set value of item
+                    valueLabel.setText(String.format(Locale.US, "Current value: \n" +"%,.0f", balance.getValue()));
                     //TODO: set difference value yesterday
-                    differenceLabel.setText(String.valueOf(balance.getValue())); // set difference value
+//                    differenceLabel.setText(String.valueOf(balance.getValue())); // set difference value
                     creationDateLabel.setText("Created on: \n" + balance.getCreationDate().toString());
                     setGraphic(rowBox);
                     //setGraphic(imageView);
@@ -396,8 +399,9 @@ public class accountSceneController implements Initializable {
                 currentValueLabel.setStyle("-fx-font-size: 20");
                 currentValueLabel.setPadding(new Insets(0, 0, 0, 15));
 
-                isExpireLabel.setTextAlignment(TextAlignment.CENTER);
-                isExpireLabel.setStyle("-fx-font-size: 20");
+
+                isExpireLabel.setTextAlignment(TextAlignment.LEFT);
+                isExpireLabel.setStyle("-fx-font-size: 14");
                 isExpireLabel.setPadding(new Insets(5, 0, 0, 15));
                 isExpireLabel.setWrapText(true);
 
@@ -484,7 +488,7 @@ public class accountSceneController implements Initializable {
                         dialogAddStage.showAndWait();
 
                         // refresh data saving
-                        loadSaving();
+                        loadingAll();
                     } catch(Exception e) {
                         e.printStackTrace();
                     }
@@ -517,7 +521,7 @@ public class accountSceneController implements Initializable {
                             ProcessSaving.depositSaving(finalBalances.get(getIndex()).getId(),Double.valueOf(addExpense_box.getController().valueText.getText()));
                         }
                         // refresh data saing
-                        loadSaving();
+                        loadingAll();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -548,7 +552,7 @@ public class accountSceneController implements Initializable {
                         dialogAddStage.showAndWait();
                         // refresh data saing
 
-                        loadSaving();
+                        loadingAll();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -571,13 +575,17 @@ public class accountSceneController implements Initializable {
                     //TODO: get right name from database
                     nameLabel.setText(saving.getName().toUpperCase()); // set name display of item
                     descriptionLabel.setText(saving.getDescription().toUpperCase()); // set description of item
-                    currentValueLabel.setText(String.valueOf("Current value: \n" + saving.getCurrentValue())); // set  current value of item
+//                    currentValueLabel.setText(String.valueOf("Current value: \n" + saving.getCurrentValue())); // set  current value of item
+                    currentValueLabel.setText(String.format(Locale.US, "Current value: \n" +"%,.0f", saving.getCurrentValue()));
                     if(saving.getCreationDate().plusDays(saving.getActiveTimeSpan()).isAfter(LocalDate.now())) {
                         isExpireLabel.setText("Is Available");
+                        isExpireLabel.setTextFill(Color.GREEN);
                     }// set base value of item
                     else{
-                        isExpireLabel.setText("Is Expired for "+ (LocalDate.now().toEpochDay()-saving.getCreationDate().plusDays(saving.getActiveTimeSpan()).toEpochDay())+" days ago");
+                        isExpireLabel.setText("Is Expired "+ (LocalDate.now().toEpochDay()-saving.getCreationDate().plusDays(saving.getActiveTimeSpan()).toEpochDay())+" days ago");
                         depositBtn.setDisable(true);
+                        isExpireLabel.setTextFill(Color.RED);
+
                     }
                     creationDateLabel.setText("Created on: \n" + saving.getCreationDate()); // get creation date of item
                     if(saving.getActiveTimeSpan() > 1)
@@ -623,7 +631,7 @@ public class accountSceneController implements Initializable {
             Label descriptionLabel = new Label("");
             Label currentValueLabel = new Label("");
             VBox infoBox = new VBox();
-            Label baseValueLabel = new Label("");
+            Label isExpireLabel = new Label("");
             VBox valueBox = new VBox();
             Label interestRateLabel = new Label("");
             Label interestIntervalLabel = new Label("");
@@ -636,7 +644,7 @@ public class accountSceneController implements Initializable {
             Button deleteBtn = new Button("Deactivate");
             Button editBtn = new Button("Edit");
             HBox hbox1 = new HBox();
-            Button withdrawBtn = new Button("Withdraw");
+            Button withdrawBtn = new Button("Payment");
             HBox hbox2 = new HBox();
             VBox buttonArea = new VBox();
 
@@ -645,7 +653,7 @@ public class accountSceneController implements Initializable {
             // initialize block in anonymous class implementation playing role constructor
             {
                 // add elements of hbox
-                valueBox.getChildren().addAll(currentValueLabel, baseValueLabel);
+                valueBox.getChildren().addAll(currentValueLabel, isExpireLabel);
                 infoBox.getChildren().addAll(nameLabel, descriptionLabel);
                 interestBox.getChildren().addAll(interestRateLabel, interestIntervalLabel, paymentIntervalLabel);
                 activeDateBox.getChildren().addAll(creationDateLabel,timeSpanLabel);
@@ -680,9 +688,10 @@ public class accountSceneController implements Initializable {
                 currentValueLabel.setStyle("-fx-font-size: 20");
                 currentValueLabel.setPadding(new Insets(0, 0, 0, 15));
 
-                baseValueLabel.setTextAlignment(TextAlignment.CENTER);
-                baseValueLabel.setStyle("-fx-font-size: 16");
-                baseValueLabel.setPadding(new Insets(5, 0, 0, 35));
+                isExpireLabel.setTextAlignment(TextAlignment.LEFT);
+                isExpireLabel.setStyle("-fx-font-size: 14");
+                isExpireLabel.setPadding(new Insets(5, 0, 0, 15));
+                isExpireLabel.setWrapText(true);
 
                 // style for interest value
                 interestBox.setPadding(new Insets(0,0,0,5));
@@ -769,7 +778,7 @@ public class accountSceneController implements Initializable {
                         dialogAddStage.showAndWait();
 
                         // refresh data loan
-                        loadLoan();
+                        loadingAll();
                     } catch(Exception e) {
                         e.printStackTrace();
                     }
@@ -786,6 +795,9 @@ public class accountSceneController implements Initializable {
 
                         // set default value
                         addExpense_box.getController().setDefaultForSavingLoan(des);
+                        addExpense_box.getController().datepicker.setValue(LocalDate.now());
+                        addExpense_box.getController().datepicker.setDisable(true);
+                        addExpense_box.getController().idLoan=finalBalances.get(getIndex()).getId();
 
                         // dialog show
                         Stage dialogAddStage = new Stage(StageStyle.TRANSPARENT);
@@ -797,7 +809,7 @@ public class accountSceneController implements Initializable {
                         dialogAddStage.showAndWait();
 
                         // refresh data saing
-                        loadLoan();
+                        loadingAll();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -820,8 +832,17 @@ public class accountSceneController implements Initializable {
                     //TODO: get right name from database
                     nameLabel.setText(loan.getName().toUpperCase()); // set name display of item
                     descriptionLabel.setText(loan.getDescription().toUpperCase()); // set description of item
-                    currentValueLabel.setText(String.valueOf("Current value: \n" + loan.getCurrentValue())); // set  current value of item
-                    baseValueLabel.setText(String.valueOf("Base value: \n" + loan.getBaseValue())); // set base value of item
+
+                    currentValueLabel.setText(String.format(Locale.US, "Current value: \n" +"%,.0f", loan.getCurrentValue()));
+                    if(loan.getCreationDate().plusDays(loan.getActiveTimeSpan()).isAfter(LocalDate.now())) {
+                        isExpireLabel.setText("Is Available");
+                        isExpireLabel.setTextFill(Color.GREEN);
+
+                    }// set base value of item
+                    else{
+                        isExpireLabel.setText("Is Expired "+ (LocalDate.now().toEpochDay()-loan.getCreationDate().plusDays(loan.getActiveTimeSpan()).toEpochDay())+" days ago");
+                        isExpireLabel.setTextFill(Color.RED);
+                    }
                     creationDateLabel.setText("Created on: \n" + loan.getCreationDate()); // get creation date of item
                     if(loan.getActiveTimeSpan() > 1)
                         timeSpanLabel.setText("Time span: \n" + loan.getActiveTimeSpan() + " days");
@@ -888,7 +909,7 @@ public class accountSceneController implements Initializable {
                 dialogAddStage.showAndWait();
             }
         }
-
+        loadingAll();
     }
 
     public void addPlanClick(MouseEvent e) throws Exception {
@@ -952,7 +973,7 @@ public class accountSceneController implements Initializable {
 
         dialogAddStage.showAndWait();
         // refresh balance in listview
-        loadBalance();
+        loadingAll();
     }
 
     public void addSavingBtnClick(ActionEvent e) throws Exception {
@@ -1007,7 +1028,7 @@ public class accountSceneController implements Initializable {
         }
 
         // refresh saving in listview
-        loadSaving();
+        loadingAll();
     }
 
     public void addLoanBtnClick(ActionEvent actionEvent) throws Exception {
@@ -1061,6 +1082,11 @@ public class accountSceneController implements Initializable {
         }
 
         // refresh saving in listview
+        loadingAll();
+    }
+    public void loadingAll (){
+        loadBalance();
         loadLoan();
+        loadSaving();
     }
 }

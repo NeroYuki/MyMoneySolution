@@ -65,7 +65,7 @@ public class DatabaseTransaction {
         ArrayList<Transaction> result = new ArrayList<>();
         try {
             Connection conn = DatabaseManager.getConnection();
-            PreparedStatement transactionQuery = conn.prepareStatement("SELECT * FROM transHistory WHERE applyBalance = ? AND occurDate >= ? AND occurDate < ?");
+            PreparedStatement transactionQuery = conn.prepareStatement("SELECT * FROM transHistory WHERE applyBalance = ? AND occurDate >= ? AND occurDate <= ?");
             transactionQuery.setString(1, balanceId);
             transactionQuery.setDate(2, Date.valueOf(startDate));
             transactionQuery.setDate(3, Date.valueOf(endDate));
@@ -141,7 +141,7 @@ public class DatabaseTransaction {
         ArrayList<Income> result = new ArrayList<>();
         try {
             Connection conn = DatabaseManager.getConnection();
-            PreparedStatement transactionQuery = conn.prepareStatement("SELECT * FROM transHistory WHERE applyBalance = ? AND occurDate >= ? AND occurDate < ?");
+            PreparedStatement transactionQuery = conn.prepareStatement("SELECT * FROM transHistory WHERE applyBalance = ? AND occurDate >= ? AND occurDate <= ?");
             transactionQuery.setString(1, balanceId);
             transactionQuery.setDate(2, Date.valueOf(startDate));
             transactionQuery.setDate(3, Date.valueOf(endDate));
@@ -206,7 +206,7 @@ public class DatabaseTransaction {
         ArrayList<Expense> result = new ArrayList<>();
         try {
             Connection conn = DatabaseManager.getConnection();
-            PreparedStatement transactionQuery = conn.prepareStatement("SELECT * FROM transHistory WHERE applyBalance = ? AND occurDate >= ? AND occurDate < ?");
+            PreparedStatement transactionQuery = conn.prepareStatement("SELECT * FROM transHistory WHERE applyBalance = ? AND occurDate >= ? AND occurDate <= ?");
             transactionQuery.setString(1, balanceId);
             transactionQuery.setDate(2, Date.valueOf(startDate));
             transactionQuery.setDate(3, Date.valueOf(endDate));

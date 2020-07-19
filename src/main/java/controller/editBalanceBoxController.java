@@ -16,6 +16,7 @@ import model.Balance;
 import process.ProcessBalance;
 
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class editBalanceBoxController implements Initializable {
@@ -68,7 +69,7 @@ public class editBalanceBoxController implements Initializable {
         // set info
         infoTextArea.setText(balance.getDescription());
         // set value
-        valueText.setText(String.format("%8d",(int)(balance.getValue())));
+        valueText.setText(String.format(Locale.US,"%,.0f", balance.getValue()));
     }
 
     public void saveBtnClick(ActionEvent actionEvent) {

@@ -15,9 +15,7 @@ import javafx.util.StringConverter;
 import model.Balance;
 import model.Category;
 import model.Transaction;
-import process.ProcessBalance;
-import process.ProcessCategories;
-import process.ProcessTransaction;
+import process.*;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -83,8 +81,27 @@ public class addExpenseBoxController implements Initializable {
     public void saveBtnClick(ActionEvent actionEvent) throws Exception {
         System.out.println("save click");
         try {
-            ProcessTransaction.addExpense(datepicker.getValue(), Double.parseDouble(valueText.getText()), descriptionTextArea.getText(), categoryCombo.getSelectionModel().getSelectedItem(), accountCombo.getSelectionModel().getSelectedItem());
-            saved=true;
+            if (valueText.getText().equals("")) throw new ProcessExeption();
+            if(idLoan!="") {
+                if(ProcessLoan.getLoan(idLoan).getCurrentValue()>=Double.parseDouble(valueText.getText())) {
+                    ProcessTransaction.addExpense(datepicker.getValue(), Double.parseDouble(valueText.getText()), descriptionTextArea.getText(), categoryCombo.getSelectionModel().getSelectedItem(), accountCombo.getSelectionModel().getSelectedItem());
+                    ProcessLoan.paymentLoan(idLoan,Double.parseDouble(valueText.getText()));
+                    saved = true;
+                }
+                else{
+                    Alert alert=new Alert(Alert.AlertType.WARNING);
+                    alert.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+                    alert.setHeaderText("Inform");
+                    alert.setTitle("Please check carefully");
+                    alert.setContentText("You doesn't need to pay that much monney for this Loan");
+                    alert.showAndWait();
+                    return;
+                }
+            }
+            else {
+                ProcessTransaction.addExpense(datepicker.getValue(), Double.valueOf(valueText.getText()), descriptionTextArea.getText(), categoryCombo.getSelectionModel().getSelectedItem(), accountCombo.getSelectionModel().getSelectedItem());
+                saved=true;
+            }
         } catch (ProcessExeption pe) {
             Alert alertWarning = new Alert(Alert.AlertType.WARNING);
             alertWarning.setTitle("Missing something");
@@ -95,6 +112,7 @@ public class addExpenseBoxController implements Initializable {
             System.out.println(pe.getErrorCodeMessage());
             return;
         }
+
 
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow(); // get stage of program, primary stage
         stage.close();

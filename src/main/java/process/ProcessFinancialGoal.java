@@ -36,6 +36,7 @@ public class ProcessFinancialGoal {
         if(expireDate.isBefore(startDate))throw new ProcessExeption(16);
         if(checkBalance==null) throw new ProcessExeption(17);
         if(threshold <0)throw new ProcessExeption(18);
+        if(desc.equals(""))throw new ProcessExeption();
         FinancialGoal financialGoal=new FinancialGoal(desc,type,threshold,startDate,expireDate,checkBalance);
         try{
             if(DatabaseFinancialGoal.addFinancialGoal(financialGoal,singletonBudget.getInstance().getBudget())) {
@@ -81,6 +82,7 @@ public class ProcessFinancialGoal {
         if(financialGoal==null){
             throw new ProcessExeption();
         }
+        if(desc.equals(""))throw new ProcessExeption();
         financialGoal.setThreshold(value);
         financialGoal.setDescription(desc);
         try{
@@ -142,7 +144,7 @@ public class ProcessFinancialGoal {
             endDay = financialGoal.getExpireDate();
         } else endDay = LocalDate.now();
         Map<LocalDate, Double> maps = new TreeMap<LocalDate, Double>();
-        List<LocalDate> localDateList = financialGoal.getStartDate().datesUntil(endDay).collect(Collectors.toList());
+        List<LocalDate> localDateList = financialGoal.getStartDate().datesUntil(endDay.plusDays(1)).collect(Collectors.toList());
         for (LocalDate local : localDateList) {
             maps.put(local, 0.0);
         }

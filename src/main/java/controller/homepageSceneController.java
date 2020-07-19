@@ -24,18 +24,12 @@ import model.Balance;
 import model.FinancialGoal;
 import model.Saving;
 import model.User;
-import process.ProcessBalance;
-import process.ProcessFinancialGoal;
-import process.ProcessSaving;
-import process.singletonUser;
+import process.*;
 import scenes.*;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class homepageSceneController  implements Initializable {
     @FXML
@@ -137,17 +131,14 @@ public class homepageSceneController  implements Initializable {
             @Override
             public void handle(ActionEvent actionEvent) {
                 if (balanceComboBox.getSelectionModel().getSelectedIndex() != -1) {
-                    totalBalanceText.setText(String.format("%,8d",(int)(balanceComboBox.getSelectionModel().getSelectedItem().getValue())));
+                    totalBalanceText.setText(String.format(Locale.US,"%,.0f",balanceComboBox.getSelectionModel().getSelectedItem().getValue()));
                 }
             }
         });
         setAccountCombo();
         balanceComboBox.getSelectionModel().selectLast();
-        totalBalanceText.setText(String.format("%,8d",(int)balanceComboBox.getSelectionModel().getSelectedItem().getValue()));
+        totalBalanceText.setText(String.format(Locale.US,"%,.0f",balanceComboBox.getSelectionModel().getSelectedItem().getValue()));
         // display table
-
-
-
         displayTableView();
     }
 
@@ -196,8 +187,8 @@ public class homepageSceneController  implements Initializable {
             System.out.println(pe.getErrorCodeMessage());
             return;
         }
-        moneyDoneDisplay.setText(String.format("%,8d",(int)objectiveModel.curValue)+" VND");
-        moneyDoneDisplay1.setText(String.format("%,8d",(int)(financialGoal.getThreshold()-objectiveModel.curValue))+" VND");
+        moneyDoneDisplay.setText(String.format(Locale.US,"%,.0f",objectiveModel.curValue)+" VND");
+        moneyDoneDisplay1.setText(String.format(Locale.US,"%,.0f",(financialGoal.getThreshold()-objectiveModel.curValue))+" VND");
         //TODO: get first data in table view
         Slider slider = new Slider(0, 100, 50);
         indicator.setStyle("-fx-background:  #E6E6FA;");
@@ -398,7 +389,7 @@ public class homepageSceneController  implements Initializable {
             setAccountCombo();
             balanceComboBox.getSelectionModel().select(i);
             displayRing(goalTable.getSelectionModel().getSelectedItem());
-            totalBalanceText.setText(String.format("%,8d",(int)balanceComboBox.getSelectionModel().getSelectedItem().getValue()));
+            totalBalanceText.setText(String.format(Locale.US,"%,.0f",balanceComboBox.getSelectionModel().getSelectedItem().getValue()));
         }
 
     }
@@ -523,6 +514,36 @@ public class homepageSceneController  implements Initializable {
                 return null;
             }
         });
+    }
+    public void updateLoanSaving(){
+        try {
+            String print="";
+            ArrayList<Saving>savings= ProcessSaving.savingUpdating();
+            ArrayList<String > loans= ProcessLoan.loanUpdating();
+            if (savings.size()>0){
+                for(Saving saving:savings){
+                    int time= (int) (saving.getActiveTimeSpan()+saving.getCreationDate().toEpochDay()-LocalDate.now().toEpochDay());
+                    print+="Saving: "+saving.getName()+" is expired for "+time +" day \n" ;
+                }
+            }
+            if(loans.size()>0){
+                for(String loan:loans){
+                    print+=loan +"\n";
+                }
+            }
+            if(print.equals("")==false){
+                Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+                alertWarning.setTitle("Missing something");
+                alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+                alertWarning.setHeaderText("These saving and loan is expired or need to be pay");
+                alertWarning.setContentText(print);
+                alertWarning.showAndWait();
+                return;
+            }
+
+        } catch (ProcessExeption processExeption) {
+            processExeption.printStackTrace();
+        }
     }
 
     public void setUser(){

@@ -19,16 +19,17 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.Balance;
+import model.Expense;
+import model.Income;
 import model.Transaction;
+import process.ProcessLoan;
 import process.ProcessTransaction;
 import scenes.*;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.time.Year;
+import java.util.*;
 
 public class transactionSceneController implements Initializable {
 
@@ -49,8 +50,26 @@ public class transactionSceneController implements Initializable {
     public TextField filterWeekText;
     @FXML
     public Button viewBtn;
+    @FXML
+    public CheckBox incomeWeekCbox;
+    @FXML
+    public CheckBox expenseWeekCbox;
+    @FXML
+    public Label incomeWeekTotalLabel;
+    @FXML
+    public Label expenseWeekTotalLabel;
 
     private ObservableList<Transaction> transactionWeekList = FXCollections.observableArrayList(); // list of transaction (default by date)
+
+
+    public void incomeWeekCheckBox(ActionEvent e)throws Exception{
+        displayTableView();
+        filterData();
+    }
+    public void expenseWeekCheckBox(ActionEvent e)throws Exception{
+        displayTableView();
+        filterData();
+    }
 
     public void homeBtnClick(ActionEvent e) throws Exception {
         System.out.println("Home clicked");
@@ -115,7 +134,8 @@ public class transactionSceneController implements Initializable {
 
         // load data to table
         displayTableView();
-
+        displayTableViewMonthly();
+        displayTableViewCustomly();
         // filter data when search table
         filterData();
 
@@ -126,18 +146,33 @@ public class transactionSceneController implements Initializable {
         //TODO: get right list from own database
         ArrayList<Transaction> transactions=new ArrayList<>();
         try{
-            transactions= ProcessTransaction.getTransactionsInfo();
+            if(incomeWeekCbox.isSelected()==true) {
+                ArrayList<Income> incomes=ProcessTransaction.getAllIncome(LocalDate.now().minusDays(6), LocalDate.now().plusDays(1));
+                transactions.addAll(incomes);
+                double sum= 0;
+                for(Transaction transaction:incomes) {
+                    sum+=transaction.getTransValue();
+                }
+                incomeWeekTotalLabel.setText(String.format(Locale.US,"%,.0f", sum));
+            }else {
+                incomeWeekTotalLabel.setText("0");
+            }
+
+            if(expenseWeekCbox.isSelected()==true) {
+                ArrayList<Expense> expenses=ProcessTransaction.getAllExpense(LocalDate.now().minusDays(6), LocalDate.now().plusDays(1));
+                transactions.addAll(expenses);
+                double sum= 0;
+                for(Transaction expense:expenses) {
+                    sum+=expense.getTransValue();
+                }
+                expenseWeekTotalLabel.setText(String.format(Locale.US,"%,.0f", sum));
+            }else {
+                expenseWeekTotalLabel.setText("0");
+            }
         }
         catch (ProcessExeption pe)
         {
-            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
-            alertWarning.setTitle("Missing something");
-            alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
-            alertWarning.setHeaderText("Cannot display table view");
-            alertWarning.setContentText("Please check carefully");
-            alertWarning.showAndWait();
-            System.out.println(pe.getErrorCodeMessage());
-            return;
+            pe.printStackTrace();
         }
 
         transactionWeekList.setAll(transactions);
@@ -198,7 +233,8 @@ public class transactionSceneController implements Initializable {
                                 setText("");
                                 setStyle("");
                             } else {
-                                setText(String.format("%,8d",(int)((double)(valueItem))).replace("-",""));
+                                setText(String.format(Locale.US,"%,.0f", valueItem));
+//                                setText(String.format("%,8d",(int)((double)(valueItem))).replace("-",""));
                                 if (transItem.getType().equals("Expense")) {
                                     //setTextFill(Color.DARKRED);
                                     setStyle("-fx-background-color: red;\n" +  "-fx-alignment: CENTER;");
@@ -217,10 +253,269 @@ public class transactionSceneController implements Initializable {
         transactionWeekTable.setItems(transactionWeekList);
     }
 
+    public TableView<Transaction> transactionMonthTable;
+    public TableColumn<Transaction, String> idColumn1;
+    public TableColumn<Transaction, LocalDate> dateMonthColumn;
+    public TableColumn<Transaction, String> descriptionMonthColumn;
+    public TableColumn<Transaction, Balance> accountMonthColumn; // yet to be used because not in constructor of income or saving??
+    public TableColumn<Transaction, String> categoryMonthColumn;
+    public TableColumn<Transaction, Double> valueMonthColumn;
+
+    public TextField filterMonthText;
+    @FXML
+    public CheckBox incomeMonthCbox;
+    @FXML
+    public CheckBox expenseMonthCbox;
+    @FXML
+    public Label incomeMonthTotalLabel;
+    @FXML
+    public Label expenseMonthTotalLabel;
+
+    private ObservableList<Transaction> transactionMonthList = FXCollections.observableArrayList(); // list of transaction (default by date)
+
+
+    public void incomeMonthCheckBox(ActionEvent e)throws Exception{
+        displayTableViewMonthly();
+        filterData();
+    }
+    public void expenseMonthCheckBox(ActionEvent e)throws Exception{
+        displayTableViewMonthly();
+        filterData();
+    }
+    public void displayTableViewMonthly() {
+        // table view handle
+        //TODO: get right list from own database
+        ArrayList<Transaction> transactions=new ArrayList<>();
+        try{
+            if(incomeMonthCbox.isSelected()==true) {
+                ArrayList<Income> incomes=ProcessTransaction.getAllIncome(LocalDate.now().minusDays(30), LocalDate.now().plusDays(1));
+                transactions.addAll(incomes);
+                double sum= 0;
+                for(Transaction transaction:incomes) {
+                    sum+=transaction.getTransValue();
+                }
+                incomeMonthTotalLabel.setText(String.format(Locale.US,"%,.0f", sum));
+            }else {
+                incomeMonthTotalLabel.setText("0");
+            }
+
+            if(expenseMonthCbox.isSelected()==true) {
+                ArrayList<Expense> expenses=ProcessTransaction.getAllExpense(LocalDate.now().minusDays(30), LocalDate.now().plusDays(1));
+                transactions.addAll(expenses);
+                double sum= 0;
+                for(Transaction expense:expenses) {
+                    sum+=expense.getTransValue();
+                }
+                expenseMonthTotalLabel.setText(String.format(Locale.US,"%,.0f", sum));
+            }else {
+                expenseMonthTotalLabel.setText("0");
+            }
+        }
+        catch (ProcessExeption pe)
+        {
+            pe.printStackTrace();
+
+        }
+
+        transactionMonthList.setAll(transactions);
+//
+        // add data to suitable columns
+        //idMonthColumn.setCellValueFactory(new PropertyValueFactory<Transaction,String>("id"));
+        dateMonthColumn.setCellValueFactory(new PropertyValueFactory<Transaction,LocalDate>("transDate"));
+        descriptionMonthColumn.setCellValueFactory(new PropertyValueFactory<Transaction,String>("transDescription"));
+        categoryMonthColumn.setCellValueFactory(new PropertyValueFactory<Transaction,String>("categoryName"));
+        //typeColumn not set because there is no property in transaction
+        //TODO: should add the account column here but no property now to use
+        accountMonthColumn.setCellValueFactory(new PropertyValueFactory<Transaction, Balance>("applyingBalance"));
+        valueMonthColumn.setCellValueFactory(new PropertyValueFactory<Transaction,Double>("transValue"));
+
+        transactionMonthTable.setRowFactory(table -> new TableRow<>(){
+            @Override
+            protected void updateItem(Transaction transItem, boolean empty) {
+                super.updateItem(transItem, empty);
+
+                if (transItem == null || empty) {
+                    setStyle("");
+                } else {
+                    valueMonthColumn.setCellFactory(column -> new TableCell<Transaction, Double>() {
+                        @Override
+                        protected void updateItem(Double valueItem, boolean empty) {
+                            super.updateItem(valueItem, empty);
+
+                            if (valueItem == null || empty) {
+                                setText("");
+                                setStyle("");
+                            } else {
+                                setText(String.format(Locale.US,"%,.0f", valueItem));
+//                                setText(String.format("%,8d",(int)((double)(valueItem))).replace("-",""));
+                                if (transItem.getType().equals("Expense")) {
+                                    //setTextFill(Color.DARKRED);
+                                    setStyle("-fx-background-color: red;\n" +  "-fx-alignment: CENTER;");
+                                } else if(transItem.getType().equals("Income")) {
+                                    setStyle("-fx-background-color: #009383;\n" +  "-fx-alignment: CENTER;");
+                                }
+                            }
+                        }
+                    });
+
+                }
+            }
+        });
+
+        // bring data to the table
+        transactionMonthTable.setItems(transactionMonthList);
+    }
+
+    public TableView<Transaction> transactionCustomTable;
+    public TableColumn<Transaction, String> idColumn11;
+    public TableColumn<Transaction, LocalDate> dateCustomColumn;
+    public TableColumn<Transaction, String> descriptionCustomColumn;
+    public TableColumn<Transaction, Balance> accountCustomColumn; // yet to be used because not in constructor of income or saving??
+    public TableColumn<Transaction, String> categoryCustomColumn;
+    public TableColumn<Transaction, Double> valueCustomColumn;
+
+    public TextField filterCustomText;
+    @FXML
+    public CheckBox incomeCustomCbox;
+    @FXML
+    public CheckBox expenseCustomCbox;
+    @FXML
+    public Label incomeCustomTotalLabel;
+    @FXML
+    public Label expenseCustomTotalLabel;
+    @FXML
+    public DatePicker startdate;
+    @FXML
+    public DatePicker finishdate;
+
+
+    private ObservableList<Transaction> transactionCustomList = FXCollections.observableArrayList(); // list of transaction (default by date)
+
+
+    public void incomeCustomWeekCheckbox(ActionEvent e)throws Exception{
+        displayTableViewCustomly();
+        filterData();
+    }
+    public void expenseCustomCheckBox(ActionEvent e)throws Exception{
+        displayTableViewCustomly();
+        filterData();
+    }
+    public void startDateChange(ActionEvent e)throws Exception{
+        displayTableViewCustomly();
+        filterData();
+    }
+    public void finishDateChange(ActionEvent e)throws Exception{
+        displayTableViewCustomly();
+        filterData();
+
+    }
+    public void displayTableViewCustomly() {
+        // table view handle
+        //TODO: get right list from own database
+        ArrayList<Transaction> transactions=new ArrayList<>();
+        try{
+            LocalDate temDate=LocalDate.of(1970,1,2);
+            LocalDate start=LocalDate.now();
+            LocalDate end=start;
+            if(startdate.getValue()==null){
+                start=temDate;
+            }
+            else {
+                start=startdate.getValue();
+            }
+            if(finishdate.getValue()==null){
+                end=LocalDate.now();
+            }
+            else {
+                end=finishdate.getValue().plusDays(1);
+            }
+
+
+            if(incomeCustomCbox.isSelected()==true) {
+                ArrayList<Income> incomes=ProcessTransaction.getAllIncome(start, end);
+                transactions.addAll(incomes);
+                double sum= 0;
+                for(Transaction transaction:incomes) {
+                    sum+=transaction.getTransValue();
+                }
+                incomeCustomTotalLabel.setText(String.format(Locale.US,"%,.0f", sum));
+            }else {
+                incomeCustomTotalLabel.setText("0");
+            }
+
+            if(expenseCustomCbox.isSelected()==true) {
+                ArrayList<Expense> expenses=ProcessTransaction.getAllExpense(start,end);
+                transactions.addAll(expenses);
+                double sum= 0;
+                for(Transaction expense:expenses) {
+                    sum+=expense.getTransValue();
+                }
+                expenseCustomTotalLabel.setText(String.format(Locale.US,"%,.0f", sum));
+            }else {
+                expenseCustomTotalLabel.setText("0");
+            }
+        }
+        catch (ProcessExeption pe)
+        {
+            pe.printStackTrace();
+
+        }
+
+        transactionCustomList.setAll(transactions);
+//
+        // add data to suitable columns
+        //idCustomColumn.setCellValueFactory(new PropertyValueFactory<Transaction,String>("id"));
+        dateCustomColumn.setCellValueFactory(new PropertyValueFactory<Transaction,LocalDate>("transDate"));
+        descriptionCustomColumn.setCellValueFactory(new PropertyValueFactory<Transaction,String>("transDescription"));
+        categoryCustomColumn.setCellValueFactory(new PropertyValueFactory<Transaction,String>("categoryName"));
+        //typeColumn not set because there is no property in transaction
+        //TODO: should add the account column here but no property now to use
+        accountCustomColumn.setCellValueFactory(new PropertyValueFactory<Transaction, Balance>("applyingBalance"));
+        valueCustomColumn.setCellValueFactory(new PropertyValueFactory<Transaction,Double>("transValue"));
+
+        transactionCustomTable.setRowFactory(table -> new TableRow<>(){
+            @Override
+            protected void updateItem(Transaction transItem, boolean empty) {
+                super.updateItem(transItem, empty);
+
+                if (transItem == null || empty) {
+                    setStyle("");
+                } else {
+                    valueCustomColumn.setCellFactory(column -> new TableCell<Transaction, Double>() {
+                        @Override
+                        protected void updateItem(Double valueItem, boolean empty) {
+                            super.updateItem(valueItem, empty);
+
+                            if (valueItem == null || empty) {
+                                setText("");
+                                setStyle("");
+                            } else {
+                                setText(String.format(Locale.US,"%,.0f", valueItem));
+//                                setText(String.format("%,8d",(int)((double)(valueItem))).replace("-",""));
+                                if (transItem.getType().equals("Expense")) {
+                                    //setTextFill(Color.DARKRED);
+                                    setStyle("-fx-background-color: red;\n" +  "-fx-alignment: CENTER;");
+                                } else if(transItem.getType().equals("Income")) {
+                                    setStyle("-fx-background-color: #009383;\n" +  "-fx-alignment: CENTER;");
+                                }
+                            }
+                        }
+                    });
+
+                }
+            }
+        });
+
+        // bring data to the table
+        transactionCustomTable.setItems(transactionCustomList);
+    }
+
     public void filterData() {
         // use to filter data based on text
         // 1. Wrap the ObservableList in a FilteredList (initially display all data).
         FilteredList<Transaction> filteredWeekData = new FilteredList<>(transactionWeekList, p -> true);
+        FilteredList<Transaction> filteredMonthData = new FilteredList<>(transactionMonthList, p -> true);
+        FilteredList<Transaction> filteredCustomData = new FilteredList<>(transactionCustomList, p -> true);
 
         // 2. Set the filter Predicate whenever the filter changes.
         filterWeekText.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -240,15 +535,55 @@ public class transactionSceneController implements Initializable {
                 return false; // Does not match.
             });
         });
+        filterMonthText.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredMonthData.setPredicate(transaction -> {
+                // If filter text is empty, display all persons.
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                // Compare description and value of transaction data with filter text.
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (transaction.getTransDescription().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches the description
+                } else if (transaction.getTransValue().toString().contains(lowerCaseFilter)) {
+                    return true; // Filter matches value
+                }
+                return false; // Does not match.
+            });
+        });
+        filterCustomText.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredCustomData.setPredicate(transaction -> {
+                // If filter text is empty, display all persons.
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                // Compare description and value of transaction data with filter text.
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (transaction.getTransDescription().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches the description
+                } else if (transaction.getTransValue().toString().contains(lowerCaseFilter)) {
+                    return true; // Filter matches value
+                }
+                return false; // Does not match.
+            });
+        });
 
         // 3. Wrap the FilteredList in a SortedList.
         SortedList<Transaction> sortedData = new SortedList<>(filteredWeekData);
+        SortedList<Transaction> sortedData1 = new SortedList<>(filteredMonthData);
+        SortedList<Transaction> sortedData2 = new SortedList<>(filteredCustomData);
 
         // 4. Bind the SortedList comparator to the TableView comparator.
         sortedData.comparatorProperty().bind(transactionWeekTable.comparatorProperty());
+        sortedData1.comparatorProperty().bind(transactionMonthTable.comparatorProperty());
+        sortedData2.comparatorProperty().bind(transactionCustomTable.comparatorProperty());
 
         // 5. Add sorted (and filtered) data to the table.
         transactionWeekTable.setItems(sortedData);
+        transactionMonthTable.setItems(sortedData1);
+        transactionCustomTable.setItems(sortedData2);
     }
 
     /**
@@ -393,6 +728,8 @@ public class transactionSceneController implements Initializable {
                 dialogAddStage.showAndWait();
                 // refresh if in the transaction page
                 displayTableView();
+                displayTableViewCustomly();
+                displayTableViewMonthly();
                 // filter data when search table
                 filterData();
             }
@@ -413,6 +750,7 @@ public class transactionSceneController implements Initializable {
         dialogAddStage.setScene(addPlan_box.getScene());
 
         dialogAddStage.showAndWait();
+
 
     }
 

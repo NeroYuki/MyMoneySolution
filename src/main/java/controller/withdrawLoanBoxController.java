@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import model.Loan;
 
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class withdrawLoanBoxController implements Initializable {
@@ -63,7 +64,7 @@ public class withdrawLoanBoxController implements Initializable {
         // set name
         nameText.setText(loan.getName());
         // set current
-        currentValueText.setText(String.format("%8d",(int)(loan.getCurrentValue())));
+        currentValueText.setText(String.format(Locale.US,"%,.0f",loan.getCurrentValue()));
 
     }
 

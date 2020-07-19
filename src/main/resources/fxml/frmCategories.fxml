@@ -212,17 +212,17 @@
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="541.0" prefWidth="424.0" style="-fx-background-color: #B8C9DF;">
                                  <children>
                                     <PieChart fx:id="incomeWeekPie" animated="false" labelsVisible="false" layoutY="66.0" prefHeight="372.0" prefWidth="424.0" style="-fx-background-color: #E6E6FA" />
-                                    <Label layoutX="83.0" layoutY="480.0" text="Compared to last">
+                                    <Label layoutX="49.0" layoutY="481.0" text="Compared to last">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="214.0" layoutY="480.0" prefHeight="27.0" prefWidth="70.0" text="week">
+                                    <Label layoutX="177.0" layoutY="480.0" prefHeight="27.0" prefWidth="70.0" text="week">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="incomeWeekDifferentCompareLabel" layoutX="309.0" layoutY="480.0" text="0" textFill="#1417eb">
+                                    <Label fx:id="incomeWeekDifferentCompareLabel" layoutX="260.0" layoutY="480.0" text="0" textFill="#1417eb">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
@@ -232,7 +232,7 @@
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="incomeWeekSignCompareLabel" layoutX="276.0" layoutY="477.0" prefHeight="27.0" prefWidth="17.0" text="=" textFill="#28cc12">
+                                    <Label fx:id="incomeWeekSignCompareLabel" layoutX="230.0" layoutY="477.0" prefHeight="27.0" prefWidth="17.0" text="=" textFill="#28cc12">
                                        <font>
                                           <Font name="Arial" size="29.0" />
                                        </font>
@@ -247,22 +247,22 @@
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="78.0" layoutY="480.0" text="Compared to last">
+                                    <Label layoutX="49.0" layoutY="480.0" text="Compared to last">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="213.0" layoutY="480.0" prefHeight="27.0" prefWidth="69.0" text="week">
+                                    <Label layoutX="180.0" layoutY="480.0" prefHeight="27.0" prefWidth="69.0" text="week">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="expensesWeekDifferentCompareLabel" layoutX="315.0" layoutY="480.0" text="0" textFill="#1417eb">
+                                    <Label fx:id="expensesWeekDifferentCompareLabel" layoutX="270.0" layoutY="480.0" text="0" textFill="#1417eb">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="expensesWeekSignCompareLabel" layoutX="269.0" layoutY="472.0" prefHeight="27.0" prefWidth="20.0" text="=" textFill="#28cc12">
+                                    <Label fx:id="expensesWeekSignCompareLabel" layoutX="230.0" layoutY="472.0" prefHeight="27.0" prefWidth="20.0" text="=" textFill="#28cc12">
                                        <font>
                                           <Font size="29.0" />
                                        </font>
@@ -312,22 +312,22 @@
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="541.0" prefWidth="424.0" style="-fx-background-color: #B8C9DF;">
                                  <children>
                                     <PieChart fx:id="incomeMonthPie" animated="false" labelsVisible="false" layoutY="66.0" prefHeight="372.0" prefWidth="424.0" style="-fx-background-color: #E6E6FA" />
-                                    <Label layoutX="83.0" layoutY="480.0" text="Compared to last">
+                                    <Label layoutX="49.0" layoutY="480.0" text="Compared to last">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="214.0" layoutY="480.0" prefHeight="27.0" prefWidth="70.0" text="month">
+                                    <Label layoutX="177.0" layoutY="480.0" prefHeight="27.0" prefWidth="70.0" text="month">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="incomeMonthSignCompareLabel" layoutX="278.0" layoutY="471.0" prefHeight="27.0" text="=" textFill="#28cc12">
+                                    <Label fx:id="incomeMonthSignCompareLabel" layoutX="240.0" layoutY="471.0" prefHeight="27.0" text="=" textFill="#28cc12">
                                        <font>
                                           <Font size="29.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="incomeMonthDifferentCompareLabel" layoutX="315.0" layoutY="480.0" text="0" textFill="#1417eb">
+                                    <Label fx:id="incomeMonthDifferentCompareLabel" layoutX="260.0" layoutY="480.0" text="0" textFill="#1417eb">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
@@ -347,22 +347,22 @@
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="78.0" layoutY="480.0" text="Compared to last">
+                                    <Label layoutX="50.0" layoutY="480.0" text="Compared to last">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="212.0" layoutY="480.0" prefHeight="27.0" prefWidth="69.0" text="month">
+                                    <Label layoutX="180.0" layoutY="480.0" prefHeight="27.0" prefWidth="69.0" text="month">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="expensesMonthSignCompareLabel" layoutX="281.0" layoutY="472.0" prefHeight="27.0" prefWidth="20.0" text="=" textFill="#24cd11">
+                                    <Label fx:id="expensesMonthSignCompareLabel" layoutX="240.0" layoutY="472.0" prefHeight="27.0" prefWidth="20.0" text="=" textFill="#24cd11">
                                        <font>
                                           <Font size="29.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="expensesMonthDifferentCompareLabel" layoutX="314.0" layoutY="480.0" text="0" textFill="#1417eb">
+                                    <Label fx:id="expensesMonthDifferentCompareLabel" layoutX="270.0" layoutY="480.0" text="0" textFill="#1417eb">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
@@ -412,22 +412,22 @@
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="541.0" prefWidth="424.0" style="-fx-background-color: #B8C9DF;">
                                  <children>
                                     <PieChart fx:id="incomeDaysPie" animated="false" labelsVisible="false" layoutY="66.0" prefHeight="372.0" prefWidth="424.0" style="-fx-background-color: #E6E6FA" />
-                                    <Label layoutX="82.0" layoutY="480.0" text="Compared to last">
+                                    <Label layoutX="49.0" layoutY="480.0" text="Compared to last">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="216.0" layoutY="480.0" prefHeight="27.0" prefWidth="70.0" text="90 days">
+                                    <Label layoutX="177.0" layoutY="480.0" prefHeight="27.0" prefWidth="70.0" text="90 days">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="incomeDaysSignCompareLabel" layoutX="286.0" layoutY="472.0" prefHeight="27.0" text="=" textFill="#28cc12">
+                                    <Label fx:id="incomeDaysSignCompareLabel" layoutX="240.0" layoutY="472.0" prefHeight="27.0" text="=" textFill="#28cc12">
                                        <font>
                                           <Font size="29.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="incomeDaysDifferentCompareLabel" layoutX="312.0" layoutY="480.0" text="0" textFill="#1417eb">
+                                    <Label fx:id="incomeDaysDifferentCompareLabel" layoutX="260.0" layoutY="480.0" text="0" textFill="#1417eb">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
@@ -447,22 +447,22 @@
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="78.0" layoutY="480.0" text="Compared to last">
+                                    <Label layoutX="50.0" layoutY="480.0" text="Compared to last">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="213.0" layoutY="480.0" prefHeight="27.0" prefWidth="69.0" text="90 days">
+                                    <Label layoutX="180.0" layoutY="480.0" prefHeight="27.0" prefWidth="69.0" text="90 days">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="expensesDaysSignCompareLabel" layoutX="282.0" layoutY="472.0" prefHeight="27.0" text="=" textFill="#24cd11">
+                                    <Label fx:id="expensesDaysSignCompareLabel" layoutX="250.0" layoutY="472.0" prefHeight="27.0" text="=" textFill="#24cd11">
                                        <font>
                                           <Font size="29.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="expensesDaysDifferentCompareLabel" layoutX="316.0" layoutY="480.0" text="0" textFill="#1417eb">
+                                    <Label fx:id="expensesDaysDifferentCompareLabel" layoutX="270.0" layoutY="480.0" text="0" textFill="#1417eb">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
@@ -512,22 +512,22 @@
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="541.0" prefWidth="424.0" style="-fx-background-color: #B8C9DF;">
                                  <children>
                                     <PieChart fx:id="incomeYearPie" animated="false" labelsVisible="false" layoutY="66.0" prefHeight="372.0" prefWidth="424.0" style="-fx-background-color: #E6E6FA" />
-                                    <Label layoutX="82.0" layoutY="480.0" text="Compared to last">
+                                    <Label layoutX="49.0" layoutY="480.0" text="Compared to last">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="216.0" layoutY="480.0" prefHeight="27.0" prefWidth="70.0" text="year">
+                                    <Label layoutX="177.0" layoutY="480.0" prefHeight="27.0" prefWidth="70.0" text="year">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="incomeYearSignCompareLabel" layoutX="266.0" layoutY="472.0" prefHeight="27.0" text="=" textFill="#28cc12">
+                                    <Label fx:id="incomeYearSignCompareLabel" layoutX="230.0" layoutY="472.0" prefHeight="27.0" text="=" textFill="#28cc12">
                                        <font>
                                           <Font size="29.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="incomeYearDifferentCompareLabel" layoutX="312.0" layoutY="480.0" text="0" textFill="#1417eb">
+                                    <Label fx:id="incomeYearDifferentCompareLabel" layoutX="260.0" layoutY="480.0" text="0" textFill="#1417eb">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
@@ -547,22 +547,22 @@
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="78.0" layoutY="480.0" text="Compared to last">
+                                    <Label layoutX="50.0" layoutY="480.0" text="Compared to last">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="213.0" layoutY="480.0" prefHeight="27.0" prefWidth="69.0" text="year">
+                                    <Label layoutX="180.0" layoutY="480.0" prefHeight="27.0" prefWidth="69.0" text="year">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="expensesYearSignCompareLabel" layoutX="262.0" layoutY="472.0" prefHeight="27.0" text="=" textFill="#24cd11">
+                                    <Label fx:id="expensesYearSignCompareLabel" layoutX="230.0" layoutY="472.0" prefHeight="27.0" text="=" textFill="#24cd11">
                                        <font>
                                           <Font size="29.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="expensesYearDifferentCompareLabel" layoutX="316.0" layoutY="480.0" text="0" textFill="#1417eb">
+                                    <Label fx:id="expensesYearDifferentCompareLabel" layoutX="270.0" layoutY="480.0" text="0" textFill="#1417eb">
                                        <font>
                                           <Font size="18.0" />
                                        </font>

@@ -15,6 +15,7 @@ import model.Loan;
 import process.ProcessLoan;
 
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class editLoanBoxController implements Initializable {
@@ -80,7 +81,7 @@ public class editLoanBoxController implements Initializable {
         // set active time span
         timeSpanText.setText(Integer.toString(loan.getActiveTimeSpan()));
         // set base value
-        baseValueText.setText(String.format("%8d",(int)(loan.getBaseValue())));
+        baseValueText.setText(String.format(Locale.US,"%,.0f",loan.getBaseValue()));
         // set interest
         interestRateText.setText(Double.toString(loan.getInterestRate()));
     }

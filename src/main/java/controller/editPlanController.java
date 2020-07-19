@@ -19,6 +19,7 @@ import process.ProcessFinancialGoal;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class editPlanController implements Initializable {
@@ -95,7 +96,7 @@ public class editPlanController implements Initializable {
         } else {
             this.comparisonLabel.setText("under");
         }
-        thresholdText.setText(String.format("%8d",(int)(goal.getThreshold())));
+        thresholdText.setText(String.format(Locale.US,"%,.0f", goal.getThreshold()));
         descriptionTextArea.setText(goal.getDescription());
     }
 

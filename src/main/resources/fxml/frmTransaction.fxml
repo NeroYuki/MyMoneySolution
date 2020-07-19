@@ -156,7 +156,7 @@
                                                 <Font size="18.0" />
                                              </font>
                                           </Label>
-                                          <CheckBox fx:id="incomeWeekCbox" layoutX="63.0" layoutY="25.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="26.0" selected="true" />
+                                          <CheckBox fx:id="incomeWeekCbox" layoutX="62.0" layoutY="25.0" mnemonicParsing="false" onAction="#incomeWeekCheckBox" prefHeight="17.0" prefWidth="26.0" selected="true" />
                                        </children>
                                     </Pane>
                                     <Pane fx:id="expensesLabel1" prefHeight="200.0" prefWidth="425.0" style="-fx-background-color: F88F79;">
@@ -171,7 +171,7 @@
                                                 <Font size="18.0" />
                                              </font>
                                           </Label>
-                                          <CheckBox fx:id="expenseWeekCbox" layoutX="63.0" layoutY="25.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="26.0" selected="true" />
+                                          <CheckBox fx:id="expenseWeekCbox" layoutX="63.0" layoutY="25.0" mnemonicParsing="false" onAction="#expenseWeekCheckBox" prefHeight="17.0" prefWidth="26.0" selected="true" />
                                        </children>
                                     </Pane>
                                  </children>
@@ -231,7 +231,7 @@
                                                 <Font size="18.0" />
                                              </font>
                                           </Label>
-                                          <CheckBox fx:id="incomeMonthCbox" layoutX="62.0" layoutY="25.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="26.0" selected="true" />
+                                          <CheckBox fx:id="incomeMonthCbox" layoutX="62.0" layoutY="25.0" mnemonicParsing="false" onAction="#incomeMonthCheckBox" prefHeight="17.0" prefWidth="26.0" selected="true" />
                                        </children>
                                     </Pane>
                                     <Pane fx:id="expensesLabel11" prefHeight="200.0" prefWidth="425.0" style="-fx-background-color: F88F79;">
@@ -246,12 +246,12 @@
                                                 <Font size="18.0" />
                                              </font>
                                           </Label>
-                                          <CheckBox fx:id="expensMonthCbox" layoutX="63.0" layoutY="25.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="26.0" selected="true" />
+                                          <CheckBox fx:id="expenseMonthCbox" layoutX="63.0" layoutY="25.0" mnemonicParsing="false" onAction="#expenseMonthCheckBox" prefHeight="17.0" prefWidth="26.0" selected="true" />
                                        </children>
                                     </Pane>
                                  </children>
                               </HBox>
-                              <TableView fx:id="transacionMonthTable" layoutY="61.0" prefHeight="410.0" prefWidth="851.0" style="-fx-background-color: #E6E6FA;">
+                              <TableView fx:id="transactionMonthTable" layoutY="61.0" prefHeight="410.0" prefWidth="851.0" style="-fx-background-color: #E6E6FA;">
                                  <columns>
                                     <TableColumn fx:id="idColumn1" editable="false" prefWidth="100" resizable="false" sortable="false" text="ID" visible="false" />
                                     <TableColumn fx:id="dateMonthColumn" editable="false" prefWidth="151.0" resizable="false" style="-fx-alignment: CENTER;" text="Date" />
@@ -306,7 +306,7 @@
                                                 <Font size="18.0" />
                                              </font>
                                           </Label>
-                                          <CheckBox fx:id="incomeCustomWeekCbox" layoutX="62.0" layoutY="25.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="26.0" selected="true" />
+                                          <CheckBox fx:id="incomeCustomCbox" layoutX="62.0" layoutY="25.0" mnemonicParsing="false" onAction="#incomeCustomWeekCheckbox" prefHeight="17.0" prefWidth="26.0" selected="true" />
                                        </children>
                                     </Pane>
                                     <Pane fx:id="expensesLabel111" prefHeight="200.0" prefWidth="425.0" style="-fx-background-color: F88F79;">
@@ -321,7 +321,7 @@
                                                 <Font size="18.0" />
                                              </font>
                                           </Label>
-                                          <CheckBox fx:id="expenseCustomWeekCbox" layoutX="65.0" layoutY="25.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="26.0" selected="true" />
+                                          <CheckBox fx:id="expenseCustomCbox" layoutX="65.0" layoutY="25.0" mnemonicParsing="false" onAction="#expenseCustomCheckBox" prefHeight="17.0" prefWidth="26.0" selected="true" />
                                        </children>
                                     </Pane>
                                  </children>
@@ -357,8 +357,8 @@
                                        </cursor>
                                     </Button>
                                     <TextField fx:id="filterCustomText" layoutX="41.0" layoutY="23.0" prefHeight="25.0" prefWidth="194.0" promptText="Search for description or value" />
-                                    <DatePicker fx:id="startdate" layoutX="245.0" layoutY="23.0" prefHeight="25.0" prefWidth="143.0" />
-                                    <DatePicker fx:id="finishdate" layoutX="399.0" layoutY="23.0" prefHeight="25.0" prefWidth="143.0" />
+                                    <DatePicker fx:id="startdate" layoutX="245.0" layoutY="23.0" onAction="#startDateChange" prefHeight="25.0" prefWidth="143.0" />
+                                    <DatePicker fx:id="finishdate" layoutX="399.0" layoutY="23.0" onAction="#finishDateChange" prefHeight="25.0" prefWidth="143.0" />
                                  </children>
                               </Pane>
                            </children>

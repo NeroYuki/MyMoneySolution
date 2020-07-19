@@ -9,11 +9,17 @@ public class homepageScene {
     private Scene scene;
     private homepageSceneController controller;
     public homepageScene() throws Exception {
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/frmHomepage.fxml"));
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getClassLoader().getResource("fxml/frmHomepage.fxml"));
+
+        Parent root = loader.load();
         scene = new Scene(root);
+        controller = loader.getController();
 
+    }
 
-        controller = new homepageSceneController();
+    public homepageSceneController getController() {
+        return controller;
     }
 
     public Scene getScene() {
