@@ -113,5 +113,48 @@ public class ProcessLoan {
             editLoan(loan);
 
     }
+
+
+
+    public static ArrayList<String> loanUpdating()throws ProcessExeption{
+        ArrayList<String > result=new ArrayList<>();
+        ArrayList<Loan> loans=getLoan();
+        LocalDate now=LocalDate.now();
+        for(Loan loan:loans){
+            if(loan.getCurrentValue()==0)
+            {
+                deactivate(loan);
+                continue;
+            }
+            double interest=loan.getInterestRate();
+            double current =loan.getCurrentValue();
+            LocalDate creationDay=loan.getCreationDate();
+            int interval=loan.getInterestInterval().intervalToDays();
+            int paymentInterval=loan.getPaymentInterval().intervalToDays();
+            LocalDate lastCheck =loan.getLastCheckedDate();
+            LocalDate expireDay=creationDay.plusDays(loan.getActiveTimeSpan());
+
+
+            if(expireDay.isBefore(now)) {
+                now = expireDay;
+                String expired=" expire "+(now.toEpochDay()-expireDay.toEpochDay())+" ago";
+                result.add(loan.getName()+expired);
+            } else {
+//            int pastIntervals=(int)(lastCheck.toEpochDay()- creationDay.toEpochDay())/interval;
+//            int willIntervals=(int)(now.toEpochDay()- creationDay.toEpochDay())/interval;
+                int numberOfInterval = (int) (now.toEpochDay() - creationDay.toEpochDay()) / interval - (int) (lastCheck.toEpochDay() - creationDay.toEpochDay()) / interval;
+                for (int i = 0; i < numberOfInterval; i++) {
+                    current = current * (1 + interest / 100);
+                }
+                int numberOfPayMentInterval=(int) (now.toEpochDay() - creationDay.toEpochDay()) / paymentInterval - (int) (lastCheck.toEpochDay() - creationDay.toEpochDay()) / paymentInterval;
+                loan.setCurrentValue(current);
+                loan.setLastCheckedDate(now);
+                editLoan(loan);
+                if (numberOfPayMentInterval>0) result.add(loan.getName() + " had gone through "+ paymentInterval +" unpay interval");
+            }
+        }
+        return result;
+    }
+
 }
 

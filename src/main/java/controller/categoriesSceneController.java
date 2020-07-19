@@ -239,19 +239,19 @@ public class categoriesSceneController implements Initializable {
 
             Double sum2=ProcessCategories.getSum(ProcessCategories.getExpensePineChart(7,7));
             if(sum1>sum2) {
-                incomeWeekSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↑"));
-                incomeWeekSignCompareLabel.textFillProperty().set(Color.GREEN);
-                incomeWeekDifferentCompareLabel.setText(String.valueOf(sum1-sum2));
+                expensesWeekSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↑"));
+                expensesWeekSignCompareLabel.textFillProperty().set(Color.GREEN);
+                expensesWeekDifferentCompareLabel.setText(String.valueOf(sum1-sum2));
             }
             else if(sum2>sum1)
             {
-                incomeWeekSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↓"));
-                incomeWeekSignCompareLabel.textFillProperty().set(Color.RED);
-                incomeWeekDifferentCompareLabel.setText(String.valueOf(sum2-sum1));
+                expensesWeekSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↓"));
+                expensesWeekSignCompareLabel.textFillProperty().set(Color.RED);
+                expensesWeekDifferentCompareLabel.setText(String.valueOf(sum2-sum1));
             }
             else if (sum1==sum2) {
-                incomeWeekSignCompareLabel.setText("=");
-                incomeWeekDifferentCompareLabel.setText(String.valueOf(sum2 - sum1));
+                expensesWeekSignCompareLabel.setText("=");
+                expensesWeekDifferentCompareLabel.setText(String.valueOf(sum2 - sum1));
             }
 
             // display info when click
@@ -373,19 +373,19 @@ public class categoriesSceneController implements Initializable {
 
             Double sum2=ProcessCategories.getSum(ProcessCategories.getExpensePineChart(90,90));
             if(sum1>sum2) {
-                incomeMonthSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↑"));
-                incomeMonthSignCompareLabel.textFillProperty().set(Color.GREEN);
-                incomeMonthDifferentCompareLabel.setText(String.valueOf(sum1-sum2));
+                expensesMonthSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↑"));
+                expensesMonthSignCompareLabel.textFillProperty().set(Color.GREEN);
+                expensesMonthDifferentCompareLabel.setText(String.valueOf(sum1-sum2));
             }
             else if(sum2>sum1)
             {
-                incomeMonthSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↓"));
-                incomeMonthSignCompareLabel.textFillProperty().set(Color.RED);
-                incomeMonthDifferentCompareLabel.setText(String.valueOf(sum2-sum1));
+                expensesMonthSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↓"));
+                expensesMonthSignCompareLabel.textFillProperty().set(Color.RED);
+                expensesMonthDifferentCompareLabel.setText(String.valueOf(sum2-sum1));
             }
             else if (sum1==sum2) {
-                incomeMonthSignCompareLabel.setText("=");
-                incomeMonthDifferentCompareLabel.setText(String.valueOf(sum2 - sum1));
+                expensesMonthSignCompareLabel.setText("=");
+                expensesMonthDifferentCompareLabel.setText(String.valueOf(sum2 - sum1));
             }
 
             // display info when click
@@ -506,19 +506,19 @@ public class categoriesSceneController implements Initializable {
 
             Double sum2=ProcessCategories.getSum(ProcessCategories.getExpensePineChart(90,90));
             if(sum1>sum2) {
-                incomeDaysSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↑"));
-                incomeDaysSignCompareLabel.textFillProperty().set(Color.GREEN);
-                incomeDaysDifferentCompareLabel.setText(String.valueOf(sum1-sum2));
+                expensesDaysSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↑"));
+                expensesDaysSignCompareLabel.textFillProperty().set(Color.GREEN);
+                expensesDaysDifferentCompareLabel.setText(String.valueOf(sum1-sum2));
             }
             else if(sum2>sum1)
             {
-                incomeDaysSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↓"));
-                incomeDaysSignCompareLabel.textFillProperty().set(Color.RED);
-                incomeDaysDifferentCompareLabel.setText(String.valueOf(sum2-sum1));
+                expensesDaysSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↓"));
+                expensesDaysSignCompareLabel.textFillProperty().set(Color.RED);
+                expensesDaysDifferentCompareLabel.setText(String.valueOf(sum2-sum1));
             }
             else if (sum1==sum2) {
-                incomeDaysSignCompareLabel.setText("=");
-                incomeDaysDifferentCompareLabel.setText(String.valueOf(sum2 - sum1));
+                expensesDaysSignCompareLabel.setText("=");
+                expensesDaysDifferentCompareLabel.setText(String.valueOf(sum2 - sum1));
             }
 
             // display info when click
@@ -640,19 +640,19 @@ public class categoriesSceneController implements Initializable {
 
             Double sum2=ProcessCategories.getSum(ProcessCategories.getExpensePineChart(356,356));
             if(sum1>sum2) {
-                incomeYearSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↑"));
-                incomeYearSignCompareLabel.textFillProperty().set(Color.GREEN);
-                incomeYearDifferentCompareLabel.setText(String.valueOf(sum1-sum2));
+                expensesYearSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↑"));
+                expensesYearSignCompareLabel.textFillProperty().set(Color.GREEN);
+                expensesYearDifferentCompareLabel.setText(String.valueOf(sum1-sum2));
             }
             else if(sum2>sum1)
             {
-                incomeYearSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↓"));
-                incomeYearSignCompareLabel.textFillProperty().set(Color.RED);
-                incomeYearDifferentCompareLabel.setText(String.valueOf(sum2-sum1));
+                expensesYearSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↓"));
+                expensesYearSignCompareLabel.textFillProperty().set(Color.RED);
+                expensesYearDifferentCompareLabel.setText(String.valueOf(sum2-sum1));
             }
             else if (sum1==sum2) {
-                incomeYearSignCompareLabel.setText("=");
-                incomeYearDifferentCompareLabel.setText(String.valueOf(sum2 - sum1));
+                expensesYearSignCompareLabel.setText("=");
+                expensesYearDifferentCompareLabel.setText(String.valueOf(sum2 - sum1));
             }
 
             // display info when click
@@ -738,7 +738,7 @@ public class categoriesSceneController implements Initializable {
         try{
             ArrayList<ProcessCategories.CatModel > catModels=ProcessCategories.getExpensePineChart();
             Double sum1=ProcessCategories.getSum(catModels);
-            incomeTotalLabel.setText(String.valueOf(sum1));
+            expenseTotalLabel4.setText(String.valueOf(sum1));
             ArrayList<PieChart.Data> datas=new ArrayList<>();
             for (ProcessCategories.CatModel catModel:catModels) {
                 if(catModel.value!=0) {
