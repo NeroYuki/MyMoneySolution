@@ -50,7 +50,7 @@ public class transactionSceneController implements Initializable {
     @FXML
     public Button viewBtn;
 
-    private ObservableList<Transaction> transactionList = FXCollections.observableArrayList(); // list of transaction (default by date)
+    private ObservableList<Transaction> transactionWeekList = FXCollections.observableArrayList(); // list of transaction (default by date)
 
     public void homeBtnClick(ActionEvent e) throws Exception {
         System.out.println("Home clicked");
@@ -133,7 +133,7 @@ public class transactionSceneController implements Initializable {
             System.out.println(pe.getErrorCodeMessage());
         }
 
-        transactionList.setAll(transactions);
+        transactionWeekList.setAll(transactions);
 //        transactionList.add(
 //                new Income(UUIDHelper.newUUIDString(),LocalDate.of(2004,1,5),50000, "School giving scholarship", "Bonus"));
 //        transactionList.add(new Expense(UUIDHelper.newUUIDString(), LocalDate.of(2004,4,15),-20000, "Buy a phone in FPT", "Shopping"));
@@ -206,40 +206,18 @@ public class transactionSceneController implements Initializable {
             }
         });
 
-        // fill color to differentiate income and expense value
-//        valueWeekColumn.setCellFactory(column -> new TableCell<Transaction, Double>() {
-//            @Override
-//            protected void updateItem(Double item, boolean empty) {
-//                super.updateItem(item, empty);
-//
-//                if (item == null || empty) {
-//                    setText("");
-//                    setStyle("");
-//                } else {
-//                    // Format number
-//                    setText(String.valueOf(item).replace("-",""));
-//                    if (item.doubleValue() < 0) {
-//                        //setTextFill(Color.DARKRED);
-//                        setStyle("-fx-background-color: red");
-//                    } else {
-//                        setStyle("-fx-background-color: #009383");
-//                    }
-//                }
-//            }
-//        });
-
         // bring data to the table
-        transactionWeekTable.setItems(transactionList);
+        transactionWeekTable.setItems(transactionWeekList);
     }
 
     public void filterData() {
         // use to filter data based on text
         // 1. Wrap the ObservableList in a FilteredList (initially display all data).
-        FilteredList<Transaction> filteredData = new FilteredList<>(transactionList, p -> true);
+        FilteredList<Transaction> filteredWeekData = new FilteredList<>(transactionWeekList, p -> true);
 
         // 2. Set the filter Predicate whenever the filter changes.
         filterWeekText.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(transaction -> {
+            filteredWeekData.setPredicate(transaction -> {
                 // If filter text is empty, display all persons.
                 if (newValue == null || newValue.isEmpty()) {
                     return true;
@@ -257,7 +235,7 @@ public class transactionSceneController implements Initializable {
         });
 
         // 3. Wrap the FilteredList in a SortedList.
-        SortedList<Transaction> sortedData = new SortedList<>(filteredData);
+        SortedList<Transaction> sortedData = new SortedList<>(filteredWeekData);
 
         // 4. Bind the SortedList comparator to the TableView comparator.
         sortedData.comparatorProperty().bind(transactionWeekTable.comparatorProperty());
@@ -285,7 +263,7 @@ public class transactionSceneController implements Initializable {
                 catch (ProcessExeption pe){
                     pe.getErrorCodeMessage();
                 }
-                transactionList.remove(select); // delete call
+                transactionWeekList.remove(select); // delete call
             }
         } else {
             // Nothing select
@@ -424,4 +402,15 @@ public class transactionSceneController implements Initializable {
 
     }
 
+    public void editMonthBtnClick(ActionEvent actionEvent) {
+    }
+
+    public void deleteMonthBtnClick(ActionEvent actionEvent) {
+    }
+
+    public void editCustomBtnClick(ActionEvent actionEvent) {
+    }
+
+    public void deleteCustomBtnClick(ActionEvent actionEvent) {
+    }
 }

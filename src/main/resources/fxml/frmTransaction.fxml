@@ -3,6 +3,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -155,7 +156,7 @@
                                                 <Font size="18.0" />
                                              </font>
                                           </Label>
-                                          <CheckBox fx:id="incomeWeekCbox" layoutX="63.0" layoutY="25.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="26.0" />
+                                          <CheckBox fx:id="incomeWeekCbox" layoutX="63.0" layoutY="25.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="26.0" selected="true" />
                                        </children>
                                     </Pane>
                                     <Pane fx:id="expensesLabel1" prefHeight="200.0" prefWidth="425.0" style="-fx-background-color: F88F79;">
@@ -165,12 +166,12 @@
                                                 <Font size="18.0" />
                                              </font>
                                           </Button>
-                                          <Label fx:id="expenseTotalLabel" layoutX="232.0" layoutY="20.0" text="350.000d">
+                                          <Label fx:id="expenseWeekTotalLabel" layoutX="232.0" layoutY="20.0" text="350.000d">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
                                           </Label>
-                                          <CheckBox fx:id="outcomeWeekCbox" layoutX="63.0" layoutY="25.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="26.0" />
+                                          <CheckBox fx:id="expenseWeekCbox" layoutX="63.0" layoutY="25.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="26.0" selected="true" />
                                        </children>
                                     </Pane>
                                  </children>
@@ -220,42 +221,44 @@
                                  <children>
                                     <Pane prefHeight="105.0" prefWidth="425.0" style="-fx-background-color: #23B383;">
                                        <children>
-                                          <Button fx:id="incomeLoadBtn1" layoutX="108.0" layoutY="14.0" mnemonicParsing="false" text="Income">
+                                          <Button fx:id="incomeMonthLoadBtn" layoutX="108.0" layoutY="14.0" mnemonicParsing="false" text="Income">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
                                           </Button>
-                                          <Label fx:id="incomeTotalLabel1" layoutX="221.0" layoutY="20.0" text="560.000 d">
+                                          <Label fx:id="incomeMonthTotalLabel" layoutX="221.0" layoutY="20.0" text="560.000 d">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
                                           </Label>
+                                          <CheckBox fx:id="incomeMonthCbox" layoutX="62.0" layoutY="25.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="26.0" selected="true" />
                                        </children>
                                     </Pane>
                                     <Pane fx:id="expensesLabel11" prefHeight="200.0" prefWidth="425.0" style="-fx-background-color: F88F79;">
                                        <children>
-                                          <Button fx:id="expenseLoadBtn1" layoutX="112.0" layoutY="14.0" mnemonicParsing="false" text="Expense">
+                                          <Button fx:id="expenseMonthLoadBtn" layoutX="112.0" layoutY="14.0" mnemonicParsing="false" text="Expense">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
                                           </Button>
-                                          <Label fx:id="expenseTotalLabel1" layoutX="232.0" layoutY="20.0" text="350.000d">
+                                          <Label fx:id="expenseMonthTotalLabel" layoutX="232.0" layoutY="20.0" text="350.000d">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
                                           </Label>
+                                          <CheckBox fx:id="expensMonthCbox" layoutX="63.0" layoutY="25.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="26.0" selected="true" />
                                        </children>
                                     </Pane>
                                  </children>
                               </HBox>
-                              <TableView fx:id="transactionTable1" layoutY="61.0" prefHeight="410.0" prefWidth="851.0" style="-fx-background-color: #E6E6FA;">
+                              <TableView fx:id="transacionMonthTable" layoutY="61.0" prefHeight="410.0" prefWidth="851.0" style="-fx-background-color: #E6E6FA;">
                                  <columns>
                                     <TableColumn fx:id="idColumn1" editable="false" prefWidth="100" resizable="false" sortable="false" text="ID" visible="false" />
-                                    <TableColumn fx:id="dateColumn1" editable="false" prefWidth="151.0" resizable="false" style="-fx-alignment: CENTER;" text="Date" />
-                                    <TableColumn fx:id="descriptionColumn1" editable="false" prefWidth="214.0" resizable="false" sortable="false" text="Description" />
-                                    <TableColumn fx:id="accountColumn1" editable="false" prefWidth="137.0" resizable="false" style="-fx-alignment: CENTER;" text="Account" />
-                                    <TableColumn fx:id="categoryColumn1" editable="false" minWidth="2.0" prefWidth="183.0" resizable="false" style="-fx-alignment: CENTER;" text="Category" />
-                                    <TableColumn fx:id="valueColumn1" editable="false" prefWidth="165.0" resizable="false" text="Value" />
+                                    <TableColumn fx:id="dateMonthColumn" editable="false" prefWidth="151.0" resizable="false" style="-fx-alignment: CENTER;" text="Date" />
+                                    <TableColumn fx:id="descriptionMonthColumn" editable="false" prefWidth="214.0" resizable="false" sortable="false" text="Description" />
+                                    <TableColumn fx:id="accountMonthColumn" editable="false" prefWidth="137.0" resizable="false" style="-fx-alignment: CENTER;" text="Account" />
+                                    <TableColumn fx:id="categoryMonthColumn" editable="false" minWidth="2.0" prefWidth="183.0" resizable="false" style="-fx-alignment: CENTER;" text="Category" />
+                                    <TableColumn fx:id="valueMonthColumn" editable="false" prefWidth="165.0" resizable="false" text="Value" />
                                  </columns>
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -263,12 +266,12 @@
                               </TableView>
                               <Pane layoutY="471.0" prefHeight="70.0" prefWidth="851.0" style="-fx-background-color: #787878;">
                                  <children>
-                                    <Button fx:id="editBtn1" layoutX="592.0" layoutY="17.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="91.0" text="EDIT" underline="true">
+                                    <Button fx:id="editMonthBtn" layoutX="592.0" layoutY="17.0" mnemonicParsing="false" onAction="#editMonthBtnClick" prefHeight="37.0" prefWidth="91.0" text="EDIT" underline="true">
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <Button fx:id="deleteBtn1" layoutX="719.0" layoutY="17.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="91.0" text="DELETE" underline="true">
+                                    <Button fx:id="deleteMonthBtn" layoutX="719.0" layoutY="17.0" mnemonicParsing="false" onAction="#deleteMonthBtnClick" prefHeight="37.0" prefWidth="91.0" text="DELETE" underline="true">
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
@@ -278,7 +281,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <TextField fx:id="filterText1" layoutX="41.0" layoutY="23.0" prefHeight="25.0" prefWidth="194.0" promptText="Search for description or value" />
+                                    <TextField fx:id="filterMonthText" layoutX="41.0" layoutY="23.0" prefHeight="25.0" prefWidth="194.0" promptText="Search for description or value" />
                                  </children>
                               </Pane>
                            </children>
@@ -293,42 +296,44 @@
                                  <children>
                                     <Pane prefHeight="105.0" prefWidth="425.0" style="-fx-background-color: #23B383;">
                                        <children>
-                                          <Button fx:id="incomeLoadBtn11" layoutX="108.0" layoutY="14.0" mnemonicParsing="false" text="Income">
+                                          <Button fx:id="incomeCustomLoadBtn" layoutX="108.0" layoutY="14.0" mnemonicParsing="false" text="Income">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
                                           </Button>
-                                          <Label fx:id="incomeTotalLabel11" layoutX="221.0" layoutY="20.0" text="560.000 d">
+                                          <Label fx:id="incomeCustomTotalLabel" layoutX="221.0" layoutY="20.0" text="560.000 d">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
                                           </Label>
+                                          <CheckBox fx:id="incomeCustomWeekCbox" layoutX="62.0" layoutY="25.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="26.0" selected="true" />
                                        </children>
                                     </Pane>
                                     <Pane fx:id="expensesLabel111" prefHeight="200.0" prefWidth="425.0" style="-fx-background-color: F88F79;">
                                        <children>
-                                          <Button fx:id="expenseLoadBtn11" layoutX="112.0" layoutY="14.0" mnemonicParsing="false" text="Expense">
+                                          <Button fx:id="expenseCustomLoadBtn" layoutX="112.0" layoutY="14.0" mnemonicParsing="false" text="Expense">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
                                           </Button>
-                                          <Label fx:id="expenseTotalLabel11" layoutX="232.0" layoutY="20.0" text="350.000d">
+                                          <Label fx:id="expenseCustomTotalLabel" layoutX="232.0" layoutY="20.0" text="350.000d">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
                                           </Label>
+                                          <CheckBox fx:id="expenseCustomWeekCbox" layoutX="65.0" layoutY="25.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="26.0" selected="true" />
                                        </children>
                                     </Pane>
                                  </children>
                               </HBox>
-                              <TableView fx:id="transactionTable11" layoutY="61.0" prefHeight="410.0" prefWidth="851.0" style="-fx-background-color: #E6E6FA;">
+                              <TableView fx:id="transactionCustomTable" layoutY="61.0" prefHeight="410.0" prefWidth="851.0" style="-fx-background-color: #E6E6FA;">
                                  <columns>
                                     <TableColumn fx:id="idColumn11" editable="false" prefWidth="100" resizable="false" sortable="false" text="ID" visible="false" />
-                                    <TableColumn fx:id="dateColumn11" editable="false" prefWidth="151.0" resizable="false" style="-fx-alignment: CENTER;" text="Date" />
-                                    <TableColumn fx:id="descriptionColumn11" editable="false" prefWidth="214.0" resizable="false" sortable="false" text="Description" />
-                                    <TableColumn fx:id="accountColumn11" editable="false" prefWidth="137.0" resizable="false" style="-fx-alignment: CENTER;" text="Account" />
-                                    <TableColumn fx:id="categoryColumn11" editable="false" minWidth="2.0" prefWidth="183.0" resizable="false" style="-fx-alignment: CENTER;" text="Category" />
-                                    <TableColumn fx:id="valueColumn11" editable="false" prefWidth="165.0" resizable="false" text="Value" />
+                                    <TableColumn fx:id="dateCustomColumn" editable="false" prefWidth="151.0" resizable="false" style="-fx-alignment: CENTER;" text="Date" />
+                                    <TableColumn fx:id="descriptionCustomColumn" editable="false" prefWidth="214.0" resizable="false" sortable="false" text="Description" />
+                                    <TableColumn fx:id="accountCustomColumn" editable="false" prefWidth="137.0" resizable="false" style="-fx-alignment: CENTER;" text="Account" />
+                                    <TableColumn fx:id="categoryCustomColumn" editable="false" minWidth="2.0" prefWidth="183.0" resizable="false" style="-fx-alignment: CENTER;" text="Category" />
+                                    <TableColumn fx:id="valueCustomColumn" editable="false" prefWidth="165.0" resizable="false" text="Value" />
                                  </columns>
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -336,12 +341,12 @@
                               </TableView>
                               <Pane layoutY="471.0" prefHeight="70.0" prefWidth="851.0" style="-fx-background-color: #787878;">
                                  <children>
-                                    <Button fx:id="editBtn11" layoutX="592.0" layoutY="17.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="91.0" text="EDIT" underline="true">
+                                    <Button fx:id="editCustomBtn" layoutX="592.0" layoutY="17.0" mnemonicParsing="false" onAction="#editCustomBtnClick" prefHeight="37.0" prefWidth="91.0" text="EDIT" underline="true">
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <Button fx:id="deleteBtn11" layoutX="719.0" layoutY="17.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="91.0" text="DELETE" underline="true">
+                                    <Button fx:id="deleteCustomBtn" layoutX="719.0" layoutY="17.0" mnemonicParsing="false" onAction="#deleteCustomBtnClick" prefHeight="37.0" prefWidth="91.0" text="DELETE" underline="true">
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
@@ -351,7 +356,9 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <TextField fx:id="filterText11" layoutX="41.0" layoutY="23.0" prefHeight="25.0" prefWidth="194.0" promptText="Search for description or value" />
+                                    <TextField fx:id="filterCustomText" layoutX="41.0" layoutY="23.0" prefHeight="25.0" prefWidth="194.0" promptText="Search for description or value" />
+                                    <DatePicker fx:id="startdate" layoutX="245.0" layoutY="23.0" prefHeight="25.0" prefWidth="143.0" />
+                                    <DatePicker fx:id="finishdate" layoutX="399.0" layoutY="23.0" prefHeight="25.0" prefWidth="143.0" />
                                  </children>
                               </Pane>
                            </children>
