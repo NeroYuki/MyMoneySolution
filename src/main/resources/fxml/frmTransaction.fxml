@@ -155,7 +155,7 @@
                                                 <Font size="18.0" />
                                              </font>
                                           </Label>
-                                          <CheckBox fx:id="incomeWeekCbox" layoutX="63.0" layoutY="25.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="26.0" />
+                                          <CheckBox fx:id="incomeWeekCbox" layoutX="63.0" layoutY="25.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="26.0" selected="true" />
                                        </children>
                                     </Pane>
                                     <Pane fx:id="expensesLabel1" prefHeight="200.0" prefWidth="425.0" style="-fx-background-color: F88F79;">
@@ -170,7 +170,7 @@
                                                 <Font size="18.0" />
                                              </font>
                                           </Label>
-                                          <CheckBox fx:id="outcomeWeekCbox" layoutX="63.0" layoutY="25.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="26.0" />
+                                          <CheckBox fx:id="outcomeWeekCbox" layoutX="63.0" layoutY="25.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="26.0" selected="true" />
                                        </children>
                                     </Pane>
                                  </children>
@@ -230,6 +230,7 @@
                                                 <Font size="18.0" />
                                              </font>
                                           </Label>
+                                          <CheckBox fx:id="incomeWeekCbox1" layoutX="62.0" layoutY="25.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="26.0" selected="true" />
                                        </children>
                                     </Pane>
                                     <Pane fx:id="expensesLabel11" prefHeight="200.0" prefWidth="425.0" style="-fx-background-color: F88F79;">
@@ -244,6 +245,7 @@
                                                 <Font size="18.0" />
                                              </font>
                                           </Label>
+                                          <CheckBox fx:id="outcomeWeekCbox1" layoutX="63.0" layoutY="25.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="26.0" selected="true" />
                                        </children>
                                     </Pane>
                                  </children>
@@ -303,6 +305,7 @@
                                                 <Font size="18.0" />
                                              </font>
                                           </Label>
+                                          <CheckBox fx:id="incomeWeekCbox11" layoutX="62.0" layoutY="25.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="26.0" selected="true" />
                                        </children>
                                     </Pane>
                                     <Pane fx:id="expensesLabel111" prefHeight="200.0" prefWidth="425.0" style="-fx-background-color: F88F79;">
@@ -317,6 +320,7 @@
                                                 <Font size="18.0" />
                                              </font>
                                           </Label>
+                                          <CheckBox fx:id="outcomeWeekCbox11" layoutX="65.0" layoutY="25.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="26.0" selected="true" />
                                        </children>
                                     </Pane>
                                  </children>

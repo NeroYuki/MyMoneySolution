@@ -1,7 +1,8 @@
 package controller;
 
-import exception.DatabaseException;
 import exception.ProcessExeption;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -112,6 +113,13 @@ public class categoriesSceneController implements Initializable {
 
         // load income and expense
         loadTab();
+
+        //add Listener to filterText
+        filterText.textProperty().addListener(new ChangeListener() {
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                filterCategoriesList((String) oldValue, (String) newValue);
+            }
+        });
     }
 
     public void loadTab(){
@@ -1020,6 +1028,66 @@ public class categoriesSceneController implements Initializable {
 
     }
 
+    @FXML
+    public TextField filterText;
+    public void filterCategoriesList(String oldValue, String newValue) {
+        //income list
+        ObservableList<Category> incomeFilteredList = FXCollections.observableArrayList();
+        // get original list
+        ArrayList<Category> incomeCategories = new ArrayList<Category>();
+        try{
+            incomeCategories =ProcessCategories.getIncomeCategories();
+        }
+        catch (ProcessExeption de){
+            de.getErrorCodeMessage();
+        }
+        ObservableList<Category> incomeItems = FXCollections.observableArrayList(incomeCategories);
+
+        //expense list
+        ObservableList<Category> expenseFilteredList = FXCollections.observableArrayList();
+        // get original list
+        ArrayList<Category> expenseCategories = new ArrayList<Category>();
+        try{
+            expenseCategories =ProcessCategories.getExpenseCategories();
+        }
+        catch (ProcessExeption de){
+            de.getErrorCodeMessage();
+        }
+        ObservableList<Category> expenseItems = FXCollections.observableArrayList(expenseCategories);
+
+        // filter by text
+        if(filterText == null || (newValue.length() < oldValue.length()) || newValue == null) {
+            incomeListView.setItems(incomeItems);
+            expenseListView.setItems(expenseItems);
+        }
+        else {
+            newValue = newValue.toUpperCase();
+            for(Category category : incomeListView.getItems()) {
+                String filterText = category.getName();
+                if(filterText.toUpperCase().contains(newValue)) {
+                    incomeFilteredList.add(category);
+                }
+            }
+            for(Category category : expenseListView.getItems()) {
+                String filterText = category.getName();
+                if(filterText.toUpperCase().contains(newValue)) {
+                    expenseFilteredList.add(category);
+                }
+            }
+            incomeListView.setItems(incomeFilteredList);
+            expenseListView.setItems(expenseFilteredList);
+        }
+    }
+//    @Override
+//    public void initialize(URL fxmlFileLocation, ResourceBundle rb) {
+//
+//        //add Listener to filterInput TextField
+//        filterInput.textProperty().addListener(new ChangeListener() {
+//            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+//                filterPlantList((String) oldValue, (String) newValue);
+//            }
+//        });
+
     public void addTransClick(MouseEvent e) throws Exception {
         // first appear a dialog to choose the type of transaction for clear handle
         List<String> choices = new ArrayList<>();
@@ -1090,5 +1158,4 @@ public class categoriesSceneController implements Initializable {
         dialogAddStage.showAndWait();
         loadTab();
     }
-
 }
