@@ -63,7 +63,7 @@ public class withdrawLoanBoxController implements Initializable {
         // set name
         nameText.setText(loan.getName());
         // set current
-        currentValueText.setText(Double.toString(loan.getCurrentValue()));
+        currentValueText.setText(String.format("%8d",(int)(loan.getCurrentValue())));
 
     }
 

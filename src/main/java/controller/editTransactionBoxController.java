@@ -93,7 +93,7 @@ public class editTransactionBoxController implements Initializable {
         else if(transaction.getClass().getName().equals("model.Expense")){
             typeText.setText("Expense");
         }
-        valueText.setText(Double.toString(Math.abs(this.transaction.getTransValue())));
+        valueText.setText(String.format("%8d",(int)(Math.abs(this.transaction.getTransValue()))));
         // set description
         descriptionTextArea.setText(this.transaction.getTransDescription());
     }

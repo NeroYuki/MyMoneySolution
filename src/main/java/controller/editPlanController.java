@@ -95,7 +95,7 @@ public class editPlanController implements Initializable {
         } else {
             this.comparisonLabel.setText("under");
         }
-        thresholdText.setText(Double.toString(goal.getThreshold()));
+        thresholdText.setText(String.format("%8d",(int)(goal.getThreshold())));
         descriptionTextArea.setText(goal.getDescription());
     }
 

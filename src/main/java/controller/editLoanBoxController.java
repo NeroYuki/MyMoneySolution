@@ -80,7 +80,7 @@ public class editLoanBoxController implements Initializable {
         // set active time span
         timeSpanText.setText(Integer.toString(loan.getActiveTimeSpan()));
         // set base value
-        baseValueText.setText(Double.toString(loan.getBaseValue()));
+        baseValueText.setText(String.format("%8d",(int)(loan.getBaseValue())));
         // set interest
         interestRateText.setText(Double.toString(loan.getInterestRate()));
     }

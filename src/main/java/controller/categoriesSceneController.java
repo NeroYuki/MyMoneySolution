@@ -170,7 +170,7 @@ public class categoriesSceneController implements Initializable {
         try{
             ArrayList< ProcessCategories.CatModel > catModels=ProcessCategories.getIncomePineChart(0,7);
             Double sum1=ProcessCategories.getSum(catModels);
-            incomeWeekTotalLabel.setText(String.valueOf(sum1));
+            incomeWeekTotalLabel.setText(String.format("%,8d%n",(int)((double)(sum1))));
             ArrayList<PieChart.Data> datas=new ArrayList<>();
             for (ProcessCategories.CatModel catModel:catModels) {
                 if(catModel.value!=0) {

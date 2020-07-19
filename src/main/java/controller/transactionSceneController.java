@@ -198,12 +198,12 @@ public class transactionSceneController implements Initializable {
                                 setText("");
                                 setStyle("");
                             } else {
-                                setText(String.valueOf(valueItem).replace("-",""));
+                                setText(String.format("%,8d",(int)((double)(valueItem))).replace("-",""));
                                 if (transItem.getType().equals("Expense")) {
                                     //setTextFill(Color.DARKRED);
-                                    setStyle("-fx-background-color: red");
+                                    setStyle("-fx-background-color: red;\n" +  "-fx-alignment: CENTER;");
                                 } else if(transItem.getType().equals("Income")) {
-                                    setStyle("-fx-background-color: #009383");
+                                    setStyle("-fx-background-color: #009383;\n" +  "-fx-alignment: CENTER;");
                                 }
                             }
                         }

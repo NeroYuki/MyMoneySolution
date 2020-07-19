@@ -77,7 +77,7 @@ public class editSavingBoxController implements Initializable {
         // set active time span
         timeSpanText.setText(Integer.toString(saving.getActiveTimeSpan()));
         // set base value
-        baseValueText.setText(Double.toString(saving.getBaseValue()));
+        baseValueText.setText(String.format("%8d",(int)(saving.getBaseValue())));
         // set interest
         interestRateText.setText(Double.toString(saving.getInterestRate()));
     }
