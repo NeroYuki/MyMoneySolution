@@ -164,22 +164,22 @@
                                     <Font name="System Bold" size="18.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="moneyDoneDisplay" alignment="CENTER" layoutX="49.0" layoutY="291.0" prefHeight="27.0" prefWidth="126.0" text="0" textFill="#1417eb">
+                              <Label fx:id="moneyDoneDisplay" alignment="CENTER" layoutX="12.0" layoutY="291.0" prefHeight="27.0" prefWidth="182.0" text="0" textFill="#1417eb">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="spentLabel" alignment="CENTER" layoutX="187.0" layoutY="292.0" prefHeight="25.0" prefWidth="126.0" text="achieved/spent">
+                              <Label fx:id="spentLabel" alignment="CENTER" layoutX="226.0" layoutY="292.0" prefHeight="25.0" prefWidth="126.0" text="achieved/spent">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="moneyDoneDisplay1" alignment="CENTER" layoutX="49.0" layoutY="326.0" prefHeight="27.0" prefWidth="126.0" text="0" textFill="#ee4111">
+                              <Label fx:id="moneyDoneDisplay1" alignment="CENTER" layoutX="12.0" layoutY="326.0" prefHeight="27.0" prefWidth="181.0" text="0" textFill="#ee4111">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="needLabel" alignment="CENTER" layoutX="187.0" layoutY="327.0" prefHeight="25.0" prefWidth="150.0" text="to complete/exceed">
+                              <Label fx:id="needLabel" alignment="CENTER" layoutX="210.0" layoutY="327.0" prefHeight="25.0" prefWidth="150.0" text="to complete/exceed">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
@@ -265,7 +265,7 @@
                         </Pane>
                         <Pane fx:id="expensesLabel" prefHeight="120.0" prefWidth="375.0" style="-fx-background-color: F88F79;">
                            <children>
-                              <TextField fx:id="totalBalanceText" editable="false" layoutX="71.0" layoutY="78.0" prefHeight="61.0" prefWidth="232.0" style="-fx-background-color: transparent;" text="0">
+                              <TextField fx:id="totalBalanceText" alignment="CENTER" editable="false" layoutX="71.0" layoutY="78.0" prefHeight="61.0" prefWidth="232.0" style="-fx-background-color: transparent;" text="0">
                                  <font>
                                     <Font name="System Bold" size="24.0" />
                                  </font>
@@ -277,7 +277,7 @@
                               </Label>
                               <ImageView fitHeight="47.0" fitWidth="47.0" layoutX="14.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../img/icon/add-more/coin-10.png" />
+                                    <Image url="@../img/icon/add-more/coin-3.png" />
                                  </image>
                               </ImageView>
                               <Label layoutX="15.0" layoutY="41.0" text="Current Value of :">

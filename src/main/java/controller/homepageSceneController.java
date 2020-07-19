@@ -135,13 +135,13 @@ public class homepageSceneController  implements Initializable {
             @Override
             public void handle(ActionEvent actionEvent) {
                 if (balanceComboBox.getSelectionModel().getSelectedIndex() != -1) {
-                    totalBalanceText.setText(Double.toString(balanceComboBox.getSelectionModel().getSelectedItem().getValue()));
+                    totalBalanceText.setText(String.format("%,8d",(int)(balanceComboBox.getSelectionModel().getSelectedItem().getValue())));
                 }
             }
         });
         setAccountCombo();
         balanceComboBox.getSelectionModel().selectLast();
-        totalBalanceText.setText(Double.toString(balanceComboBox.getSelectionModel().getSelectedItem().getValue()));
+        totalBalanceText.setText(String.format("%,8d",(int)balanceComboBox.getSelectionModel().getSelectedItem().getValue()));
         // display table
         displayTableView();
     }
@@ -152,7 +152,7 @@ public class homepageSceneController  implements Initializable {
             daysLabel.setText("0");
             lastDayLabel.setText(String.valueOf(LocalDate.now()));
             RingProgressIndicator indicator = new RingProgressIndicator();
-            moneyDoneDisplay.setText(0+" VND");
+            moneyDoneDisplay.setText(0+" VND"); // should display format currency
             moneyDoneDisplay1.setText(0+" VND");
             commnetLabel.setText("");
             //TODO: get first data in table view
@@ -191,8 +191,8 @@ public class homepageSceneController  implements Initializable {
             System.out.println(pe.getErrorCodeMessage());
             return;
         }
-        moneyDoneDisplay.setText(objectiveModel.curValue+" VND");
-        moneyDoneDisplay1.setText((financialGoal.getThreshold()-objectiveModel.curValue)+" VND");
+        moneyDoneDisplay.setText(String.format("%,8d",(int)objectiveModel.curValue)+" VND");
+        moneyDoneDisplay1.setText(String.format("%,8d",(int)(financialGoal.getThreshold()-objectiveModel.curValue))+" VND");
         //TODO: get first data in table view
         Slider slider = new Slider(0, 100, 50);
         indicator.setStyle("-fx-background:  #E6E6FA;");
@@ -297,7 +297,7 @@ public class homepageSceneController  implements Initializable {
                                     System.out.println(processExeption.getErrorCodeMessage());
                                     return;
                                 }
-                                setText(Double.toString(objectiveModel.progress)+"%");
+                                setText(String.format("%.1f",objectiveModel.progress)+"%");
                             }
                         }
                     });
@@ -393,7 +393,7 @@ public class homepageSceneController  implements Initializable {
             setAccountCombo();
             balanceComboBox.getSelectionModel().select(i);
             displayRing(goalTable.getSelectionModel().getSelectedItem());
-            totalBalanceText.setText(Double.toString(balanceComboBox.getSelectionModel().getSelectedItem().getValue()));
+            totalBalanceText.setText(String.format("%,8d",(int)balanceComboBox.getSelectionModel().getSelectedItem().getValue()));
         }
 
     }
