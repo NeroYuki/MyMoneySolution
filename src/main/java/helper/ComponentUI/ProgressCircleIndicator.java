@@ -41,6 +41,7 @@ abstract class ProgressCircleIndicator extends Control {
     // add path of suitable css file to progress
     String progress_red = ProgressCircleIndicator.class.getResource("/css/progressCircle/circleprogress_red.css").toExternalForm();
     String progress_green = ProgressCircleIndicator.class.getResource("/css/progressCircle/circleprogress_green.css").toExternalForm();
+    String progress_yellow = ProgressCircleIndicator.class.getResource("/css/progressCircle/circleprogress_yellow.css").toExternalForm();
 
     public ProgressCircleIndicator() {
         // set color of progress base on type of goal (spend = red, save/income = green)
@@ -159,11 +160,17 @@ abstract class ProgressCircleIndicator extends Control {
             if(!this.getStylesheets().contains(progress_green)) this.getStylesheets().add(progress_green);
             System.out.println("scene stylesheets after green progress " + this.getStylesheets());
         }
-        else{
+        else if(strColor=="red"){
             this.getStylesheets().remove(progress_green);
             System.out.println("scene stylesheets on red progress: " + this.getStylesheets());
             if(!this.getStylesheets().contains(progress_red)) this.getStylesheets().add(progress_red);
             System.out.println("scene stylesheets after red progress " + this.getStylesheets());
+        }
+        else {
+            this.getStylesheets().remove(progress_green);
+            System.out.println("scene stylesheets on yellow progress: " + this.getStylesheets());
+            if(!this.getStylesheets().contains(progress_yellow)) this.getStylesheets().add(progress_yellow);
+            System.out.println("scene stylesheets after yellow progress " + this.getStylesheets());
         }
     }
 }
