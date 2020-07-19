@@ -184,7 +184,7 @@ public class settingSceneController implements Initializable {
 
     public void exitBtnClick(ActionEvent actionEvent){
         Alert alertConfirm = new Alert(Alert.AlertType.CONFIRMATION,
-                "Want to exit from us?", ButtonType.YES, ButtonType.NO);
+                "Do you want to exit from the application?", ButtonType.YES, ButtonType.NO);
         alertConfirm.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
         alertConfirm.showAndWait();
         if (alertConfirm.getResult() == ButtonType.YES) {
