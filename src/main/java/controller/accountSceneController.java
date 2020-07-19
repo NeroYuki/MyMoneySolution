@@ -1,7 +1,8 @@
 package controller;
 
 import exception.ProcessExeption;
-import helper.IntervalEnum;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -30,7 +31,6 @@ import process.ProcessSaving;
 import scenes.*;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -109,6 +109,13 @@ public class accountSceneController implements Initializable {
         loadBalance();
         loadSaving();
         loadLoan();
+
+        //add Listener to filterText
+        filterText.textProperty().addListener(new ChangeListener() {
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                filterBalanceList((String) oldValue, (String) newValue);
+            }
+        });
     }
 
     @FXML
@@ -318,7 +325,6 @@ public class accountSceneController implements Initializable {
 //        }
 
         // init sample to test UI a bit
-//        savings.add(new Saving("test","this is a test",5.5,LocalDate.now(),90, IntervalEnum.INTERVAL.DAILY,10000,15000));
 
         savingListView.setPrefHeight(470);
 
@@ -604,8 +610,6 @@ public class accountSceneController implements Initializable {
         }
 
         // init sample to test UI a bit
-//        loans.add(new Loan("test","this is a test",5.5,LocalDate.now(),90, IntervalEnum.INTERVAL.DAILY, IntervalEnum.INTERVAL.WEEKLY,10000,15000));
-
         loanListView.setPrefHeight(470);
 
         ObservableList<Loan> items = FXCollections.observableArrayList(loans);
@@ -900,6 +904,35 @@ public class accountSceneController implements Initializable {
 
         dialogAddStage.showAndWait();
 
+    }
+
+    @FXML
+    public TextField filterText;
+    public void filterBalanceList(String oldValue, String newValue) {
+        //income list
+        ObservableList<Balance> balanceFilteredList = FXCollections.observableArrayList();
+        // get original list
+        ArrayList<Balance> balances = new ArrayList<Balance>();
+        try {
+            balances = ProcessBalance.getBalances();
+        } catch (ProcessExeption de) {
+            de.getErrorCodeMessage();
+        }
+        ObservableList<Balance> items = FXCollections.observableArrayList(balances);
+
+        // filter by text
+        if (filterText == null || (newValue.length() < oldValue.length()) || newValue == null) {
+            balanceListView.setItems(items);
+        } else {
+            newValue = newValue.toUpperCase();
+            for (Balance balance : balanceListView.getItems()) {
+                String filterText = balance.getName();
+                if (filterText.toUpperCase().contains(newValue)) {
+                    balanceFilteredList.add(balance);
+                }
+            }
+            balanceListView.setItems(balanceFilteredList);
+        }
     }
 
     public void addBalanceBtnClick(ActionEvent e) throws Exception {

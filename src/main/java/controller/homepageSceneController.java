@@ -206,11 +206,14 @@ public class homepageSceneController  implements Initializable {
         progressArea.getChildren().add(main);
 
         // change progress goal show color base on type of goal
-        if(financialGoal.getType()==1 || financialGoal.getType()==3){
+        if(financialGoal.getType()==1){
             indicator.setColor("green");
         }
         else if(financialGoal.getType()==2){
             indicator.setColor("red");
+        }
+        else if(financialGoal.getType()==3){
+            indicator.setColor("yellow");
         }
 
         try {
