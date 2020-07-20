@@ -84,7 +84,7 @@ public class editBalanceBoxController implements Initializable {
 //            System.out.println(pe.getErrorCodeMessage());
 //        }
         try{
-            ProcessBalance.updateBalance(balance.getId(),nameText.getText(),infoTextArea.getText(),Double.parseDouble(valueText.getText()));
+            ProcessBalance.updateBalance(balance.getId(),nameText.getText(),infoTextArea.getText(),Double.valueOf(valueText.getText()));
         }
         catch (ProcessExeption pe)
         {

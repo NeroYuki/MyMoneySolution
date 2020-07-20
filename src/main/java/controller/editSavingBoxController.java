@@ -26,7 +26,6 @@ public class editSavingBoxController implements Initializable {
     public TextArea descriptionTextArea; // info text area
     public TextField intervalText;
     public TextField timeSpanText;
-    public TextField baseValueText; // value text field
     public TextField interestRateText;
     public ComboBox unitCombo;
 
@@ -78,7 +77,6 @@ public class editSavingBoxController implements Initializable {
         // set active time span
         timeSpanText.setText(Integer.toString(saving.getActiveTimeSpan()));
         // set base value
-        baseValueText.setText(String.format(Locale.US,"%,.0f",saving.getBaseValue()));
         // set interest
         interestRateText.setText(Double.toString(saving.getInterestRate()));
     }

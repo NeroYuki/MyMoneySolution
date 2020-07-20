@@ -64,7 +64,7 @@ public class addBalanceBoxController implements Initializable {
     public void saveBtnClick(ActionEvent actionEvent) throws ProcessExeption {
         //TODO: save add balance to database and show list view
         try{
-            ProcessBalance.addBalance(nameText.getText(),infoTextArea.getText(),Double.parseDouble(valueText.getText()));
+            ProcessBalance.addBalance(nameText.getText(),infoTextArea.getText(),Double.valueOf(valueText.getText().replaceAll(",","")));
         }
         catch (ProcessExeption pe)
         {

@@ -75,7 +75,7 @@ public class addSavingBoxController implements Initializable {
     public void saveBtnClick(ActionEvent actionEvent) throws ProcessExeption {
         //TODO: save add saving to database and show list view
         try {
-            id = ProcessSaving.addSaving(nameText.getText(),descriptionTextArea.getText(),Double.valueOf(interestRateText.getText()),Integer.valueOf(timeSpanText.getText()),helper.IntervalEnum.INTERVAL.valueOf(intervalCombo.getSelectionModel().getSelectedItem().toString()));
+            id = ProcessSaving.addSaving(nameText.getText(),descriptionTextArea.getText(),Double.valueOf(interestRateText.getText().replaceAll(",","")),Integer.valueOf(timeSpanText.getText()),helper.IntervalEnum.INTERVAL.valueOf(intervalCombo.getSelectionModel().getSelectedItem().toString()));
             saved = true;
         }
         catch (ProcessExeption pe)

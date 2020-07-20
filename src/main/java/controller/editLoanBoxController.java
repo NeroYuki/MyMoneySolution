@@ -27,7 +27,6 @@ public class editLoanBoxController implements Initializable {
     public TextField interestIntervalText;
     public TextField paymentIntervalText;
     public TextField timeSpanText;
-    public TextField baseValueText; // value text field
     public TextField interestRateText;
     public ComboBox unitCombo;
 
@@ -80,8 +79,6 @@ public class editLoanBoxController implements Initializable {
         paymentIntervalText.setText("" + loan.getPaymentInterval());
         // set active time span
         timeSpanText.setText(Integer.toString(loan.getActiveTimeSpan()));
-        // set base value
-        baseValueText.setText(String.format(Locale.US,"%,.0f",loan.getBaseValue()));
         // set interest
         interestRateText.setText(Double.toString(loan.getInterestRate()));
     }

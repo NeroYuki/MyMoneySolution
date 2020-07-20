@@ -75,15 +75,15 @@ public class addPlanController implements Initializable {
     public void saveBtnClick(ActionEvent actionEvent) {
         try {
             if (typeCombo.getSelectionModel().getSelectedIndex() == 0) {
-                ProcessFinancialGoal.addFinancialGoal(startdatepicker.getValue(),expiredatepicker.getValue(),Double.parseDouble(thresholdText.getText()),1,descriptionTextArea.getText());
+                ProcessFinancialGoal.addFinancialGoal(startdatepicker.getValue(),expiredatepicker.getValue(),Double.valueOf(thresholdText.getText().replaceAll(",","")),1,descriptionTextArea.getText());
             }
             else
             if (typeCombo.getSelectionModel().getSelectedIndex() == 1) {
-                ProcessFinancialGoal.addFinancialGoal(startdatepicker.getValue(),expiredatepicker.getValue(),Double.parseDouble(thresholdText.getText()),2,descriptionTextArea.getText());
+                ProcessFinancialGoal.addFinancialGoal(startdatepicker.getValue(),expiredatepicker.getValue(),Double.valueOf(thresholdText.getText().replaceAll(",","")),2,descriptionTextArea.getText());
             }
             else
             if (typeCombo.getSelectionModel().getSelectedIndex() == 2) {
-                ProcessFinancialGoal.addFinancialGoal(startdatepicker.getValue(),expiredatepicker.getValue(),accountCombo.getSelectionModel().getSelectedItem(),Double.parseDouble(thresholdText.getText()),3,descriptionTextArea.getText());
+                ProcessFinancialGoal.addFinancialGoal(startdatepicker.getValue(),expiredatepicker.getValue(),accountCombo.getSelectionModel().getSelectedItem(),Double.valueOf(thresholdText.getText().replaceAll(",","")),3,descriptionTextArea.getText());
             }
             else
             {

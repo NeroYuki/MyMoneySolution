@@ -82,9 +82,9 @@ public class addIncomeBoxController implements Initializable {
         try {
             if (valueText.getText().equals("")) throw new ProcessExeption();
             if(idSaving!="") {
-                if(ProcessSaving.getSaving(idSaving).getCurrentValue()>=Double.parseDouble(valueText.getText())) {
-                    ProcessTransaction.addIncome(datepicker.getValue(), Double.parseDouble(valueText.getText()), descriptionTextArea.getText(), categoryCombo.getSelectionModel().getSelectedItem(), accountCombo.getSelectionModel().getSelectedItem());
-                    ProcessSaving.withdrawSaving(idSaving,Double.parseDouble(valueText.getText()));
+                if(ProcessSaving.getSaving(idSaving).getCurrentValue()>=Double.valueOf(valueText.getText().replaceAll(",",""))) {
+                    ProcessTransaction.addIncome(datepicker.getValue(), Double.valueOf(valueText.getText().replaceAll(",","")), descriptionTextArea.getText(), categoryCombo.getSelectionModel().getSelectedItem(), accountCombo.getSelectionModel().getSelectedItem());
+                    ProcessSaving.withdrawSaving(idSaving,Double.valueOf(valueText.getText().replaceAll(",","")));
                     saved = true;
                 }
                 else{
@@ -97,7 +97,7 @@ public class addIncomeBoxController implements Initializable {
                 }
             }
             else {
-                ProcessTransaction.addIncome(datepicker.getValue(), Double.parseDouble(valueText.getText()), descriptionTextArea.getText(), categoryCombo.getSelectionModel().getSelectedItem(), accountCombo.getSelectionModel().getSelectedItem());
+                ProcessTransaction.addIncome(datepicker.getValue(), Double.valueOf(valueText.getText().replaceAll(",","")), descriptionTextArea.getText(), categoryCombo.getSelectionModel().getSelectedItem(), accountCombo.getSelectionModel().getSelectedItem());
                 saved = true;
             }
         } catch (ProcessExeption pe) {

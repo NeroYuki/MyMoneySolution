@@ -64,6 +64,7 @@ public class withdrawSavingBoxController implements Initializable {
         // set name
         nameText.setText(saving.getName());
         // set current
+
         currentValueText.setText(String.format(Locale.US,"%,.0f",(saving.getCurrentValue())));
 
     }

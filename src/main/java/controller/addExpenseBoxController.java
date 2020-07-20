@@ -83,9 +83,9 @@ public class addExpenseBoxController implements Initializable {
         try {
             if (valueText.getText().equals("")) throw new ProcessExeption();
             if(idLoan!="") {
-                if(ProcessLoan.getLoan(idLoan).getCurrentValue()>=Double.parseDouble(valueText.getText())) {
-                    ProcessTransaction.addExpense(datepicker.getValue(), Double.parseDouble(valueText.getText()), descriptionTextArea.getText(), categoryCombo.getSelectionModel().getSelectedItem(), accountCombo.getSelectionModel().getSelectedItem());
-                    ProcessLoan.paymentLoan(idLoan,Double.parseDouble(valueText.getText()));
+                if(ProcessLoan.getLoan(idLoan).getCurrentValue()>=Double.valueOf(valueText.getText().replaceAll(",",""))) {
+                    ProcessTransaction.addExpense(datepicker.getValue(), Double.valueOf(valueText.getText().replaceAll(",","")), descriptionTextArea.getText(), categoryCombo.getSelectionModel().getSelectedItem(), accountCombo.getSelectionModel().getSelectedItem());
+                    ProcessLoan.paymentLoan(idLoan,Double.parseDouble(valueText.getText().replaceAll(",","")));
                     saved = true;
                 }
                 else{
@@ -99,7 +99,7 @@ public class addExpenseBoxController implements Initializable {
                 }
             }
             else {
-                ProcessTransaction.addExpense(datepicker.getValue(), Double.valueOf(valueText.getText()), descriptionTextArea.getText(), categoryCombo.getSelectionModel().getSelectedItem(), accountCombo.getSelectionModel().getSelectedItem());
+                ProcessTransaction.addExpense(datepicker.getValue(), Double.valueOf(valueText.getText().replaceAll(",","")), descriptionTextArea.getText(), categoryCombo.getSelectionModel().getSelectedItem(), accountCombo.getSelectionModel().getSelectedItem());
                 saved=true;
             }
         } catch (ProcessExeption pe) {

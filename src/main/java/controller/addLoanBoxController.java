@@ -75,7 +75,7 @@ public class addLoanBoxController implements Initializable {
         //TODO: save add loan to database and show list view
 
         try {
-            id =ProcessLoan.addLoan(nameText.getText(),descriptionTextArea.getText(),Double.valueOf(interestRateText.getText()),Integer.valueOf(timeSpanText.getText()),helper.IntervalEnum.INTERVAL.valueOf(interestIntervalCombo.getSelectionModel().getSelectedItem().toString()),helper.IntervalEnum.INTERVAL.valueOf(paymentIntervalCombo.getSelectionModel().getSelectedItem().toString()));
+            id =ProcessLoan.addLoan(nameText.getText(),descriptionTextArea.getText(),Double.valueOf(interestRateText.getText().replaceAll(",","")),Integer.valueOf(timeSpanText.getText()),helper.IntervalEnum.INTERVAL.valueOf(interestIntervalCombo.getSelectionModel().getSelectedItem().toString()),helper.IntervalEnum.INTERVAL.valueOf(paymentIntervalCombo.getSelectionModel().getSelectedItem().toString()));
             saved = true;
         }
         catch (ProcessExeption pe)

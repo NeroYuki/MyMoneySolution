@@ -103,7 +103,7 @@ public class editPlanController implements Initializable {
     public void saveBtnClick(ActionEvent actionEvent) {
 
         try {
-            ProcessFinancialGoal.editFinancialGoal(goal,Double.parseDouble(thresholdText.getText()),descriptionTextArea.getText());
+            ProcessFinancialGoal.editFinancialGoal(goal,Double.valueOf(thresholdText.getText().replaceAll(",","")),descriptionTextArea.getText());
         }
         catch (ProcessExeption pe)
         {

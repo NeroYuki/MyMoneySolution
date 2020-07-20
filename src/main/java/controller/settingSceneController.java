@@ -90,7 +90,6 @@ public class settingSceneController implements Initializable {
         List<String> choices = new ArrayList<>();
         choices.add("Income");
         choices.add("Expenses");
-        choices.add("Transfer");
 
         ChoiceDialog<String> dialog = new ChoiceDialog<>("Expenses", choices);
         dialog.initStyle(StageStyle.TRANSPARENT);

@@ -103,10 +103,10 @@ public class editTransactionBoxController implements Initializable {
         try{
             ProcessTransaction.revertTransaction(transaction);
             if(transaction.getClass().getName().equals("model.Income")) {
-                ProcessTransaction.updateIncome(transaction.getId(),datepicker.getValue(), Double.parseDouble(valueText.getText()), descriptionTextArea.getText(), categoryCombo.getSelectionModel().getSelectedItem(), accountCombo.getSelectionModel().getSelectedItem());
+                ProcessTransaction.updateIncome(transaction.getId(),datepicker.getValue(), Double.valueOf(valueText.getText().replaceAll(",","")), descriptionTextArea.getText(), categoryCombo.getSelectionModel().getSelectedItem(), accountCombo.getSelectionModel().getSelectedItem());
             }
             if(transaction.getClass().getName().equals("model.Expense")){
-                ProcessTransaction.updateExpense(transaction.getId(),datepicker.getValue(), Double.parseDouble(valueText.getText()), descriptionTextArea.getText(), categoryCombo.getSelectionModel().getSelectedItem(), accountCombo.getSelectionModel().getSelectedItem());
+                ProcessTransaction.updateExpense(transaction.getId(),datepicker.getValue(), Double.valueOf(valueText.getText().replaceAll(",","")), descriptionTextArea.getText(), categoryCombo.getSelectionModel().getSelectedItem(), accountCombo.getSelectionModel().getSelectedItem());
             }
         }
         catch (ProcessExeption pe)
