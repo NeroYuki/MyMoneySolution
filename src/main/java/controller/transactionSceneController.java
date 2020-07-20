@@ -64,11 +64,9 @@ public class transactionSceneController implements Initializable {
 
     public void incomeWeekCheckBox(ActionEvent e)throws Exception{
         displayTableView();
-        filterData();
     }
     public void expenseWeekCheckBox(ActionEvent e)throws Exception{
         displayTableView();
-        filterData();
     }
 
     public void homeBtnClick(ActionEvent e) throws Exception {
@@ -133,14 +131,24 @@ public class transactionSceneController implements Initializable {
         Tooltip.install(planBtn, new Tooltip("Add financial goal"));
 
         // load data to table
-        displayTableView();
-        displayTableViewMonthly();
-        displayTableViewCustomly();
-        // filter data when search table
-        filterData();
-
+        displayTable();
+        tabPane.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            displayTable();
+        });
     }
-
+    @FXML
+    public TabPane tabPane;
+    public void displayTable(){
+        if(tabPane.getSelectionModel().getSelectedIndex()==0){
+            displayTableView();
+        }
+        if(tabPane.getSelectionModel().getSelectedIndex()==1){
+            displayTableViewMonthly();
+        }
+        if(tabPane.getSelectionModel().getSelectedIndex()==2){
+            displayTableViewCustomly();
+        }
+    }
     public void displayTableView() {
         // table view handle
         //TODO: get right list from own database
@@ -251,6 +259,7 @@ public class transactionSceneController implements Initializable {
 
         // bring data to the table
         transactionWeekTable.setItems(transactionWeekList);
+        filterData();
     }
 
     public TableView<Transaction> transactionMonthTable;
@@ -276,11 +285,9 @@ public class transactionSceneController implements Initializable {
 
     public void incomeMonthCheckBox(ActionEvent e)throws Exception{
         displayTableViewMonthly();
-        filterData();
     }
     public void expenseMonthCheckBox(ActionEvent e)throws Exception{
         displayTableViewMonthly();
-        filterData();
     }
     public void displayTableViewMonthly() {
         // table view handle
@@ -364,6 +371,7 @@ public class transactionSceneController implements Initializable {
 
         // bring data to the table
         transactionMonthTable.setItems(transactionMonthList);
+        filterData2();
     }
 
     public TableView<Transaction> transactionCustomTable;
@@ -394,21 +402,21 @@ public class transactionSceneController implements Initializable {
 
     public void incomeCustomWeekCheckbox(ActionEvent e)throws Exception{
         displayTableViewCustomly();
-        filterData();
+
     }
     public void expenseCustomCheckBox(ActionEvent e)throws Exception{
         displayTableViewCustomly();
-        filterData();
+
     }
     public void startDateChange(ActionEvent e)throws Exception{
         displayTableViewCustomly();
-        filterData();
+
     }
     public void finishDateChange(ActionEvent e)throws Exception{
         displayTableViewCustomly();
-        filterData();
 
     }
+
     public void displayTableViewCustomly() {
         // table view handle
         //TODO: get right list from own database
@@ -508,14 +516,13 @@ public class transactionSceneController implements Initializable {
 
         // bring data to the table
         transactionCustomTable.setItems(transactionCustomList);
+        filterData3();
     }
 
     public void filterData() {
         // use to filter data based on text
         // 1. Wrap the ObservableList in a FilteredList (initially display all data).
         FilteredList<Transaction> filteredWeekData = new FilteredList<>(transactionWeekList, p -> true);
-        FilteredList<Transaction> filteredMonthData = new FilteredList<>(transactionMonthList, p -> true);
-        FilteredList<Transaction> filteredCustomData = new FilteredList<>(transactionCustomList, p -> true);
 
         // 2. Set the filter Predicate whenever the filter changes.
         filterWeekText.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -535,6 +542,22 @@ public class transactionSceneController implements Initializable {
                 return false; // Does not match.
             });
         });
+
+        // 3. Wrap the FilteredList in a SortedList.
+        SortedList<Transaction> sortedData = new SortedList<>(filteredWeekData);
+        // 4. Bind the SortedList comparator to the TableView comparator.
+        sortedData.comparatorProperty().bind(transactionWeekTable.comparatorProperty());
+
+
+        // 5. Add sorted (and filtered) data to the table.
+        transactionWeekTable.setItems(sortedData);
+    }
+    public void filterData2() {
+        // use to filter data based on text
+        // 1. Wrap the ObservableList in a FilteredList (initially display all data).
+        FilteredList<Transaction> filteredMonthData = new FilteredList<>(transactionMonthList, p -> true);
+        // 2. Set the filter Predicate whenever the filter changes.
+
         filterMonthText.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredMonthData.setPredicate(transaction -> {
                 // If filter text is empty, display all persons.
@@ -552,6 +575,22 @@ public class transactionSceneController implements Initializable {
                 return false; // Does not match.
             });
         });
+
+        // 3. Wrap the FilteredList in a SortedList.
+        SortedList<Transaction> sortedData1 = new SortedList<>(filteredMonthData);
+
+        // 4. Bind the SortedList comparator to the TableView comparator.
+        sortedData1.comparatorProperty().bind(transactionMonthTable.comparatorProperty());
+
+        // 5. Add sorted (and filtered) data to the table.
+        transactionMonthTable.setItems(sortedData1);
+    }
+    public void filterData3() {
+        // use to filter data based on text
+        // 1. Wrap the ObservableList in a FilteredList (initially display all data).
+        FilteredList<Transaction> filteredCustomData = new FilteredList<>(transactionCustomList, p -> true);
+
+        // 2. Set the filter Predicate whenever the filter changes.
         filterCustomText.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredCustomData.setPredicate(transaction -> {
                 // If filter text is empty, display all persons.
@@ -571,21 +610,14 @@ public class transactionSceneController implements Initializable {
         });
 
         // 3. Wrap the FilteredList in a SortedList.
-        SortedList<Transaction> sortedData = new SortedList<>(filteredWeekData);
-        SortedList<Transaction> sortedData1 = new SortedList<>(filteredMonthData);
         SortedList<Transaction> sortedData2 = new SortedList<>(filteredCustomData);
 
         // 4. Bind the SortedList comparator to the TableView comparator.
-        sortedData.comparatorProperty().bind(transactionWeekTable.comparatorProperty());
-        sortedData1.comparatorProperty().bind(transactionMonthTable.comparatorProperty());
         sortedData2.comparatorProperty().bind(transactionCustomTable.comparatorProperty());
 
         // 5. Add sorted (and filtered) data to the table.
-        transactionWeekTable.setItems(sortedData);
-        transactionMonthTable.setItems(sortedData1);
         transactionCustomTable.setItems(sortedData2);
     }
-
     /**
      * Called when the user clicks on the delete button.
      */
@@ -707,9 +739,8 @@ public class transactionSceneController implements Initializable {
 
                 dialogAddStage.showAndWait();
                 // refresh if in the transaction page
-                displayTableView();
+                displayTable();
                 // filter data when search table
-                filterData();
             }
             else if(result.get() == "Expenses"){ // expense select option
                 // get add income scene
@@ -726,11 +757,7 @@ public class transactionSceneController implements Initializable {
 
                 dialogAddStage.showAndWait();
                 // refresh if in the transaction page
-                displayTableView();
-                displayTableViewCustomly();
-                displayTableViewMonthly();
-                // filter data when search table
-                filterData();
+                displayTable();
             }
         }
 

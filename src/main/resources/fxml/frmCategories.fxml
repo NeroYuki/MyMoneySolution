@@ -133,9 +133,9 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" stylesheets="@../css/categories.css" BorderPane.alignment="CENTER">
          <children>
-            <TabPane prefHeight="600.0" prefWidth="850.0" tabClosingPolicy="UNAVAILABLE">
+            <TabPane fx:id="tabPane" layoutX="1.0" prefHeight="600.0" prefWidth="850.0" tabClosingPolicy="UNAVAILABLE">
                <tabs>
-                  <Tab text="General">
+                  <Tab fx:id="generalTab" text="General">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="746.0" style="-fx-background-color: #dadae3;">
                            <children>
@@ -205,7 +205,7 @@
                         </AnchorPane>
                      </content>
                   </Tab>
-                  <Tab closable="false" text="Weekly">
+                  <Tab fx:id="weeklyTab" closable="false" text="Weekly">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #dadae3;">
                            <children>
@@ -278,7 +278,7 @@
                                                 <Font size="18.0" />
                                              </font>
                                           </Button>
-                                          <Label fx:id="incomeWeekTotalLabel" layoutX="221.0" layoutY="20.0" text="560.000 d">
+                                          <Label fx:id="incomeWeekTotalLabel" layoutX="221.0" layoutY="20.0" text="0 d">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
@@ -292,7 +292,7 @@
                                                 <Font size="18.0" />
                                              </font>
                                           </Button>
-                                          <Label fx:id="expenseWeekTotalLabel" layoutX="232.0" layoutY="20.0" text="350.000d">
+                                          <Label fx:id="expenseWeekTotalLabel" layoutX="232.0" layoutY="20.0" text="0d">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
@@ -305,7 +305,7 @@
                         </AnchorPane>
                      </content>
                   </Tab>
-                  <Tab closable="false" text="Monthly">
+                  <Tab fx:id="monthlyTab" closable="false" text="Monthly">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #dadae3;">
                            <children>
@@ -378,7 +378,7 @@
                                                 <Font size="18.0" />
                                              </font>
                                           </Button>
-                                          <Label fx:id="incomeMonthTotalLabel" layoutX="221.0" layoutY="20.0" text="560.000 d">
+                                          <Label fx:id="incomeMonthTotalLabel" layoutX="221.0" layoutY="20.0" text="0 d">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
@@ -392,7 +392,7 @@
                                                 <Font size="18.0" />
                                              </font>
                                           </Button>
-                                          <Label fx:id="expenseMonthTotalLabel" layoutX="232.0" layoutY="20.0" text="350.000d">
+                                          <Label fx:id="expenseMonthTotalLabel" layoutX="232.0" layoutY="20.0" text="0d">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
@@ -405,7 +405,7 @@
                         </AnchorPane>
                      </content>
                   </Tab>
-                  <Tab closable="false" text="Last 90 days">
+                  <Tab fx:id="daysTab" closable="false" text="Last 90 days">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #dadae3;">
                            <children>
@@ -478,7 +478,7 @@
                                                 <Font size="18.0" />
                                              </font>
                                           </Button>
-                                          <Label fx:id="incomeDaysTotalLabel" layoutX="221.0" layoutY="20.0" text="560.000 d">
+                                          <Label fx:id="incomeDaysTotalLabel" layoutX="221.0" layoutY="20.0" text="0 d">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
@@ -492,7 +492,7 @@
                                                 <Font size="18.0" />
                                              </font>
                                           </Button>
-                                          <Label fx:id="expenseDaysTotalLabel" layoutX="232.0" layoutY="20.0" text="350.000d">
+                                          <Label fx:id="expenseDaysTotalLabel" layoutX="232.0" layoutY="20.0" text="0d">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
@@ -505,7 +505,7 @@
                         </AnchorPane>
                      </content>
                   </Tab>
-                  <Tab closable="false" text="Yearly">
+                  <Tab fx:id="yearlyTab" closable="false" text="Yearly">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #dadae3;">
                            <children>
@@ -578,7 +578,7 @@
                                                 <Font size="18.0" />
                                              </font>
                                           </Button>
-                                          <Label fx:id="incomeYearTotalLabel" layoutX="221.0" layoutY="20.0" text="560.000 d">
+                                          <Label fx:id="incomeYearTotalLabel" layoutX="221.0" layoutY="20.0" text="0 d">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
@@ -592,7 +592,7 @@
                                                 <Font size="18.0" />
                                              </font>
                                           </Button>
-                                          <Label fx:id="expenseYearTotalLabel" layoutX="232.0" layoutY="20.0" text="350.000d">
+                                          <Label fx:id="expenseYearTotalLabel" layoutX="232.0" layoutY="20.0" text="0 d">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
@@ -605,7 +605,7 @@
                         </AnchorPane>
                      </content>
                   </Tab>
-                  <Tab closable="false" text="All time">
+                  <Tab fx:id="allTimeTab" closable="false" text="All time">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #dadae3;">
                            <children>
@@ -638,7 +638,7 @@
                                                 <Font size="18.0" />
                                              </font>
                                           </Button>
-                                          <Label fx:id="incomeTotalLabel" layoutX="221.0" layoutY="20.0" text="560.000 d">
+                                          <Label fx:id="incomeTotalLabel" layoutX="221.0" layoutY="20.0" text="0 d">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
@@ -652,7 +652,7 @@
                                                 <Font size="18.0" />
                                              </font>
                                           </Button>
-                                          <Label fx:id="expenseTotalLabel4" layoutX="232.0" layoutY="20.0" text="350.000d">
+                                          <Label fx:id="expenseTotalLabel4" layoutX="232.0" layoutY="20.0" text="0 d">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>

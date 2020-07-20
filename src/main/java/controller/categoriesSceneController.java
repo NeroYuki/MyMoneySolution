@@ -41,6 +41,22 @@ public class categoriesSceneController implements Initializable {
     public ImageView addTransBtn;
     @FXML
     public ImageView planBtn;
+    @FXML
+    public TabPane tabPane;
+
+    @FXML
+    public Tab generalTab;
+    @FXML
+    public Tab weeklyTab;
+    @FXML
+    public Tab monthlyTab;
+    @FXML
+    public Tab daysTab;
+    @FXML
+    public Tab yearlyTab;
+    @FXML
+    public Tab allTimeTab;
+
 
     public void transactionBtnClick(ActionEvent e) throws Exception {
         System.out.println("Transaction clicked");
@@ -110,7 +126,9 @@ public class categoriesSceneController implements Initializable {
 
         // load income and expense
         loadTab();
-
+        tabPane.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            loadTab();
+        });
         //add Listener to filterText
         filterText.textProperty().addListener(new ChangeListener() {
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
@@ -119,19 +137,37 @@ public class categoriesSceneController implements Initializable {
         });
     }
 
-    public void loadTab(){
-        incomeCategoriesLoad();
-        expenseCategoriesLoad();
-        incomeWeekLoad();
-        expensesWeekLoad();
-        incomeMonthLoad();
-        expensesMonthLoad();
-        incomeDaysLoad();
-        expensesDaysLoad();
-        incomeYearLoad();
-        expensesYearLoad();
-        incomeAllLoad();
-        expensesAllLoad();
+    public void loadTab() {
+        if (tabPane.getSelectionModel().getSelectedIndex() == 0) {
+            incomeCategoriesLoad();
+            expenseCategoriesLoad();
+        }
+        else if(tabPane.getSelectionModel().getSelectedIndex()==1)
+        {
+            incomeWeekLoad();
+            expensesWeekLoad();
+        }
+        else if(tabPane.getSelectionModel().getSelectedIndex()==2)
+        {
+            incomeMonthLoad();
+            expensesMonthLoad();
+        }
+        else if(tabPane.getSelectionModel().getSelectedIndex()==3)
+        {
+
+            incomeDaysLoad();
+            expensesDaysLoad();
+        }
+        else if(tabPane.getSelectionModel().getSelectedIndex()==4)
+        {
+            incomeYearLoad();
+            expensesYearLoad();
+        }
+        else if(tabPane.getSelectionModel().getSelectedIndex()==5)
+        {
+            incomeAllLoad();
+            expensesAllLoad();
+        }
     }
     @FXML
     PieChart incomeWeekPie;
