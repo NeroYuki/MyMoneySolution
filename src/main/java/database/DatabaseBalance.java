@@ -128,7 +128,7 @@ public class DatabaseBalance {
         try {
             Connection conn = DatabaseManager.getConnection();
             PreparedStatement removeCall = conn.prepareCall(
-                    "UPDATE balancelist " +
+                    "UPDATE balanceList " +
                             "SET isAvailable = FALSE " +
                             "WHERE balanceId = ?"
             );

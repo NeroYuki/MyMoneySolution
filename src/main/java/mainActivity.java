@@ -8,9 +8,9 @@ public class mainActivity extends Application {
 
     //Move to a separated config file later
 
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/jfinance?useUnicode=true&characterEncoding=UTF-8";
-    private static final String USER_NAME = "root";
-    private static final String PASSWORD = "minhhieu123";
+    private static final String DB_URL = "jdbc:mysql://db4free.net:3306/jfinance?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false";
+    private static final String USER_NAME = "";
+    private static final String PASSWORD = "";
 
 
     @Override

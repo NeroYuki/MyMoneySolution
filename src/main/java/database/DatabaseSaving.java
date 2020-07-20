@@ -105,7 +105,7 @@ public class DatabaseSaving {
         try {
             Connection conn = DatabaseManager.getConnection();
             PreparedStatement removeCall = conn.prepareCall(
-                    "UPDATE savinghistory " +
+                    "UPDATE savingHistory " +
                             "SET isActive = FALSE " +
                             "WHERE savingId = ?"
             );

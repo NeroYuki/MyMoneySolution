@@ -41,7 +41,7 @@ public class DatabaseBudget {
     public static boolean addBudget(Budget budget, User ownUser) throws DatabaseException {
         try {
             Connection conn = DatabaseManager.getConnection();
-            PreparedStatement registerCall = conn.prepareCall("INSERT INTO userbudget VALUES (?, ?, ?)");
+            PreparedStatement registerCall = conn.prepareCall("INSERT INTO userBudget VALUES (?, ?, ?)");
             if (budget.getId().equals("")) budget.setId(UUIDHelper.newUUIDString());
             else throw new DatabaseException(5);
 
@@ -56,6 +56,7 @@ public class DatabaseBudget {
             throw de;
         }
         catch (Exception e) {
+            System.out.println(e.getMessage());
             throw new DatabaseException(0);
         }
         return true;
@@ -64,7 +65,7 @@ public class DatabaseBudget {
     public static boolean removeBudget(Budget budget) throws DatabaseException {
         try {
             Connection conn = DatabaseManager.getConnection();
-            PreparedStatement removeCall = conn.prepareCall("DELETE FROM userbudget WHERE budgetId = ?");
+            PreparedStatement removeCall = conn.prepareCall("DELETE FROM userBudget WHERE budgetId = ?");
             if (budget.getId().equals("")) throw new DatabaseException(11);
 
             for (Loan l : budget.getActiveLoanList()) {
@@ -101,7 +102,7 @@ public class DatabaseBudget {
         try {
             Connection conn = DatabaseManager.getConnection();
             PreparedStatement removeCall = conn.prepareCall(
-                    "UPDATE userbudget " +
+                    "UPDATE userBudget " +
                             "SET isAvailable = FALSE " +
                             "WHERE budgetId = ?"
             );

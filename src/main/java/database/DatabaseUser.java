@@ -62,6 +62,7 @@ public class DatabaseUser {
             registerCall.execute();
             int result = registerCall.getUpdateCount();
             if (result == 0) throw new DatabaseException(3);
+            registerCall.close();
 
             DatabaseBudget.addBudget(new Budget(null, null, null, null), registeringUser);
         }

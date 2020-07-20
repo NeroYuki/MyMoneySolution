@@ -98,6 +98,7 @@ CREATE TABLE transHistory (
     --1 for income, 2 for expense
     transCategoryId CHAR(36) NOT NULL,
     occurDate DATE NOT NULL,
+    isAvailable BIT DEFAULT 1,
     PRIMARY KEY (transId),
     FOREIGN KEY (applyBalance) REFERENCES balanceList(balanceId),
     FOREIGN KEY (transCategoryId) REFERENCES transCategory(transCategoryId)

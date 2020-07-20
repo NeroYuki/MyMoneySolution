@@ -18,7 +18,7 @@ public class DatabaseFinancialGoal {
         ArrayList<FinancialGoal> result = new ArrayList<>();
         try {
             Connection conn = DatabaseManager.getConnection();
-            PreparedStatement goalQuery = conn.prepareCall("SELECT * FROM financialgoal WHERE ownBudget = ?");
+            PreparedStatement goalQuery = conn.prepareCall("SELECT * FROM financialGoal WHERE ownBudget = ?");
             goalQuery.setString(1, budgetId);
             ResultSet goalResult = goalQuery.executeQuery();
             while (goalResult.next()) {
@@ -50,7 +50,7 @@ public class DatabaseFinancialGoal {
     public static boolean addFinancialGoal(FinancialGoal financialGoal, Budget ownBudget) throws DatabaseException {
         try {
             Connection conn = DatabaseManager.getConnection();
-            PreparedStatement registerCall = conn.prepareCall("INSERT INTO financialgoal VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)");
+            PreparedStatement registerCall = conn.prepareCall("INSERT INTO financialGoal VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)");
             if (financialGoal.getId().equals("")) financialGoal.setId(UUIDHelper.newUUIDString());
             else throw new DatabaseException(26);
             registerCall.setString(1, financialGoal.getId());
@@ -83,7 +83,7 @@ public class DatabaseFinancialGoal {
         try {
             Connection conn = DatabaseManager.getConnection();
             PreparedStatement updateCall = conn.prepareCall(
-                    "UPDATE financialgoal " +
+                    "UPDATE financialGoal " +
                             "SET description = ?," +
                             "threshold = ?," +
                             "startDate = ?, " +
@@ -113,7 +113,7 @@ public class DatabaseFinancialGoal {
         try {
             Connection conn = DatabaseManager.getConnection();
             PreparedStatement removeCall = conn.prepareCall(
-                    "UPDATE financialgoal " +
+                    "UPDATE financialGoal " +
                             "SET isActive = FALSE " +
                             "WHERE goalId = ?"
             );
@@ -136,7 +136,7 @@ public class DatabaseFinancialGoal {
     public static boolean removeFinancialGoal(FinancialGoal financialGoal) throws DatabaseException {
         try {
             Connection conn = DatabaseManager.getConnection();
-            PreparedStatement removeCall = conn.prepareCall("DELETE FROM financialgoal WHERE goalId = ?");
+            PreparedStatement removeCall = conn.prepareCall("DELETE FROM financialGoal WHERE goalId = ?");
             if (financialGoal.getId().equals("")) throw new DatabaseException(24);
 
             removeCall.setString(1, financialGoal.getId());

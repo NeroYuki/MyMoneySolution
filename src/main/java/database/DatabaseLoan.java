@@ -113,7 +113,7 @@ public class DatabaseLoan {
         try {
             Connection conn = DatabaseManager.getConnection();
             PreparedStatement removeCall = conn.prepareCall(
-                    "UPDATE loanhistory " +
+                    "UPDATE loanHistory " +
                             "SET isActive = FALSE " +
                             "WHERE loanId = ?"
             );
