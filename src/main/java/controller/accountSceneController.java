@@ -502,7 +502,8 @@ public class accountSceneController implements Initializable {
 
                         addExpenseBox addExpense_box = new addExpenseBox();
 
-                        String des = "Deposit for " + nameLabel.getText();
+                        Saving select = getListView().getItems().get(getIndex());
+                        String des = "Deposit for " + select.getName();
 
                         // set default value
                         addExpense_box.getController().setDefaultForSavingLoan(des);
@@ -533,8 +534,9 @@ public class accountSceneController implements Initializable {
                         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow(); // get stage of program, primary stage
 
                         addIncomeBox addIncome_box = new addIncomeBox();
+                        Saving select = getListView().getItems().get(getIndex());
 
-                        String des = "Withdraw from " + nameLabel.getText();
+                        String des = "Withdraw from " + select.getName();
 
                         // set default value
                         addIncome_box.getController().setDefaultForSavingLoan(des);
@@ -790,8 +792,9 @@ public class accountSceneController implements Initializable {
                         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow(); // get stage of program, primary stage
 
                         addExpenseBox addExpense_box = new addExpenseBox();
+                        Loan select = getListView().getItems().get(getIndex());
 
-                        String des = "Payment for " + nameLabel.getText();
+                        String des = "Payment for " + select.getName();
 
                         // set default value
                         addExpense_box.getController().setDefaultForSavingLoan(des);

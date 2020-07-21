@@ -690,8 +690,6 @@ public class transactionSceneController implements Initializable {
             // refresh if in the transaction page
             displayTable();
             // filter data when search table
-            System.out.println(transactionWeekTable.getItems().get(0).getTransDescription());
-
 
 
         } else {
@@ -811,9 +809,6 @@ public class transactionSceneController implements Initializable {
             // refresh if in the transaction page
             displayTable();
             // filter data when search table
-            System.out.println(transactionCustomTable.getItems().get(0).getTransDescription());
-
-
 
         } else {
             // Nothing select
@@ -893,7 +888,6 @@ public class transactionSceneController implements Initializable {
             // refresh if in the transaction page
             displayTable();
             // filter data when search table
-            System.out.println(transactionCustomTable.getItems().get(0).getTransDescription());
 
 
 
@@ -943,7 +937,6 @@ public class transactionSceneController implements Initializable {
             alertWarning.setContentText("Please select a row in the table to delete");
             alertWarning.showAndWait();
         }
-
 
     }
 }

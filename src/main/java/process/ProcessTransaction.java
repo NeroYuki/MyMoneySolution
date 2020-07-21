@@ -216,7 +216,7 @@ public class ProcessTransaction {
         if (category == null) throw new ProcessExeption(12);
         if(balance ==null) throw new ProcessExeption(13);
 
-        Expense expense=new Expense(date,value,desc,category,balance);
+        Expense expense=new Expense(id ,date,value,desc,category,balance);
         expense.applyToBalance();
         try{
             DatabaseBalance.updateBalance(expense.getApplyingBalance());

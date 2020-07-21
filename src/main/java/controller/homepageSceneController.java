@@ -121,7 +121,7 @@ public class homepageSceneController  implements Initializable {
 
         setUser();
 
-        displayRing(new FinancialGoal("",1,0,LocalDate.now(),LocalDate.now().plusDays(1),null));
+        displayRing(new FinancialGoal("",1,0,LocalDate.now(),LocalDate.now(),null));
         goalTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
                 displayRing(goalTable.getSelectionModel().getSelectedItem());
         });
