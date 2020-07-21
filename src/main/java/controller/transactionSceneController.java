@@ -63,11 +63,11 @@ public class transactionSceneController implements Initializable {
 
 
     public void incomeWeekCheckBox(ActionEvent e)throws Exception{
-        displayTableView();
+        displapWeakView();
         filterData();
     }
     public void expenseWeekCheckBox(ActionEvent e)throws Exception{
-        displayTableView();
+        displapWeakView();
         filterData();
     }
 
@@ -134,14 +134,19 @@ public class transactionSceneController implements Initializable {
 
         // load data to table
         displayTableView();
+
+
+    }
+
+    public void displayTableView(){
+        displapWeakView();
         displayTableViewMonthly();
         displayTableViewCustomly();
         // filter data when search table
         filterData();
-
     }
 
-    public void displayTableView() {
+    public void displapWeakView() {
         // table view handle
         //TODO: get right list from own database
         ArrayList<Transaction> transactions=new ArrayList<>();
@@ -753,15 +758,169 @@ public class transactionSceneController implements Initializable {
 
     }
 
-    public void editMonthBtnClick(ActionEvent actionEvent) {
+    public void editMonthBtnClick(ActionEvent e) throws Exception {
+        Transaction select = transactionMonthTable.getSelectionModel().getSelectedItem(); // select an item
+        // really need a check type condition here to determine the select is income or expense by using instanceof
+        // or getClass() to return the runtime of transaction object
+        // ex: if(select instanceof Income) { ... } else we know type income or expense to serve purpose in edit form
+        if (select != null) {
+            // get edit transaction scene
+            System.out.println("Edit clicked");
+            Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage
+
+            //TODO: generate id from process (arraylist)
+            editTransactionBox editTransaction_box = new editTransactionBox();
+
+            // set value of dialog
+            editTransaction_box.getController().setTransaction(select);
+
+            // dialog show
+            Stage dialogEditStage = new Stage(StageStyle.TRANSPARENT);
+            dialogEditStage.setTitle("Edit Transaction");
+            dialogEditStage.initModality(Modality.WINDOW_MODAL);
+            dialogEditStage.initOwner(stage); // close this dialog to return to owner window
+            dialogEditStage.setScene(editTransaction_box.getScene());
+
+            dialogEditStage.showAndWait();
+            System.out.println("go back");
+            // refresh if in the transaction page
+            displayTableView();
+            // filter data when search table
+            filterData();
+            System.out.println(transactionCustomTable.getItems().get(0).getTransDescription());
+
+
+
+        } else {
+            // Nothing select
+            System.out.println("no selection");
+            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+            alertWarning.setTitle("No Selection");
+            alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+            alertWarning.setHeaderText("No data selected");
+            alertWarning.setContentText("Please select a row in the table to edit");
+            alertWarning.showAndWait();
+        }
+
     }
 
     public void deleteMonthBtnClick(ActionEvent actionEvent) {
+        Transaction select = transactionMonthTable.getSelectionModel().getSelectedItem(); // select an item
+        if (select != null) {
+            // confirmation to delete
+            Alert alertConfirm = new Alert(Alert.AlertType.CONFIRMATION,
+                    "Delete " + select.getTransDescription() +" on " + DateUtil.format(select.getTransDate()) + " ?",ButtonType.YES, ButtonType.NO);
+            alertConfirm.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+            alertConfirm.showAndWait();
+            if (alertConfirm.getResult() == ButtonType.YES) {
+                try{
+                    ProcessTransaction.deleteTransaction(select);
+                }
+                catch (ProcessExeption pe){
+                    Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+                    alertWarning.setTitle("Missing something");
+                    alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+                    alertWarning.setHeaderText("Cannot delete Month item");
+                    alertWarning.setContentText("Please check carefully");
+                    alertWarning.showAndWait();
+                    System.out.println(pe.getErrorCodeMessage());
+                    return;
+                }
+                transactionMonthList.remove(select); // delete call
+            }
+        } else {
+            // Nothing select
+            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+            alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+            alertWarning.setTitle("No Selection");
+            alertWarning.setHeaderText("No data selected");
+            alertWarning.setContentText("Please select a row in the table to delete");
+            alertWarning.showAndWait();
+        }
+
     }
 
-    public void editCustomBtnClick(ActionEvent actionEvent) {
+
+    public void editCustomBtnClick(ActionEvent e) throws Exception {
+        Transaction select = transactionCustomTable.getSelectionModel().getSelectedItem(); // select an item
+        // really need a check type condition here to determine the select is income or expense by using instanceof
+        // or getClass() to return the runtime of transaction object
+        // ex: if(select instanceof Income) { ... } else we know type income or expense to serve purpose in edit form
+        if (select != null) {
+            // get edit transaction scene
+            System.out.println("Edit clicked");
+            Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // get stage of program, primary stage
+
+            //TODO: generate id from process (arraylist)
+            editTransactionBox editTransaction_box = new editTransactionBox();
+
+            // set value of dialog
+            editTransaction_box.getController().setTransaction(select);
+
+            // dialog show
+            Stage dialogEditStage = new Stage(StageStyle.TRANSPARENT);
+            dialogEditStage.setTitle("Edit Transaction");
+            dialogEditStage.initModality(Modality.WINDOW_MODAL);
+            dialogEditStage.initOwner(stage); // close this dialog to return to owner window
+            dialogEditStage.setScene(editTransaction_box.getScene());
+
+            dialogEditStage.showAndWait();
+            System.out.println("go back");
+            // refresh if in the transaction page
+            displayTableView();
+            // filter data when search table
+            filterData();
+            System.out.println(transactionCustomTable.getItems().get(0).getTransDescription());
+
+
+
+        } else {
+            // Nothing select
+            System.out.println("no selection");
+            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+            alertWarning.setTitle("No Selection");
+            alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+            alertWarning.setHeaderText("No data selected");
+            alertWarning.setContentText("Please select a row in the table to edit");
+            alertWarning.showAndWait();
+        }
+
     }
 
     public void deleteCustomBtnClick(ActionEvent actionEvent) {
+        Transaction select = transactionCustomTable.getSelectionModel().getSelectedItem(); // select an item
+        if (select != null) {
+            // confirmation to delete
+            Alert alertConfirm = new Alert(Alert.AlertType.CONFIRMATION,
+                    "Delete " + select.getTransDescription() +" on " + DateUtil.format(select.getTransDate()) + " ?",ButtonType.YES, ButtonType.NO);
+            alertConfirm.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+            alertConfirm.showAndWait();
+            if (alertConfirm.getResult() == ButtonType.YES) {
+                try{
+                    ProcessTransaction.deleteTransaction(select);
+                }
+                catch (ProcessExeption pe){
+                    Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+                    alertWarning.setTitle("Missing something");
+                    alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+                    alertWarning.setHeaderText("Cannot delete Custom item");
+                    alertWarning.setContentText("Please check carefully");
+                    alertWarning.showAndWait();
+                    System.out.println(pe.getErrorCodeMessage());
+                    return;
+                }
+                transactionCustomList.remove(select); // delete call
+            }
+        } else {
+            // Nothing select
+            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+            alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+            alertWarning.setTitle("No Selection");
+            alertWarning.setHeaderText("No data selected");
+            alertWarning.setContentText("Please select a row in the table to delete");
+            alertWarning.showAndWait();
+        }
+
+
     }
 }
