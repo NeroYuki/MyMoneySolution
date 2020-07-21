@@ -1,5 +1,6 @@
 package controller;
 
+import exception.ProcessExeption;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,6 +12,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.User;
+import process.ProcessUser;
 import process.singletonUser;
 import process.singletonBudget;
 import scenes.*;
@@ -206,7 +208,19 @@ public class settingSceneController implements Initializable {
     }
 
     public void saveBtnClick(ActionEvent actionEvent) {
-        //TODO: save edit to database
+        try {
+            ProcessUser.editUser(singletonUser.getInstance().getUser(),passwordText.getText(),dobpicker.getValue(),emailText.getText());
+        }
+        catch (ProcessExeption pe){
+            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+            alertWarning.setTitle("Missing something");
+            alertWarning.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
+            alertWarning.setHeaderText("Some data for user is incorrect");
+            alertWarning.setContentText("Please check carefully");
+            alertWarning.showAndWait();
+            System.out.println(pe.getErrorCodeMessage());
+            return;
+        }
         passwordText.setEditable(false);
         dobpicker.setEditable(false);
         emailText.setEditable(false);
