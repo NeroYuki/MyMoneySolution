@@ -11,9 +11,6 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -21,6 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -32,13 +30,10 @@ import process.ProcessBalance;
 import process.ProcessLoan;
 import process.ProcessSaving;
 import scenes.*;
-import javafx.scene.paint.Color;
 
-import java.awt.*;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.*;
-import java.util.List;
 
 public class accountSceneController implements Initializable {
     ListView<Balance> balanceListView = new ListView<>();
@@ -115,9 +110,23 @@ public class accountSceneController implements Initializable {
         loadLoan();
 
         //add Listener to filterText
+        filterTextLoad();
+    }
+
+    public void filterTextLoad(){
         filterText.textProperty().addListener(new ChangeListener() {
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
                 filterBalanceList((String) oldValue, (String) newValue);
+            }
+        });
+        filterSavingText.textProperty().addListener(new ChangeListener() {
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                filterSavingList((String) oldValue, (String) newValue);
+            }
+        });
+        filterLoanText.textProperty().addListener(new ChangeListener() {
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                filterLoanList((String) oldValue, (String) newValue);
             }
         });
     }
@@ -293,7 +302,7 @@ public class accountSceneController implements Initializable {
 
                     nameLabel.setText(balance.getName().toUpperCase()); // set name display of item
                     descriptionLabel.setText(balance.getDescription().toUpperCase()); // set description of item
-                    valueLabel.setText(String.format(Locale.US, "Current value: \n" +"%,.0f", balance.getValue()));
+                    valueLabel.setText(String.format(Locale.US, "Current value (VND): \n" +"%,.0f", balance.getValue()));
                     //TODO: set difference value yesterday
 //                    differenceLabel.setText(String.valueOf(balance.getValue())); // set difference value
                     creationDateLabel.setText("Created on: \n" + balance.getCreationDate().toString());
@@ -578,7 +587,7 @@ public class accountSceneController implements Initializable {
                     nameLabel.setText(saving.getName().toUpperCase()); // set name display of item
                     descriptionLabel.setText(saving.getDescription().toUpperCase()); // set description of item
 //                    currentValueLabel.setText(String.valueOf("Current value: \n" + saving.getCurrentValue())); // set  current value of item
-                    currentValueLabel.setText(String.format(Locale.US, "Current value: \n" +"%,.0f", saving.getCurrentValue()));
+                    currentValueLabel.setText(String.format(Locale.US, "Current value (VND): \n" +"%,.0f", saving.getCurrentValue()));
                     if(saving.getCreationDate().plusDays(saving.getActiveTimeSpan()).isAfter(LocalDate.now())) {
                         isExpireLabel.setText("Is Available");
                         isExpireLabel.setTextFill(Color.GREEN);
@@ -836,7 +845,7 @@ public class accountSceneController implements Initializable {
                     nameLabel.setText(loan.getName().toUpperCase()); // set name display of item
                     descriptionLabel.setText(loan.getDescription().toUpperCase()); // set description of item
 
-                    currentValueLabel.setText(String.format(Locale.US, "Current value: \n" +"%,.0f", loan.getCurrentValue()));
+                    currentValueLabel.setText(String.format(Locale.US, "Current value (VND): \n" +"%,.0f", loan.getCurrentValue()));
                     if(loan.getCreationDate().plusDays(loan.getActiveTimeSpan()).isAfter(LocalDate.now())) {
                         isExpireLabel.setText("Is Available");
                         isExpireLabel.setTextFill(Color.GREEN);
@@ -956,6 +965,64 @@ public class accountSceneController implements Initializable {
                 }
             }
             balanceListView.setItems(balanceFilteredList);
+        }
+    }
+
+    @FXML
+    public TextField filterSavingText;
+    public void filterSavingList(String oldValue, String newValue) {
+        //income list
+        ObservableList<Saving> savingFilteredList = FXCollections.observableArrayList();
+        // get original list
+        ArrayList<Saving> savings = new ArrayList<Saving>();
+        try {
+            savings = ProcessSaving.getSaving();
+        } catch (ProcessExeption de) {
+            de.getErrorCodeMessage();
+        }
+        ObservableList<Saving> items = FXCollections.observableArrayList(savings);
+
+        // filter by text
+        if (filterSavingText == null || (newValue.length() < oldValue.length()) || newValue == null) {
+            savingListView.setItems(items);
+        } else {
+            newValue = newValue.toUpperCase();
+            for (Saving saving : savingListView.getItems()) {
+                String filterText = saving.getName();
+                if (filterText.toUpperCase().contains(newValue)) {
+                    savingFilteredList.add(saving);
+                }
+            }
+            savingListView.setItems(savingFilteredList);
+        }
+    }
+
+    @FXML
+    public TextField filterLoanText;
+    public void filterLoanList(String oldValue, String newValue) {
+        //income list
+        ObservableList<Loan> loanFilteredList = FXCollections.observableArrayList();
+        // get original list
+        ArrayList<Loan> loans = new ArrayList<Loan>();
+        try {
+            loans = ProcessLoan.getLoan();
+        } catch (ProcessExeption de) {
+            de.getErrorCodeMessage();
+        }
+        ObservableList<Loan> items = FXCollections.observableArrayList(loans);
+
+        // filter by text
+        if (filterLoanText == null || (newValue.length() < oldValue.length()) || newValue == null) {
+            loanListView.setItems(items);
+        } else {
+            newValue = newValue.toUpperCase();
+            for (Loan loan : loanListView.getItems()) {
+                String filterText = loan.getName();
+                if (filterText.toUpperCase().contains(newValue)) {
+                    loanFilteredList.add(loan);
+                }
+            }
+            loanListView.setItems(loanFilteredList);
         }
     }
 

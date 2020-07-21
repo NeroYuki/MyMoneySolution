@@ -12,3 +12,9 @@
     -fx-cursor: hand;
     -fx-text-fill: white;
 }
+
+#unitLabel {
+    -fx-pref-width: 54px;
+    -fx-pref-height: 25px;
+    -fx-alignment: center;
+}

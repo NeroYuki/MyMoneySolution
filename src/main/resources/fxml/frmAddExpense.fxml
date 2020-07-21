@@ -30,7 +30,7 @@
                         <Font size="14.0" />
                      </font>
                   </TextField>
-                  <ComboBox fx:id="unitCombo" prefHeight="25.0" prefWidth="54.0" />
+                  <Label fx:id="unitLabel" text="VND" />
                </children>
                <padding>
                   <Insets left="10.0" />

@@ -25,12 +25,12 @@
             </Label>
             <HBox alignment="CENTER_LEFT" layoutX="227.0" layoutY="271.0" prefHeight="37.0" prefWidth="177.0" style="-fx-border-color: #bebfe1; -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-background-color: F1F1E6;">
                <children>
-                  <TextField fx:id="thresholdText" promptText="Enter threshold" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
+                  <TextField fx:id="thresholdText" prefHeight="30.0" prefWidth="135.0" promptText="Enter threshold" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </TextField>
-                  <ComboBox fx:id="unitCombo" prefHeight="25.0" prefWidth="54.0" />
+                  <Label fx:id="unitLabel" text="VND" />
                </children>
                <padding>
                   <Insets left="10.0" />

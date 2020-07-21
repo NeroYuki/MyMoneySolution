@@ -22,13 +22,11 @@ import model.Balance;
 import model.Expense;
 import model.Income;
 import model.Transaction;
-import process.ProcessLoan;
 import process.ProcessTransaction;
 import scenes.*;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.Year;
 import java.util.*;
 
 public class transactionSceneController implements Initializable {
@@ -162,7 +160,7 @@ public class transactionSceneController implements Initializable {
                 for(Transaction transaction:incomes) {
                     sum+=transaction.getTransValue();
                 }
-                incomeWeekTotalLabel.setText(String.format(Locale.US,"%,.0f", sum));
+                incomeWeekTotalLabel.setText(String.format(Locale.US,"%,.0f", sum) + " VND");
             }else {
                 incomeWeekTotalLabel.setText("0");
             }
@@ -174,7 +172,7 @@ public class transactionSceneController implements Initializable {
                 for(Transaction expense:expenses) {
                     sum+=expense.getTransValue();
                 }
-                expenseWeekTotalLabel.setText(String.format(Locale.US,"%,.0f", sum));
+                expenseWeekTotalLabel.setText(String.format(Locale.US,"%,.0f", sum) + " VND");
             }else {
                 expenseWeekTotalLabel.setText("0");
             }
@@ -302,7 +300,7 @@ public class transactionSceneController implements Initializable {
                 for(Transaction transaction:incomes) {
                     sum+=transaction.getTransValue();
                 }
-                incomeMonthTotalLabel.setText(String.format(Locale.US,"%,.0f", sum));
+                incomeMonthTotalLabel.setText(String.format(Locale.US,"%,.0f", sum) + " VND");
             }else {
                 incomeMonthTotalLabel.setText("0");
             }
@@ -314,7 +312,7 @@ public class transactionSceneController implements Initializable {
                 for(Transaction expense:expenses) {
                     sum+=expense.getTransValue();
                 }
-                expenseMonthTotalLabel.setText(String.format(Locale.US,"%,.0f", sum));
+                expenseMonthTotalLabel.setText(String.format(Locale.US,"%,.0f", sum) + " VND");
             }else {
                 expenseMonthTotalLabel.setText("0");
             }
@@ -448,7 +446,7 @@ public class transactionSceneController implements Initializable {
                 for(Transaction transaction:incomes) {
                     sum+=transaction.getTransValue();
                 }
-                incomeCustomTotalLabel.setText(String.format(Locale.US,"%,.0f", sum));
+                incomeCustomTotalLabel.setText(String.format(Locale.US,"%,.0f", sum) + " VND");
             }else {
                 incomeCustomTotalLabel.setText("0");
             }
@@ -460,7 +458,7 @@ public class transactionSceneController implements Initializable {
                 for(Transaction expense:expenses) {
                     sum+=expense.getTransValue();
                 }
-                expenseCustomTotalLabel.setText(String.format(Locale.US,"%,.0f", sum));
+                expenseCustomTotalLabel.setText(String.format(Locale.US,"%,.0f", sum) + " VND");
             }else {
                 expenseCustomTotalLabel.setText("0");
             }
