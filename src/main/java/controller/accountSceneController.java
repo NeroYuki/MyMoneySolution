@@ -1079,7 +1079,7 @@ public class accountSceneController implements Initializable {
                 alertConfirm.setHeaderText("Inform");
                 alertConfirm.initStyle(StageStyle.TRANSPARENT); // set alert border not shown
                 alertConfirm.showAndWait();
-                ProcessSaving.deleteSaving(ProcessSaving.getSaving(id));
+                ProcessLoan.deleteLoan(ProcessLoan.getLoan(id));
             }
         }
 

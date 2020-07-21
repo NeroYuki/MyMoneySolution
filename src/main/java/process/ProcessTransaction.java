@@ -98,10 +98,11 @@ public class ProcessTransaction {
             ArrayList<Balance> balances=new ArrayList<>();
             balances=ProcessBalance.getBalances();
             for (Balance balance:balances) {
-                incomes.addAll(DatabaseTransaction.getIncome(balance.getId(), startDate, endDate));
-                for (Income j : incomes) {
+                ArrayList<Income> incomes1 =DatabaseTransaction.getIncome(balance.getId(), startDate, endDate);
+                for (Income j : incomes1) {
                     j.setApplyingBalance(balance);
                 }
+                incomes.addAll(incomes1);
             }
             return incomes;
         } catch (DatabaseException de) {
@@ -130,10 +131,12 @@ public class ProcessTransaction {
             ArrayList<Balance> balances=new ArrayList<>();
             balances=ProcessBalance.getBalances();
             for (Balance balance:balances) {
-                expenses.addAll(DatabaseTransaction.getExpense(balance.getId(), startDate, endDate));
-                for (Expense j : expenses) {
+                ArrayList<Expense> expenses1 = DatabaseTransaction.getExpense(balance.getId(), startDate, endDate);
+                for (Expense j : expenses1) {
                     j.setApplyingBalance(balance);
                 }
+                expenses.addAll(expenses1);
+
             }
             return expenses;
         } catch (DatabaseException de) {
@@ -141,9 +144,6 @@ public class ProcessTransaction {
             throw new ProcessExeption(0);
         }
     }
-
-
-
 
 
     public static void addIncome(LocalDate date, double value, String desc, Category category,Balance balance) throws ProcessExeption{
