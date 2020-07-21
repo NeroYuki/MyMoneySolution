@@ -262,7 +262,7 @@
                                           <Font size="18.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="expensesWeekSignCompareLabel" layoutX="230.0" layoutY="472.0" prefHeight="27.0" prefWidth="20.0" text="=" textFill="#28cc12">
+                                    <Label fx:id="expensesWeekSignCompareLabel" layoutX="235.0" layoutY="471.0" prefHeight="27.0" prefWidth="20.0" text="=" textFill="#28cc12">
                                        <font>
                                           <Font size="29.0" />
                                        </font>
@@ -327,7 +327,7 @@
                                           <Font size="29.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="incomeMonthDifferentCompareLabel" layoutX="260.0" layoutY="480.0" text="0" textFill="#1417eb">
+                                    <Label fx:id="incomeMonthDifferentCompareLabel" layoutX="267.0" layoutY="480.0" text="0" textFill="#1417eb">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
@@ -357,7 +357,7 @@
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="expensesMonthSignCompareLabel" layoutX="240.0" layoutY="472.0" prefHeight="27.0" prefWidth="20.0" text="=" textFill="#24cd11">
+                                    <Label fx:id="expensesMonthSignCompareLabel" layoutX="242.0" layoutY="471.0" prefHeight="27.0" prefWidth="20.0" text="=" textFill="#24cd11">
                                        <font>
                                           <Font size="29.0" />
                                        </font>
@@ -422,12 +422,12 @@
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="incomeDaysSignCompareLabel" layoutX="240.0" layoutY="472.0" prefHeight="27.0" text="=" textFill="#28cc12">
+                                    <Label fx:id="incomeDaysSignCompareLabel" layoutX="246.0" layoutY="469.0" prefHeight="27.0" text="=" textFill="#28cc12">
                                        <font>
                                           <Font size="29.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="incomeDaysDifferentCompareLabel" layoutX="260.0" layoutY="480.0" text="0" textFill="#1417eb">
+                                    <Label fx:id="incomeDaysDifferentCompareLabel" layoutX="274.0" layoutY="479.0" text="0" textFill="#1417eb">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
@@ -462,7 +462,7 @@
                                           <Font size="29.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="expensesDaysDifferentCompareLabel" layoutX="270.0" layoutY="480.0" text="0" textFill="#1417eb">
+                                    <Label fx:id="expensesDaysDifferentCompareLabel" layoutX="280.0" layoutY="481.0" text="0" textFill="#1417eb">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
@@ -522,7 +522,7 @@
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="incomeYearSignCompareLabel" layoutX="230.0" layoutY="472.0" prefHeight="27.0" text="=" textFill="#28cc12">
+                                    <Label fx:id="incomeYearSignCompareLabel" layoutX="228.0" layoutY="470.0" prefHeight="27.0" text="=" textFill="#28cc12">
                                        <font>
                                           <Font size="29.0" />
                                        </font>
@@ -557,12 +557,12 @@
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="expensesYearSignCompareLabel" layoutX="230.0" layoutY="472.0" prefHeight="27.0" text="=" textFill="#24cd11">
+                                    <Label fx:id="expensesYearSignCompareLabel" layoutX="230.0" layoutY="471.0" prefHeight="27.0" text="=" textFill="#24cd11">
                                        <font>
                                           <Font size="29.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="expensesYearDifferentCompareLabel" layoutX="270.0" layoutY="480.0" text="0" textFill="#1417eb">
+                                    <Label fx:id="expensesYearDifferentCompareLabel" layoutX="265.0" layoutY="480.0" text="0" textFill="#1417eb">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
