@@ -356,7 +356,7 @@ public class categoriesSceneController implements Initializable {
 
     public void expensesMonthLoad() {
         try{
-            ArrayList<ProcessCategories.CatModel > catModels=ProcessCategories.getExpensePineChart(0,7);
+            ArrayList<ProcessCategories.CatModel > catModels=ProcessCategories.getExpensePineChart(0,30);
             Double sum1=ProcessCategories.getSum(catModels);
             expenseMonthTotalLabel.setText(String.format(Locale.US,"%,.0f", sum1));
             ArrayList<PieChart.Data> datas=new ArrayList<>();
@@ -368,7 +368,7 @@ public class categoriesSceneController implements Initializable {
             }
             expensesMonthPie.getData().setAll(datas);
 
-            Double sum2=ProcessCategories.getSum(ProcessCategories.getExpensePineChart(90,90));
+            Double sum2=ProcessCategories.getSum(ProcessCategories.getExpensePineChart(30,30));
             if(sum1>sum2) {
                 expensesMonthSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↑"));
                 expensesMonthSignCompareLabel.textFillProperty().set(Color.GREEN);
@@ -567,7 +567,7 @@ public class categoriesSceneController implements Initializable {
 
     public void incomeYearLoad() {
         try{
-            ArrayList< ProcessCategories.CatModel > catModels=ProcessCategories.getIncomePineChart(0,356);
+            ArrayList< ProcessCategories.CatModel > catModels=ProcessCategories.getIncomePineChart(0,365);
             Double sum1=ProcessCategories.getSum(catModels);
             incomeYearTotalLabel.setText(String.format(Locale.US,"%,.0f", sum1));
             ArrayList<PieChart.Data> datas=new ArrayList<>();
@@ -577,7 +577,7 @@ public class categoriesSceneController implements Initializable {
                     datas.add(data);
                 }
             }
-            Double sum2=ProcessCategories.getSum(ProcessCategories.getIncomePineChart(356,356));
+            Double sum2=ProcessCategories.getSum(ProcessCategories.getIncomePineChart(365,365));
             if(sum1>sum2) {
                 incomeYearSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↑"));
                 incomeYearSignCompareLabel.textFillProperty().set(Color.GREEN);
@@ -623,7 +623,7 @@ public class categoriesSceneController implements Initializable {
 
     public void expensesYearLoad() {
         try{
-            ArrayList<ProcessCategories.CatModel > catModels=ProcessCategories.getExpensePineChart(0,356);
+            ArrayList<ProcessCategories.CatModel > catModels=ProcessCategories.getExpensePineChart(0,365);
             Double sum1=ProcessCategories.getSum(catModels);
             expenseYearTotalLabel.setText(String.format(Locale.US,"%,.0f", sum1));
             ArrayList<PieChart.Data> datas=new ArrayList<>();
@@ -635,7 +635,7 @@ public class categoriesSceneController implements Initializable {
             }
             expensesYearPie.getData().setAll(datas);
 
-            Double sum2=ProcessCategories.getSum(ProcessCategories.getExpensePineChart(356,356));
+            Double sum2=ProcessCategories.getSum(ProcessCategories.getExpensePineChart(365,365));
             if(sum1>sum2) {
                 expensesYearSignCompareLabel.setText(helper.CharacterEncoding.NativeEncodingtoUtf8("↑"));
                 expensesYearSignCompareLabel.textFillProperty().set(Color.GREEN);
