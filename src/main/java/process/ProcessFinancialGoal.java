@@ -198,7 +198,7 @@ public class ProcessFinancialGoal {
         }
         if (dates.size() < 2) return "";
         helper.LinearRegressionClassifier linearRegressionClassifier = new helper.LinearRegressionClassifier(dates, values);
-        double prediction = linearRegressionClassifier.predictValue(Double.valueOf(endDay.toEpochDay() - financialGoal.getStartDate().toEpochDay()));
+        double prediction = linearRegressionClassifier.predictValue(Double.valueOf(financialGoal.getExpireDate().toEpochDay() - financialGoal.getStartDate().toEpochDay()));
         System.out.println(prediction);
         if (financialGoal.getExpireDate().toEpochDay() - LocalDate.now().toEpochDay() > 0) {
             String res = "";
@@ -230,7 +230,7 @@ public class ProcessFinancialGoal {
                 if ((financialGoal.getType() == 1) || (financialGoal.getType() == 3))
                     return "You have failed to achieve your goal";
                 else if (financialGoal.getType() == 2) {
-                    return "You've got good news, everything is under your control";
+                    return "We've got good news, everything is under your control";
                 }
             } else if (temp >= financialGoal.getThreshold()) {
                 if ((financialGoal.getType() == 1) || (financialGoal.getType() == 3))
