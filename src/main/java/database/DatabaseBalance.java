@@ -20,7 +20,7 @@ public class DatabaseBalance {
         ArrayList<Balance> result = new ArrayList<>();
         try {
             Connection conn = DatabaseManager.getConnection();
-            PreparedStatement balanceQuery = conn.prepareCall("SELECT * FROM balanceList WHERE ownBudget = ?");
+            PreparedStatement balanceQuery = conn.prepareCall("SELECT * FROM balanceList WHERE ownBudget = ? AND isAvailable = 1" );
             balanceQuery.setString(1, budgetId);
             ResultSet balanceResult = balanceQuery.executeQuery();
             while (balanceResult.next()) {

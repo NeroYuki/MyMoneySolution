@@ -43,7 +43,7 @@ public class DatabaseCategories {
         ArrayList<Category> result = new ArrayList<>();
         try {
             Connection conn = DatabaseManager.getConnection();
-            PreparedStatement categoryQuery = conn.prepareCall("SELECT * FROM transCategory WHERE transType = 1");
+            PreparedStatement categoryQuery = conn.prepareCall("SELECT * FROM transCategory WHERE transType = 1 AND  isAvailable =1");
             ResultSet categoryResult = categoryQuery.executeQuery();
             while (categoryResult.next()) {
                 Category categoryEntry = new Category(
@@ -71,7 +71,7 @@ public class DatabaseCategories {
         ArrayList<Category> result = new ArrayList<>();
         try {
             Connection conn = DatabaseManager.getConnection();
-            PreparedStatement categoryQuery = conn.prepareCall("SELECT * FROM transCategory WHERE transType = 2");
+            PreparedStatement categoryQuery = conn.prepareCall("SELECT * FROM transCategory WHERE transType = 2 AND isAvailable = 1");
             ResultSet categoryResult = categoryQuery.executeQuery();
             while (categoryResult.next()) {
                 Category categoryEntry = new Category(

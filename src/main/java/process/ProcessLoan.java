@@ -126,8 +126,8 @@ public class ProcessLoan {
     public static ArrayList<String> loanUpdating()throws ProcessExeption{
         ArrayList<String > result=new ArrayList<>();
         ArrayList<Loan> loans=getLoan();
-        LocalDate now=LocalDate.now();
         for(Loan loan:loans) {
+            LocalDate now=LocalDate.now();
             if (loan.getCurrentValue() == 0) {
                 deactivate(loan);
                 continue;
@@ -140,22 +140,30 @@ public class ProcessLoan {
             LocalDate lastCheck = loan.getLastCheckedDate();
             LocalDate expireDay = creationDay.plusDays(loan.getActiveTimeSpan());
 
+            if (paymentInterval == 0) {
+                if (expireDay.isBefore(now)) {
+                    String expired = "Loan: " + loan.getName() + " is expired and need payment " + (now.toEpochDay() - expireDay.toEpochDay()) + " days ago\n";
+                    result.add(expired);
+                    loan.setLastCheckedDate(LocalDate.now());
+                }
+            } else {
+                if (expireDay.isBefore(now)) {
+                    String expired = " expire " + (now.toEpochDay() - expireDay.toEpochDay()) + " days ago\n";
+                    result.add("Loan: " + loan.getName() + expired);
+                    now = expireDay;
+                }
 
-            if (expireDay.isBefore(now)) {
-                String expired = " expire " + (now.toEpochDay() - expireDay.toEpochDay()) + " days ago\n";
-                result.add("Loan: "+loan.getName() + expired);
-                now = expireDay;
+                int numberOfInterval = (int) (now.toEpochDay() - creationDay.toEpochDay()) / interval - (int) (lastCheck.toEpochDay() - creationDay.toEpochDay()) / interval;
+                for (int i = 0; i < numberOfInterval; i++) {
+                    current = current * (1 + interest / 100);
+                }
+                int numberOfPayMentInterval = (int) (now.toEpochDay() - creationDay.toEpochDay()) / paymentInterval - (int) (lastCheck.toEpochDay() - creationDay.toEpochDay()) / paymentInterval;
+                loan.setCurrentValue(current);
+                loan.setLastCheckedDate(now);
+                editLoan(loan);
+                if (numberOfPayMentInterval > 0)
+                    result.add("Loan: " + loan.getName() + " had gone through " + numberOfPayMentInterval + " unpaid interval\n");
             }
-
-            int numberOfInterval = (int) (now.toEpochDay() - creationDay.toEpochDay()) / interval - (int) (lastCheck.toEpochDay() - creationDay.toEpochDay()) / interval;
-            for (int i = 0; i < numberOfInterval; i++) {
-                current = current * (1 + interest / 100);
-            }
-            int numberOfPayMentInterval = (int) (now.toEpochDay() - creationDay.toEpochDay()) / paymentInterval - (int) (lastCheck.toEpochDay() - creationDay.toEpochDay()) / paymentInterval;
-            loan.setCurrentValue(current);
-            loan.setLastCheckedDate(now);
-            editLoan(loan);
-            if (numberOfPayMentInterval > 0) result.add("Loan: "+ loan.getName() + " had gone through " + numberOfPayMentInterval + " unpay interval\n");
         }
         return result;
     }

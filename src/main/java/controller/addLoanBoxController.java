@@ -94,8 +94,8 @@ public class addLoanBoxController implements Initializable {
 
     public void setIntervalCombo(){
         // type list
-        ObservableList<String> typeInterestInterval = FXCollections.observableArrayList("DAILY", "WEEKLY","MONTHLY","QUARTERLY","YEARLY");
-        ObservableList<String> typePaymentInterval = FXCollections.observableArrayList("DAILY", "WEEKLY","MONTHLY","QUARTERLY","YEARLY");
+        ObservableList<String> typeInterestInterval = FXCollections.observableArrayList("DAILY", "WEEKLY","MONTHLY","QUARTERLY","YEARLY","ONE_TIME");
+        ObservableList<String> typePaymentInterval = FXCollections.observableArrayList("DAILY", "WEEKLY","MONTHLY","QUARTERLY","YEARLY","ONE_TIME");
 
         // set data of combo interval
         interestIntervalCombo.setItems(typeInterestInterval);
