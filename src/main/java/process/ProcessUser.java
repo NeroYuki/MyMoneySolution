@@ -71,4 +71,20 @@ public class ProcessUser {
         }
         return res;
     }
+    public static boolean editUser(User user,String password,LocalDate birth,String email)throws ProcessExeption{
+        if(password ==null)throw  new ProcessExeption(20);
+        if(email == null)throw  new ProcessExeption(20);
+        if(birth==null)throw  new ProcessExeption(20);
+        user.setBirthday(birth);
+        user.setEmail(email);
+        user.setPassword(password);
+        try {
+            singletonUser.getInstance().setUser(user);
+            DatabaseUser.updateUser(user);
+        }
+        catch (DatabaseException de){
+            de.printStackTrace();
+        }
+        return  true;
+    }
 }
